@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.5 隨堂練習解答 (Solutions to Exercises) | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，精確渲染數學式，嚴格避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #0d9488;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --math-bg: #f1f5f9;
+            --exercise-bg: #f0fdfa;
+            --exercise-border: #0f766e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: var(--math-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .exercise-box {
+            background-color: var(--exercise-bg);
+            border-left: 5px solid var(--exercise-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+        }
+
+        .exercise-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0f766e;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .solution-step {
+            margin-top: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .solution-step strong {
+            color: var(--primary-color);
+        }
+
+        .tableau-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .tableau-table th, .tableau-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 0.8rem;
+            text-align: center;
+        }
+
+        .tableau-table th {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>3.5 隨堂練習解答 (Solutions to Exercises)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第三章數學演算與解題詳析</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：線性規劃解題實戰與代數運算驗證</h2>
+            <p class="lead-text">在第 3.1 至 3.3 節中，我們探討了生產實驗的局限性、史蒂格勒飲食問題的營養矩陣表示法，以及線性規劃單純形法與對偶理論。本節（3.5 節）針對第三章隨堂練習（Exercises）提供詳細步驟與解析。</p>
+            <p>透過這些具體的求解步驟，碩士生能精確掌握矩陣建構、極點定位、鬆弛變數計算與影子價格（Shadow Price）推導的實操技能，並對應至商業決策的優化現場。</p>
+        </div>
+
+        <!-- 練習一：飲食問題矩陣建構 -->
+        <div class="section-card">
+            <h2>1. 練習 3.1 解答：飲食問題之矩陣表述與標準型</h2>
+            
+            <div class="exercise-box">
+                <div class="exercise-title">📝 題目 3.1 (Exercise 3.1)</div>
+                <p>假設某農場需為家畜調配飼料，市場上有兩種飼料品項：穀物（Grain, $x_1$）與苜蓿（Alfalfa, $x_2$）。每單位穀物價格為 $c_1 = 4$，含蛋白質 2 單位、維生素 1 單位；每單位苜蓿價格為 $c_2 = 3$，含蛋白質 1 單位、維生素 2 單位。家畜每日最低需攝取蛋白質 8 單位、維生素 7 單位。</p>
+                <p>(a) 請寫出該極小化成本問題的線性規劃標準數學模型。<br>
+                   (b) 寫出其營養矩陣 $\mathbf{A}$、價格向量 $\mathbf{c}$ 與需求向量 $\mathbf{b}$。</p>
+            </div>
+
+            <div class="solution-step">
+                <h3>詳細解答與推導步驟</h3>
+                <p><strong>(a) 標準數學模型建立：</strong></p>
+                <div class="math-block">
+                    $$\begin{aligned}
+                    \min_{x_1, x_2} \quad & C = 4x_1 + 3x_2 \\[6pt]
+                    \text{s.t.} \quad & 2x_1 + 1x_2 \ge 8 \quad (\text{蛋白質限制}) \\[6pt]
+                    & 1x_1 + 2x_2 \ge 7 \quad (\text{維生素限制}) \\[6pt]
+                    & x_1 \ge 0, \quad x_2 \ge 0
+                    \end{aligned}$$
+                </div>
+
+                <p><strong>(b) 矩陣與向量表述：</strong></p>
+                <p>將上述模型轉化為向量矩陣簡潔形式 $\min \mathbf{c}^T \mathbf{x} \text{ s.t. } \mathbf{A}\mathbf{x} \ge \mathbf{b}, \mathbf{x} \ge \mathbf{0}$：</p>
+                <div class="math-block">
+                    $$\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}, \quad \mathbf{c} = \begin{bmatrix} 4 \\ 3 \end{bmatrix}, \quad \mathbf{A} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}, \quad \mathbf{b} = \begin{bmatrix} 8 \\ 7 \end{bmatrix}$$
+                </div>
+            </div>
+        </div>
+
+        <!-- 練習二：幾何解法與對偶影子價格 -->
+        <div class="section-card">
+            <h2>2. 練習 3.2 解答：幾何圖解極點與對偶影子價格計算</h2>
+
+            <div class="exercise-box">
+                <div class="exercise-title">📝 題目 3.2 (Exercise 3.2)</div>
+                <p>承接題目 3.1 的模型：</p>
+                <p>(a) 利用幾何可行域圖解法，求出最適飼料購買組合 $(x_1^*, x_2^*)$ 與最小總成本 $C^*$。<br>
+                   (b) 建立對偶問題（Dual Problem），求出蛋白質與維生素的對偶影子價格 $(y_1^*, y_2^*)$，並驗證對偶強定理。</p>
+            </div>
+
+            <div class="solution-step">
+                <h3>詳細解答與推導步驟</h3>
+                <p><strong>(a) 幾何極點定位：</strong></p>
+                <p>繪製可行域，限制線交點為凸多面體的極點：</p>
+                <ul>
+                    <li>極點 A：$(x_1=0, x_2=8) \implies C = 4(0) + 3(8) = 24$</li>
+                    <li>極點 B：解方程組 $\begin{cases} 2x_1 + x_2 = 8 \\ x_1 + 2x_2 = 7 \end{cases} \implies (x_1^*=3, x_2^*=2) \implies C^* = 4(3) + 3(2) = 18$</li>
+                    <li>極點 C：$(x_1=7, x_2=0) \implies C = 4(7) + 3(0) = 28$</li>
+                </ul>
+                <p>比較得極小化成本點位於極點 B，最適解為 $x_1^* = 3, x_2^* = 2$，最小總成本 $C^* = 18$。</p>
+
+                <p><strong>(b) 對偶問題與影子價格：</strong></p>
+                <p>建立對偶極大化問題：</p>
+                <div class="math-block">
+                    $$\begin{aligned}
+                    \max_{y_1, y_2} \quad & B = 8y_1 + 7y_2 \\[6pt]
+                    \text{s.t.} \quad & 2y_1 + 1y_2 \le 4 \\[6pt]
+                    & 1y_1 + 2y_2 \le 3 \\[6pt]
+                    & y_1 \ge 0, \quad y_2 \ge 0
+                    \end{aligned}$$
+                </div>
+                <p>求解對偶問題等式邊界 $\begin{cases} 2y_1 + y_2 = 4 \\ y_1 + 2y_2 = 3 \end{cases}$，可得影子價格：</p>
+                <div class="math-block">
+                    $$y_1^* = \frac{5}{3} \approx 1.67, \quad y_2^* = \frac{2}{3} \approx 0.67$$
+                </div>
+                <p>驗證對偶強定理，計算對偶目標函數值：</p>
+                <div class="math-block">
+                    $$B^* = 8\left(\frac{5}{3}\right) + 7\left(\frac{2}{3}\right) = \frac{40 + 14}{3} = \frac{54}{3} = 18 = C^*$$
+                </div>
+                <p>兩者目標函數值完美相等（$B^* = C^* = 18$），對偶強定理獲證。</p>
+            </div>
+        </div>
+
+        <!-- 3. 產業時事案例對照 -->
+        <div class="section-card">
+            <h2>3. 產業時事對照：半導體晶圓代工廠的產能派發與影子價格</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業時事：晶圓廠光罩與曝光機時數派發（練習 3.2 幾何優化的現實再現）</div>
+                <p><strong>背景對照：</strong> 練習 3.2 中求出的影子價格 $y_1^* = 5/3$，代表蛋白質最低需求增加 1 單位時，總成本會增加 1.67。</p>
+                <p>在晶圓代工廠（如台積電）的排程中，曝光機（EUV/DUV）時數即為限制條件向量 $\mathbf{b}$：</p>
+
+                <ul>
+                    <li>晶圓廠運行線性規劃演算法，確定不同客戶晶片（$x_1, x_2$）的最佳生產比例。</li>
+                    <li>若 EUV 設備成為緊緻約束（鬆弛變數為 0），演算法計算出 EUV 設備的影子價格 $y_{EUV}^*$。</li>
+                    <li>該影子價格直接指導企業：若向外租用設備，只要每小時租金低於 $y_{EUV}^*$，就能創造額外經濟利潤。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 研究生生活案例對照 -->
+        <div class="section-card">
+            <h2>4. 生活案例：碩士生論文發表與修課學分的資源配比</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：學業學分與研討會論文投稿的時間極優化</div>
+                <p><strong>情境對照：</strong> 研究生在有限的時間（$T = 60$ 小時/週）與心力限制下，需要分配給「修課報告（$x_1$）」與「研討會投稿論文（$x_2$）」。</p>
+
+                <ul>
+                    <li>練習 3.2 展示了多限制下「極點」的優越性：最優策略絕非盲目隨機分配，而是精確部位於限制條件交會的極點。</li>
+                    <li>理解影子價格 $y_1^*$ 能幫助碩士生體會：若學校降低畢業學分要求（放寬 $b_1$ 限制），你能節省多少邊際心力轉投至研究發表，達成生涯效益極大化。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 課後自主練習與挑戰 -->
+        <div class="section-card">
+            <h2>5. 碩士班自主挑戰題 (Self-Challenge Exercises)</h2>
+            <p>請各位同學嘗試獨立推導以下延伸習題：</p>
+
+            <ol>
+                <li>
+                    <strong>引入鬆弛變數與單純形表：</strong> 將練習 3.1 的極小化問題轉換為標準對偶極大化形式，引入鬆弛變數 $s_1, s_2 \ge 0$，建構初始單純形表（Initial Simplex Tableau），並進行第一次樞紐旋轉（Pivot Operation）。
+                </li>
+                <li>
+                    <strong>敏感性分析 (Sensitivity Analysis)：</strong> 若練習 3.1 中穀物的價格 $c_1$ 由 4 下降至 2，請重新計算最適極點是否會發生轉移？其邊界臨界點價格是多少？
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

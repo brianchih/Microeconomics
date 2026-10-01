@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.4 本章摘要 (Summary) | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，精確渲染數學式，嚴格避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #2563eb;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --math-bg: #f1f5f9;
+            --summary-bg: #eff6ff;
+            --summary-border: #2563eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: var(--math-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .summary-box {
+            background-color: var(--summary-bg);
+            border-left: 5px solid var(--summary-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .summary-box .case-title {
+            color: #1d4ed8;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .summary-table th, .summary-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        .summary-table th {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .summary-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .card-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>3.4 本章摘要 (Summary)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第三章理論貫通</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：線性規劃在微觀經濟學中的全景圖</h2>
+            <p class="lead-text">在第三章「運用線性規劃進行成本極小化」（Cost Minimization Using Linear Programming）中，John P. Burkett 教授引導我們超越了第二章傳統光滑微積分的限制。本節（3.4 節）針對第三章的核心知識體系進行全面性的摘要整理與邏輯貫通。</p>
+            <p>對於碩士生而言，線性規劃不僅是一種運籌學計算工具，更是將經濟學資源配置理論（Resource Allocation Theory）應用於離散技術、多維約束與真實商業決策的重要橋樑。</p>
+        </div>
+
+        <!-- 1. 第二章 vs 第三章 理論方法對比 -->
+        <div class="section-card">
+            <h2>1. 生產與成本理論：微積分 vs. 線性規劃對比</h2>
+            <p>為了建立清晰的個體經濟學思維網絡，我們將第二章與第三章的模型假設與分析工具進行系統化對照：</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>分析維度</th>
+                        <th>第二章：光滑微積分模型</th>
+                        <th>第三章：線性規劃 (LP) 模型</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>技術假設</strong></td>
+                        <td>光滑、連續且處處可微（如 Cobb-Douglas）</td>
+                        <td>離散活動（Activities）、分段線性（Piecewise Linear）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>邊界限制</strong></td>
+                        <td>等式限制條件（$f(K,L) = q_0$）</td>
+                        <td>不等式限制條件（$\mathbf{A}\mathbf{x} \ge \mathbf{b}, \mathbf{x} \ge \mathbf{0}$）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>核心數學工具</strong></td>
+                        <td>拉格朗日乘數法、一階條件（FOCs）</td>
+                        <td>單純形法（Simplex Method）、矩陣運算</td>
+                    </tr>
+                    <tr>
+                        <td><strong>均衡解幾何特徵</strong></td>
+                        <td>等產量線與等成本線之相切點（Tangency）</td>
+                        <td>可行域凸多面體之極點（Extreme Point / Vertex）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>價值衡量指標</strong></td>
+                        <td>邊際成本 $MC = \lambda$</td>
+                        <td>對偶變數與影子價格（Shadow Price $y_i^*$）</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 2. 第三章核心數學矩陣與對偶定理總覽 -->
+        <div class="section-card">
+            <h2>2. 第三章核心數學模型精要</h2>
+            <p>本章建立的經典「史蒂格勒飲食問題（Least-cost Diet Problem）」展示了標準的極小化原問題與極大化對偶問題對稱架構：</p>
+
+            <div class="summary-box">
+                <div class="case-title">📐 原問題與對偶問題（Primal-Dual Pair）數學架構</div>
+                <div class="math-block">
+                    $$\text{Primal (成本極小化): } \min_{\mathbf{x}} \quad \mathbf{c}^T \mathbf{x} \quad \text{s.t.} \quad \mathbf{A}\mathbf{x} \ge \mathbf{b}, \quad \mathbf{x} \ge \mathbf{0}$$
+                </div>
+                <div class="math-block">
+                    $$\text{Dual (隱性價值極大化): } \max_{\mathbf{y}} \quad \mathbf{b}^T \mathbf{y} \quad \text{s.t.} \quad \mathbf{A}^T \mathbf{y} \le \mathbf{c}, \quad \mathbf{y} \ge \mathbf{0}$$
+                </div>
+            </div>
+
+            <h3>三大核心定理小結</h3>
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>1. 極點定理 (Extreme Point Theorem)</h4>
+                    <p>最優解必定存在於凸可行域的極點上，這是單純形法能夠在有限步驟內收斂求解的幾何基礎。</p>
+                </div>
+                <div class="card-item">
+                    <h4>2. 對偶強定理 (Strong Duality)</h4>
+                    <p>在最適點處，原問題的最小總成本等於對偶問題的最大隱性總價值，即 $\mathbf{c}^T \mathbf{x}^* = \mathbf{b}^T \mathbf{y}^*$。</p>
+                </div>
+            </div>
+
+            <div class="card-item" style="margin-top: 1rem;">
+                <h4>3. 互補鬆弛性定理 (Complementary Slackness)</h4>
+                <p>若某項資源約束存在剩餘（鬆弛變數 $s_i > 0$），則該項資源的對偶影子價格必為零（$y_i^* = 0$）。只有成為瓶頸的緊緻約束（Binding Constraints），其影子價格才會大於零。</p>
+            </div>
+        </div>
+
+        <!-- 3. 產業時事案例 -->
+        <div class="section-card">
+            <h2>3. 產業時事：全球半導體先進封裝瓶頸與影子價格戰略</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業綜合研討：CoWoS 先進封裝產能分配與產能影子價格</div>
+                <p><strong>背景分析：</strong> 貫穿第三章的線性規劃架構，晶圓代工巨頭在分配先進封裝（CoWoS）產能時，面臨多重硬性限制：晶圓曝光機時數、基板供應量、測試設備產能（約束向量 $\mathbf{b}$）。客戶（Nvidia、AMD、Apple）競爭有限的晶圓配額。</p>
+
+                <p><strong>第三章理論全景落實：</strong></p>
+                <ul>
+                    <li><strong>離散產能與 Activity 配置：</strong> 晶圓廠無法以微量變動調整產線，而是以特定的產品組合（Activities）運行。線性規劃模型自動確定最適晶圓派發組合 $\mathbf{x}^*$。</li>
+                    <li><strong>影子價格 $y_i^*$ 的戰略決策：</strong> 當 CoWoS 產能達到 100% 利用率時（鬆弛變數為 0），對偶變數計算出該封裝環節的影子價格極高。這直接指引了企業下一階段的資本支出（CapEx）投向——優先擴充影子價格最高的產能瓶頸，能為公司帶來最大的邊際利潤增加。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 研究生生活案例 -->
+        <div class="section-card">
+            <h2>4. 研究生生活案例：論文寫作、實習與求職的資源分配與影子價格</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 碩士生感同身受：畢業季多任務競合與時間的影子價格</div>
+                <p><strong>情境連結：</strong> 碩士生在最後一個學期需同時處理：寫作畢業論文（要求質與量）、參與實習或投遞履歷（要求面試次數）。你的總時間（每週 168 小時）與總精力屬於硬性資源限制（$\mathbf{b}$）。</p>
+
+                <p><strong>第三章 Summary 的人生哲理：</strong></p>
+                <ul>
+                    <li><strong>定位你的瓶頸約束：</strong> 若你的時間尚有剩餘，但精神已極度疲憊，此時精力的影子價格大於零，而時間的影子價格為零。盲目增加熬夜時間（$x_j$）無法提升總效益，你需要的是提升精力恢復效率。</li>
+                    <li><strong>極點選擇的決策直覺：</strong> 生活中的最優決策往往位於資源限制交會的「極點」上。理解互補鬆弛性定理，能幫助碩士生在面對人生多重目標時，精確識別當前的關鍵瓶頸，達成時間與心智資源的最優調配。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 章末自我檢測與複習題 -->
+        <div class="section-card">
+            <h2>5. 章末自我檢測 (Chapter Review & Self-Assessment)</h2>
+            <p>在進入第 3.5 節（Solutions to Exercises）與 3.6 節（Problems）前，請試著解答以下問題：</p>
+
+            <ol>
+                <li>請說明為何真實世界的生產實驗通常無法滿足第二章「光滑、處處可微」的假設？線性規劃如何解決這一問題？</li>
+                <li>對偶變數 $y_i^*$ 在經濟學中被稱為「影子價格（Shadow Price）」，請說明其數學定義與商業實務意義。</li>
+                <li>請解釋互補鬆弛性（Complementary Slackness）定理：當某項原料庫存有剩餘時，該原料的影子價格是多少？為什麼？</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

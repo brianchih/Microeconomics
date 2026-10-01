@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.1 生產實驗的局限性 (Limitations of Production Experiments) | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，精確渲染數學式，嚴格避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #2563eb;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --math-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: var(--math-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .card-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>3.1 生產實驗的局限性 (Limitations of Production Experiments)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第三章專題</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：從理想微積分到真實商業環境的斷層</h2>
+            <p class="lead-text">在第二章中，我們使用了滑順且處處可微（Smooth and Differentiable）的柯布-道格拉斯（Cobb-Douglas）與 CES 生產函數來推導成本極小化條件。然而，John P. Burkett 教授在第三章開宗明義指出：在真實世界的農工業生產實驗與實務觀測中，這種「光滑、連續、單一產出」的理想模型面臨顯著局限。</p>
+            <p>本節（3.1 節）探討真實生產數據的幾大缺陷，並說明為何我們需要導入<strong>線性規劃（Linear Programming, LP）</strong>與<strong>活動分析（Activity Analysis）</strong>，作為現代微觀經濟學與作業研究（Operations Research）的新基石。</p>
+        </div>
+
+        <!-- 1. 光滑生產函數的三大實務局限 -->
+        <div class="section-card">
+            <h2>1. 傳統光滑生產函數的三質疑</h2>
+            <p>Burkett 教授整理了實證研究與生產實驗中，微積分方法所遭遇的三大核心瓶頸：</p>
+
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>1. 離散技術點與非連續性</h4>
+                    <p>真實世界中，廠商無法以微量無窮小（$dL, dK$）調整投入。生產技術通常以「有限個特定製程（Activities）」呈現，形成分段線性（Piecewise Linear）的等產量線，而非光滑凹曲線。</p>
+                </div>
+                <div class="card-item">
+                    <h4>2. 多產出與副產品 (Multiple Outputs)</h4>
+                    <p>許多真實生產過程會同時產生多種產出或副產品（例如煉油廠同時產出汽油、柴油與瀝青；農場同時產出小麥與秸稈）。單一 $q = f(K, L)$ 函數無法有效處理多產出結構。</p>
+                </div>
+            </div>
+
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>3. 不可割裂性與規模效應</h4>
+                    <p>大型資本設備（如晶圓廠曝光機、客機）具有不可分割性（Indivisibility），使得投入與產出無法任意縮放，導致邊際產量偏微分 $\frac{\partial f}{\partial L}$ 在許多區域失去算術意義。</p>
+                </div>
+                <div class="card-item">
+                    <h4>4. 不等式限制 (Inequality Constraints)</h4>
+                    <p>現實決策常包含硬性上限（如工廠總工時限制、最大原料庫存）或硬性下限（如最低營養標準、法令排放限制），這類不等式無法直接用微積分一階條件（FOCs）求解。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 活動分析法與線性規劃的登場 -->
+        <div class="section-card">
+            <h2>2. 活動分析 (Activity Analysis) 的數學構想</h2>
+            <p>為了克服光滑函數的限制，經濟學家 Tjalling Koopmans 與 George Dantzig 提出了活動分析法。假設存在 $n$ 種可供選擇的生產活動（Activities），第 $j$ 種活動以固定比例消耗 $m$ 種投入並產生產出：</p>
+
+            <div class="math-block">
+                $$\text{Activity } j: \quad x_j \ge 0 \implies \mathbf{a}_j = \begin{bmatrix} a_{1j} \\ a_{2j} \\ \vdots \\ a_{mj} \end{bmatrix}$$
+            </div>
+
+            <p>其中 $a_{ij}$ 代表運行一單位第 $j$ 種活動所需消耗的第 $i$ 種投入。總投入向量 $\mathbf{b}$ 為各活動消耗量的線性組合，並受限於資源不等式：</p>
+
+            <div class="math-block">
+                $$\sum_{j=1}^{n} a_{ij} x_j \le b_i \quad (i = 1, 2, \dots, m)$$
+            </div>
+
+            <p>這種將「離散技術點」與「不等式邊界」結合的分析架構，即為線性規劃（Linear Programming）的數學雛形。</p>
+        </div>
+
+        <!-- 3. 產業時事案例 -->
+        <div class="section-card">
+            <h2>3. 產業時事：AI 伺服器集群訓練中的離散瓶頸與資源調配</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 科技前沿：GPU 算力集群與記憶體頻寬的離散配置限制</div>
+                <p><strong>背景分析：</strong> 在訓練 LLM 大語言模型時，科技公司（如 OpenAI、Meta）無法像 Cobb-Douglas 生產函數那樣「連續且微量」地增加 0.001 個 GPU。算力節點以固定模組（如 8-GPU 伺服器節點）構建，且受到 HBM 記憶體頻寬與網路通訊延遲的雙重硬性約束。</p>
+
+                <p><strong>個體經濟學解析：</strong></p>
+                <ul>
+                    <li><strong>非光滑生產邊界：</strong> AI 訓練效能並非滑順曲線，而是呈現典型的離散活動分析特性（增加 GPU 數量時，若通訊頻寬未達閥值，效能提升可能為零）。</li>
+                    <li><strong>線性規劃應用：</strong> 工程團隊實質上是在解決一個 LP 成本極小化問題：在滿足模型訓練吞吐量與記憶體容量（下限約束）的前提下，如何透過配置不同的并行化策略（模型并行、數據并行等離散 Activity），極小化電力與租用成本？</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 生活案例 -->
+        <div class="section-card">
+            <h2>4. 生活案例：研究生期末週的飲食與預算極小化</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：經典「飲食問題 (Diet Problem)」在研究生生活中的再現</div>
+                <p><strong>情境體驗：</strong> 碩士生在期末考週預算有限，但每日需攝取足夠的蛋白質與熱量（下限限制），同時避免攝取過多鈉與糖分（上限限制）。你無法購買「0.333 個蛋」或「0.125 份餐盒」，而是面對超商、食堂裡有限且離散的餐點選項（Activities）。</p>
+
+                <p><strong>經濟學模型化思考：</strong></p>
+                <ul>
+                    <li><strong>生產函數的失效：</strong> 無法用一個平滑微積分方程 $q = f(\text{雞蛋}, \text{牛奶})$ 來描述你的健康狀態。</li>
+                    <li><strong>線性規劃求解：</strong> 這正是 George Stigler 提出、George Dantzig 說明的「最低成本飲食問題（Least-cost Diet Problem）」，也就是 Burkett 教材 3.2 節即將深入展開的核心情境。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 課後研討與思考題 -->
+        <div class="section-card">
+            <h2>5. 碩士班進階討論題 (Advanced Discussion)</h2>
+            <p>請各位同學結合 Burkett 教材 3.1 節內容，思考並準備下週課堂研討：</p>
+
+            <ol>
+                <li>
+                    <strong>微積分 vs. 線性規劃：</strong> 試比較拉格朗日乘數法（Lagrangian Method）與線性規劃（Linear Programming）在處理「不等式限制條件（Inequality Constraints）」時的優劣與數學機制差異。
+                </li>
+                <li>
+                    <strong>活動分析的同次性：</strong> 活動分析法假設每一種技術 Activity 均具備固定規模報酬（Constant Returns to Scale），即 $x_j$ 擴大 $k$ 倍，投入亦擴大 $k$ 倍。請討論這一假設在實務經營上有何限制？（例如考慮設置成本 Setting Cost 時）。
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

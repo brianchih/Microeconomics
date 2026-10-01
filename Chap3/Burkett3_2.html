@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.2 以營養素重新表述最低成本飲食問題 | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，精確渲染數學式，嚴格避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #0d9488;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --math-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: var(--math-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .matrix-table th, .matrix-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: center;
+        }
+
+        .matrix-table th {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>3.2 以營養素重新表述最低成本飲食問題</h1>
+        <p>Reformulation of the Least-cost Diet Problem in Terms of Nutrients</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：從食物品項到抽象營養素的特徵轉換</h2>
+            <p class="lead-text">在 3.1 節中，我們認識到傳統光滑生產函數在面對離散選項與不等式限制時的侷限。在 3.2 節中，John P. Burkett 教授引入了歷史上最經典的個體經濟優化案例——<strong>史蒂格勒飲食問題（Stigler Diet Problem）</strong>。</p>
+            <p>本節的核心思想在於「抽象特徵轉換」：人們買的雖然是「食物（Food Items）」，但身體真正消費與限制的是「營養素（Nutrients）」。透過矩陣與向量，我們能將生活中的飲食選擇重新建構為嚴密的線性規劃（Linear Programming）標準式。</p>
+        </div>
+
+        <!-- 1. 模型建構與符號定義 -->
+        <div class="section-card">
+            <h2>1. 數學模型建構與矩陣表示法</h2>
+            <p>假設市場上有 $n$ 種可供購買的食物品項，含有 $m$ 種人體所需的營養素。</p>
+
+            <h3>變數與參數定義</h3>
+            <ul>
+                <li>$x_j \ge 0$：第 $j$ 種食物的購買數量（決策變數，$j = 1, 2, \dots, n$）。</li>
+                <li>$c_j > 0$：第 $j$ 種食物的單位價格（成本）。</li>
+                <li>$a_{ij}$：每單位第 $j$ 種食物中所含有第 $i$ 種營養素的數量（營養係數）。</li>
+                <li>$b_i$：每日第 $i$ 種營養素的最低安全攝取量下限（約束條件，$i = 1, 2, \dots, m$）。</li>
+            </ul>
+
+            <h3>營養約束矩陣範例</h3>
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>營養素 ($i$) \ 食物品項 ($j$)</th>
+                        <th>食物 1 (例如：燕麥)</th>
+                        <th>食物 2 (例如：雞胸肉)</th>
+                        <th>...</th>
+                        <th>最低需求下限 ($b_i$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>營養素 1 (蛋白質)</strong></td>
+                        <td>$a_{11}$</td>
+                        <td>$a_{12}$</td>
+                        <td>...</td>
+                        <td>$b_1 = 70 \text{ g}$</td>
+                    </tr>
+                    <tr>
+                        <td><strong>營養素 2 (熱量)</strong></td>
+                        <td>$a_{21}$</td>
+                        <td>$a_{22}$</td>
+                        <td>...</td>
+                        <td>$b_2 = 2000 \text{ kcal}$</td>
+                    </tr>
+                    <tr>
+                        <td><strong>營養素 3 (維生素 C)</strong></td>
+                        <td>$a_{31}$</td>
+                        <td>$a_{32}$</td>
+                        <td>...</td>
+                        <td>$b_3 = 100 \text{ mg}$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 2. 線性規劃標準型 -->
+        <div class="section-card">
+            <h2>2. 最低成本飲食問題的線性規劃標準化</h2>
+            <p>將上述目標與限制合成分解為向量與矩陣型態，即可得到標準的極小化線性規劃問題（Primal Minimization LP）：</p>
+
+            <div class="math-block">
+                $$\begin{aligned}
+                \min_{x_1, \dots, x_n} \quad & C = \sum_{j=1}^{n} c_j x_j \\[8pt]
+                \text{s.t.} \quad & \sum_{j=1}^{n} a_{ij} x_j \ge b_i \quad (i = 1, 2, \dots, m) \\[8pt]
+                & x_j \ge 0 \quad (j = 1, 2, \dots, n)
+                \end{aligned}$$
+            </div>
+
+            <h3>向量與矩陣精簡簡化</h3>
+            <p>令 $\mathbf{c} = [c_1, c_2, \dots, c_n]^T$、$\mathbf{x} = [x_1, x_2, \dots, x_n]^T$、$\mathbf{b} = [b_1, b_2, \dots, b_m]^T$，且 $\mathbf{A} = [a_{ij}]_{m \times n}$，則模型可簡潔表示為：</p>
+
+            <div class="math-block">
+                $$\min_{\mathbf{x}} \quad \mathbf{c}^T \mathbf{x} \quad \text{s.t.} \quad \mathbf{A}\mathbf{x} \ge \mathbf{b}, \quad \mathbf{x} \ge \mathbf{0}$$
+            </div>
+
+            <p>Burkett 教授在此點出個體經濟學的深刻論點：<strong>隱性特徵（Attribute Approach）</strong>。這種將產品拆解為「特徵矩陣 $\mathbf{A}$」的思想，正是後來 Kelvin Lancaster 提出「新消費者理論（New Consumer Theory）」與Hedonic Pricing（隱性價格法）的基礎。</p>
+        </div>
+
+        <!-- 3. 產業時事新聞案例 -->
+        <div class="section-card">
+            <h2>3. 產業時事：畜牧養殖、寵物食品與替代蛋白的配方優化算法</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業時事：智慧農業飼料配方與植物肉（Alternative Protein）成本極小化</div>
+                <p><strong>背景新聞：</strong> 現代大型畜牧企業（如大成、卜蜂）與寵物食品大廠，每日需處理數以萬噸計的飼料生產。由於玉米、大豆、小麥等大宗商品國際期貨價格每分每秒都在波動，企業無法採用固定食譜配方。</p>
+
+                <p><strong>個體經濟學解析：</strong></p>
+                <ul>
+                    <li><strong>即時 LP 求解：</strong> 工廠系統即時輸入最新原料價格向量 $\mathbf{c}(t)$，在滿足家禽所需的粗蛋白質、賴氨酸（Lysine）及熱量下限向量 $\mathbf{b}$ 的前提下，自動求解最適原料組合 $\mathbf{x}^*$。</li>
+                    <li><strong>影子價格應用：</strong> 當某種成分（例如大豆）價格暴漲時，演算法會立刻尋求其他替代品組合（如雜糧+合成胺基酸），在維持完全相同的營養輸出下，達到最小生產成本。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 生活案例 -->
+        <div class="section-card">
+            <h2>4. 生活案例：碩士外食族在通膨下的「超商健身餐」最優化</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：研究生增肌減脂配方的最低成本計算</div>
+                <p><strong>情境體驗：</strong> 碩士生在撰寫論文期間注重體態管理，每日設定目標：蛋白質 $\ge 100\text{g}$，總熱量 $\ge 1800\text{kcal}$ 且 $\le 2200\text{kcal}$。超商提供的選項包含：雞胸肉 ($c_1=59, a_{protein}=23g$)、無糖豆漿 ($c_2=25, a_{protein}=15g$)、茶葉蛋 ($c_3=13, a_{protein}=7g$)、地瓜 ($c_4=35, a_{protein}=3g$)。</p>
+
+                <p><strong>模型化思考：</strong></p>
+                <ul>
+                    <li>你每天在便利商店拿取商品的過程，實質上就是在腦海中進行一項帶有上下限約束的線性規劃（Linear Programming）求解過程。</li>
+                    <li>這解釋了為何許多窮學生/研究生會選擇「豆漿+雞胸肉+茶葉蛋」——因為在矩陣 $\mathbf{A}$ 的約束下，這是目前市場價格向量 $\mathbf{c}$ 下能滿足蛋白質下限的最優解向量 $\mathbf{x}^*$。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 課後研討與思考題 -->
+        <div class="section-card">
+            <h2>5. 碩士班進階討論題 (Advanced Discussion)</h2>
+            <p>請各位同學結合 Burkett 教材 3.2 節內容，思考並準備下週課堂研討：</p>
+
+            <ol>
+                <li>
+                    <strong>上限限制與口味多樣性：</strong> 史蒂格勒（Stigler）當初算出的最低成本飲食方案中，一年只包含極少數幾種極便宜食物（如豬肝、麵粉與高麗菜），這在現實中難以讓人接受。若要加入「適口性（Palatability）」與「食物多樣性」，我們應該如何在矩陣 $\mathbf{A}\mathbf{x} \ge \mathbf{b}$ 中加入額外的約束條件？
+                </li>
+                <li>
+                    <strong>對偶問題（Dual Problem）預告：</strong> 在極小化成本問題 $\min \mathbf{c}^T \mathbf{x} \text{ s.t. } \mathbf{A}\mathbf{x} \ge \mathbf{b}$ 中，其對偶問題代表何種經濟學意義？（提示：若有一個藥廠想販售純營養素膠囊，其定價 $\mathbf{y}$ 必須滿足什麼條件才能競爭過真實食物？）
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

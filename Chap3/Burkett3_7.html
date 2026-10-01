@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.7 附錄：線性規劃軟體應用 | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，精確渲染數學式，嚴格避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #0284c7;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --math-bg: #f1f5f9;
+            --code-bg: #1e293b;
+            --code-color: #38bdf8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: var(--math-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 8px;
+            font-family: "Fira Code", Consolas, Monaco, "Courier New", Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .code-keyword {
+            color: #f472b6;
+        }
+
+        .code-function {
+            color: #38bdf8;
+        }
+
+        .code-comment {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .card-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>3.7 附錄：線性規劃軟體應用 (Software for Linear Programming)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第三章實務程式範例</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：從手算單純形表到高維度電腦求解</h2>
+            <p class="lead-text">在前面幾節中，我們學習了線性規劃（Linear Programming）的矩陣表述、幾何極點與對偶理論。然而，當真實商業問題包含數百種食物/產品（$n \ge 100$）與幾十種限制條件（$m \ge 50$）時，人工手算單純形表（Simplex Tableaux）已不可能。</p>
+            <p>本附錄（3.7 節）介紹現代個體經濟學者與運籌分析師最常使用的軟體工具（如 Python、R、Excel Solver 以及專業求解器 Gurobi/CPLEX），並演示如何將矩陣 $\mathbf{A}, \mathbf{b}, \mathbf{c}$ 直接輸入軟體快速求解，並自動產出對偶變數（影子價格）。</p>
+        </div>
+
+        <!-- 1. 矩陣轉化為軟體輸入語法 -->
+        <div class="section-card">
+            <h2>1. 標準型矩陣與軟體介面對接</h2>
+            <p>軟體求解器通常要求將問題統一化為「標準極小化」或「標準極大化」形式。以 3.2 節的飲食問題為例：</p>
+
+            <div class="math-block">
+                $$\min_{\mathbf{x}} \quad \mathbf{c}^T \mathbf{x} \quad \text{s.t.} \quad \mathbf{A}_{ub} \mathbf{x} \le \mathbf{b}_{ub}, \quad \mathbf{x} \ge \mathbf{0}$$
+            </div>
+
+            <p>注意：多數軟體套件（如 Python 的 SciPy）預設限制式方向為「小於等於（$\le$）」。若原問題為大於等於限制 $\mathbf{A}\mathbf{x} \ge \mathbf{b}$（如營養下限），需在兩邊同乘以 $-1$ 轉換為：</p>
+
+            <div class="math-block">
+                $$-\mathbf{A}\mathbf{x} \le -\mathbf{b}$$
+            </div>
+
+            <h3>Python SciPy 程式碼範例</h3>
+            <p>以下展示求解 3.5 節隨堂練習（穀物與苜蓿飼料成本極小化）的完整程式：</p>
+
+            <div class="code-block">
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy.optimize <span class="code-keyword">import</span> linprog
+
+<span class="code-comment"># 1. 成本係數向量 c (穀物 $4, 苜蓿 $3)</span>
+c = np.array([<span class="code-function">4</span>, <span class="code-function">3</span>])
+
+<span class="code-comment"># 2. 限制矩陣 A_ub 與需求向量 b_ub (大於等於轉小於等於，乘 -1)</span>
+<span class="code-comment"># 蛋白質: 2*x1 + 1*x2 >= 8  =>  -2*x1 - 1*x2 <= -8</span>
+<span class="code-comment"># 維生素: 1*x1 + 2*x2 >= 7  =>  -1*x1 - 2*x2 <= -7</span>
+A_ub = np.array([
+    [-<span class="code-function">2</span>, -<span class="code-function">1</span>],
+    [-<span class="code-function">1</span>, -<span class="code-function">2</span>]
+])
+b_ub = np.array([-<span class="code-function">8</span>, -<span class="code-function">7</span>])
+
+<span class="code-comment"># 3. 變數邊界 (x1 >= 0, x2 >= 0)</span>
+x_bounds = (<span class="code-function">0</span>, <span class="code-keyword">None</span>)
+
+<span class="code-comment"># 4. 執行單純形法/內點法求解</span>
+res = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=[x_bounds, x_bounds], method=<span class="code-function">'highs'</span>)
+
+<span class="code-comment"># 5. 輸出最適解 x* 與最小總成本 C*</span>
+print(<span class="code-function">f"最適購買數量 x*: {res.x}"</span>)            <span class="code-comment"># 輸出 [3., 2.]</span>
+print(<span class="code-function">f"最小總成本 C*: {res.fun}"</span>)            <span class="code-comment"># 輸出 18.0</span>
+print(<span class="code-function">f"對偶影子價格 (Shadow Prices): {res.ineqlin.marginals}"</span>) <span class="code-comment"># 輸出 [1.6667, 0.6667]</span>
+            </div>
+        </div>
+
+        <!-- 2. 主流個體經濟學工具比對 -->
+        <div class="section-card">
+            <h2>2. 常用個體經濟學與運籌軟體比對</h2>
+
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>Python (SciPy / PuLP / Pyomo)</h4>
+                    <p><strong>適用場景：</strong> 開源、適合大規模數據整合、資料科學與機器學習工作流。</p>
+                    <p><strong>優勢：</strong> 能直接讀取 Pandas 資料框架，一鍵對接 API 輸入即時市場價格。</p>
+                </div>
+                <div class="card-item">
+                    <h4>R (lpSolve / ROI)</h4>
+                    <p><strong>適用場景：</strong> 計量經濟學研究、實證數據分析與統計建模。</p>
+                    <p><strong>優勢：</strong> 與 R 的統計與圖表套件（ggplot2）無縫接軌，方便繪製可行域與敏感性分析圖。</p>
+                </div>
+            </div>
+
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>Excel Solver (規劃求解)</h4>
+                    <p><strong>適用場景：</strong> 商業管理簡報、快速試算表建立與教學演示。</p>
+
+                    <p><strong>優勢：</strong> 具備直觀的圖形介面（GUI），點擊即可自動產出「敏感性報告（Sensitivity Report）」，直接顯示影子價格與許容增減量（Allowable Increases）。</p>
+                </div>
+                <div class="card-item">
+                    <h4>商業求解器 (Gurobi / CPLEX)</h4>
+                    <p><strong>適用場景：</strong> 晶圓廠排程、航空路網調度等包含數百萬變數的超大規模計算。</p>
+
+                    <p><strong>優勢：</strong> 求解速度極快，針對混合整數規劃（MILP）優化達到極限效能。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 產業時事案例 -->
+        <div class="section-card">
+            <h2>3. 產業時事：物流巨頭與外送平台的自動化 LP 引擎</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業時事：FedEx、順豐與外送平台即時派單的軟體求解架構</div>
+                <p><strong>背景分析：</strong> 現代物流業者（如 FedEx、順豐）或外送平台（如 UberEats）每分鐘有數萬張訂單需要匹配司機。車輛載重與容量（限制條件 $\mathbf{b}$）有限，而路線營運成本（$\mathbf{c}$）需被極小化。</p>
+
+                <p><strong>個體經濟學與軟體應用：</strong></p>
+                <ul>
+                    <li><strong>後端運算引擎：</strong> 後端伺服器自動呼叫高效能 LP 求解器（如 Gurobi），在數百毫秒內求解包含多限制條件的線性規劃陣列，決定最適派遣向量 $\mathbf{x}^*$。</li>
+                    <li><strong>動態加價機制：</strong> 求解器輸出的「對偶影子價格 $y_i^*$」直接回傳至動態定價系統。當某區域外送員數量極度緊缺時，影子價格飆升，系統便自動向顧客收取「尖峰加算費用（Surge Pricing）」。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 生活案例 -->
+        <div class="section-card">
+            <h2>4. 生活案例：碩士生論文數據分析與日常預算求解</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：用 Python / Excel 求解自己的碩士研發與時間規劃</div>
+                <p><strong>情境體驗：</strong> 碩士生在撰寫學術論文時，需建立一個描述供應鏈或企業成本的實證模型。你無需手算高維度矩陣，只需在 Jupyter Notebook 中載入 Python 套件，即可處理包含上百個變數的模型。</p>
+
+                <p><strong>模型化思考：</strong></p>
+                <ul>
+                    <li>學會使用軟體求解 LP，讓你從繁瑣的代數運算中解放出來，將注意力集中在「經濟學假設是否合情理」以及「如何詮釋影子價格的商業含義」。</li>
+                    <li>你甚至可以使用 Excel 規劃求解，輸入自己每個月的房租、伙食與娛樂開銷限制，求解滿足最低營養與社交需求下的最小支出組合。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 課後上機實作練習 -->
+        <div class="section-card">
+            <h2>5. 碩士班上機實作作業 (Hands-on Software Exercise)</h2>
+            <p>請各位同學開啟 Python (Jupyter Notebook) 或 Excel Solver，完成以下上機練習：</p>
+
+            <ol>
+                <li>
+                    <strong>Python / R 實作：</strong> 使用 Python `scipy.optimize.linprog` 或 R `lpSolve` 撰寫程式，求解 3.6 節 Problem 3.6.1 包含「上限限制（Upper Bounds）」的飲食問題。印出最適解 $\mathbf{x}^*$、最小總成本以及各上限條件對應的影子價格。
+                </li>
+                <li>
+                    <strong>Excel Solver 敏感性分析報告：</strong> 在 Excel 中建立 3.2 節飲食問題試算表，開啟「規劃求解」擴充功能，執行極小化成本運算。勾選產生「敏感性報告（Sensitivity Report）」，觀察並解釋報告中的「Shadow Price」與「Allowable Increase/Decrease」數值。
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

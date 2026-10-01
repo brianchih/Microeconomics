@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.3 線性規劃求解技巧 | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，精確渲染數學式，嚴格避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #0284c7;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --math-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: var(--math-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .card-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>3.3 線性規劃求解技巧 (Linear Programming Techniques)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第三章專題</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：從幾何可行域到對偶理論的演算法核心</h2>
+            <p class="lead-text">在 3.2 節中，我們將最低成本飲食問題表述為標準的矩陣形式 $\min \mathbf{c}^T \mathbf{x} \text{ s.t. } \mathbf{A}\mathbf{x} \ge \mathbf{b}, \mathbf{x} \ge \mathbf{0}$。本節（3.3 節）將探討如何從幾何圖解與代數演算法層面求解線性規劃問題。</p>
+            <p>John P. Burkett 教授深入介紹了 George Dantzig 提出的<strong>單純形法（Simplex Method）</strong>、凸多面體（Convex Polyhedron）幾何極點性質，以及極具經濟學深度的<strong>對偶理論（Duality Theory）</strong>與影子價格（Shadow Prices）。</p>
+        </div>
+
+        <!-- 1. 幾何幾何直覺與極點定理 -->
+        <div class="section-card">
+            <h2>1. 幾何直覺與極點定理 (Extreme Point Theorem)</h2>
+            <p>線性規劃問題的約束條件構成了一個凸多面體（Convex Polyhedron），稱為<strong>可行域（Feasible Region）</strong>。目標函數則是一組平行超平面。</p>
+
+            <h3>核心基本定理</h3>
+            <p>若線性規劃問題存在有限最優解，則至少有一個最優解部位於可行域的<strong>極點（Extreme Point / Vertex）</strong>上。</p>
+
+            <div class="math-block">
+                $$\text{If } \mathbf{x}^* \text{ is an optimal solution}, \implies \mathbf{x}^* \in \text{Extreme Points of } \{\mathbf{x} \mid \mathbf{A}\mathbf{x} \ge \mathbf{b}, \mathbf{x} \ge \mathbf{0}\}$$
+            </div>
+
+            <p>這項定理極大地簡化了尋找最優解的範圍：我們無需在無限個連續點組成的可行域內部漫無目的地搜尋，只需檢查有限個極點即可。</p>
+        </div>
+
+        <!-- 2. 單純形法與鬆弛變數 -->
+        <div class="section-card">
+            <h2>2. 單純形法 (Simplex Method) 與鬆弛變數 (Slack Variables)</h2>
+            <p>單純形法是一種從一個極點移動到相鄰極點、並確保目標函數值不斷改善的代數演算法。</p>
+
+            <h3>標準型轉換（Standard Form）</h3>
+            <p>為了進行矩陣運算，我們引入非負的<strong>鬆弛變數（Slack Variables, $s_i \ge 0$）</strong>或<strong>剩餘變數（Surplus Variables）</strong>，將不等式約束轉化為等式約束：</p>
+
+            <div class="math-block">
+                $$\sum_{j=1}^{n} a_{ij} x_j - s_i = b_i \quad (s_i \ge 0, \quad i = 1, 2, \dots, m)$$
+            </div>
+
+            <p>在代數上，單純形法就是不斷選取 $m$ 個獨立變數作為<strong>基變數（Basic Variables）</strong>，並將其餘 $n$ 個非基變數設為 0，藉由樞紐旋轉（Pivoting）計算基可行解（Basic Feasible Solution），直至滿足最優性檢定條件（Optimality Test）。</p>
+        </div>
+
+        <!-- 3. 對偶理論與影子價格 -->
+        <div class="section-card">
+            <h2>3. 對偶理論 (Duality Theory) 與影子價格</h2>
+            <p>每一個原問題（Primal Problem）都對應著一個對偶問題（Dual Problem）。對偶理論揭示了資源配置與資源定價之間極為深刻的對稱關係。</p>
+
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>原問題 (Primal Problem)</h4>
+                    <p>極小化成本：</p>
+                    $$\min_{\mathbf{x}} \quad \mathbf{c}^T \mathbf{x}$$
+                    $$\text{s.t.} \quad \mathbf{A}\mathbf{x} \ge \mathbf{b}, \quad \mathbf{x} \ge \mathbf{0}$$
+                    <p><strong>決策變數 $\mathbf{x}$：</strong> 食物或產品的購買數量。</p>
+                </div>
+                <div class="card-item">
+                    <h4>對偶問題 (Dual Problem)</h4>
+                    <p>極大化虛擬隱性價值：</p>
+                    $$\max_{\mathbf{y}} \quad \mathbf{b}^T \mathbf{y}$$
+                    $$\text{s.t.} \quad \mathbf{A}^T \mathbf{y} \le \mathbf{c}, \quad \mathbf{y} \ge \mathbf{0}$$
+                    <p><strong>對偶變數 $\mathbf{y}$：</strong> 營養素或資源的隱性價格（影子價格）。</p>
+                </div>
+            </div>
+
+            <h3>對偶強定理 (Strong Duality Theorem) 與互補鬆弛性</h3>
+            <p>若原問題存在最適解 $\mathbf{x}^*$，則對偶問題亦存在最適解 $\mathbf{y}^*$，且兩者的最適目標函數值完全相等：</p>
+
+            <div class="math-block">
+                $$\mathbf{c}^T \mathbf{x}^* = \mathbf{b}^T \mathbf{y}^*$$
+            </div>
+
+            <p>其中對偶變數 $y_i^* = \frac{\partial C^*}{\partial b_i}$ 代表第 $i$ 種營養素限制邊界 $b_i$ 增加一單位時，總成本 $C^*$ 的邊際增加量，即<strong>影子價格（Shadow Price）</strong>。</p>
+        </div>
+
+        <!-- 4. 產業時事新聞案例 -->
+        <div class="section-card">
+            <h2>4. 產業時事：AWS/GCP 雲端伺服器集群的單純形調度演算法</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 科技時事：雲端服務商算力節點分配與對偶影子價格定價</div>
+                <p><strong>背景新聞：</strong> 大型雲端業者（如 Amazon AWS、Google Cloud）每日需在數百萬個虛擬機與容器（Pods）之間調配 CPU、GPU、RAM 與網絡頻寬。資源總量 $\mathbf{b}$ 有限，而客戶訂單 $\mathbf{x}$ 帶來不同收益 $\mathbf{c}$。</p>
+
+                <p><strong>個體經濟學解析：</strong></p>
+                <ul>
+                    <li><strong>單純形法調度：</strong> 資料中心作業系統實質上運行著大型線性規劃演算法，在凸多面體的可行域極點之間迅速尋找最佳算力派發組合 $\mathbf{x}^*$。</li>
+                    <li><strong>影子價格與動態定價：</strong> 對偶變數 $\mathbf{y}^*$ 計算出每一 G 記憶體或每一單位 GPU 頻寬的影子價格。當某一區域 RAM 資源達到飽和瓶頸（鬆弛變數 $s_i = 0$）時，對偶強定理顯示其影子價格 $y_i^* > 0$，這正是雲端業者調升該時段 Spot Instance（競價實例）價格的理論依據。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 生活案例 -->
+        <div class="section-card">
+            <h2>5. 生活案例：碩士生畢業學分與論文時間分配的影子價格</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：研究生有限總時間下的學習效益極大化</div>
+                <p><strong>情境體驗：</strong> 碩士生在學期末面臨兩大任務：修滿畢業所需學分、撰寫學術論文。你每週可支配的時間只有 60 小時（資源約束 $b_1$），精力容量只有 100 點（資源約束 $b_2$）。修課與寫論文兩種活動（Activities）各自消耗不同的時間與精力，並產生不同的職涯邊際回報。</p>
+
+                <p><strong>模型化思考：</strong></p>
+                <ul>
+                    <li>你選擇的最佳時間分配，必定位於時間與精力雙重限制線交會的「幾何極點」上。</li>
+                    <li>這段時間的影子價格 $y_{time}^*$ 代表：如果一天能多出 1 小時（$b_1$ 增加 1），你的總學習與職涯效益能增加多少？若時間有剩餘（鬆弛變數 $s_{time} > 0$），則時間的影子價格為 0，說明此時限制畢業效益的瓶頸是精力而非時間。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 6. 課後研討與思考題 -->
+        <div class="section-card">
+            <h2>6. 碩士班進階討論題 (Advanced Discussion)</h2>
+            <p>請各位同學結合 Burkett 教材 3.3 節內容，思考並準備下週課堂研討：</p>
+
+            <ol>
+                <li>
+                    <strong>互補鬆弛性定理 (Complementary Slackness Theorem)：</strong> 證明在最適點上，$y_i^* \cdot \left( \sum_{j=1}^n a_{ij} x_j^* - b_i \right) = 0$。請從經濟學角度解釋：為何當某項資源未被充分利用（有剩餘）時，其影子價格必須等於零？
+                </li>
+                <li>
+                    <strong>退化現象 (Degeneracy)：</strong> 在單純形法求解過程中，若出現多條限制線交於同一極點，可能會引發「退化」與無限循環（Cycling）。在現實商業決策中，退化代表了什麼樣的資源冗餘狀態？
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>
