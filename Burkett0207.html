@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第 2.7 節 本章總結、進階練習與習題解析 - 個體經濟理論導讀</title>
+    
+    <!-- 載入 MathJax 數學公式渲染庫 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+        }
+
+        .book-info {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .book-info p {
+            margin: 4px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.45rem;
+            margin-top: 38px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 28px;
+        }
+
+        .concept-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid var(--accent-color);
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 22px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 22px 0;
+        }
+
+        .case-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .math-block {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #276749;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            color: #c53030;
+            font-weight: 600;
+        }
+
+        .nav-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .nav-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-meta">個體經濟理論碩士班導讀課程</div>
+    <h1>2.7 本章總結、進階練習與習題解析 (Summary, Further Exercises, and Problem Solutions)</h1>
+
+    <div class="book-info">
+        <p><strong>指定教材：</strong>Burkett, J. P. (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>. Oxford University Press.</p>
+        <p><strong>章節範疇：</strong>Chapter 2: Inputs, Outputs, and Costs &mdash; Section 2.7</p>
+    </div>
+
+    <h2>一、 本章知識圖譜總覽與 Burkett 的整合哲學</h2>
+    <p>John P. Burkett 在第二章「投入、產出與成本」中，為我們建構了一幅貫穿<strong>「工程邊界 &rarr; 最適化求解 &rarr; 對偶性 &rarr; 比較靜態 &rarr; 實證與行為檢驗」</strong>的完整理論地圖。作為本章的完結，第 2.7 節旨在引導碩士生將前面各小節的零散概念進行系統化融合，建立起高階個體分析的直覺與演算能力。</p>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 第二章 邏輯脈絡總回顧</div>
+        <ul>
+            <li><strong>2.1 生產函數：</strong> 技術邊界 $q = f(L, K, M, T)$，區分可變/固定要素與邊際報酬遞減。</li>
+            <li><strong>2.2 成本極小化：</strong> 切點條件 $MRTS_{L,K} = \frac{MP_L}{MP_K} = \frac{w}{r}$，影子價格 $\lambda = MC$。</li>
+            <li><strong>2.3 成本函數：</strong> 短期成本 $SRTC$ 與長期成本 $LRTC$ 的包絡線定理，規模經濟與學習曲線。</li>
+            <li><strong>2.4 利潤極大化：</strong> 價格接受者 $P = MC$，停業門檻 $P < \min SAVC$，霍特林引理 $\frac{\partial \pi^*}{\partial p} = q^*$。</li>
+            <li><strong>2.5 比較靜態：</strong> 通用包絡線定理 $\frac{dV}{da} = \frac{\partial f}{\partial a}$，謝法德引理 $\frac{\partial C^*}{\partial w} = L^*$。</li>
+            <li><strong>2.6 實證與行為：</strong> 超越對數模型、隨機邊界分析（SFA）、X-不效率與實驗經濟學的有限理性試錯。</li>
+        </ul>
+    </div>
+
+    <h2>二、 經典習題與綜合演算示範</h2>
+
+    <h3>【題目 1】Cobb-Douglas 生產函數之對偶性與比較靜態</h3>
+    <p>假設某廠商的生產函數為 $q = L^\alpha K^\beta$（其中 $\alpha, \beta > 0$ 且 $\alpha + \beta < 1$），要素價格分別為工資 $w$ 與資本租金 $r$。</p>
+    <ol>
+        <li>求解廠商的長期總成本函數 $C^*(w, r, q)$。</li>
+        <li>運用謝法德引理（Shephard's Lemma）求出勞動的希克斯需求函數 $L^*(w, r, q)$。</li>
+        <li>求解廠商的利潤極大化產量 $q^*(p, w, r)$ 與供給函數。</li>
+    </ol>
+
+    <div class="case-study">
+        <span class="case-tag">【詳細解析與演算步驟】</span>
+        
+        <p><strong>(1) 求解成本極小化：</strong></p>
+        <p>建立拉格朗日函數：$\mathcal{L} = wL + rK + \lambda [q - L^\alpha K^\beta]$</p>
+        <p>一階條件為：</p>
+        <div class="math-block">
+            $$\frac{\partial \mathcal{L}}{\partial L} = w - \lambda \alpha L^{\alpha-1} K^\beta = 0, \quad \frac{\partial \mathcal{L}}{\partial K} = r - \lambda \beta L^\alpha K^{\beta-1} = 0$$
+        </div>
+        <p>兩式相除得到最適要素比例：$\frac{w}{r} = \frac{\alpha K}{\beta L} \implies K = \frac{\beta w}{\alpha r} L$</p>
+        <p>帶回生產函數 $q = L^\alpha \left(\frac{\beta w}{\alpha r} L\right)^\beta = L^{\alpha+\beta} \left(\frac{\beta w}{\alpha r}\right)^\beta$，解出最適勞動與資本需求：</p>
+        <div class="math-block">
+            $$L^* = q^{\frac{1}{\alpha+\beta}} \left( \frac{\alpha r}{\beta w} \right)^{\frac{\beta}{\alpha+\beta}}, \quad K^* = q^{\frac{1}{\alpha+\beta}} \left( \frac{\beta w}{\alpha r} \right)^{\frac{\alpha}{\alpha+\beta}}$$
+        </div>
+        <p>帶入總成本 $C = wL^* + rK^*$，整理可得長期總成本函數：</p>
+        <div class="math-block">
+            $$C^*(w, r, q) = (\alpha+\beta) \left[ \left(\frac{w}{\alpha}\right)^\alpha \left(\frac{r}{\beta}\right)^\beta \right]^{\frac{1}{\alpha+\beta}} q^{\frac{1}{\alpha+\beta}}$$
+        </div>
+
+        <p><strong>(2) 驗證謝法德引理：</strong></p>
+        <p>將 $C^*(w, r, q)$ 對工資 $w$ 求偏導數：</p>
+        <div class="math-block">
+            $$\frac{\partial C^*}{\partial w} = \frac{\alpha}{\alpha+\beta} \cdot \frac{C^*}{w} = q^{\frac{1}{\alpha+\beta}} \left( \frac{\alpha r}{\beta w} \right)^{\frac{\beta}{\alpha+\beta}} = L^*(w, r, q)$$
+        </div>
+        <p>完美驗證了謝法德引理 $\frac{\partial C^*}{\partial w} = L^*$！</p>
+
+        <p><strong>(3) 求解利潤極大化與供給函數：</strong></p>
+        <p>由 $P = MC = \frac{\partial C^*}{\partial q}$，微分可得：</p>
+        <div class="math-block">
+            $$p = \left[ \left(\frac{w}{\alpha}\right)^\alpha \left(\frac{r}{\beta}\right)^\beta \right]^{\frac{1}{\alpha+\beta}} q^{\frac{1 - (\alpha+\beta)}{\alpha+\beta}}$$
+        </div>
+        <p>反解產量 $q$，即得到廠商的個體供給函數 $q^*(p, w, r)$。</p>
+    </div>
+
+    <h2>三、 真實世界時事案例與第二章全景整合</h2>
+
+    <div class="case-study">
+        <span class="case-tag">時事與產業綜合案例：全球半導體與綠能轉型的個體經濟決策地圖</span>
+        <p>將第二章所有核心概念整合應用於當前全球高科技產業與能源轉型：</p>
+        <ul>
+            <li><strong>2.1 節 生產函數：</strong> 台積電（TSMC）以高純度化學品與特種氣體（中間要素 $M$）搭配 EUV 光刻機（資本 $K$）與工程師（勞動 $L$），構成極高度不可替代的工程技術邊界。</li>
+            <li><strong>2.2 節 成本極小化：</strong> 美國、日本與歐洲廠面臨截然不同的工資與地租斜率 $-\frac{w}{r}$，促使企業沿著等產量線調整自動化設備與人力比例。</li>
+            <li><strong>2.3 節 成本函數：</strong> 晶圓廠建廠動輒數百億美元，龐大的固定成本（$FC$）與近乎為零的邊際成本（$SMC$），迫使企業採取高產能利用率策略；同時透過累積產量獲得顯著的學習曲線（Learning Curve）下滑。</li>
+            <li><strong>2.4 節 利潤極大化與停業點：</strong> 記憶體與面板廠在景氣低谷時，只要價格 $P \ge SAVC$，即維持生產以彌補固定折舊，展現了短期的邊際供給反應。</li>
+            <li><strong>2.5 節 比較靜態：</strong> 政府徵收碳費（$t$）或調升基本工資（$w$），財務長直接利用謝法德引理與霍特林引理（$\frac{\partial \pi^*}{\partial t} = -E^*$），精算對公司總利潤的邊際衝擊。</li>
+            <li><strong>2.6 節 實證與行為：</strong> 運用隨機邊界分析（SFA）測量各廠區的技術效率分數 $\text{TE}_i$，並透過演算法規章矯正經理人的沉沒成本偏誤。</li>
+        </ul>
+    </div>
+
+    <h2>四、 碩士班綜合研討與考題發想</h2>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 碩士班期末與資格考綜合研討題目 (Comprehensive Discussion)</div>
+        <ol>
+            <li><strong>對偶性（Duality）的實證價值：</strong> 在真實資料庫中，我們往往很容易取得企業的財務數據（如總成本 $C$、工資 $w$、資本租金 $r$ 與總產出 $q$），但極難精確測量實體工程生產函數的具體形狀。請說明為什麼學者常利用謝法德引理，從成本函數反推生產函數的參數？</li>
+            <li><strong>極端氣候與生產函數的結構性改變：</strong> 當極端氣候（缺水、高溫限電）頻率增加時，生產函數中的技術參數 $T$ 變成隨機變數 $T \sim g(t)$。請分析風險趨避（Risk Aversion）的企業管理者會如何改變其成本極小化條件？</li>
+            <li><strong>行為經濟學對新古典供給理論的挑戰：</strong> Burkett 著重強調「優化、實驗與行為」。如果在現實中，廠商因為心理「損失趨避（Loss Aversion）」而對產品價格下跌的反應遠比價格上漲更為敏感，這會如何影響總體市場供給曲線的形狀？（提示：折線供給曲線與非對稱供給彈性）。</li>
+        </ol>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html">&larr; 返回課程主頁與論文清單</a>
+        <a href="#">下一章：Chapter 3 Consumer Choice and Demand &rarr;</a>
+    </div>
+</div>
+
+</body>
+</html>
