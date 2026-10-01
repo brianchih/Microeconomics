@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第 2.3 節 短期與長期成本函數 - 個體經濟理論導讀</title>
+    
+    <!-- 載入 MathJax 數學公式渲染庫 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+        }
+
+        .book-info {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .book-info p {
+            margin: 4px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.45rem;
+            margin-top: 38px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 28px;
+        }
+
+        .concept-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid var(--accent-color);
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 22px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 22px 0;
+        }
+
+        .case-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .math-block {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #276749;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            color: #c53030;
+            font-weight: 600;
+        }
+
+        .nav-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .nav-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-meta">個體經濟理論碩士班導讀課程</div>
+    <h1>2.3 短期與長期成本函數 (Short-Run and Long-Run Cost Functions)</h1>
+
+    <div class="book-info">
+        <p><strong>指定教材：</strong>Burkett, J. P. (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>. Oxford University Press.</p>
+        <p><strong>章節範疇：</strong>Chapter 2: Inputs, Outputs, and Costs &mdash; Section 2.3</p>
+    </div>
+
+    <h2>一、 本節理論精髓與 Burkett 的用心</h2>
+    <p>在推導完生產函數與最適切點條件後，John P. Burkett 在第 2.3 節帶領我們構建企業的<strong>成本結構全貌</strong>。許多初學者常將成本函數誤解為單純的會計帳目，但 Burkett 特別提醒我們：<strong>成本函數是生產技術與要素價格共同作用下的最適結果（Value Function）</strong>。</p>
+    <p>Burkett 在本節呈現了個體經濟學極為優美的幾何與數理結構——<strong>包絡線定理（Envelope Theorem）</strong>。他證明了長期總成本函數（$LRTC$）如何作為無數個短期總成本函數（$SRTC$）的下包絡線，並引述實驗經濟學說明企業如何在「產能固定」的短期約束下尋求次優解，以及如何在「產能彈性」的長期視野中達成規模經濟（Economies of Scale）。</p>
+
+    <h2>二、 數理架構與幾何關係</h2>
+
+    <h3>1. 短期成本結構 (Short-Run Costs)</h3>
+    <p>在短期內，至少有一項投入要素（如資本 $\bar{K}$）固定，總成本由固定成本與可變成本組成：</p>
+
+    <div class="math-block">
+        $$SRTC(q, \bar{K}) = FC(\bar{K}) + VC(q, \bar{K}) = r\bar{K} + wL(q, \bar{K})$$
+    </div>
+
+    <p>相應的短期平均成本（$SATC$）與短期邊際成本（$SMC$）為：</p>
+    <div class="math-block">
+        $$SATC(q, \bar{K}) = \frac{FC}{q} + \frac{VC}{q} = SAFC + SAVC$$
+    </div>
+    <div class="math-block">
+        $$SMC(q, \bar{K}) = \frac{\partial SRTC}{\partial q} = \frac{\partial VC}{\partial q}$$
+    </div>
+
+    <h3>2. 長期成本與包絡線定理 (Long-Run Envelope Theorem)</h3>
+    <p>在長期，企業可自由選擇最適合目標產出 $q$ 的資本規模 $K$。長期總成本是解開資本束縛後的極小化結果：</p>
+    <div class="math-block">
+        $$LRTC(q) = \min_{K} SRTC(q, K) = SRTC(q, K^*(q))$$
+    </div>
+
+    <p>根據包絡線定理，在最適資本規模 $K^*(q)$ 下，長期邊際成本等於短期邊際成本：</p>
+    <div class="math-block">
+        $$\frac{d LRTC(q)}{dq} = \left. \frac{\partial SRTC(q, K)}{\partial q} \right|_{K=K^*(q)} + \left. \frac{\partial SRTC(q, K)}{\partial K} \right|_{K=K^*(q)} \cdot \frac{d K^*}{dq}$$
+    </div>
+    <p>由於在一階最佳化條件下 $\frac{\partial SRTC}{\partial K} = 0$，上式簡化為：</p>
+    <div class="math-block">
+        $$LRMC(q) = SMC(q, K^*(q))$$
+    </div>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 Burkett 的經濟直覺：包絡線的幾何切點含意</div>
+        <p>長期平均成本曲線（$LATC$）是所有 $SATC$ 曲線的包絡線。Burkett 特別提醒學生：<span class="highlight-text">$LATC$ 與 $SATC$ 的切點，只有在 $LATC$ 最低點時才會剛好落在 $SATC$ 的最低點</span>！當處於規模經濟階段時，最適短期產能利用率其實落在 $SATC$ 最低點的左側；處於規模不經濟階段時，則落在右側。</p>
+    </div>
+
+    <h2>三、 核心概念解析與真實世界時事案例</h2>
+
+    <h3>1. 沉沒成本（Sunk Cost）與短期營運折舊</h3>
+    <p>Burkett 特別區分了「固定成本（Fixed Cost）」與「沉沒成本（Sunk Cost）」。固定成本在短期內不隨產量變動，但若退出市場仍可能回收部分資本殘值；而沉沒成本則是完全無法回收的過去支出，在最適決策中應被完全忽略。</p>
+
+    <div class="case-study">
+        <span class="case-tag">產業時事：生技藥廠與高科技晶圓廠的沉沒成本決策</span>
+        <p>生技製藥公司開發一款新藥，在臨床三期前投入的數十億美元研發費用即為沉沒成本。若臨床結果顯示藥效僅能帶來邊際收益（$MR$），只要 $MR > SAVC$（機能性營運成本），企業在短期內繼續生產即是理性的選擇。</p>
+        <p>同理，台積電或美光（Micron）的舊世代晶圓廠，其建廠與設備折舊費用已屬沉沒成本，只要產品市場價格高於邊際可變成本（$SAVC$），工廠就會維持運作，這解釋了高科技產業在景氣低谷時的「停損但不停工」現象。</p>
+    </div>
+
+    <h3>2. 規模經濟（Economies of Scale）與學習曲線（Learning Curve）</h3>
+    <p>長期平均成本（$LATC$）隨產出增加而下降的現象稱為規模經濟。Burkett 延伸指出，除了物理規模外，時間累積帶來的<span class="highlight-text">學習效應（Learning-by-Doing）</span>也會使成本曲線整體向下移動。</p>
+
+    <div class="case-study">
+        <span class="case-tag">前沿案例：特斯拉（Tesla）與電動車產業的成本曲線重構</span>
+        <p>電動車龍頭特斯拉之所以能多次發動價格戰，正是因為其橫跨了規模經濟與學習曲線雙重優勢：</p>
+        <ul>
+            <li><strong>規模經濟（LATC 沿線移動）：</strong> 超級工廠（Gigafactory）的巨型模組化生產與一體化壓鑄技術（Gigacasting），顯著降低了單車固定資本分攤。</li>
+            <li><strong>學習效應（LATC 曲線向下位移）：</strong> 隨著累積產量增加，工程師優化電池組裝與軟體韌體流程，使相同的產出規模下，每輛車所需的人力與時間成本大幅下降。</li>
+        </ul>
+    </div>
+
+    <h3>3. 高固定成本結構下的產能利用率（Capacity Utilization）</h3>
+    <p>對於固定成本極高、可變成本極低的產業，短期平均總成本（$SATC$）的形狀呈現非常陡峭的下降趨勢。</p>
+
+    <div class="case-study">
+        <span class="case-tag">生活實例：航空業與高鐵營運的邊際成本極小化</span>
+        <p>航空公司購買客機或台灣高鐵鋪設軌道，面臨龐大的短期固定成本（$FC$）。然而，多載一名乘客的邊際成本（$SMC$，如一份飛機餐或少許油耗）幾乎接近於零。</p>
+        <p>這導致航空與高鐵企業極度依賴高產能利用率（載客率）。為了讓產量接近 $SATC$ 的低點，企業採用「動態定價（Yield Management）」——在離峰時段推出極低折扣票，只要票價高於邊際成本 $SMC$，就能增加總利潤並填補固定成本。</p>
+    </div>
+
+    <h2>四、 碩士班深度思考與討論議題</h2>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課堂研討題目 (Classroom Discussion)</div>
+        <ol>
+            <li><strong>行為經濟學與心理沉沒成本偏誤：</strong> 理論上，最適決策應無視沉沒成本（Sunk Cost Fallacy）。但為何現實中的高階經理人常因為「已經投了這麼多錢」而選擇繼續加碼虧損項目？企業機制該如何設計以矯正這種心理偏誤？</li>
+            <li><strong>彈性製造與成本曲線形狀：</strong> 傳統多孔或重型製造業的 $SATC$ 曲線呈明確的 U 型（產能彈性小）。現代智慧工廠（Smart Manufacturing）透過 AI 與機器人實現多樣少量的彈性生產線，其 $SATC$ 與 $LATC$ 曲線形狀會發生什麼轉變？（提示：底部區間平坦化）。</li>
+            <li><strong>代理人模擬 (ABM) 中的學習曲線：</strong> 若在 ABM 模型中設定每名員工的學習能力具有異質性（Heterogeneity），且員工間存在經驗交流與溢出效應（Spillover Effect），整個企業的「組織學習曲線」會呈現線性下降還是階梯狀下降？</li>
+        </ol>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html">&larr; 返回課程主頁與論文清單</a>
+        <a href="#">下一節：2.4 收益極大化與供給函數 (Profit Maximization) &rarr;</a>
+    </div>
+</div>
+
+</body>
+</html>
