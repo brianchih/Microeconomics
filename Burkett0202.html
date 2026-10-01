@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第 2.2 節 成本最小化與最適化 - 個體經濟理論導讀</title>
+    
+    <!-- 載入 MathJax 數學公式渲染庫 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+        }
+
+        .book-info {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .book-info p {
+            margin: 4px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.45rem;
+            margin-top: 38px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 28px;
+        }
+
+        .concept-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid var(--accent-color);
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 22px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 22px 0;
+        }
+
+        .case-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .math-block {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #276749;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            color: #c53030;
+            font-weight: 600;
+        }
+
+        .nav-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .nav-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-meta">個體經濟理論碩士班導讀課程</div>
+    <h1>2.2 成本最小化與最適化 (Cost Minimization and Optimization)</h1>
+
+    <div class="book-info">
+        <p><strong>指定教材：</strong>Burkett, J. P. (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>. Oxford University Press.</p>
+        <p><strong>章節範疇：</strong>Chapter 2: Inputs, Outputs, and Costs &mdash; Section 2.2</p>
+    </div>
+
+    <h2>一、 本節理論精髓與 Burkett 的用心</h2>
+    <p>在第 2.1 節建立「生產函數為物理與技術邊界」的概念後，John P. Burkett 在第 2.2 節帶領我們跨入個體經濟學最核心的決策範式：<strong>成本最小化問題（Cost Minimization Problem, CMP）</strong>。</p>
+    <p>Burkett 的獨特之處在於，他不僅僅將最適化（Optimization）呈現為拉格朗日乘數法（Lagrange Multiplier）的純數學演算，更著重強調<strong>相對要素價格（Relative Factor Prices）對技術選擇的引導作用</strong>。他透過理論與實驗對比指出：現實中的管理者並非天生具備完美求解數學拉格朗日式的能力，而是透過持續的價格訊號反饋與行為試錯，逐漸趨近切點條件（Tangency Condition）。</p>
+
+    <h2>二、 數理架構與最適化條件</h2>
+
+    <h3>1. 對偶問題（Dual Problem）的幾何與代數表達</h3>
+    <p>給定目標產出水準 $\bar{q}$，以及工資率 $w$（勞動價格）與資本報酬率 $r$（資本租金價格），企業的成本最小化數學模型為：</p>
+
+    <div class="math-block">
+        $$\min_{L, K} C = wL + rK \quad \text{s.t.} \quad f(L, K) = \bar{q}$$
+    </div>
+
+    <p>建立拉格朗日函數（Lagrangian Function）：</p>
+    <div class="math-block">
+        $$\mathcal{L}(L, K, \lambda) = wL + rK + \lambda [\bar{q} - f(L, K)]$$
+    </div>
+
+    <p>求解一階條件（First-Order Conditions, FOCs）：</p>
+    <div class="math-block">
+        $$\frac{\partial \mathcal{L}}{\partial L} = w - \lambda \frac{\partial f}{\partial L} = 0 \implies w = \lambda MP_L$$
+    </div>
+    <div class="math-block">
+        $$\frac{\partial \mathcal{L}}{\partial K} = r - \lambda \frac{\partial f}{\partial K} = 0 \implies r = \lambda MP_K$$
+    </div>
+
+    <p>將兩式相除，即可導出最著名的幾何切點條件——<strong>邊際技術替代率（MRTS）等於要素相對價格比</strong>：</p>
+    <div class="math-block">
+        $$MRTS_{L,K} = \frac{MP_L}{MP_K} = \frac{w}{r}$$
+    </div>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 Burkett 的經濟直覺：影子價格 $\lambda$ 的真諦</div>
+        <p>拉格朗日乘數 $\lambda$ 在經濟學上具有極深刻的含意——它就是<span class="highlight-text">邊際成本（Marginal Cost, MC）</span>！$\lambda = \frac{w}{MP_L} = \frac{r}{MP_K}$ 代表企業為了多生產最後一單位產出，所必須付出的最小邊際成本。Burkett 提醒我們，這個「影子價格」連接了生產函數的物理邊界與企業的財務成本線。</p>
+    </div>
+
+    <h2>三、 核心概念解析與真實世界時事案例</h2>
+
+    <h3>1. 要素相對價格（$w/r$）變化與技術選擇</h3>
+    <p>當要素相對價格改變時，等成本線（Isocost Line）斜率改變，促使企業沿著等產量線（Isoquant）轉移，調整投入要素組合。</p>
+
+    <div class="case-study">
+        <span class="case-tag">國際財經時事：台積電（TSMC）全球布局的要素替代選擇</span>
+        <p>台積電近年赴美國亞利桑那州、日本熊本及德國德勒斯登建廠，面臨了截然不同的要素相對價格組合：</p>
+        <ul>
+            <li><strong>美國與歐洲廠：</strong> 當地高昂的工程師與營建勞動成本（高 $w$），使得 $w/r$ 急劇上升。為了達成成本最小化，企業必須調整生產技術組合，顯著提升高度自動化設備與 AI 檢測資本（高 $K$）以替代人力。</li>
+            <li><strong>熊本廠：</strong> 日本當地水電與建築資本相對便宜（低 $r$），且政府給予高額資本設備補貼，直接改變了要素價格斜率 $-\frac{w}{r}$，引導工廠採取不同的最適擴廠與排程規模。</li>
+        </ul>
+        <p>這完美示範了 Burkett 課本中的理論：<strong>沒有放之四海皆準的「最適生產技術」，只有相應於特定要素價格體系下的「最適成本組合」。</strong></p>
+    </div>
+
+    <h3>2. 要素替代彈性（Elasticity of Substitution, $\sigma$）與自動化趨勢</h3>
+    <p>要素替代彈性 $\sigma$ 衡量當要素相對價格改變 1% 時，最適要素比例（$K/L$）改變的百分比：</p>
+    <div class="math-block">
+        $$\sigma = \frac{\% \Delta (K/L)}{\% \Delta (MRTS)} = \frac{d\ln(K/L)}{d\ln(w/r)}$$
+    </div>
+
+    <div class="case-study">
+        <span class="case-tag">產業前沿案例：餐飲業人形機器人與物流自動化的 $\sigma$ 實證</span>
+        <p>近年台灣與全球面臨嚴重的餐飲勞動短缺，實質工資 $w$ 持續上漲。許多餐飲龍頭導入送餐機器人與自動點機台：</p>
+        <ul>
+            <li>若生產技術的替代彈性 $\sigma$ 很小（接近 Leontief 固定比例），工資上漲只會讓企業成本劇烈暴增，無法以資本替代勞動。</li>
+            <li>若替代彈性 $\sigma$ 夠大（如現代自動化與 AI 輔助系統），企業就能順暢地以機器資本 $K$ 替代勞動 $L$，抵銷勞動成本上漲壓力，維持最適成本結構。</li>
+        </ul>
+    </div>
+
+    <h3>3. 外生衝擊與擴張線（Expansion Path）的重構</h3>
+    <p>連接不同產出水準 $\bar{q}$ 下最適要素切點的軌跡稱為<strong>擴張線（Expansion Path）</strong>。Burkett 著重討論了當外生環境變數改變時，擴張線如何移動。</p>
+
+    <div class="case-study">
+        <span class="case-tag">綠色經濟與時事：碳定價（Carbon Pricing）對企業擴張線的重塑</span>
+        <p>隨著台灣實施碳費徵收（歐盟 CBAM 碳邊境調節機制上路），傳統生產函數必須納入「碳排放/能源投入（$E$）」作為第三種要素。碳費的徵收相當於提高了高碳能源的實質價格 $P_E$。</p>
+        <p>這導致製造業的擴張線發生劇烈轉折：企業在擴充產能（提高 $q$）時，不能再依循過去粗放型的擴張路徑，而必須透過投資綠電與低碳製程資本（高 $K$）來替換高碳能源，重塑了長期的成本函數形狀。</p>
+    </div>
+
+    <h2>四、 碩士班深度思考與討論議題</h2>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課堂研討題目 (Classroom Discussion)</div>
+        <ol>
+            <li><strong>行為經濟學與經驗法則（Heuristics）：</strong> Burkett 在書中提及，許多中小企業管理者根本不知道什麼是「拉格朗日乘數法」或 $MRTS = w/r$。但為什麼在市場競爭淘汰機制下，生存下來的企業其行為卻高度契合這個切點條件？（提示：演化經濟學與 Friedman 的 "As-If" 假說）。</li>
+            <li><strong>短期限制下的次優選擇（Suboptimal Adjustment）：</strong> 當遇到突發性衝擊（如疫情造成的供應鏈中斷），企業無法立刻調整固定資本 $K$ 時，其「短期邊際成本（SMC）」與「長期邊際成本（LMC）」會如何偏離？這對企業定價策略有何影響？</li>
+            <li><strong>AI 資本的邊際報酬與彈性：</strong> 導入生成式 AI 到底屬於「勞動增強型（Labor-Augmenting）」還是「資本替代型（Capital-Substituting）」的技術進步？這對未來勞動份額（Labor Share of Income）的轉變有何個體理論含意？</li>
+        </ol>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html">&larr; 返回課程主頁與論文清單</a>
+        <a href="Burkett0203.html">下一節：2.3 長期與短期成本函數 (Cost Curves) &rarr;</a>
+    </div>
+</div>
+
+</body>
+</html>
