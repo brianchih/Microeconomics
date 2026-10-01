@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第 2.5 節 比較靜態分析與包絡線定理 - 個體經濟理論導讀</title>
+    
+    <!-- 載入 MathJax 數學公式渲染庫 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+        }
+
+        .book-info {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .book-info p {
+            margin: 4px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.45rem;
+            margin-top: 38px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 28px;
+        }
+
+        .concept-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid var(--accent-color);
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 22px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 22px 0;
+        }
+
+        .case-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .math-block {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #276749;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            color: #c53030;
+            font-weight: 600;
+        }
+
+        .nav-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .nav-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-meta">個體經濟理論碩士班導讀課程</div>
+    <h1>2.5 比較靜態分析與包絡線定理 (Comparative Statics and the Envelope Theorem)</h1>
+
+    <div class="book-info">
+        <p><strong>指定教材：</strong>Burkett, J. P. (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>. Oxford University Press.</p>
+        <p><strong>章節範疇：</strong>Chapter 2: Inputs, Outputs, and Costs &mdash; Section 2.5</p>
+    </div>
+
+    <h2>一、 本節理論精髓與 Burkett 的用心</h2>
+    <p>作為第二章「投入、產出與成本」的終章，John P. Burkett 在第 2.5 節展示了個體經濟學最適化分析的精美結晶：<strong>比較靜態分析（Comparative Statics）與包絡線定理（Envelope Theorem）的通用推導</strong>。</p>
+    <p>在實際企業經營與政策評估中，我們往往無法直接觀察到複雜的生產函數細節，但管理者與分析師卻必須回答關鍵的敏感度問題：當工資上漲 10%、碳費提高或利率波動時，最適成本與最大利潤會如何變化？Burkett 強調，<strong>包絡線定理為我們提供了一把「無需重新求解整體最適化問題」的數學捷徑</strong>，展現了幾何切點與對偶解析的強大力量。</p>
+
+    <h2>二、 數理架構與包絡線定理推導</h2>
+
+    <h3>1. 一般化包絡線定理 (General Envelope Theorem)</h3>
+    <p>設極大化目標函數為 $f(x, a)$，其中 $x$ 為選擇變數，$a$ 為外生外在參數。定義極大化價值函數（Value Function）為：</p>
+
+    <div class="math-block">
+        $$V(a) = \max_{x} f(x, a) = f(x^*(a), a)$$
+    </div>
+
+    <p>對外生參數 $a$ 求全微分：</p>
+    <div class="math-block">
+        $$\frac{dV(a)}{da} = \frac{\partial f(x^*, a)}{\partial x} \cdot \frac{dx^*}{da} + \frac{\partial f(x^*, a)}{\partial a}$$
+    </div>
+
+    <p>由於在最適點 $x^*$ 處滿足一階最佳化條件 $\frac{\partial f(x^*, a)}{\partial x} = 0$，上式第一項直接歸零，簡化為：</p>
+
+    <div class="math-block">
+        $$\frac{dV(a)}{da} = \left. \frac{\partial f(x, a)}{\partial a} \right|_{x = x^*(a)}$$
+    </div>
+
+    <p>這即是包絡線定理的核心：<span class="highlight-text">價值函數對外生參數的總變動率，等於直接將選擇變數固定在最適點時，目標函數對該參數的偏微分</span>。</p>
+
+    <h3>2. 謝法德引理 (Shephard's Lemma) 的比較靜態應用</h3>
+    <p>將包絡線定理應用於成本極小化函數 $C^*(w, r, \bar{q}) = wL^*(w, r, \bar{q}) + rK^*(w, r, \bar{q})$，對工資率 $w$ 求偏導數：</p>
+
+    <div class="math-block">
+        $$\frac{\partial C^*(w, r, \bar{q})}{\partial w} = L^*(w, r, \bar{q})$$
+    </div>
+
+    <p>這說明最小總成本對要素價格的敏感度，正好等於該要素的希克斯需求量（Hicksian Demand）。</p>
+
+    <h3>3. 霍特林引理 (Hotelling's Lemma) 與比較靜態符號</h3>
+    <p>將包絡線定理應用於極大利潤函數 $\pi^*(p, w, r) = \max_q \{ pq - C(q, w, r) \}$：</p>
+
+    <div class="math-block">
+        $$\frac{\partial \pi^*}{\partial p} = q^*, \quad \frac{\partial \pi^*}{\partial w} = -L^*, \quad \frac{\partial \pi^*}{\partial r} = -K^*$$
+    </div>
+
+    <p>藉由二階條件所獲得的凸性（Convexity），可直接導出比較靜態分析的基本律則：<span class="highlight-text">供給曲線必定斜率為正（$\frac{\partial q^*}{\partial p} \ge 0$），且要素需求曲線斜率必為負（$\frac{\partial L^*}{\partial w} \le 0$）</span>。</p>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 Burkett 的經濟直覺：為何包絡線定理能簡化計算？</div>
+        <p>當外部環境（如工資 $w$）微幅改變時，企業確實會重新調整勞動與資本的配置（即 $\frac{dx^*}{da} \neq 0$）。但在最佳化切點附近，<span class="highlight-text">因重新調整決策所帶來的二次微小效益完全被一階條件抵銷</span>。因此，估算總成本或總利潤衝擊時，完全不需要考慮決策調整的複雜細節！</p>
+    </div>
+
+    <h2>三、 核心概念解析與真實世界時事案例</h2>
+
+    <h3>1. 謝法德引理與全球供應鏈薪資衝擊評估</h3>
+    <p>Burkett 指出，包絡線定理讓政策制定者與財務長能在資訊不完全的情況下，精確評估外生價格衝擊對企業成本的邊際影響。</p>
+
+    <div class="case-study">
+        <span class="case-tag">產業財經時事：製造業基本工資調升與總成本衝擊的快速估算</span>
+        <p>當政府宣佈調升基本工資（$w \to w + \Delta w$）時，許多企業管理者急於知道這對公司總成本的衝擊幅度。根據謝法德引理：</p>
+        <div class="math-block">
+            $$\Delta C^* \approx \frac{\partial C^*}{\partial w} \cdot \Delta w = L^* \cdot \Delta w$$
+        </div>
+        <p>只要知道當前使用的勞動總總量 $L^*$，即可直接算出成本變動，完全不需要先去精確估計複雜的生產函數 $\sigma$ 或重解最適化模型。這示範了個體經濟學工具在管理實務上的高度實用性。</p>
+    </div>
+
+    <h3>2. 霍特林引理與能源/碳費政策對產業利潤的衝擊</h3>
+    <p>運用霍特林引理的比較靜態分析，能夠預測碳定價或能源價格波動對不同產業總利潤的敏感度分析（Comparative Statics）。</p>
+
+    <div class="case-study">
+        <span class="case-tag">綠色經濟與政策時事：徵收碳費對鋼鐵與水泥業利潤的邊際影響</span>
+        <p>當政府開始徵收碳費（每噸碳排放徵收 $t$ 元，相當於提高碳密集能源要素價格 $p_E$），產業利潤變化的邊際反應為：</p>
+        <div class="math-block">
+            $$\frac{\partial \pi^*}{\partial t} = -E^*(p, w, r, t)$$
+        </div>
+        <p>這表示碳費對企業利潤的直接邊際傷害，完全由企業當前的總碳排放/高碳能源使用量 $E^*$ 所決定。高碳排產業（如傳統鋼鐵廠）的利潤函數斜率極陡，促使其有極強烈的誘因進行綠色技術創新，以改變價值函數的形狀。</p>
+    </div>
+
+    <h3>3. 技術進步與要素報酬的比較靜態動態</h3>
+    <p>當技術參數 $T$ 改變時，包絡線定理同樣能告訴我們技術進步對企業最大利潤的邊際貢獻。</p>
+
+    <div class="case-study">
+        <span class="case-tag">前沿應用：企業導入生成式 AI 資本的比較靜態利潤效應</span>
+        <p>假設企業引進生成式 AI 技術資本（參數 $A$ 上升），其利潤函數改變幅度為 $\frac{\partial \pi^*}{\partial A} = p \cdot \frac{\partial f(L^*, K^*, A)}{\partial A}$。</p>
+        <p>比較靜態分析進一步預測：若 AI 技術與高技能勞動呈現互補（$\frac{\partial^2 f}{\partial L \partial A} > 0$），技術進步將導致高技能勞動的邊際產量與薪資需求 $L^*$ 雙雙上升，這精確解釋了近年高科技軟體與 AI 人才薪資水準大幅拉開的個體經濟機制。</p>
+    </div>
+
+    <h2>四、 碩士班深度思考與討論議題</h2>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課堂研討題目 (Classroom Discussion)</div>
+        <ol>
+            <li><strong>包絡線定理的邊界條件（Non-Smooth Optimization）：</strong> 包絡線定理成立的前提是目標函數可微（Smooth）。若企業面臨非連續的技術選擇（如只有幾種固定模組的機器可選）或存在調整成本（Adjustment Costs），包絡線定理的捷徑會面臨何種挑戰？</li>
+            <li><strong>Le Chatelier 原理與長短期比較靜態：</strong> Le Chatelier 原理指出，長期供給曲線對價格的敏感度大於短期（$\frac{\partial q_{LR}^*}{\partial p} \ge \frac{\partial q_{SR}^*}{\partial p}$）。請從「選擇變數受到約束」的角度，解釋為何長期彈性必然大於或等於短期彈性？</li>
+            <li><strong>實驗經濟學中的比較靜態驗證：</strong> 在 Burkett 提及的實驗經濟學環境中，給定外生參數改變，真實受試者（管理人員）通常需要經歷多少輪試錯（Trial-and-Error）才能收斂到包絡線定理所預測的最適比較靜態結果？</li>
+        </ol>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html">&larr; 返回課程主頁與論文清單</a>
+        <a href="#">下一章：Chapter 3 Consumer Choice and Demand &rarr;</a>
+    </div>
+</div>
+
+</body>
+</html>
