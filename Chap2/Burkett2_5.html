@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.5 隨堂練習解答與詳細解析 | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，確保數學式精確渲染，避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #0d9488;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --exercise-bg: #f1f5f9;
+            --exercise-border: #0f766e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .exercise-box {
+            background-color: var(--exercise-bg);
+            border-left: 5px solid var(--exercise-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+        }
+
+        .exercise-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0f766e;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .solution-step {
+            margin-top: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .solution-step strong {
+            color: var(--primary-color);
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>2.5 隨堂練習解答 (Solutions to Exercises)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第二章數學演練與案例對照</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：從數學演算到商業邏輯的驗證</h2>
+            <p class="lead-text">在第 2.1 至 2.3 節中，我們研討了個體經濟學中有關投入、產出與成本極小化的理論架構。本節（2.5 節）針對教材內文的隨堂練習（Exercises）提供嚴密的解答與數學推導步驟。</p>
+            <p>對碩士生而言，掌握這些數學推導不僅能提升微積分優化的工具應用能力，更能深刻理解演算成果如何對應到現實世界中企業的成本極小化策略。</p>
+        </div>
+
+        <!-- 練習一：邊際產量與 MRTS -->
+        <div class="section-card">
+            <h2>1. 練習 2.1 解答：邊際產量與邊際技術替代率推導</h2>
+            
+            <div class="exercise-box">
+                <div class="exercise-title">📝 題目 2.1 (Exercise 2.1)</div>
+                <p>假設某廠商的生產函數為柯布-道格拉斯（Cobb-Douglas）形式：</p>
+                <p>$$q = A K^\alpha L^\beta \quad (\text{其中 } A > 0, 0 < \alpha < 1, 0 < \beta < 1)$$</p>
+                <p>(a) 求勞動邊際產量 ($MP_L$) 與資本邊際產量 ($MP_K$)。<br>
+                   (b) 推導邊際技術替代率 ($MRTS_{L,K}$)，並說明其是否隨著 $L$ 的增加而遞減？</p>
+            </div>
+
+            <div class="solution-step">
+                <h3>詳細解答與推導步驟</h3>
+                <p><strong>(a) 計算邊際產量：</strong></p>
+                <p>分別對偏微分：</p>
+                <div class="math-block">
+                    $$MP_L = \frac{\partial q}{\partial L} = \beta A K^\alpha L^{\beta - 1} = \beta \frac{q}{L}$$
+                </div>
+                <div class="math-block">
+                    $$MP_K = \frac{\partial q}{\partial K} = \alpha A K^{\alpha - 1} L^\beta = \alpha \frac{q}{K}$$
+                </div>
+
+                <p><strong>(b) 計算與分析 $MRTS_{L,K}$：</strong></p>
+                <p>根據邊際技術替代率定義：</p>
+                <div class="math-block">
+                    $$MRTS_{L,K} = \frac{MP_L}{MP_K} = \frac{\beta \frac{q}{L}}{\alpha \frac{q}{K}} = \left(\frac{\beta}{\alpha}\right) \cdot \left(\frac{K}{L}\right)$$
+                </div>
+                <p>當產量固定在 $q = \bar{q}$ 時，沿著等產量曲線增加勞動 $L$，資本 $K$ 必須減少。因此，要素比例 $\frac{K}{L}$ 會隨著 $L$ 的增加而下降。由於 $\frac{\beta}{\alpha} > 0$，這證明了 $MRTS_{L,K}$ 隨著 $L$ 的增加而遞減（等產量曲線呈現向原點凸出）。</p>
+            </div>
+        </div>
+
+        <!-- 練習二：成本極小化與條件要素需求 -->
+        <div class="section-card">
+            <h2>2. 練習 2.2 解答：拉格朗日法求解成本極小化</h2>
+
+            <div class="exercise-box">
+                <div class="exercise-title">📝 題目 2.2 (Exercise 2.2)</div>
+                <p>承接題目 2.1 的生產函數 $q = A K^\alpha L^\beta$，給定工資率 $w$ 與資本租金 $r$，目標產量為 $q_0$。</p>
+                <p>(a) 建立拉格朗日函數，求條件要素需求函數 $L^c(w,r,q_0)$ 與 $K^c(w,r,q_0)$。<br>
+                   (b) 求總成本函數 $C(w,r,q_0)$，並說明拉格朗日乘數 $\lambda$ 的意義。</p>
+            </div>
+
+            <div class="solution-step">
+                <h3>詳細解答與推導步驟</h3>
+                <p><strong>(a) 拉格朗日極小化：</strong></p>
+                <p>建構目標函數：</p>
+                <div class="math-block">
+                    $$\mathcal{L}(K, L, \lambda) = wL + rK + \lambda \left( q_0 - A K^\alpha L^\beta \right)$$
+                </div>
+                <p>求一階條件 (FOCs)：</p>
+                <div class="math-block">
+                    $$\begin{aligned}
+                    \frac{\partial \mathcal{L}}{\partial L} &= w - \lambda \beta A K^\alpha L^{\beta-1} = 0 \implies w = \lambda MP_L \\[6pt]
+                    \frac{\partial \mathcal{L}}{\partial K} &= r - \lambda \alpha A K^{\alpha-1} L^\beta = 0 \implies r = \lambda MP_K \\[6pt]
+                    \frac{\partial \mathcal{L}}{\partial \lambda} &= q_0 - A K^\alpha L^\beta = 0
+                    \end{aligned}$$
+                </div>
+                <p>前兩式相除得均衡相對投入比例：</p>
+                <div class="math-block">
+                    $$\frac{w}{r} = \frac{\beta K}{\alpha L} \implies K = \left(\frac{\alpha}{\beta}\right) \left(\frac{w}{r}\right) L$$
+                </div>
+                <p>將 $K$ 帶入產能限制條件 $q_0 = A K^\alpha L^\beta$ 中求解，可得條件要素需求：</p>
+                <div class="math-block">
+                    $$L^c(w, r, q_0) = \left( \frac{q_0}{A} \right)^{\frac{1}{\alpha+\beta}} \left( \frac{\beta w}{\alpha r} \right)^{-\frac{\alpha}{\alpha+\beta}}$$
+                </div>
+                <div class="math-block">
+                    $$K^c(w, r, q_0) = \left( \frac{q_0}{A} \right)^{\frac{1}{\alpha+\beta}} \left( \frac{\alpha r}{\beta w} \right)^{-\frac{\beta}{\alpha+\beta}}$$
+                </div>
+
+                <p><strong>(b) 總成本函數與 $\lambda$ 意義：</strong></p>
+                <p>將 $L^c$ 與 $K^c$ 帶入 $C = wL^c + rK^c$，可推導出成本函數：</p>
+                <div class="math-block">
+                    $$C(w, r, q_0) = \left( \frac{q_0}{A} \right)^{\frac{1}{\alpha+\beta}} \left[ \left(\frac{\alpha}{\beta}\right)^{\frac{\beta}{\alpha+\beta}} + \left(\frac{\beta}{\alpha}\right)^{\frac{\alpha}{\alpha+\beta}} \right] w^{\frac{\beta}{\alpha+\beta}} r^{\frac{\alpha}{\alpha+\beta}}$$
+                </div>
+                <p>拉格朗日乘數 $\lambda = \frac{\partial C}{\partial q_0} = MC$，代表多生產一單位產出所增加的最小邊際成本負擔。</p>
+            </div>
+        </div>
+
+        <!-- 3. 產業時事案例對照 -->
+        <div class="section-card">
+            <h2>3. 產業時事對照：習題解答在科技產業成本調配的現實意義</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業時事：Meta 與 Google 的 AI 資料中心電力與算力優化（解題公式的現實落實）</div>
+                <p><strong>背景對照：</strong> 在題目 2.2 推導出來的條件要素需求公式中，$L^c$ 與 $K^c$ 取決於相對要素價格比率 $\frac{w}{r}$。</p>
+                <p>現實中，科技巨頭在建設生成式 AI 訓練基礎設施時，面臨電力（$E$）與高端 GPU 伺服器（$K$）的選擇：</p>
+                <ul>
+                    <li>當某些地區電力價格（$p_e$）暴漲時，公式顯示 $K^c/E^c$ 的比例會隨相對價格上升而重新調整。</li>
+                    <li>企業會選擇將 AI 模型「預訓練（Pre-training）」移至電費低廉的地方，而將對延遲敏感的「推理（Inference）」留在都市邊緣，這正是利用推導出來的最小成本函數 $C(w,r,q_0)$ 進行全球資源最適化配置。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 研究生生活案例對照 -->
+        <div class="section-card">
+            <h2>4. 生活案例：研究生期末複習與報告準備的微積分體驗</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：課業、論文與實習申請的均衡回報</div>
+                <p><strong>情境對照：</strong> 練習題 2.2 中的一階條件 $\frac{MP_L}{w} = \frac{MP_K}{r} = \frac{1}{\lambda}$ 說明了「均等邊際效益原則」。</p>
+                <p>研究生在期末考週面臨多門高級課程（例如個體經濟學與計量經濟學）：</p>
+                <ul>
+                    <li>若你在個體經濟學上多花 1 小時能讓總分提升 5 分，但在計量經濟學上多花 1 小時能讓總分提升 10 分，這代表你的資源（時間）分配尚未達到最適。</li>
+                    <li>你應該轉移時間至計量經濟學，直到每小時帶來的邊際分數增加量相等為止。此時的影子價格 $\lambda$ 就是你獲得更高的 GPA 所付出的時間邊際成本。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 課後練習研討 -->
+        <div class="section-card">
+            <h2>5. 碩士班進階演練 (Self-Practice Challenge)</h2>
+            <p>請各位同學嘗試獨立推導以下延伸題目：</p>
+
+            <ol>
+                <li>
+                    <strong>Leontief 生產函數：</strong> 若生產函數為 $q = \min(2L, 3K)$，要素價格為 $w=10, r=15$。請繪製其等產量曲線，並求出生產 $q_0 = 60$ 時的最小成本與條件要素需求 $L^c, K^c$。（提示：思考為何拉格朗日法在此處無法直接微分？）
+                </li>
+                <li>
+                    <strong>謝法德引理（Shephard's Lemma）驗證：</strong> 利用練習 2.2 推導出的總成本函數 $C(w, r, q_0)$，求偏導數 $\frac{\partial C}{\partial w}$，並驗證其是否精確等於 $L^c(w, r, q_0)$。
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

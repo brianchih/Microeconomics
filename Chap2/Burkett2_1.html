@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.1 基本概念：投入、產出與成本 | 微觀經濟學高級課程</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX 與自訂符號，徹底避免轉義異常與 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --news-bg: #fffaf0;
+            --news-border: #dd6b20;
+            --life-bg: #f0fff4;
+            --life-border: #38a169;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.75;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 6px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #c05621;
+        }
+
+        .life-case .case-title {
+            color: #276749;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .concept-item {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.25rem;
+            background-color: #fff;
+        }
+
+        .concept-item strong {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        ul {
+            padding-left: 1.25rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>2.1 基本概念 (Basic Concepts)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第二章導讀</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 引言 -->
+        <div class="section-card">
+            <h2>單元導讀：從廠商決策看生產與成本</h2>
+            <p class="lead-text">歡迎來到碩士班微觀經濟學。在個體經濟理論中，廠商（Firm）並非單純的「利潤製造機」，而是一個在技術與市場限制下進行決策的優化主體。</p>
+            <p>本節探討 Burkett 教授在 2.1 節中建立的核心工具：如何運用數學函數精確定義<strong>投入（Inputs）</strong>、<strong>產出（Outputs）</strong>與<strong>成本結構（Cost Structure）</strong>。我們將結合現今科技產業與日常生活情境，協助大家將抽象的幾何與微積分轉化為具體的商業直覺。</p>
+        </div>
+
+        <!-- 1. 生產函數 -->
+        <div class="section-card">
+            <h2>1. 生產函數 (Production Function)</h2>
+            <p>生產函數描述在給定技術水準下，投入組合與可獲取的最大產出之間的物理與技術關係。</p>
+
+            <h3>理論與數學式</h3>
+            <p>假設廠商僅使用兩種生產要素：資本 $K$ (Capital) 與勞動 $L$ (Labor)。生產函數可寫為：</p>
+            
+            <div class="math-block">
+                $$q = f(K, L)$$
+            </div>
+
+            <p>其中 $q$ 代表最大可能的產出數量。在實務分析中，常採用柯布-道格拉斯（Cobb-Douglas）生產函數：</p>
+
+            <div class="math-block">
+                $$q = A \cdot K^\alpha \cdot L^\beta \quad (\alpha > 0, \beta > 0, A > 0)$$
+            </div>
+
+            <!-- 時事案例 -->
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業時事：晶圓代工廠與 AI 算力基礎設施</div>
+                <p>以台積電（TSMC）或英偉達（Nvidia） AI 伺服器的生產為例：</p>
+                <ul>
+                    <li><strong>資本投入 ($K$)：</strong> 極紫外光曝光機（EUV）、先進封裝廠房、自動化設備。</li>
+                    <li><strong>勞動投入 ($L$)：</strong> 研發工程師、製程優化團隊、軟體架構師。</li>
+                    <li><strong>技術係數 ($A$)：</strong> 代表良率（Yield Rate）與專利累積。當良率提升時，相同的 $K$ 與 $L$ 投入能產出更多的合格晶片 $q$。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. 邊際產量與邊際技術替代率 -->
+        <div class="section-card">
+            <h2>2. 邊際產量與技術替換率</h2>
+            <p>為了評估增加單一投入對總產出的影響，我們導入偏微分的概念。</p>
+
+            <h3>邊際產能 (Marginal Products)</h3>
+            <div class="concept-grid">
+                <div class="concept-item">
+                    <strong>勞動邊際產量 ($MP_L$)</strong>
+                    $$MP_L = \frac{\partial f(K, L)}{\partial L}$$
+                    在資本固定下，每增加一單位勞動帶來的產出變動。
+                </div>
+                <div class="concept-item">
+                    <strong>資本邊際產量 ($MP_K$)</strong>
+                    $$MP_K = \frac{\partial f(K, L)}{\partial K}$$
+                    在勞動固定下，每增加一單位資本帶來的產出變動。
+                </div>
+            </div>
+
+            <h3>邊際技術替代率 (MRTS)</h3>
+            <p>邊際技術替代率（Marginal Rate of Technical Substitution, $MRTS$）代表在維持總產出 $q$ 不變的前提下，增加一單位勞動所能替代的資本數量：</p>
+
+            <div class="math-block">
+                $$MRTS_{L, K} = -\frac{dK}{dL}\bigg|_{q=\bar{q}} = \frac{MP_L}{MP_K}$$
+            </div>
+
+            <!-- 生活案例 -->
+            <div class="case-box life-case">
+                <div class="case-title">☕ 生活案例：連鎖咖啡店的營運優化</div>
+                <p>假設你經營一家連鎖精品咖啡店：</p>
+                <ul>
+                    <li><strong>資本 $K$：</strong> 半自動義式咖啡機數量。</li>
+                    <li><strong>勞動 $L$：</strong> 現場巴斯塔（Barista）人數。</li>
+                </ul>
+                <p>當只有一台咖啡機（$K$ 固定）時，增加第一位員工可使 $MP_L$ 顯著提升；但增加到第四位員工時，大家會擠在同一台機器前，此時 $MP_L$ 出現遞減（邊際報酬遞減法則）。若引進自動沖煮設備（提升 $K$），則能有效降低對人力 $L$ 的依賴，這體現了 $MRTS$ 的調配過程。</p>
+            </div>
+        </div>
+
+        <!-- 3. 成本結構與等成本線 -->
+        <div class="section-card">
+            <h2>3. 成本函數與等成本線 (Isocost Line)</h2>
+            <p>生產不僅關乎技術能力，更關乎財務約束。廠商的總成本（Total Cost, $C$）由要素價格決定。</p>
+
+            <h3>數學表達式</h3>
+            <p>給定工資率 $w$ (Wage) 與資本租用價格 $r$ (Rental rate of capital)：</p>
+
+            <div class="math-block">
+                $$C = wL + rK$$
+            </div>
+
+            <p>將上式重組為以 $K$ 為縱軸、$L$ 為橫軸的直線方程（等成本線）：</p>
+
+            <div class="math-block">
+                $$K = \frac{C}{r} - \left(\frac{w}{r}\right)L$$
+            </div>
+
+            <p>等成本線的斜率為 $-\frac{w}{r}$，代表市場上兩種要素的相對價格比率。</p>
+
+            <!-- 碩士班深度思考 -->
+            <div class="case-box news-case">
+                <div class="case-title">💡 碩士班深度思考：全球供應鏈重組下的相對價格變動</div>
+                <p>近年全球供應鏈重組，各國面臨工資上漲與利息變動：</p>
+                <ul>
+                    <li>若工資率 $w$ 顯著上升（例如先進國家勞動力短缺），等成本線斜率 $-\frac{w}{r}$ 會變得更陡峭。</li>
+                    <li>這意味著「勞動相較於資本變得更昂貴」，進而驅使企業推進自動化（以 $K$ 替代 $L$）。這正是近兩年生成式 AI 與機器人產業快速成長的個體經濟學基礎。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 結論與思考題 -->
+        <div class="section-card">
+            <h2>課後思考與研討</h2>
+            <p>請思考以下問題，我們將於課堂討論：</p>
+            <ol>
+                <li>若生產函數為 $f(K, L) = A K^\alpha L^\beta$，請證明當 $\alpha + \beta = 1$ 時，該生產函數具備規模報酬不變（Constant Returns to Scale, CRS）的特性。</li>
+                <li>試結合最新科技新聞，分析物流業者（如亞馬遜、順豐）在推動「無人機/無人車送貨」時，其 $MRTS$ 與相對要素價格 ratio ($\frac{w}{r}$) 扮演何種關鍵角色？</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>建議搭配課程講義與 Matlab/R 實驗展示使用</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.7 附錄：指數與對數複習 | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，確保數學式精確渲染，避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #0284c7;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --math-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: var(--math-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .card-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        .img-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .caption {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>2.7 附錄：指數與對數複習 (Review of Exponents and Logarithms)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第二章數學基礎</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：個體經濟學的數學解構工具</h2>
+            <p class="lead-text">在第二章中，我們大量使用了非線性生產函數（如 Cobb-Douglas 與 CES 生產函數）。為了分析要素替代彈性（Elasticity of Substitution）、導出條件要素需求，以及估計計量模型，指數與自然對數（$\ln$）是不可或缺的數學工具。</p>
+            <p>本附錄（2.7 節）旨在協助碩士生溫故知新，掌握指數與對數代數法則，並重點理解其在個體經濟理論與計量實證中的極致應用。</p>
+        </div>
+
+        <!-- 視覺呈現 -->
+        <div class="section-card">
+            <h2>1. 指數與自然對數函數的幾何特徵</h2>
+            <p>自然對數函數 $y = \ln(x)$ 與指數函數 $y = e^x$ 互為反函數。對數函數的幾何圖形呈現出嚴格凹性（Concave），這與個體經濟學中「邊際效用遞減」與「邊際報酬遞減」的數學幾何特徵完全吻合。</p>
+
+            <div class="img-container">
+                <Image src="image_agent_tag_302054042788143054.png" alt="對數函數曲線圖" caption="自然對數函數 y = ln(x) 隨 x 增加而成長遞減的凹曲線特徵" />
+            </div>
+        </div>
+
+        <!-- 2. 核心代數法則與經學轉化 -->
+        <div class="section-card">
+            <h2>2. 核心指數與對數運算規則</h2>
+
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>指數運算法則 (Exponent Rules)</h4>
+                    <ul>
+                        <li>$x^a \cdot x^b = x^{a+b}$</li>
+                        <li>$\frac{x^a}{x^b} = x^{a-b}$</li>
+                        <li>$(x^a)^b = x^{a \cdot b}$</li>
+                        <li>$(x \cdot y)^a = x^a \cdot y^a$</li>
+                        <li>$x^{-a} = \frac{1}{x^a}$</li>
+                    </ul>
+                </div>
+                <div class="card-item">
+                    <h4>對數運算法則 (Logarithm Rules)</h4>
+                    <ul>
+                        <li>$\ln(x \cdot y) = \ln(x) + \ln(y)$</li>
+                        <li>$\ln\left(\frac{x}{y}\right) = \ln(x) - \ln(y)$</li>
+                        <li>$\ln(x^a) = a \cdot \ln(x)$</li>
+                        <li>$\ln(1) = 0 \quad \text{且} \quad \ln(e) = 1$</li>
+                        <li>$\frac{d}{dx} \ln(x) = \frac{1}{x}$</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>對數微積分類比：全微分與變動率 (Growth Rate)</h3>
+            <p>在經濟學中，變數 $x$ 的自然對數的全微分等於其相對變動率（百分比變動）：</p>
+
+            <div class="math-block">
+                $$d \ln(x) = \frac{dx}{x} = \% \Delta x$$
+            </div>
+
+            <p>這個性質讓我們可以極為輕鬆地將複雜的乘積型生產函數（如 $q = A K^\alpha L^\beta$）轉換為加總型的變動率公式：</p>
+
+            <div class="math-block">
+                $$\ln(q) = \ln(A) + \alpha \ln(K) + \beta \ln(L) \implies \frac{dq}{q} = \frac{dA}{A} + \alpha \frac{dK}{K} + \beta \frac{dL}{L}$$
+            </div>
+        </div>
+
+        <!-- 3. 產業時事案例：Log-Log 模型與大模型 Scaling Law -->
+        <div class="section-card">
+            <h2>3. 產業時事：大語言模型 (LLM) Scaling Laws 與雙對數計量模型</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 科技前沿：AI 大模型的算力 scaling 規律與 Cobb-Douglas 線性化</div>
+                <p><strong>背景分析：</strong> OpenAI 與 Anthropic 在訓練 GPT-4 或 Claude 等大語言模型時，發現模型的性能（或損失函數）與訓練算力（FLOPs $K$）、數據量（Tokens $L$）之間遵守嚴格的冪律關係（Power Law），這實質上就是 Cobb-Douglas 生產函數型態。</p>
+
+                <p><strong>對數轉換在實證計量上的應用：</strong></p>
+                <ul>
+                    <li><strong>線性化處理：</strong> 原始非線性模型 $q = A K^\alpha L^\beta$ 極難直接使用普通最小平方法（OLS）估計。經由取自然對數後，轉變為雙對數模型（Log-Log Model）：
+                        $$\ln(q_i) = \beta_0 + \alpha \ln(K_i) + \beta \ln(L_i) + \varepsilon_i$$
+                    </li>
+                    <li><strong>彈性的直接解釋：</strong> 在對數迴歸中，迴歸係數 $\alpha$ 與 $\beta$ 直接代表<strong>產出彈性（Elasticity）</strong>。例如：$\alpha = 0.6$ 代表在勞動與數據不變下，算力增加 1%，模型效能 $q$ 增加 0.6%。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 生活案例：複利成長與個人職涯累積 -->
+        <div class="section-card">
+            <h2>4. 生活案例：連續複利與碩士職涯資本的累積</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：連續複利公式 $PV \cdot e^{rt}$ 與學習曲線</div>
+                <p><strong>情境體驗：</strong> 碩士生的專業技能累積與財務投資，通常適用指數連續複利模型。若你的初始能力為 $S_0$，以年成長率 $g$ 持續積累 $t$ 年，則未來的能力可寫為：</p>
+
+                <div class="math-block">
+                    $$S(t) = S_0 \cdot e^{gt}$$
+                </div>
+
+                <p><strong>72 法則與對數推導：</strong></p>
+                <p>若想知道能力或資產翻倍（$S(t) = 2 S_0$）需要多少時間，可利用自然對數求解：</p>
+
+                <div class="math-block">
+                    $$2 S_0 = S_0 \cdot e^{gt} \implies \ln(2) = gt \implies t = \frac{\ln(2)}{g} \approx \frac{0.693}{g}$$
+                </div>
+
+                <p>這正是金融學與經濟學中常用的「70 法則（或 72 法則）」的嚴密數學起源。</p>
+            </div>
+        </div>
+
+        <!-- 5. 課後練習題 -->
+        <div class="section-card">
+            <h2>5. 數學自我檢測 (Mathematical Self-Test)</h2>
+            <p>請嘗試解答以下 Burkett 教授在 2.7 節強調的數學練習題：</p>
+
+            <ol>
+                <li>
+                    設生產函數為 $q = 10 K^{0.4} L^{0.6}$。
+                    <ul>
+                        <li>取自然對數寫出 $\ln(q)$ 的表達式。</li>
+                        <li>若資本 $K$ 成長 3%，勞動 $L$ 成長 2%，請利用微分對數法則計算產出 $q$ 的大約百分比變動。</li>
+                    </ul>
+                </li>
+                <li>
+                    已知 CES 生產函數為 $q = (0.5 K^{-\rho} + 0.5 L^{-\rho})^{-\frac{1}{\rho}}$，請利用洛必達法則（L'Hôpital's Rule）與對數轉換，證明當 $\rho \to 0$ 時，該函數會收斂至 Cobb-Douglas 生產函數 $q = K^{0.5} L^{0.5}$。
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

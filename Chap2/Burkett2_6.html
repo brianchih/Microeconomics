@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.6 章末習題與進階演練 (Problems) | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，確保數學式精確渲染，避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #4f46e5;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --problem-bg: #f1f5f9;
+            --problem-border: #4338ca;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .problem-box {
+            background-color: var(--problem-bg);
+            border-left: 5px solid var(--problem-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+        }
+
+        .problem-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #3730a3;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .solution-hint {
+            margin-top: 1rem;
+            padding-left: 0.5rem;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 1rem;
+        }
+
+        .solution-hint strong {
+            color: var(--primary-color);
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>2.6 章末習題與研討 (Problems)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第二章綜合進階演練</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：挑戰高級個體經濟學的實戰數學模型</h2>
+            <p class="lead-text">歡迎來到第二章的章末進階習題單元（2.6 Problems）。本節精選並設計了多個涵蓋不同生產函數類型、拉格朗日優化技巧以及包絡線定理（Envelope Theorem）應用的高階習題。</p>
+            <p>透過這些綜合題目的演練，碩士生能進一步深化對微觀個體模型中「技術替代」、「條件需求」與「成本優化」的數學推導能力，並將理論連結至現代商業分析。</p>
+        </div>
+
+        <!-- 習題 1：CES 生產函數的性質與替代彈性 -->
+        <div class="section-card">
+            <h2>1. 問題一：CES 生產函數與替代彈性推導</h2>
+
+            <div class="problem-box">
+                <div class="problem-title">📌 Problem 2.6.1：常數替代彈性 (CES) 函數的拉格朗日求解</div>
+                <p>假設某先進科技製造廠的生產函數為 CES 形式：</p>
+                <p>$$q = A \left[ \alpha K^{-\rho} + (1-\alpha) L^{-\rho} \right]^{-\frac{1}{\rho}} \quad (\text{其中 } A > 0, 0 < \alpha < 1, \rho > -1, \rho \neq 0)$$</p>
+                <p>要素價格分別為工資率 $w$ 與資本租金 $r$，目標產量為 $q_0$。</p>
+                <p>(a) 利用拉格朗日乘數法求解極小化成本問題，推導資本與勞動的最佳投入比例 $\frac{K}{L}$。<br>
+                   (b) 證明其替代彈性 $\sigma = \frac{1}{1+\rho}$。</p>
+            </div>
+
+            <div class="solution-hint">
+                <h3>💡 解析指引與步驟拆解</h3>
+                <p><strong>(a) 拉格朗日一階條件求解：</strong></p>
+                <p>建立拉格朗日函數 $\mathcal{L} = wL + rK + \lambda \left( q_0 - A [ \alpha K^{-\rho} + (1-\alpha) L^{-\rho} ]^{-\frac{1}{\rho}} \right)$。</p>
+                <p>求 $L$ 與 $K$ 的偏微分並令其為零，計算邊際技術替代率：</p>
+                <div class="math-block">
+                    $$MRTS_{L,K} = \frac{MP_L}{MP_K} = \frac{1-\alpha}{\alpha} \left( \frac{K}{L} \right)^{\rho + 1} = \frac{w}{r}$$
+                </div>
+                <p>重組後即可獲得最適要素比例 $\frac{K}{L}$：</p>
+                <div class="math-block">
+                    $$\frac{K}{L} = \left( \frac{\alpha}{1-\alpha} \cdot \frac{w}{r} \right)^{\frac{1}{1+\rho}}$$
+                </div>
+
+                <p><strong>(b) 證明替代彈性 $\sigma$：</strong></p>
+                <p>對最適要素比例兩邊取自然對數：</p>
+                <div class="math-block">
+                    $$\ln\left(\frac{K}{L}\right) = \frac{1}{1+\rho} \ln\left(\frac{\alpha}{1-\alpha}\right) + \frac{1}{1+\rho} \ln\left(\frac{w}{r}\right)$$
+                </div>
+                <p>根據替代彈性定義 $\sigma = \frac{\partial \ln(K/L)}{\partial \ln(w/r)}$，可得 $\sigma = \frac{1}{1+\rho}$，證畢。</p>
+            </div>
+        </div>
+
+        <!-- 習題 2：謝法德引理與包絡線定理 -->
+        <div class="section-card">
+            <h2>2. 問題二：謝法德引理 (Shephard's Lemma) 證明題</h2>
+
+            <div class="problem-box">
+                <div class="problem-title">📌 Problem 2.6.2：總成本函數與條件要素需求的偶對關係</div>
+                <p>假設廠商的總成本函數為 $C(w, r, q_0)$，該函數由成本極小化問題推導而得。請利用包絡線定理（Envelope Theorem）證明謝法德引理：</p>
+                <p>$$\frac{\partial C(w, r, q_0)}{\partial w} = L^c(w, r, q_0) \quad \text{且} \quad \frac{\partial C(w, r, q_0)}{\partial r} = K^c(w, r, q_0)$$</p>
+            </div>
+
+            <div class="solution-hint">
+                <h3>💡 解析指引與步驟拆解</h3>
+                <p>根據定義，極小化問題對應的目標拉格朗日函數在極值點上的數值等於總成本：</p>
+                <div class="math-block">
+                    $$C(w, r, q_0) = \mathcal{L}^*(w, r, q_0) = w L^c + r K^c + \lambda \left( q_0 - f(K^c, L^c) \right)$$
+                </div>
+                <p>根據包絡線定理，當參數 $w$ 發生微小變動時，要素調整對約束條件的間接效應在一階條件下消失，因此可以無視 $L^c, K^c, \lambda$ 對 $w$ 的隱函數偏微分：</p>
+                <div class="math-block">
+                    $$\frac{\partial C(w, r, q_0)}{\partial w} = \frac{\partial \mathcal{L}^*}{\partial w} = L^c(w, r, q_0)$$
+                </div>
+                <p>同理對 $r$ 偏微分亦可得 $K^c(w, r, q_0)$。這項性質在實證計量經濟學中極為重要，讓研究者無需直接觀察生產函數，即可透過成本函數估計出條件要素需求。</p>
+            </div>
+        </div>
+
+        <!-- 3. 產業時事案例對照 -->
+        <div class="section-card">
+            <h2>3. 產業時事對照：碳費徵收與綠電轉型的成本優化演練</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業時事：ESG 與綠電加價下的科技業多要素成本極小化</div>
+                <p><strong>背景對照：</strong> 在 Problem 2.6.1 的 CES 函數模型中，當要素價格發生結構性轉變（例如碳費開徵導致高碳傳統能源價格 $p_{fossil}$ 上漲），企業必須調整要素比例。</p>
+                <p>許多半導體與高科技製造業正積極進行「能源要素替代」：</p>
+                <ul>
+                    <li>企業透過簽署長期綠電採購合約（CPPA）或建置自發自用太陽能儲能設備（增加資本 $K$），來降低對傳統排碳電力（$E$）的依賴。</li>
+                    <li>這正是利用 Problem 2.6.1 推導出來的替代彈性公式 $\sigma = \frac{\partial \ln(K/E)}{\partial \ln(p_{fossil}/r)}$ 進行長期的資本與能源結構重組。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 研究生生活案例對照 -->
+        <div class="section-card">
+            <h2>4. 生活案例：碩士生的時間配置與多任務最適化</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：學術論文、實習實戰與休息放鬆的影子價格</div>
+                <p><strong>情境對照：</strong> Problem 2.6.2 中的包絡線定理與拉格朗日乘數 $\lambda$ 展現了資源約束下「影子價格」的概念。</p>
+                <p>碩士生在撰寫畢業論文時，時間總量 $T$ 屬於硬性約束：</p>
+                <ul>
+                    <li>若論文審查期限逼近（約束條件 $q_0$ 提高），時間的影子價格 $\lambda$（每增加一頁論文所消耗的睡眠與精神價值）會急劇上升。</li>
+                    <li>理解這個優化模型有助於碩士生建立時間管理策略：在早期（$\lambda$ 較低時）適當增加資本投入（例如學習自動化排版與數據分析工具），降低後期的邊際時間成本。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 課後自主練習與挑戰 -->
+        <div class="section-card">
+            <h2>5. 課後自主練習題目 (Self-Challenge Exercises)</h2>
+            <p>請各位同學嘗試獨立完成以下進階章末練習：</p>
+
+            <ol>
+                <li>
+                    <strong>規模報酬與成本函數關係：</strong> 假設生產函數具備 $t$ 階齊次性（Homogeneous of degree $t$），即 $f(kK, kL) = k^t f(K,L)$。請證明其總成本函數可以寫成：
+                    $$C(w, r, q_0) = q_0^{\frac{1}{t}} \cdot C(w, r, 1)$$
+                    並說明當 $t > 1$（規模報酬遞增）時，邊際成本 $MC$ 隨產量變化的趨勢。
+                </li>
+                <li>
+                    <strong>柯布-道格拉斯生產函數的短長期成本對比：</strong> 設 $q = K^{0.5} L^{0.5}$，短期內資本固定於 $\bar{K}$。請推導短期總成本函數 $STC(w, r, q, \bar{K})$，並證明當 $\bar{K}$ 等於長期最適資本需求 $K^c$ 時，短期邊際成本等於長期邊際成本。
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

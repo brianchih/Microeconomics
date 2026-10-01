@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.2 要素替代 (Input Substitution) | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，精確渲染數學式，嚴格避免 ** 符號 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #2563eb;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --math-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: var(--math-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .card-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>2.2 要素替代 (Input Substitution)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第二章專題</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：技術彈性與生產結構調整</h2>
+            <p class="lead-text">在 2.1 節中，我們建立了投入、產出與成本的基本概念。本節（2.2 要素替代）進一步探討：當相對要素價格（例如工資率與資本租金的比率 $w/r$）改變時，廠商如何在保持總產出 $q$ 不變的前提下，靈活調整資本 $K$ 與勞動 $L$ 的組合。</p>
+            <p>這不僅是數學上的隱函數與彈性計算，更是企業面對 AI 自動化浪潮、勞力短缺與碳費等外部衝擊時，評估轉型空間的重要工具。</p>
+        </div>
+
+        <!-- 1. 等產量曲線與 MRTS -->
+        <div class="section-card">
+            <h2>1. 等產量曲線與邊際技術替代率 (MRTS)</h2>
+            <p>給定生產函數 $q = f(K, L) = \bar{q}$，沿著同一條等產量曲線進行全微分：</p>
+
+            <div class="math-block">
+                $$dq = \frac{\partial f}{\partial L} dL + \frac{\partial f}{\partial K} dK = 0$$
+            </div>
+
+            <p>由此可推導出邊際技術替代率（Marginal Rate of Technical Substitution, $MRTS$）：</p>
+
+            <div class="math-block">
+                $$MRTS_{L,K} = -\frac{dK}{dL}\bigg|_{q=\bar{q}} = \frac{MP_L}{MP_K}$$
+            </div>
+
+            <p>Burkett 教授強調，因邊際報酬遞減法則，典型的等產量曲線呈現向原點凸出（Convex to the origin）的幾何形狀，代表 $MRTS_{L,K}$ 隨勞動投入 $L$ 的增加而遞減。</p>
+        </div>
+
+        <!-- 2. 替代彈性 (Elasticity of Substitution) -->
+        <div class="section-card">
+            <h2>2. 替代彈性 ($\sigma$)：衡量替代的難易程度</h2>
+            <p>$MRTS$ 描述了替代的「邊際變動率」，而<strong>替代彈性 ($\sigma$)</strong> 則是衡量要素間互相替代「難易程度」的無單位指標。</p>
+
+            <h3>數學定義</h3>
+            <p>替代彈性 $\sigma$ 定義為「要素比例 ($K/L$) 的百分比變動」與「邊際技術替代率 ($MRTS$) 的百分比變動」之比值：</p>
+
+            <div class="math-block">
+                $$\sigma = \frac{\% \Delta (K/L)}{\% \Delta MRTS_{L,K}} = \frac{d(K/L) / (K/L)}{d(MRTS) / MRTS} = \frac{\partial \ln(K/L)}{\partial \ln(MRTS)}$$
+            </div>
+
+            <p>在成本極小化條件下，$MRTS = \frac{w}{r}$，因此 $\sigma$ 亦可表示為要素比例對相對要素價格變動的敏感度：</p>
+
+            <div class="math-block">
+                $$\sigma = \frac{\partial \ln(K/L)}{\partial \ln(w/r)}$$
+            </div>
+
+            <h3>常見生產函數類型與其替代彈性對比</h3>
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>1. 完全替代型 (Linear)</h4>
+                    <p>$$q = aL + bK$$</p>
+                    <p><strong>替代彈性：</strong> $\sigma = \infty$</p>
+                    <p>要素間可完全無縫轉換（例如雲端運算算力與自建實體伺服器）。</p>
+                </div>
+                <div class="card-item">
+                    <h4>2. 里昂提夫型 (Leontief)</h4>
+                    <p>$$q = \min(aL, bK)$$</p>
+                    <p><strong>替代彈性：</strong> $\sigma = 0$</p>
+                    <p>要素按固定比例搭配，無法相互替代（例如一輛公車配置一名司機）。</p>
+                </div>
+            </div>
+
+            <div class="grid-2col">
+                <div class="card-item">
+                    <h4>3. 柯布-道格拉斯型 (Cobb-Douglas)</h4>
+                    <p>$$q = A K^\alpha L^\beta$$</p>
+                    <p><strong>替代彈性：</strong> $\sigma = 1$ （恆等於 1）</p>
+                    <p>相對要素價格波動時，要素支出占總成本之比重保持常數。</p>
+                </div>
+                <div class="card-item">
+                    <h4>4. CES 型 (Constant Elasticity)</h4>
+                    <p>$$q = A [\alpha K^{-\rho} + (1-\alpha)L^{-\rho}]^{-\frac{1}{\rho}}$$</p>
+                    <p><strong>替代彈性：</strong> $\sigma = \frac{1}{1+\rho}$</p>
+                    <p>一般化的生產函數，能更真實地涵蓋各種產業經驗值。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 產業時事新聞案例 -->
+        <div class="section-card">
+            <h2>3. 產業時事：生成式 AI 狂潮與白領勞動的要素替代</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 全球科技產業：生成式 AI 自動化與軟體工程人力調配</div>
+                <p><strong>背景新聞：</strong> 全球高科技公司與金融機構相繼導入生成式 AI 與 Coding Agent（如 GitHub Copilot），調整初級程式設計師與審核人員的組織規模，同時大幅增加 GPU 算力集群投資。</p>
+
+                <p><strong>個體經濟學解析：</strong></p>
+                <ul>
+                    <li><strong>相對價格變動 ($\Delta \frac{w}{r}$)：</strong> 軟體研發與合規審查的人力成本（$w$）居高不下，而 AI 算力的單位成本（$r$）相對降低，導致相對價格比率 $w/r$ 上升。</li>
+                    <li><strong>替代彈性效應 ($\sigma > 0$)：</strong> 在寫程式與客服領域，生產函數展現較高的替代彈性。企業藉由提高 $K/L$ 比例（即每位工程師配置多個 AI Agent 助手），在維持產出 $q$ 的前提下達到成本壓低效果。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 生活案例 -->
+        <div class="section-card">
+            <h2>4. 生活案例：連鎖餐飲與點餐系統升級</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🍜 身邊案例：連鎖拉麵店的點餐機與 QR Code 點餐</div>
+                <p><strong>生活體驗：</strong> 走進現代拉麵店，過往需要 2 位外場員工負責介紹菜單與點餐，現在顧客自行掃碼或使用平板點餐，外場僅需 1 位員工進行端湯與清潔。</p>
+
+                <p><strong>經濟學模型化思考：</strong></p>
+                <ul>
+                    <li><strong>短期（Short-run）：</strong> 點餐設備屬於固定資本 $K$。導入點餐系統後，「記單與點餐」功能展現出極高的替代性（局部 $\sigma \to \infty$）。</li>
+                    <li><strong>不可替代的邊界：</strong> 端熱湯與清理桌面等實體服務，目前機器人技術成本仍過高（$r_{robot}$ 極高），這部分生產函數接近 Leontief 型態（$\sigma \to 0$），仍需保留基本勞動 $L$。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 課後研討與思考題 -->
+        <div class="section-card">
+            <h2>5. 碩士班進階討論題 (Advanced Discussion)</h2>
+            <p>請各位同學結合 Burkett 教材 2.2 節內容，思考並準備下週課堂研討：</p>
+
+            <ol>
+                <li>
+                    <strong>CES 生產函數極限證明：</strong> 已知 CES 生產函數為 $q = A [ \alpha K^{-\rho} + (1-\alpha) L^{-\rho} ]^{-\frac{1}{\rho}}$。請利用羅必達法則（L'Hôpital's Rule）證明，當 $\rho \to 0$ 時，替代彈性 $\sigma \to 1$，且該函數收斂至柯布-道格拉斯生產函數。
+                </li>
+                <li>
+                    <strong>綠電與淨零轉型：</strong> 碳費/碳稅開徵實質上提高了高碳能源的代價。請分析企業如何透過「能源與資本的要素替代」進行減碳？這對企業的長期替代彈性與短期替代彈性有何差異？
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

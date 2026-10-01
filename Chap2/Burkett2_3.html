@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.3 成本極小化問題 (Cost Minimization Problem) | 高級個體經濟學</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，確保數學式精確渲染 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #1e1b4b;
+            --secondary-color: #4338ca;
+            --accent-color: #b45309;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --code-bg: #0f172a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #312e81 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #c7d2fe;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: #f1f5f9;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .card-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>2.3 成本極小化問題 (Cost Minimization Problem)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第二章專題</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：有限限制下的最優化邏輯</h2>
+            <p class="lead-text">在前面的章節中，我們討論了生產函數、邊際產量以及要素替代彈性。本節（2.3 成本極小化問題）進入個體經濟學中廠商決策的實質核心：當目標產出水準固定時，廠商如何挑選最合適的要素組合（資本 $K$ 與勞動 $L$），以達到總支出最少的目標？</p>
+            <p>這不僅是經典的拉格朗日乘數（Lagrange Multipliers）微積分計算，更是當前企業在面對地緣政治供應鏈波動、利潤擠壓及AI算力成本激增時，執行微觀運營決策最重要的數學底層 logic。</p>
+        </div>
+
+        <!-- 1. 數學模型與拉格朗日乘數法 -->
+        <div class="section-card">
+            <h2>1. 成本極小化模型與拉格朗日乘數法</h2>
+            <p>假設廠商給定目標產出為 $q_0$，資本價格（租金）為 $r$，勞動價格（工資）為 $w$。廠商的優化目標為尋找要素組合 $(K, L)$ 以極小化總成本：</p>
+
+            <div class="math-block">
+                $$\min_{K, L} \quad C = wL + rK \quad \text{s.t.} \quad f(K, L) = q_0$$
+            </div>
+
+            <h3>建構拉格朗日函數 (Lagrangian Function)</h3>
+            <p>引入拉格朗日乘數 $\lambda$，建構拉格朗日目標函數：</p>
+
+            <div class="math-block">
+                $$\mathcal{L}(K, L, \lambda) = wL + rK + \lambda \left( q_0 - f(K, L) \right)$$
+            </div>
+
+            <h3>一階條件 (First-Order Conditions, FOCs)</h3>
+            <p>分別對 $L, K, \lambda$ 求偏導數並令其等於零：</p>
+
+            <div class="math-block">
+                $$\begin{aligned}
+                \frac{\partial \mathcal{L}}{\partial L} &= w - \lambda \frac{\partial f(K, L)}{\partial L} = 0 \implies w = \lambda MP_L \\[8pt]
+                \frac{\partial \mathcal{L}}{\partial K} &= r - \lambda \frac{\partial f(K, L)}{\partial K} = 0 \implies r = \lambda MP_K \\[8pt]
+                \frac{\partial \mathcal{L}}{\partial \lambda} &= q_0 - f(K, L) = 0
+                \end{aligned}$$
+            </div>
+
+            <h3>經濟學意涵與等成本線切點</h3>
+            <p>將前兩式相除，可得出成本極小化的必要條件：</p>
+
+            <div class="math-block">
+                $$\frac{MP_L}{MP_K} = \frac{w}{r} \quad \iff \quad MRTS_{L,K} = \frac{w}{r}$$
+            </div>
+
+            <p>這代表：<strong>邊際技術替代率等於要素相對價格比率</strong>。在幾何上，即為等產量曲線與最靠向原點的等成本線之相切點。</p>
+
+            <p>若將條件重組為：</p>
+
+            <div class="math-block">
+                $$\frac{MP_L}{w} = \frac{MP_K}{r} = \frac{1}{\lambda}$$
+            </div>
+
+            <p>這意味著「在切點處，花費在勞動上的最後一塊錢所帶來的邊際產量，必須等於花費在資本上的最後一塊錢所帶來的邊際產量」。</p>
+        </div>
+
+        <!-- 2. 條件要素需求與影子價格 -->
+        <div class="section-card">
+            <h2>2. 條件要素需求與影子價格 ($\lambda$)</h2>
+
+            <h3>條件要素需求函數 (Conditional Factor Demand Functions)</h3>
+            <p>解上述一階條件，可獲得極小化成本下的最佳要素選擇。這些選擇是要素價格 $(w, r)$ 與目標產量 $q_0$ 的函數，稱為條件要素需求：</p>
+
+            <div class="math-block">
+                $$L^* = L^c(w, r, q_0) \quad \text{及} \quad K^* = K^c(w, r, q_0)$$
+            </div>
+
+            <p>將條件要素需求帶回成本函數，即可推導出<strong>總成本函數 (Total Cost Function)</strong>：</p>
+
+            <div class="math-block">
+                $$C(w, r, q_0) = w L^c(w, r, q_0) + r K^c(w, r, q_0)$$
+            </div>
+
+            <h3>拉格朗日乘數 $\lambda$ 的經濟意義：邊際成本 (Marginal Cost)</h3>
+            <p>根據包絡線定理（Envelope Theorem），總成本對目標產量 $q_0$ 微分：</p>
+
+            <div class="math-block">
+                $$\frac{\partial C(w, r, q_0)}{\partial q_0} = \lambda$$
+            </div>
+
+            <p>因此，拉格朗日乘數 $\lambda$ 的經濟本質即為<strong>邊際成本 ($MC$)</strong>，亦稱為產量限制條件的「影子價格 (Shadow Price)」。它代表當目標產量增加一單位時，廠商所必須增加的最小成本負擔。</p>
+        </div>
+
+        <!-- 3. 產業時事案例解析 -->
+        <div class="section-card">
+            <h2>3. 產業時事：晶圓代工與封裝廠的算力與電力極小化決策</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業新聞：半導體龍頭在台積電/英特爾產能調配中的成本優化</div>
+                <p><strong>背景情境：</strong> 隨著 2nm 與先進封裝（CoWoS）技術的推進，半導體晶圓廠面臨三大約束：極高昂的 EUV 機台設備租用/折舊成本（資本 $K$）、頂尖工程師薪資（勞動 $L$），以及電力與碳費負擔（能源 $E$）。在既定月產量目標 $q_0$ 之下，晶圓代工廠必須精確調配全球各廠區的產能配置。</p>
+
+                <p><strong>個體經濟學解析：</strong></p>
+                <ul>
+                    <li><strong>多要素延伸：</strong> 模型由雙要素延伸至多要素：$\min (wL + rK + p_e E) \quad \text{s.t.} \quad f(L, K, E) = q_0$。</li>
+                    <li><strong>相對價格衝擊：</strong> 當綠電與碳費使得能源價格 $p_e$ 攀升，而機台折舊成本 $r$ 相對固定時，切點條件要求 $\frac{MP_E}{p_e} = \frac{MP_K}{r}$。晶圓廠會加速投資「低功耗高效能機台」，以提高 $MP_E$，從而保持每單位金錢邊際產量的平衡。</li>
+                    <li><strong>邊際成本 $\lambda$：</strong> 新建高階晶圓廠的 $\lambda$ 顯著高於舊廠，這解釋了為何晶圓廠在接訂單時會優先將標準晶片派發至已過折舊期的舊廠，只有高單價 AI 晶片才會使用新廠生產。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 生活案例解析 -->
+        <div class="section-card">
+            <h2>4. 生活案例：研究生準備學術論文與期末報告的資源分配</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 生活案例：研究生撰寫 Master Thesis 的時間與工具優化</div>
+                <p><strong>情境體驗：</strong> 碩士生在學期末需要完成高質量的論文章節（目標產量 $q_0$）。你可以選擇投入大量自己的時間進行文獻搜尋與數據清洗（自力勞動 $L$），或者訂閱專業數據庫與生成式 AI 工具（軟體與資本 $K$）。</p>
+
+                <p><strong>經濟學模型化思考：</strong></p>
+                <ul>
+                    <li><strong>影子成本與預算限制：</strong> 時間成本（機會成本 $w$）極高，而 AI 工具月費（資本價格 $r$）相對低廉。</li>
+                    <li><strong>邊際均衡法則：</strong> 若利用 AI 輔助處理數據與翻譯（$K$）能讓你省下 10 小時，而你手動搜尋文獻（$L$）花費 10 小時僅能完成一小部分，這代表 $\frac{MP_K}{r} > \frac{MP_L}{w}$。</li>
+                    <li><strong>最優決策：</strong> 研究生會選擇購買高級算力與軟體工具，替換純體力/時間投入，直到最後一塊錢花在 AI 算力與自己寫作上的論文品質邊際增加量相等（達到切點均衡）。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 碩士班進階研討與思考題 -->
+        <div class="section-card">
+            <h2>5. 碩士班進階討論題 (Advanced Discussion)</h2>
+            <p>請各位同學結合 Burkett 教材 2.3 節內容，思考並準備下週課堂研討：</p>
+
+            <ol>
+                <li>
+                    <strong>柯布-道格拉斯生產函數推導：</strong> 設生產函數為 $q = A K^\alpha L^\beta$，要素價格為 $w, r$。
+                    <ul>
+                        <li>請利用拉格朗日乘數法推導條件要素需求函數 $L^c(w, r, q)$ 與 $K^c(w, r, q)$。</li>
+                        <li>推導出總成本函數 $C(w, r, q)$，並驗證拉格朗日乘數 $\lambda$ 是否等於邊際成本 $\frac{\partial C}{\partial q}$。</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>謝法德引理 (Shephard's Lemma) 應用：</strong> 證明對總成本函數求要素價格的偏導數，會直接等於該要素的條件要素需求，即：
+                    $$\frac{\partial C(w, r, q)}{\partial w} = L^c(w, r, q) \quad \text{及} \quad \frac{\partial C(w, r, q)}{\partial r} = K^c(w, r, q)$$
+                    請說明此性質在實證經濟學中進行成本函數估計時有何重要性？
+                </li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>

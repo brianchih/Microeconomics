@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.4 本章摘要與理論整合 (Summary) | 個體經濟學高級課程</title>
+    <!-- MathJax 3 設定：支援 Standard LaTeX，確保數學式精確渲染，避免 Markdown 符號干擾 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #3b82f6;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --news-bg: #fffbeb;
+            --news-border: #f59e0b;
+            --life-bg: #f0fdf4;
+            --life-border: #16a34a;
+            --summary-bg: #eff6ff;
+            --summary-border: #2563eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #94a3b8;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.6rem;
+            margin-top: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .lead-text {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .math-block {
+            background-color: #f1f5f9;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .case-box {
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.75rem 0;
+            border-left: 5px solid;
+        }
+
+        .news-case {
+            background-color: var(--news-bg);
+            border-color: var(--news-border);
+        }
+
+        .life-case {
+            background-color: var(--life-bg);
+            border-color: var(--life-border);
+        }
+
+        .summary-box {
+            background-color: var(--summary-bg);
+            border-left: 5px solid var(--summary-border);
+        }
+
+        .case-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-case .case-title {
+            color: #b45309;
+        }
+
+        .life-case .case-title {
+            color: #15803d;
+        }
+
+        .summary-box .case-title {
+            color: #1d4ed8;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .card-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .card-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .summary-table th, .summary-table td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        .summary-table th {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .summary-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        ul, ol {
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+    <header>
+        <h1>2.4 本章摘要 (Summary)</h1>
+        <p>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》第二章總結與理論貫通</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導讀 -->
+        <div class="section-card">
+            <h2>本節導讀：從生產技術到成本優化的宏觀圖像</h2>
+            <p class="lead-text">在第二章「投入、產出與成本」（Inputs, Outputs, and Costs）中，John P. Burkett 教授帶領我們從底層的生產技術出發，逐步建構出廠商在市場限制下的成本極小化模型。2.4 節旨在為前述的核心概念（2.1 節基本概念、2.2 節要素替代、2.3 節成本極小化）進行全面性的綜覽與融會貫通。</p>
+            <p>對於碩士生而言，本節不僅是公式的複習，更是將抽象數學工具轉化為實際商業決策與戰略分析的關鍵橋樑。</p>
+        </div>
+
+        <!-- 1. 第二章核心數學架構與概念對照 -->
+        <div class="section-card">
+            <h2>1. 第二章核心數學架構總覽</h2>
+            <p>本章建立了一套嚴密的數學推理鏈，從物理層面的生產函數，延伸至經濟層面的成本優化：</p>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>子節名稱</th>
+                        <th>核心數學概念 / 函數</th>
+                        <th>經濟學實質意涵</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>2.1 基本概念</strong></td>
+                        <td>
+                            生產函數 $q = f(K, L)$<br>
+                            邊際產能 $MP_L = \frac{\partial f}{\partial L}, MP_K = \frac{\partial f}{\partial K}$<br>
+                            等成本線 $C = wL + rK$
+                        </td>
+                        <td>描述給定技術水準與要素價格下，投入與產出之間的物理與財務邊界。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2.2 要素替代</strong></td>
+                        <td>
+                            邊際技術替代率 $MRTS_{L,K} = \frac{MP_L}{MP_K} = -\frac{dK}{dL}\Big|_{q=\bar{q}}$<br>
+                            替代彈性 $\sigma = \frac{\partial \ln(K/L)}{\partial \ln(MRTS)}$
+                        </td>
+                        <td>刻畫在保持相同產量下，兩種要素相互替代的邊際變化率與難易程度。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2.3 成本極小化</strong></td>
+                        <td>
+                            拉格朗日函數 $\mathcal{L} = wL + rK + \lambda(q_0 - f(K,L))$<br>
+                            切點條件 $MRTS_{L,K} = \frac{w}{r}$<br>
+                            影子價格 $\lambda = \frac{\partial C}{\partial q_0} = MC$
+                        </td>
+                        <td>求解既定產能下的最適投入組合，推導條件要素需求 $L^c, K^c$ 與總成本函數 $C(w,r,q)$。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>核心微積分邏輯之連貫性</h3>
+            <p>三個關鍵概念的交會點在於：<strong>均等邊際效益原則 (Equi-marginal Principle)</strong>。當成本達到極小化時，每一單位貨幣花費在任何要素上所獲得的邊際產能必然相等：</p>
+
+            <div class="math-block">
+                $$\frac{MP_L}{w} = \frac{MP_K}{r} = \frac{1}{\lambda} = \frac{1}{MC}$$
+            </div>
+        </div>
+
+        <!-- 2. 三大經典生產函數之對比導圖 -->
+        <div class="section-card">
+            <h2>2. 經典生產函數類型之總結比較</h2>
+            <p>Burkett 教授在本章中特別強調了不同生產函數形態對企業彈性決策的深遠影響：</p>
+
+            <div class="grid-3col">
+                <div class="card-item">
+                    <h4>Cobb-Douglas 生產函數</h4>
+                    <p>$$q = A K^\alpha L^\beta$$</p>
+                    <ul>
+                        <li><strong>替代彈性：</strong> $\sigma = 1$</li>
+                        <li><strong>等產量曲線：</strong> 向原點凸出（光滑曲線）</li>
+                        <li><strong>特徵：</strong> 要素支出佔總成本比重為常數（$\frac{wL}{C} = \frac{\beta}{\alpha+\beta}$）。</li>
+                    </ul>
+                </div>
+                <div class="card-item">
+                    <h4>Leontief 固定比例函數</h4>
+                    <p>$$q = \min(aL, bK)$$</p>
+                    <ul>
+                        <li><strong>替代彈性：</strong> $\sigma = 0$</li>
+                        <li><strong>等產量曲線：</strong> L 型直角</li>
+                        <li><strong>特徵：</strong> 要素無法互相替代，相對價格 $w/r$ 變動不會改變最適投入比例。</li>
+                    </ul>
+                </div>
+                <div class="card-item">
+                    <h4>CES 常數替代彈性函數</h4>
+                    <p>$$q = A [\alpha K^{-\rho} + (1-\alpha)L^{-\rho}]^{-\frac{1}{\rho}}$$</p>
+                    <ul>
+                        <li><strong>替代彈性：</strong> $\sigma = \frac{1}{1+\rho}$</li>
+                        <li><strong>等產量曲線：</strong> 介於完全替代與 Leontief 之間</li>
+                        <li><strong>特徵：</strong> 能更一般化地模擬真實產業中的要素替代行為。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 產業時事案例：全球供應鏈與算力結構優化 -->
+        <div class="section-card">
+            <h2>3. 產業時事：第二章理論在大科技時代的綜合應用</h2>
+
+            <div class="case-box news-case">
+                <div class="case-title">📰 產業綜合研討：高科技製造業的全球產能調配與 AI 自動化轉型</div>
+                <p><strong>背景分析：</strong> 貫穿第二章的全貌，現代跨國科技企業（如半導體代工巨頭、雲端服務商 AWS/Azure）隨時都在進行第二章所描述的成本極小化優化問題。</p>
+
+                <p><strong>第二章理論全景落實：</strong></p>
+                <ul>
+                    <li><strong>要素價格變動 ($w/r$) 與替代彈性 ($\sigma$)：</strong> 全球地緣政治推動晶圓廠赴美/赴歐設廠，海外高昂的建築與工會勞動成本（$w$ 劇增）使相對價格斜率 $-\frac{w}{r}$ 極度陡峭。企業選擇提高資本 $K$（導入高度自動化無人搬運系統與 AI 良率監控），發揮 $\sigma > 0$ 的要素替代效應。</li>
+                    <li><strong>生產邊界與短中長期適應：</strong> 短期內建廠設備已經沉沒，生產函數接近 Leontief 形態（$\sigma \to 0$）；但長期而言，廠商可以重新設計生產流程，展現 Cobb-Douglas 甚至高替代彈性的特質。</li>
+                    <li><strong>影子價格 $\lambda$ 與邊際成本：</strong> 在晶圓代工中，不同製程節點（2nm vs 28nm）代表不同的生產函數 $f(K,L)$。高階製程的 $\lambda$ 高昂，因此定價策略與利潤最大化完全建立在第二章推導出的成本函數 $C(w, r, q)$ 之上。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. 研究生感同身受的生活案例 -->
+        <div class="section-card">
+            <h2>4. 研究生生活案例：碩士生涯的資源配比與機會成本</h2>
+
+            <div class="case-box life-case">
+                <div class="case-title">🎓 碩士生感同身受：學術研究與職涯準備的最佳資源配置</div>
+                <p><strong>情境連結：</strong> 碩士生在兩年的有限時間內，目標是產出符合畢業標準的碩士論文並獲得優質工作 offer（目標產出 $q_0$）。你所拥有的資源包含：個人有限的時間與精力（勞動 $L$）、以及軟體工具/付費課程/實習體驗（資本 $K$）。</p>
+
+                <p><strong>第二章 Summary 的人生哲理：</strong></p>
+                <ul>
+                    <li><strong>避免盲目投入單一要素：</strong> 根據邊際報酬遞減法則，若只是一味熬夜（無限增加 $L$ 而忽略工具 $K$ 的升級），$MP_L$ 會迅速下降，導致效率極度低下。</li>
+                    <li><strong>尋求最佳切點條件：</strong> 當你善用 Python/R 自動化套件、ChatGPT 輔助文獻整理（提高資本 $K$ 的配置），就相當於拉動了你的等產量曲線，以相同的時間成本獲得更高的產出 $q_0$。</li>
+                    <li><strong>認識你的影子價格 $\lambda$：</strong> 當學期末同時面臨論文提案與實習面試時，每一小時時間的邊際價值（影子價格）達到頂峰。理解微觀經濟學的成本極小化，實質上是在訓練你如何在高壓環境下做出最優的個人時間與資源調配。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. 章末自我檢測與複習題 -->
+        <div class="section-card">
+            <h2>5. 章末自我檢測 (Chapter Review & Self-Assessment)</h2>
+            <p>在進入第 2.5 節（Solutions to Exercises）與 2.6 節（Problems）前，請試著不看講義回答以下問題：</p>
+
+            <ol>
+                <li>請口頭解釋：為何在成本極小化點上，$MRTS_{L,K}$ 必須等於要素相對價格比值 $w/r$？若 $MRTS_{L,K} > w/r$，廠商應該如何調整其投入組合？</li>
+                <li>拉格朗日乘數 $\lambda$ 在數學上代表 $\frac{\partial \mathcal{L}}{\partial q_0}$，請從經濟學的角度說明它與邊際成本（Marginal Cost）之間的關係。</li>
+                <li>請說明 Cobb-Douglas 生產函數與 Leontief 生產函數在替代彈性 $\sigma$ 上的差異，並各舉一個真實產業的例子。</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>《Microeconomics: Optimization, Experiments, and Behavior》教學輔助網頁</p>
+        <p>編製：碩士班個體經濟學教學團隊 | 依據 John P. Burkett (2006) Oxford University Press</p>
+    </footer>
+
+</body>
+</html>
