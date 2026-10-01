@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第 2.1 節 生產函數與投入要素 - 個體經濟理論教學導讀</title>
+    <title>第 2.1 節 生產函數與投入要素 - 個體經濟理論導讀</title>
+    
+    <!-- 載入 MathJax 數學公式渲染庫 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         :root {
             --primary-color: #1a365d;
@@ -18,7 +30,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-            line-height: 1.75;
+            line-height: 1.8;
             color: var(--text-color);
             background-color: var(--bg-color);
             margin: 0;
@@ -26,7 +38,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 960px;
             margin: 0 auto;
             background: var(--card-bg);
             padding: 40px;
@@ -40,6 +52,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 5px;
+            font-weight: 600;
         }
 
         h1 {
@@ -59,22 +72,22 @@
         }
 
         .book-info p {
-            margin: 3px 0;
+            margin: 4px 0;
             font-size: 0.95rem;
         }
 
         h2 {
             color: var(--primary-color);
-            font-size: 1.4rem;
-            margin-top: 35px;
+            font-size: 1.45rem;
+            margin-top: 38px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 8px;
         }
 
         h3 {
             color: var(--secondary-color);
-            font-size: 1.15rem;
-            margin-top: 25px;
+            font-size: 1.2rem;
+            margin-top: 28px;
         }
 
         .concept-box {
@@ -83,7 +96,7 @@
             border-left: 4px solid var(--accent-color);
             padding: 18px 22px;
             border-radius: 6px;
-            margin: 20px 0;
+            margin: 22px 0;
         }
 
         .concept-title {
@@ -94,48 +107,48 @@
         }
 
         .case-study {
-            background-color: #f7fafc;
+            background-color: #f8fafc;
             border: 1px solid var(--border-color);
-            padding: 20px;
+            padding: 22px;
             border-radius: 8px;
-            margin: 20px 0;
+            margin: 22px 0;
         }
 
         .case-tag {
             background-color: var(--secondary-color);
             color: white;
-            font-size: 0.75rem;
-            padding: 3px 8px;
+            font-size: 0.8rem;
+            padding: 3px 10px;
             border-radius: 4px;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .math-block {
             background-color: #edf2f7;
-            padding: 12px;
+            padding: 15px;
             border-radius: 6px;
             text-align: center;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 1.1rem;
-            margin: 15px 0;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            overflow-x: auto;
         }
 
         .discussion-box {
             background-color: #f0fff4;
             border: 1px solid #c6f6d5;
             border-left: 4px solid #38a169;
-            padding: 18px 22px;
+            padding: 20px 24px;
             border-radius: 6px;
-            margin: 25px 0;
+            margin: 30px 0;
         }
 
         .discussion-title {
             font-weight: bold;
             color: #276749;
-            font-size: 1.05rem;
-            margin-bottom: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
         }
 
         ol, ul {
@@ -146,8 +159,13 @@
             margin-bottom: 10px;
         }
 
+        .highlight-text {
+            color: #c53030;
+            font-weight: 600;
+        }
+
         .nav-footer {
-            margin-top: 40px;
+            margin-top: 45px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
             display: flex;
@@ -178,19 +196,19 @@
     </div>
 
     <h2>一、 本節理論精髓與 Burkett 的用心</h2>
-    <p>傳統個體經濟學教科書常直接給出數理符號，將生產函數視為黑盒子（Black Box）。然而，John P. Burkett 在第 2.1 節中展現出深厚的理論與現實關懷：他強調<strong>生產函數本質上是一門「技術限制的工程邊界」</strong>，描述了在給定技術水準下，企業將實體投入（Inputs）轉化為最大可能產出（Output）的物理與組織關係。</p>
+    <p>傳統個體經濟學教科書常直接給出數理符號，將生產函數視為抽象的黑盒子（Black Box）。然而，John P. Burkett 在第 2.1 節中展現出深厚的理論與現實關懷：他強調<strong>生產函數本質上是一門「技術限制的工程邊界」</strong>，描述了在給定技術水準下，企業將實體投入（Inputs）轉化為最大可能產出（Output）的物理與組織關係。</p>
 
     <div class="math-block">
-        q = f(L, K, M, T)
+        $$q = f(L, K, M, T)$$
     </div>
-    <p style="text-align: center; font-size: 0.9rem; color: #718096;">產出 (q) 為勞動 (L)、資本 (K)、中間投入/原料 (M) 與技術/時間 (T) 的函數</p>
+    <p style="text-align: center; font-size: 0.9rem; color: #718096;">產出 ($q$) 為勞動 ($L$)、資本 ($K$)、中間投入/原料 ($M$) 與技術/時間 ($T$) 的函數</p>
 
     <p>Burkett 特別提醒我們：生產函數代表的是<strong>「技術有效性（Technological Efficiency）」</strong>的極限，而非任意的產出組合。企業的任務就是在這些物理與組織限制下進行最適化決策（Optimization）。</p>
 
-    <h2>二、 核心概念解析與生活實事案例</h2>
+    <h2>二、 核心概念解析與生活時事案例</h2>
 
     <h3>1. 投入要素的分類與短期 vs. 長期限制</h3>
-    <p>Burkett 將生產要素分為**可變要素（Variable Inputs）**與**固定要素（Fixed Inputs）**，並以此劃分經濟學上的「短期」與「長期」：</p>
+    <p>Burkett 將生產要素分為<strong>可變要素（Variable Inputs）</strong>與<strong>固定要素（Fixed Inputs）</strong>，並以此劃分經濟學上的「短期」與「長期」：</p>
     <ul>
         <li><strong>短期（Short Run）：</strong> 至少有一項投入要素（如廠房設備、地坪大小）無法彈性調整。</li>
         <li><strong>長期（Long Run）：</strong> 所有投入要素皆可彈性調整與配置。</li>
@@ -198,25 +216,25 @@
 
     <div class="case-study">
         <span class="case-tag">生活實例：手搖飲料店的排隊與產能瓶頸</span>
-        <p>假設台北市核心商圈一家知名手搖飲店，其門市面積與封口機數量在短期內是**固定資本 ($K$)**。當遇到酷暑或促銷活動時，店家只能增加工讀生**勞動 ($L$)** 與茶葉鮮奶**原料 ($M$)**。</p>
-        <p>當吧台擠滿了 6 名員工時，由於封口機與工作動線固定，多僱用的第 7 名員工反而會互相碰撞干擾——這完美詮釋了 Burkett 強調的**邊際報酬遞減法則（Law of Diminishing Marginal Returns）**：在固定資本下，單純增加可變要素無法無限提升邊際產出。</p>
+        <p>假設台北市核心商圈一家知名手搖飲店，其門市面積與封口機數量在短期內是<strong>固定資本 ($K$)</strong>。當遇到酷暑或促銷活動時，店家只能增加工讀生<strong>勞動 ($L$)</strong> 與茶葉鮮奶<strong>原料 ($M$)</strong>。</p>
+        <p>當吧台擠滿了 6 名員工時，由於封口機與工作動線固定，多僱用的第 7 名員工反而會互相碰撞干擾——這完美詮釋了 Burkett 強調的<span class="highlight-text">邊際報酬遞減法則（Law of Diminishing Marginal Returns）</span>：在固定資本下，單純增加可變要素無法無限提升邊際產出。</p>
     </div>
 
-    <h3>2. 邊際產量 (MP) 與平均產量 (AP) 的動態關係</h3>
+    <h3>2. 邊際產量 ($MP$) 與平均產量 ($AP$) 的動態關係</h3>
     <p>Burkett 透過邊際分析說明：勞動邊際產量 $MP_L = \frac{\partial q}{\partial L}$ 與平均產量 $AP_L = \frac{q}{L}$ 的幾何關係，決定了企業生產階段的合理區間。</p>
 
     <div class="concept-box">
         <div class="concept-title">💡 Burkett 的行為經濟觀點：名目邊際產量 vs. 心理疲勞</div>
-        <p>傳統理論假設邊際產量遞減純粹來自「固定要素的物理限制」。但 Burkett 引述實驗經濟學的發現：**人的心理疲勞與注意力分散**亦是導致高強度重複勞動下 $MP_L$ 加速下降的行為因素。現代企業（如高科技廠房）引入自動化與輪班休憩機制，目的就是延緩邊際產量下降的轉折點。</p>
+        <p>傳統理論假設邊際產量遞減純粹來自「固定要素的物理限制」。但 Burkett 引述實驗經濟學的發現：<strong>人的心理疲勞與注意力分散</strong>亦是導致高強度重複勞動下 $MP_L$ 加速下降的行為因素。現代企業（如高科技廠房）引入自動化與輪班休憩機制，目的就是延緩邊際產量下降的轉折點。</p>
     </div>
 
     <h3>3. 中間投入（Intermediate Goods）與供應鏈彈性</h3>
-    <p>不同於傳統僅討論 $L$ 與 $K$ 的簡化模型，Burkett 在 2.1 節特別強調了**中間原材料 ($M$)** 的不可替代性。</p>
+    <p>不同於傳統僅討論 $L$ 與 $K$ 的簡化模型，Burkett 在 2.1 節特別強調了<strong>中間原材料 ($M$)</strong> 的不可替代性。</p>
 
     <div class="case-study">
         <span class="case-tag">時事新聞：晶圓代工（TSMC）與地緣政治供應鏈限制</span>
         <p>以台積電（TSMC）的晶圓製造生產函數為例，先進製程產出 $q$ 不僅取決於極紫外線光刻機（EUV，資本 $K$）與工程師（勞動 $L$），更高度依賴高純度特殊氣體與化學品（中間原料 $M$）。</p>
-        <p>近年地緣政治與氣候變遷（如缺水、天然災害影響化學品供應）凸顯了生產函數中 $M$ 的**固定比例（Leontief）特性**：即使擁有全球最頂尖的設備與工程師，若缺乏特種氣體，總產出將立刻歸零。這說明了為何當代企業經營必須將「供應鏈韌性」納入生產函數的優化考量。</p>
+        <p>近年地緣政治與氣候變遷（如缺水、天然災害影響化學品供應）凸顯了生產函數中 $M$ 的<strong>固定比例（Leontief）特性</strong>：即使擁有全球最頂尖的設備與工程師，若缺乏特種氣體，總產出將立刻歸零。這說明了為何當代企業經營必須將「供應鏈韌性」納入生產函數的優化考量。</p>
     </div>
 
     <h3>4. 技術進步（Technological Progress）與生產函數移動</h3>
@@ -226,8 +244,8 @@
         <span class="case-tag">前沿應用：生成式 AI 導入知識工作的生產函數重組</span>
         <p>在金融分析與軟體開發領域，生成式 AI（如 GitHub Copilot、LLM 工具）正在劇烈改變生產函數 $q = f(L, K)$ 的邊界：</p>
         <ul>
-            <li>**要素補充與替代：** AI 工具作為一種新型態的資本/技術投入，提升了資深工程師（高技能 $L$）的邊際產量，但也替代了部分初階資料處理人員（低技能 $L$）。</li>
-            <li>**規模經濟與效率邊界：** 導入 AI 相當於整體生產函數向上移動，使小型新創團隊能以極少的勞動投入，達到過去大型企業才能實現的產出規模。</li>
+            <li><strong>要素補充與替代：</strong> AI 工具作為一種新型態的資本/技術投入，提升了資深工程師（高技能 $L$）的邊際產量，但也替代了部分初階資料處理人員（低技能 $L$）。</li>
+            <li><strong>規模經濟與效率邊界：</strong> 導入 AI 相當於整體生產函數向上移動，使小型新創團隊能以極少的勞動投入，達到過去大型企業才能實現的產出規模。</li>
         </ul>
     </div>
 
