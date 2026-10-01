@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第 3.1 節 偏好、效用與選擇 - 個體經濟理論導讀</title>
+    
+    <!-- 載入 MathJax 數學公式渲染庫 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+        }
+
+        .book-info {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .book-info p {
+            margin: 4px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.45rem;
+            margin-top: 38px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 28px;
+        }
+
+        .concept-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid var(--accent-color);
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 22px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 22px 0;
+        }
+
+        .case-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .math-block {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #276749;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            color: #c53030;
+            font-weight: 600;
+        }
+
+        .nav-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .nav-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-meta">個體經濟理論碩士班導讀課程</div>
+    <h1>3.1 偏好、效用與選擇 (Preferences, Utility, and Choice)</h1>
+
+    <div class="book-info">
+        <p><strong>指定教材：</strong>Burkett, J. P. (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>. Oxford University Press.</p>
+        <p><strong>章節範疇：</strong>Chapter 3: Consumer Choice and Demand &mdash; Section 3.1</p>
+    </div>
+
+    <h2>一、 本節理論精髓與 Burkett 的用心</h2>
+    <p>在第二章討論完廠商的生產與成本結構後，John P. Burkett 在第三章將焦點轉向個體經濟學的另一核心基石：<strong>消費者選擇理論（Consumer Choice Theory）</strong>。第 3.1 節作為全章開端，深刻剖析了「偏好公理（Axioms of Preference）」與「效用函數（Utility Function）」的建構過程。</p>
+    <p>Burkett 的獨特之處在於，他並未將效用（Utility）簡化為心理學上不可測量的「快樂數值」，而是嚴謹地將其呈現為<strong>將客觀選擇組合進行序數排列（Ordinal Ranking）的數學映射</strong>。同時，Burkett 引述了大量的行為經濟學與實驗經濟學成果，展示了真實人類在面臨複雜選擇時，其偏好如何可能偏離傳統公理假設（如傳遞性失效或框架效應），從而幫助碩士生建立起兼具公理嚴謹性與現實洞察力的分析視野。</p>
+
+    <h2>二、 偏好公理與效用函數數理架構</h2>
+
+    <h3>1. 偏好關係（Preference Relations）與公理</h3>
+    <p>設 $X$ 為所有可能的消費組合集合（Consumption Bundles），對於任意兩個組合 $x, y \in X$，消費者可建立以下關係：</p>
+    <ul>
+        <li><strong>嚴格偏好（Strict Preference）：</strong> $x \succ y$（相較於 $y$，更偏好 $x$）</li>
+        <li><strong>無差異（Indifference）：</strong> $x \sim y$（對 $x$ 與 $y$ 的偏好程度相同）</li>
+        <li><strong>弱偏好（Weak Preference）：</strong> $x \succeq y$（偏好 $x$ 至少不亞於 $y$）</li>
+    </ul>
+
+    <p>要將偏好關係表示為連續的效用函數 $U(x)$，偏好必須滿足以下三大理性公理（Rationality Axioms）：</p>
+    <ol>
+        <li><strong>完備性（Completeness）：</strong> 對於任意 $x, y \in X$，必定有 $x \succeq y$ 或 $y \succeq x$（或兩者皆成立）。消費者不會出現「無法比較」的情況。</li>
+        <li><strong>傳遞性（Transitivity）：</strong> 若 $x \succeq y$ 且 $y \succeq z$，則必有 $x \succeq z$。這確保了選擇邏輯的一致性，防止出現選擇迴圈。</li>
+        <li><strong>連續性（Continuity）：</strong> 確保偏好不會出現突變，這是實數值效用函數存在的必要條件。</li>
+    </ol>
+
+    <h3>2. 效用函數的序數性質（Ordinal Utility）與單調變換</h3>
+    <p>效用函數 $U: X \to \mathbb{R}$ 僅代表偏好排列順序，其數值大小不具備基數（Cardinal）比較意義。若 $f: \mathbb{R} \to \mathbb{R}$ 為嚴格遞增函數（Strictly Increasing Function），則：</p>
+
+    <div class="math-block">
+        $$V(x) = f(U(x)) \quad \text{與 } U(x) \text{ 代表完全相同的偏好結構}$$
+    </div>
+
+    <p>例如，對於 Cobb-Douglas 效用函數 $U(x_1, x_2) = x_1^\alpha x_2^\beta$，取對數變換 $\ln U = \alpha \ln x_1 + \beta \ln x_2$ 不會改變任何消費者的選擇排序或邊際替代率（$MRS$）。</p>
+
+    <h3>3. 無差異曲線（Indifference Curves）與邊際替代率 ($MRS$)</h3>
+    <p>無差異曲線描繪所有給定相同效用水準的消費組合。其斜率即為邊際替代率（Marginal Rate of Substitution, MRS）：</p>
+
+    <div class="math-block">
+        $$MRS_{1,2} = -\left. \frac{dx_2}{dx_1} \right|_{dU=0} = \frac{\partial U / \partial x_1}{\partial U / \partial x_2} = \frac{MU_1}{MU_2}$$
+    </div>
+
+    <p>良好性質偏好（Well-behaved Preferences）通常假設滿足<span class="highlight-text">單調性（Monotonicity，多比少好）</span>與<span class="highlight-text">嚴格凸性（Strict Convexity，偏好多樣化組合）</span>，隱含了邊際替代率遞減法則（Diminishing MRS）。</p>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 Burkett 的行為直覺：為何傳遞性公理會遭到實驗挑戰？</div>
+        <p>在理性選擇理論中，傳遞性（Transitivity）是防範「錢包汲取器（Money Pump）」的關鍵。但 Burkett 引述 Tversky 的實驗指出，當選擇對象具有多個屬性（例如：價格、品質、外觀）時，個體在進行成對比較（Pairwise Comparison）時容易產生<span class="highlight-text">微小差異忽略偏誤</span>，導致 $A \succ B \succ C$ 但 $C \succ A$ 的環狀偏好。這說明傳遞性是理性建構的規範性要求，而非人類天然的心理本能。</p>
+    </div>
+
+    <h2>三、 核心概念解析與真實世界時事案例</h2>
+
+    <h3>1. 訂閱制經濟與無差異曲線的凸性（Convexity）</h3>
+    <p>傳統消費理論假設個體偏好平滑且具備邊際替代率遞減（凸性偏好），代表消費者傾向於同時消費多種商品，而非極端偏好單一商品。</p>
+
+    <div class="case-study">
+        <span class="case-tag">商業模式時事：影音串流平台（Netflix、Spotify）與組合消費偏好</span>
+        <p>現代消費者在「數位娛樂（$x_1$）」與「實體休閒（$x_2$）」之間的選擇展現了典型的凸性偏好。如果某方案強制個體將所有預算投入極端單一娛樂，其效用將低於多樣化組合。</p>
+        <p>訂閱制（Subscription Model）的興起，正是廠商觀察到消費者對多樣化內容的 $MRS$ 遞減特性——透過低門檻吃到飽方案，提供消費者在無差異曲線上自由調整微觀內容組合的空間，從而極大化消費者的序數效用與續訂意願。</p>
+    </div>
+
+    <h3>2. 綠色消費、碳標籤與多元屬性偏好（Multi-attribute Preferences）</h3>
+    <p>當商品不再只是單純的物理產品，而包含環境永續等無形屬性時，消費者的偏好結構會發生何種變化？</p>
+
+    <div class="case-study">
+        <span class="case-tag">前沿時事：ESG 碳標籤產品與消費者的邊際替代意願（WTP）</span>
+        <p>隨著歐盟 CBAM 與全球碳標籤普及，消費者在「一般商品（$x_1$）」與「低碳綠色商品（$x_2$）」之間的無差異曲線形狀發生了結構性轉變。</p>
+        <p>實證研究顯示，具有高環保意識的消費者，其無差異曲線更為陡峭，代表其願意放棄較多的普通商品消費（高 $MRS$），以換取一單位低碳商品的環境屬性。這證明了偏好不單取決於產品的物理功能，更包含了個體的價值觀與社會偏好。</p>
+    </div>
+
+    <h3>3. 顯示偏好（Revealed Preference）與大數據預測</h3>
+    <p>由於心理效用 $U(x)$ 無法直接觀察，Samuelson 提出了顯示偏好理論：透過觀察消費者在給定價格與預算下的實際選擇，反推其潛在的偏好結構。</p>
+
+    <div class="case-study">
+        <span class="case-tag">科技與實務：電商演算法（Amazon、Shopee）的顯示偏好推論</span>
+        <p>現代電商平台無需詢問用戶的「效用函數公式」，而是透過紀錄用戶在不同折扣價格下的點擊、加入購物車與最終購買行為（顯示偏好 weak/strong axioms），利用機器學習模型還原出個體的無差異曲線形狀。</p>
+        <p>這種從「實際選擇（Choice）」反推「偏好（Preference）」的實務操作，完全契合了 Burkett 本節所強調的實證主義精神。</p>
+    </div>
+
+    <h2>四、 碩士班深度思考與討論議題</h2>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課堂研討題目 (Classroom Discussion)</div>
+        <ol>
+            <li><strong>字典序偏好（Lexicographic Preferences）與連續性：</strong> 假設某消費者對商品 1 有極度偏好（只要商品 1 多一點點，效用就絕對更高；只有在商品 1 數量完全相同時，才比較商品 2）。請證明這種字典序偏好滿足完備性與傳遞性，但不滿足連續性，且無法用任何實數值效用函數來表示。</li>
+            <li><strong>框架效應（Framing Effect）對完備性與一致性的挑戰：</strong> 根據 Kahneman & Tversky 的實驗，當相同的選擇組合被表述為「獲得（Gain）」或「損失（Loss）」時，受試者的選擇會發生翻轉。這對個體經濟學假設「偏好獨立於選項表述方式」的基礎公理帶來了什麼衝擊？</li>
+            <li><strong>代理人模型 (ABM) 中的偏好演化：</strong> 如果市場上的消費者偏好不是固定不變的，而是透過社交網路（Social Network）相互觀察、複製同儕的消費行為（Herd Behavior/Social Proof），總體市場無差異曲線會如何隨時間產生湧現與動態漂移？</li>
+        </ol>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html">&larr; 返回課程主頁與論文清單</a>
+        <a href="#">下一節：3.2 預算限制與效用極大化 (Utility Maximization) &rarr;</a>
+    </div>
+</div>
+
+</body>
+</html>
