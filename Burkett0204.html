@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第 2.4 節 利潤極大化與供給函數 - 個體經濟理論導讀</title>
+    
+    <!-- 載入 MathJax 數學公式渲染庫 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+        }
+
+        .book-info {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .book-info p {
+            margin: 4px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.45rem;
+            margin-top: 38px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 28px;
+        }
+
+        .concept-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid var(--accent-color);
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 22px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 22px 0;
+        }
+
+        .case-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .math-block {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #276749;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            color: #c53030;
+            font-weight: 600;
+        }
+
+        .nav-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .nav-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-meta">個體經濟理論碩士班導讀課程</div>
+    <h1>2.4 利潤極大化與供給函數 (Profit Maximization and Supply Functions)</h1>
+
+    <div class="book-info">
+        <p><strong>指定教材：</strong>Burkett, J. P. (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>. Oxford University Press.</p>
+        <p><strong>章節範疇：</strong>Chapter 2: Inputs, Outputs, and Costs &mdash; Section 2.4</p>
+    </div>
+
+    <h2>一、 本節理論精髓與 Burkett 的用心</h2>
+    <p>在推導完生產函數（2.1 節）、成本最小化（2.2 節）與成本曲線（2.3 節）之後，John P. Burkett 在第 2.4 節將供給面的分析推向終點：<strong>企業利潤極大化行為與個人供給函數（Individual Supply Function）的導出</strong>。</p>
+    <p>Burkett 在本節呈現了個體經濟學極為核心的對偶結構（Duality）。他不僅展示了傳統價格接受者（Price Taker）廠商如何在邊際收益等於邊際成本（$MR = MC$）之處確定產量，更引述行為與實驗經濟學的結果，探討現實中管理者在面對價格波動、停業門檻與市場不確定性時，如何透過試錯與對偶原理（如<strong>霍特林引理 Hotelling's Lemma</strong>）導出具有理性基礎的供給反應。</p>
+
+    <h2>二、 數理架構與供給函數導出</h2>
+
+    <h3>1. 利潤極大化的一階與二階條件</h3>
+    <p>假設廠商面對產品市場價格 $p$，其總收益為 $R(q) = pq$，總成本函數為 $C(q)$。利潤極大化目標函數為：</p>
+
+    <div class="math-block">
+        $$\max_{q} \pi(q) = R(q) - C(q) = pq - C(q)$$
+    </div>
+
+    <p>一階條件（First-Order Condition, FOC）：</p>
+    <div class="math-block">
+        $$\frac{d\pi}{dq} = p - \frac{dC}{dq} = 0 \implies p = MC(q)$$
+    </div>
+
+    <p>二階條件（Second-Order Condition, SOC）：</p>
+    <div class="math-block">
+        $$\frac{d^2\pi}{dq^2} = -\frac{d^2C}{dq^2} < 0 \implies \frac{d(MC)}{dq} > 0$$
+    </div>
+
+    <p>這說明極大化利潤的產量決策必須部位於<strong>邊際成本遞增</strong>的區段。</p>
+
+    <h3>2. 短期供給曲線與停業點 (Shutdown Condition)</h3>
+    <p>在短期內，廠商即使不生產也必須支付固定成本 $FC$。因此，只要市場價格高於平均可變成本（$p \ge SAVC$），繼續生產即可彌補部分固定成本；反之，若 $p < SAVC$，生產帶來的收益連變動成本都無法支應，廠商將選擇短期停業（$q = 0$）。</p>
+
+    <div class="math-block">
+        $$q^s(p) = \begin{cases} 
+        MC^{-1}(p), & \text{if } p \ge \min SAVC \\
+        0, & \text{if } p < \min SAVC
+        \end{cases}$$
+    </div>
+
+    <h3>3. 對偶性與霍特林引理 (Hotelling's Lemma)</h3>
+    <p>定義極大化利潤函數為 $ \pi^*(p, w, r) = \max_{q} \{ pq - C(q, w, r) \} $。利用包絡線定理（Envelope Theorem），利潤函數對產品價格 $p$ 的偏微分即為廠商的個體供給函數：</p>
+
+    <div class="math-block">
+        $$\frac{\partial \pi^*(p, w, r)}{\partial p} = q^*(p, w, r)$$
+    </div>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 Burkett 的經濟直覺：霍特林引理的對偶美感</div>
+        <p>霍特林引理揭示了極其深厚的對偶性：<span class="highlight-text">不需要直接解微分方程，只要知道極大利潤函數 $\pi^*(p, w, r)$ 的形狀，對價格 $p$ 求一次導數就能精確得到供給函數 $q^*$</span>！Burkett 提醒學生，這展現了個體理論在幾何與代數上的對稱與精簡之美。</p>
+    </div>
+
+    <h2>三、 核心概念解析與真實世界時事案例</h2>
+
+    <h3>1. 邊際成本定價（$P = MC$）與高科技產業的價格談判</h3>
+    <p>Burkett 強調，在競爭市場中，$P = MC$ 是資源配置達成 Pareto 最適的關鍵條件。然而在先進製造業中，邊際成本的計算高度依賴產品與製程的成熟度。</p>
+
+    <div class="case-study">
+        <span class="case-tag">產業時事：晶圓代工（TSMC）與面板/記憶體景氣循環的定價策略</span>
+        <p>在半導體與顯示面板產業中，當市場供過於求、價格下跌時，廠商的產量調整策略充分驗證了 $P = MC$ 與停業點理論：</p>
+        <ul>
+            <li><strong>成熟製程與舊廠：</strong> 廠房設備已完全折舊完畢，固定成本已沉沒，其 $SAVC$ 非常低。只要市場價格高於 $SAVC$，廠商就會維持投片生產（$q > 0$），導致景氣低谷時市場總供給依然堅挺。</li>
+            <li><strong>先進製程：</strong> 先進節點邊際成本高昂，當價格大幅回落時，廠商會透過降低產能利用率（減少 $q$）來維持價格高檔，確保利潤極大化條件 $MR = MC$ 成立。</li>
+        </ul>
+    </div>
+
+    <h3>2. 停業點（Shutdown Threshold）與農產品/能源市場決策</h3>
+    <p>當市場價格跌破 $\min SAVC$ 時，理性廠商會選擇暫停營運而非盲目硬撐，這構成了供給曲線在低價區間的斷點。</p>
+
+    <div class="case-study">
+        <span class="case-tag">生活實例：油價波動下頁岩油井的「封井與重啟」行為</span>
+        <p>美國頁岩油業者開採油井需要支付初期鑽探固定成本，而抽取石油則產生人工與化學品等可變成本（$VC$）。當國際原油價格暴跌至低於每桶頁岩油的邊際抽取成本（$SAVC$）時，業者會選擇封井停產（$q = 0$）。</p>
+        <p>一旦油價反彈超越停業點，業者能在極短時間內重啟採油。這使得頁岩油供給曲線在 $P = \min SAVC$ 處呈現高度彈性的邊際供給反應。以此案例，Burkett 的短期供給模型能精準預測真實能源市場的供給轉折點。</p>
+    </div>
+
+    <h3>3. 政策補貼、碳稅與供給曲線的移位（Supply Shift）</h3>
+    <p>當外生環境改變（如租稅、補貼或原料價格上漲）時，廠商的邊際成本曲線 $MC$ 會隨之移動，從而改變整條供給曲線。</p>
+
+    <div class="case-study">
+        <span class="case-tag">前沿應用：綠能補貼與電動車碳稅對市場供給的塑造</span>
+        <p>政府施加碳稅相當於提高每單位產出的邊際成本（$MC' = MC + t$），導致廠商供給曲線向左上方移動，在相同價格下減少供給量；反之，綠能或電動車生產補貼（$s$）降低了邊際成本（$MC' = MC - s$），促使供給曲線向右下方移動，擴大市場供給規模。</p>
+        <p>運用霍特林引理 $\frac{\partial \pi^*}{\partial p} = q^*$，我們可以方便地評估碳稅或補貼政策對整體產業總利潤與總供給量的敏感度分析（Comparative Statics）。</p>
+    </div>
+
+    <h2>四、 碩士班深度思考與討論議題</h2>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課堂研討題目 (Classroom Discussion)</div>
+        <ol>
+            <li><strong>行為經濟學與目標利潤偏誤：</strong> 理論假設廠商目標是追求「利潤極大化」（Profit Maximization）。但 Herbert Simon 指出，真實經理人往往追求「滿意利潤」（Satisficing Behavior）。在實驗經濟學中，當經理人達成預設業績目標後，其供給反應會如何偏離 $P = MC$ 的預測？</li>
+            <li><strong>市場結構與邊際收益（MR）：</strong> 2.4 節主要聚焦於價格接受者（$P = MR = MC$）。若廠商具備市場能力（Market Power，如獨占或寡占），其邊際收益 $MR = P(1 + \frac{1}{\epsilon})$ 小於價格 $P$，這對廠商供給曲線的存在性（Existence of Supply Curve）產生了何種理論挑戰？</li>
+            <li><strong>代理人模型 (ABM) 中的動態供給湧現：</strong> 在一個包含數百家異質廠商（成本結構不同、資訊不完全）的 ABM 市場中，如果廠商僅能透過觀察上一期市場價格來調整本期產量（如 Cobweb Model 蛛網模型），個體廠商的利潤極大化嘗試會如何引發整體市場供給量的震盪與收斂？</li>
+        </ol>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html">&larr; 返回課程主頁與論文清單</a>
+        <a href="#">下一章：Chapter 3 Consumer Choice and Demand &rarr;</a>
+    </div>
+</div>
+
+</body>
+</html>
