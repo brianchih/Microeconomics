@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第 2.1 節 生產函數與投入要素 - 個體經濟理論教學導讀</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.75;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+        }
+
+        .book-info {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .book-info p {
+            margin: 3px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-top: 35px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.15rem;
+            margin-top: 25px;
+        }
+
+        .concept-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid var(--accent-color);
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .case-study {
+            background-color: #f7fafc;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .case-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .math-block {
+            background-color: #edf2f7;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1.1rem;
+            margin: 15px 0;
+        }
+
+        .discussion-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 25px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #276749;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .nav-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .nav-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-meta">個體經濟理論碩士班導讀課程</div>
+    <h1>2.1 生產函數與投入要素 (Production Functions and Factors of Production)</h1>
+
+    <div class="book-info">
+        <p><strong>指定教材：</strong>Burkett, J. P. (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>. Oxford University Press.</p>
+        <p><strong>章節範疇：</strong>Chapter 2: Inputs, Outputs, and Costs &mdash; Section 2.1</p>
+    </div>
+
+    <h2>一、 本節理論精髓與 Burkett 的用心</h2>
+    <p>傳統個體經濟學教科書常直接給出數理符號，將生產函數視為黑盒子（Black Box）。然而，John P. Burkett 在第 2.1 節中展現出深厚的理論與現實關懷：他強調<strong>生產函數本質上是一門「技術限制的工程邊界」</strong>，描述了在給定技術水準下，企業將實體投入（Inputs）轉化為最大可能產出（Output）的物理與組織關係。</p>
+
+    <div class="math-block">
+        q = f(L, K, M, T)
+    </div>
+    <p style="text-align: center; font-size: 0.9rem; color: #718096;">產出 (q) 為勞動 (L)、資本 (K)、中間投入/原料 (M) 與技術/時間 (T) 的函數</p>
+
+    <p>Burkett 特別提醒我們：生產函數代表的是<strong>「技術有效性（Technological Efficiency）」</strong>的極限，而非任意的產出組合。企業的任務就是在這些物理與組織限制下進行最適化決策（Optimization）。</p>
+
+    <h2>二、 核心概念解析與生活實事案例</h2>
+
+    <h3>1. 投入要素的分類與短期 vs. 長期限制</h3>
+    <p>Burkett 將生產要素分為**可變要素（Variable Inputs）**與**固定要素（Fixed Inputs）**，並以此劃分經濟學上的「短期」與「長期」：</p>
+    <ul>
+        <li><strong>短期（Short Run）：</strong> 至少有一項投入要素（如廠房設備、地坪大小）無法彈性調整。</li>
+        <li><strong>長期（Long Run）：</strong> 所有投入要素皆可彈性調整與配置。</li>
+    </ul>
+
+    <div class="case-study">
+        <span class="case-tag">生活實例：手搖飲料店的排隊與產能瓶頸</span>
+        <p>假設台北市核心商圈一家知名手搖飲店，其門市面積與封口機數量在短期內是**固定資本 ($K$)**。當遇到酷暑或促銷活動時，店家只能增加工讀生**勞動 ($L$)** 與茶葉鮮奶**原料 ($M$)**。</p>
+        <p>當吧台擠滿了 6 名員工時，由於封口機與工作動線固定，多僱用的第 7 名員工反而會互相碰撞干擾——這完美詮釋了 Burkett 強調的**邊際報酬遞減法則（Law of Diminishing Marginal Returns）**：在固定資本下，單純增加可變要素無法無限提升邊際產出。</p>
+    </div>
+
+    <h3>2. 邊際產量 (MP) 與平均產量 (AP) 的動態關係</h3>
+    <p>Burkett 透過邊際分析說明：勞動邊際產量 $MP_L = \frac{\partial q}{\partial L}$ 與平均產量 $AP_L = \frac{q}{L}$ 的幾何關係，決定了企業生產階段的合理區間。</p>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 Burkett 的行為經濟觀點：名目邊際產量 vs. 心理疲勞</div>
+        <p>傳統理論假設邊際產量遞減純粹來自「固定要素的物理限制」。但 Burkett 引述實驗經濟學的發現：**人的心理疲勞與注意力分散**亦是導致高強度重複勞動下 $MP_L$ 加速下降的行為因素。現代企業（如高科技廠房）引入自動化與輪班休憩機制，目的就是延緩邊際產量下降的轉折點。</p>
+    </div>
+
+    <h3>3. 中間投入（Intermediate Goods）與供應鏈彈性</h3>
+    <p>不同於傳統僅討論 $L$ 與 $K$ 的簡化模型，Burkett 在 2.1 節特別強調了**中間原材料 ($M$)** 的不可替代性。</p>
+
+    <div class="case-study">
+        <span class="case-tag">時事新聞：晶圓代工（TSMC）與地緣政治供應鏈限制</span>
+        <p>以台積電（TSMC）的晶圓製造生產函數為例，先進製程產出 $q$ 不僅取決於極紫外線光刻機（EUV，資本 $K$）與工程師（勞動 $L$），更高度依賴高純度特殊氣體與化學品（中間原料 $M$）。</p>
+        <p>近年地緣政治與氣候變遷（如缺水、天然災害影響化學品供應）凸顯了生產函數中 $M$ 的**固定比例（Leontief）特性**：即使擁有全球最頂尖的設備與工程師，若缺乏特種氣體，總產出將立刻歸零。這說明了為何當代企業經營必須將「供應鏈韌性」納入生產函數的優化考量。</p>
+    </div>
+
+    <h3>4. 技術進步（Technological Progress）與生產函數移動</h3>
+    <p>技術進步 $T$ 會改變生產函數的形式，使相同的投入要素組合能夠創造出更高數量的產出，或是以更少的要素達到相同的產量。</p>
+
+    <div class="case-study">
+        <span class="case-tag">前沿應用：生成式 AI 導入知識工作的生產函數重組</span>
+        <p>在金融分析與軟體開發領域，生成式 AI（如 GitHub Copilot、LLM 工具）正在劇烈改變生產函數 $q = f(L, K)$ 的邊界：</p>
+        <ul>
+            <li>**要素補充與替代：** AI 工具作為一種新型態的資本/技術投入，提升了資深工程師（高技能 $L$）的邊際產量，但也替代了部分初階資料處理人員（低技能 $L$）。</li>
+            <li>**規模經濟與效率邊界：** 導入 AI 相當於整體生產函數向上移動，使小型新創團隊能以極少的勞動投入，達到過去大型企業才能實現的產出規模。</li>
+        </ul>
+    </div>
+
+    <h2>三、 碩士班深度思考與討論議題</h2>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課堂研討題目 (Classroom Discussion)</div>
+        <ol>
+            <li><strong>代理人模式 (ABM) 的思考：</strong> 如果我們不再把企業看成一個單一的「生產函數方程式」，而是由數百個具有不同偏好、效率與互動規則的個體（Agents/員工）所組成的系統，生產函數的「總體邊際產量」會如何從微觀互動中湧現（Emerge）？</li>
+            <li><strong>極端氣候與生產限制：</strong> 當氣溫升高導致戶外勞動效率下降，或是電力供應不穩定時，傳統個體模型的「技術有效性」假設受到何種挑戰？企業應如何調整優化策略？</li>
+            <li><strong>AI 時代的人力資本價值：</strong> 當 AI 工具將知識工作的邊際產量大幅提高，個體勞動市場的薪資結構會如何根據生產函數的改變而調整？</li>
+        </ol>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html">&larr; 返回課程主頁與論文清單</a>
+        <a href="#">下一節：2.2 成本最小化與最適化 (Optimization) &rarr;</a>
+    </div>
+</div>
+
+</body>
+</html>
