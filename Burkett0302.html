@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第 3.2 節 預算限制與效用極大化 - 個體經濟理論導讀</title>
+    
+    <!-- 載入 MathJax 數學公式渲染庫 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #dd6b20;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #ebf8ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.1rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+        }
+
+        .book-info {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .book-info p {
+            margin: 4px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.45rem;
+            margin-top: 38px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 28px;
+        }
+
+        .concept-box {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            border-left: 4px solid var(--accent-color);
+            padding: 18px 22px;
+            border-radius: 6px;
+            margin: 22px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 22px 0;
+        }
+
+        .case-tag {
+            background-color: var(--secondary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .math-block {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fff4;
+            border: 1px solid #c6f6d5;
+            border-left: 4px solid #38a169;
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #276749;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            color: #c53030;
+            font-weight: 600;
+        }
+
+        .nav-footer {
+            margin-top: 45px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .nav-footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-meta">個體經濟理論碩士班導讀課程</div>
+    <h1>3.2 預算限制與效用極大化 (Budget Constraints and Utility Maximization)</h1>
+
+    <div class="book-info">
+        <p><strong>指定教材：</strong>Burkett, J. P. (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>. Oxford University Press.</p>
+        <p><strong>章節範疇：</strong>Chapter 3: Consumer Choice and Demand &mdash; Section 3.2</p>
+    </div>
+
+    <h2>一、 本節理論精髓與 Burkett 的用心</h2>
+    <p>在第 3.1 節確立了消費者的主觀偏好與無差異曲線後，John P. Burkett 在第 3.2 節引入客觀市場環境的約束條件：<strong>預算限制（Budget Constraints）與效用極大化問題（Utility Maximization Problem, UMP）</strong>。</p>
+    <p>Burkett 在本節展現出極具層次的分析視角：他不僅演示了如何透過拉格朗日乘數法（Lagrange Multiplier）求解幾何切點條件，導出馬歇爾需求函數（Marshallian Demand Functions），更精闢地解析了當面對實務上的非線性價格（如量大折扣、定額補貼或階梯式費率）時，預算線如何呈現折線（Kinked Budget Lines）。此外，他引述實驗經濟學成果，探討真實受試者在有限理性下的預算管理行為與「心理帳戶（Mental Accounting）」對傳統預算限制假設的挑戰。</p>
+
+    <h2>二、 數理架構與最適化條件</h2>
+
+    <h3>1. 效用極大化問題 (UMP) 與拉格朗日求解</h3>
+    <p>給定商品價格向量 $\mathbf{p} = (p_1, p_2)$ 與名目所得 $m$，消費者的目標是在預算可行集內極大化其效用：</p>
+
+    <div class="math-block">
+        $$\max_{x_1, x_2} U(x_1, x_2) \quad \text{s.t.} \quad p_1 x_1 + p_2 x_2 \le m, \quad x_1 \ge 0, x_2 \ge 0$$
+    </div>
+
+    <p>當偏好滿足局部非飽和性（Local Non-Satiation）時，預算限制式必以等式成立。建立拉格朗日函數：</p>
+    <div class="math-block">
+        $$\mathcal{L}(x_1, x_2, \lambda) = U(x_1, x_2) + \lambda (m - p_1 x_1 - p_2 x_2)$$
+    </div>
+
+    <p>求解內點解（Interior Solution）的一階條件（FOCs）：</p>
+    <div class="math-block">
+        $$\frac{\partial \mathcal{L}}{\partial x_1} = \frac{\partial U}{\partial x_1} - \lambda p_1 = 0 \implies MU_1 = \lambda p_1$$
+    </div>
+    <div class="math-block">
+        $$\frac{\partial \mathcal{L}}{\partial x_2} = \frac{\partial U}{\partial x_2} - \lambda p_2 = 0 \implies MU_2 = \lambda p_2$$
+    </div>
+    <div class="math-block">
+        $$\frac{\partial \mathcal{L}}{\partial \lambda} = m - p_1 x_1 - p_2 x_2 = 0$$
+    </div>
+
+    <p>將前兩式相除，即導出最核心的切點條件——<strong>邊際替代率（MRS）等於相對價格比</strong>：</p>
+    <div class="math-block">
+        $$MRS_{1,2} = \frac{MU_1}{MU_2} = \frac{p_1}{p_2}$$
+    </div>
+
+    <p>同時可以寫成「等邊際效用原理」：</p>
+    <div class="math-block">
+        $$\lambda^* = \frac{MU_1}{p_1} = \frac{MU_2}{p_2}$$
+    </div>
+
+    <h3>2. 馬歇爾需求函數 (Marshallian Demand Functions)</h3>
+    <p>結合切點條件與預算等式，解出消費者的最適消費組合，即為馬歇爾需求函數：</p>
+    <div class="math-block">
+        $$x_1^* = x_1(p_1, p_2, m), \quad x_2^* = x_2(p_1, p_2, m)$$
+    </div>
+    <p>馬歇爾需求函數具備<strong>零次齊次性（Homogeneity of Degree Zero in Prices and Income）</strong>：若所有價格與所得同比例放大 $k$ 倍，最適需求量維持不變（即無貨幣幻覺 Money Illusion）。</p>
+
+    <h3>3. 角隅解 (Corner Solutions) 與 Kuhn-Tucker 條件</h3>
+    <p>當無差異曲線過於平坦（例如完全替代品）或偏好不滿足嚴格凸性時，最適選擇可能落在座標軸上（$x_1^* = 0$ 或 $x_2^* = 0$）。此時需採用 Kuhn-Tucker 條件：</p>
+
+    <div class="math-block">
+        $$\frac{MU_1}{p_1} \le \frac{MU_2}{p_2} \quad \text{若 } x_1^* = 0$$
+    </div>
+    <p>代表消費第 1 種商品最後一塊錢所帶來的邊際效用，仍低於第 2 種商品，因此消費者選擇完全不購買商品 1。</p>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 Burkett 的經濟直覺：影子價格 $\lambda^*$ 的貨幣含意</div>
+        <p>拉格朗日乘數 $\lambda^*$ 代表<span class="highlight-text">貨幣的邊際效用（Marginal Utility of Income, $\frac{\partial U^*}{\partial m}$）</span>。它測量了當預算限制放寬一元時，消費者所能增加的最大效用。Burkett 提醒學生：當貧富差距擴大時，低所得者的 $\lambda^*$ 往往遠高於高所得者，這為公共政策的再分配機制提供了深刻的個體理論基礎。</p>
+    </div>
+
+    <h2>三、 核心概念解析與真實世界時事案例</h2>
+
+    <h3>1. 通膨衝擊、相對價格變化與實質購買力</h3>
+    <p>當市場價格發生非對稱變動，或是發生整體物價上漲時，預算線的斜率 $-\frac{p_1}{p_2}$ 與截距 $\frac{m}{p_1}$ 會發生位移，引發消費者的替代與所得反應。</p>
+
+    <div class="case-study">
+        <span class="case-tag">財經時事：全球通膨與名目薪資調升下的「實質預算線」變化</span>
+        <p>近年全球遭遇顯著通膨，外食與能源價格（$p_1$）漲幅高於一般商品（$p_2$）。即便名目薪資（$m$）獲得微幅調升，預算線的旋轉與內移仍改變了消費者的最適選擇：</p>
+
+        <p>消費者面對外食價格暴漲（$p_1 \uparrow$），預算線變得更為陡峭。為了達到全新的最適切點 $MRS_{1,2} = \frac{p_1'}{p_2}$，消費者減少了高單價外食，轉向自己下廚或購買便利商店平價替換品，充分展現了等邊際效用原理（$\frac{MU_1}{p_1} = \frac{MU_2}{p_2}$）下的理性調整行為。</p>
+    </div>
+
+    <h3>2. 現金補貼 vs. 實物/券類補貼與非線性預算線</h3>
+    <p>政府推行政策補貼時，採用「發放現金」或「發放專用消費券/點數」會造成截然不同的預算集合（Budget Set）形狀，進而影響消費者的效用位階。</p>
+
+    <div class="case-study">
+        <span class="case-tag">政策時事：振興券、育兒津貼與消費券的折線預算線（Kinked Budget Line）</span>
+        <p>假設政府發放只限用於特定消費（如育兒或文化指定支出 $x_1$）的專用補貼券 $S$：</p>
+        <ul>
+            <li><strong>專用券補貼：</strong> 預算線在 $x_1 \le S/p_1$ 區段呈現水平直線（因為該區段內 $x_1$ 免費），過後才恢復原斜率 $-\frac{p_1}{p_2}$，形成折線預算線。</li>
+            <li><strong>現金補貼：</strong> 預算線則是整條向外平行移動相同距離。</li>
+        </ul>
+        <p>個體理論證明：對於原本對 $x_1$ 需求量很小的消費者，發放等額現金能讓無差異曲線達到更高的效用位階（更外圍）；但若政府目標是「強迫增加指定商品 $x_1$ 的消費」，專用券則能避免消費者將補貼移作他用。</p>
+    </div>
+
+    <h3>3. 階梯式定價（Tiered Pricing）與角隅/轉折點選擇</h3>
+    <p>公用事業或數位訂閱平台常採用階梯式累進/累退定價，使預算限制式非線性化。</p>
+
+    <div class="case-study">
+        <span class="case-tag">生活實例：電費階梯定價與電商累進運費折扣</span>
+        <p>台電的民生用電採用累進費率（用電量越高，超過梯度的每度單價 $p_1$ 越貴）。這使得消費者的預算線成為一條**凸向原點的折線（Convex Kinked Line）**。</p>
+        <p>許多家庭的最適消費點剛好落在階梯費率的轉折點（Kink Point）上——因為在轉折點左側 $\frac{MU_1}{p_1^{low}} > \frac{MU_2}{p_2}$，而在右側 $\frac{MU_1}{p_1^{high}} < \frac{MU_2}{p_2}$。這種預算線轉折完美解釋了為何大量家庭會精確控制用電量剛好卡在特定費率門檻內。</p>
+    </div>
+
+    <h2>四、 碩士班深度思考與討論議題</h2>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課堂研討題目 (Classroom Discussion)</div>
+        <ol>
+            <li><strong>心理帳戶（Mental Accounting）對預算限制可替代性的挑戰：</strong> 新古典理論假設貨幣具有完全可替代性（Fungibility），所有收入混入總預算 $m$ 中統一配置。但 Thaler 的實驗顯示，人們會將錢劃分為「薪資帳戶」、「投資帳戶」與「娛樂帳戶」，並各自設立獨立的預算上限。這種行為心理機制如何改變傳統 UMP 的連立方程式求解？</li>
+            <li><strong>毒品與強烈偏執下的角隅解與心理邊際效用：</strong> 針對高度成癮性商品（如毒品或沉迷網遊），其無差異曲線可能不滿足嚴格凸性，或是其 $MRS$ 極其陡峭。請畫圖分析這類商品在預算限制下如何迅速導向角隅解（All-or-Nothing Choice），以及價格變動對其需求量的微弱效應。</li>
+            <li><strong>代理人模型 (ABM) 中的預算動態：</strong> 在 ABM 模擬中，若個體不是預先知道精確的 $m$ 並一次求解 UMP，而是採用「每期邊花邊算」的流動性限制（Liquidity Constraint）規則，總體市場的需求彈性會如何從個體的動態預算摩擦中湧現（Emerge）？</li>
+        </ol>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html">&larr; 返回課程主頁與論文清單</a>
+        <a href="#">下一節：3.3 需求函數與比較靜態分析 (Demand Analysis) &rarr;</a>
+    </div>
+</div>
+
+</body>
+</html>
