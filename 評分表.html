@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個體經濟理論 - 課堂報告評分系統</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #d69e2e;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --star-active: #ffb703;
+            --star-inactive: #cbd5e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin: 0 0 5px 0;
+            font-size: 1.6em;
+        }
+
+        .header p {
+            color: #718096;
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        input[type="text"], input[type="date"], input[type="password"], textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        /* 5星評分樣式 */
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 10px;
+            font-size: 2.5em;
+            margin: 15px 0;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            color: var(--star-inactive);
+            cursor: pointer;
+            transition: color 0.2s;
+            margin: 0;
+        }
+
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: var(--star-active);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            margin-top: 15px;
+        }
+
+        .btn-outline:hover {
+            background-color: #ebf8ff;
+            color: var(--primary-color);
+        }
+
+        .btn-success {
+            background-color: #38a169;
+        }
+
+        .btn-success:hover {
+            background-color: #2f855a;
+        }
+
+        /* 老師後台區域 */
+        .admin-panel {
+            display: none;
+            margin-top: 30px;
+            border-top: 2px dashed var(--border-color);
+            padding-top: 20px;
+        }
+
+        .summary-card {
+            background: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .summary-card p {
+            margin: 5px 0;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #edf2f7;
+            color: var(--primary-color);
+        }
+
+        .toast {
+            display: none;
+            padding: 10px;
+            background: #c6f6d5;
+            color: #22543d;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>個體經濟理論</h1>
+        <p>課堂報告 互評與反饋系統</p>
+    </div>
+
+    <div id="toast" class="toast">評分已成功送出！</div>
+
+    <!-- 學生評分表單 -->
+    <form id="ratingForm">
+        <div class="form-group">
+            <label for="date">報告日期：</label>
+            <input type="date" id="date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="presenter">報告者姓名（同學）：</label>
+            <input type="text" id="presenter" placeholder="請輸入今天報告的同學姓名" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rater">評分者姓名（您的名字）：</label>
+            <input type="text" id="rater" placeholder="請輸入您的姓名" required>
+        </div>
+
+        <div class="form-group" style="text-align: center;">
+            <label>報告評分（1 ~ 5 顆星）：</label>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5" required><label for="star5">★</label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="comment">評語或建議（選填）：</label>
+            <textarea id="comment" rows="3" placeholder="請給予報告同學具體優點或建議..."></textarea>
+        </div>
+
+        <button type="submit" class="btn">提交評分</button>
+    </form>
+
+    <button type="button" class="btn btn-outline" onclick="toggleAdminLogin()">老師後台登入</button>
+
+    <!-- 老師後台區塊 -->
+    <div id="adminPanel" class="admin-panel">
+        <h3>老師管理與結果匯出</h3>
+        
+        <div id="loginForm">
+            <div class="form-group">
+                <label for="adminPassword">請輸入管理密碼：</label>
+                <input type="password" id="adminPassword" placeholder="輸入密碼">
+            </div>
+            <button type="button" class="btn" onclick="loginAdmin()">登入後台</button>
+        </div>
+
+        <div id="adminContent" style="display: none;">
+            <div class="summary-card">
+                <p id="summaryText">目前尚無評分紀錄</p>
+            </div>
+
+            <button type="button" class="btn btn-success" onclick="exportToCSV()">匯出評分結果 (CSV / Excel)</button>
+            <button type="button" class="btn btn-outline" style="color: #c53030; border-color: #c53030; margin-top: 10px;" onclick="clearData()">清空所有評分紀錄</button>
+
+            <h4>評分詳細清單：</h4>
+            <div style="overflow-x: auto;">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>報告者</th>
+                            <th>評分者</th>
+                            <th>得分</th>
+                            <th>評語</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 動態渲染評分資料 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 自動帶入今日日期
+    document.addEventListener("DOMContentLoaded", function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').value = today;
+        loadAdminData();
+    });
+
+    // 評分提交邏輯
+    document.getElementById('ratingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const date = document.getElementById('date').value;
+        const presenter = document.getElementById('presenter').value.trim();
+        const rater = document.getElementById('rater').value.trim();
+        const rating = document.querySelector('input[name="rating"]:checked').value;
+        const comment = document.getElementById('comment').value.trim();
+
+        const newRecord = {
+            date,
+            presenter,
+            rater,
+            rating: parseInt(rating),
+            comment: comment || "無",
+            timestamp: new Date().toLocaleString()
+        };
+
+        // 存入 LocalStorage
+        let ratings = JSON.parse(localStorage.getItem('micro_ratings') || '[]');
+        ratings.push(newRecord);
+        localStorage.setItem('micro_ratings', JSON.stringify(ratings));
+
+        // 提示與重置
+        const toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+
+        // 保留日期與報告者，重置評分者與評分項
+        document.getElementById('rater').value = '';
+        document.getElementById('comment').value = '';
+        document.querySelectorAll('input[name="rating"]').forEach(el => el.checked = false);
+
+        loadAdminData();
+    });
+
+    // 切換顯示登入框
+    function toggleAdminLogin() {
+        const panel = document.getElementById('adminPanel');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // 老師登入邏輯 (預設密碼：1234)
+    function loginAdmin() {
+        const pwd = document.getElementById('adminPassword').value;
+        if (pwd === '1234') {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('adminContent').style.display = 'block';
+            loadAdminData();
+        } else {
+            alert('密碼錯誤！(預設密碼為 1234)');
+        }
+    }
+
+    // 載入與渲染後台資料
+    function loadAdminData() {
+        const ratings = JSON.parse(localStorage.getItem('micro_ratings') || '[]');
+        const tbody = document.querySelector('#dataTable tbody');
+        tbody.innerHTML = '';
+
+        if (ratings.length === 0) {
+            document.getElementById('summaryText').innerText = "目前尚無評分紀錄";
+            return;
+        }
+
+        let totalScore = 0;
+        ratings.forEach(r => {
+            totalScore += r.rating;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${r.date}</td>
+                <td><strong>${r.presenter}</strong></td>
+                <td>${r.rater}</td>
+                <td>${r.rating} ★</td>
+                <td>${r.comment}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        const avgScore = (totalScore / ratings.length).toFixed(2);
+        document.getElementById('summaryText').innerText = 
+            `總評分筆數：${ratings.length} 筆 | 全體平均得分：${avgScore} / 5.0 ★`;
+    }
+
+    // 匯出 CSV (Excel 可直接開啟)
+    function exportToCSV() {
+        const ratings = JSON.parse(localStorage.getItem('micro_ratings') || '[]');
+        if (ratings.length === 0) {
+            alert('目前沒有可匯出的評分資料！');
+            return;
+        }
+
+        let csvContent = "\uFEFF日期,報告者,評分者,給予星等,評語,提交時間\n";
+        ratings.forEach(r => {
+            const row = [
+                `"${r.date}"`,
+                `"${r.presenter}"`,
+                `"${r.rater}"`,
+                `"${r.rating}"`,
+                `"${r.comment.replace(/"/g, '""')}"`,
+                `"${r.timestamp}"`
+            ].join(",");
+            csvContent += row + "\n";
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", `個體經濟評分結果_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // 清空資料
+    function clearData() {
+        if (confirm('確定要清空所有同學的評分紀錄嗎？此動作無法復原！')) {
+            localStorage.removeItem('micro_ratings');
+            loadAdminData();
+        }
+    }
+</script>
+
+</body>
+</html>
