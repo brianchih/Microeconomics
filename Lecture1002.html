@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個體經濟理論10/2課堂內容</title>
+    <!-- MathJax 數學公式渲染器 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #d69e2e;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 2em;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 35px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin-top: 25px;
+        }
+
+        .meta-box {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .meta-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr:hover {
+            background-color: #edf2f7;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .tag-nobel { background-color: #c53030; }
+        .tag-clark { background-color: #dd6b20; }
+        .tag-classic { background-color: #319795; }
+
+        .formula-box {
+            background-color: #f7fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .example-box {
+            background-color: #fffaf0;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #718096;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>個體經濟理論 10/2 課堂內容記錄</h1>
+
+    <div class="meta-box">
+        <strong>📌 課程運作與評分機制：</strong>
+        <ul>
+            <li><strong>時間規劃：</strong>每週三小時（第1小時：教科書導讀 | 第2小時：經典文獻研讀與報告 | 第3小時：AI工具應用與交流）。</li>
+            <li><strong>評分標準：</strong>取消期中與期末考試。總成績由<strong>出席率 (20%)</strong> 與<strong>課堂報告及參與 (80%)</strong>組成（由全班與老師共同評分 1~5 星等加權）。</li>
+            <li><strong>論文選讀原則：</strong>全班共 12 位同學，可從老師提供的 18 篇經典文獻中挑選（先選先得），或自行選擇符合四大主軸的論文與老師討論。</li>
+        </ul>
+    </div>
+
+    <h2>第一部分：18 篇經典論文清單（四大領域主軸）</h2>
+    
+    <h3>主軸一：賽局理論、資訊經濟學與機制設計</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>年份 / 作者</th>
+                <th>論文題目 / 核心主題</th>
+                <th>重要觀念與實證應用</th>
+                <th>榮譽標籤</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>1970 Akerlof</td>
+                <td><em>The Market for Lemons</em><br>(檸檬車市場)</td>
+                <td>開啟資訊不對稱研究，探討逆向選擇（Adverse Selection）與市場失靈。</td>
+                <td><span class="tag tag-nobel">2001 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>1973 Spence</td>
+                <td><em>Job Market Signaling</em><br>(勞動市場信號)</td>
+                <td>探討求職者如何透過付出代價的具體信號（如高學歷）傳達真實能力。</td>
+                <td><span class="tag tag-nobel">2001 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>1999 Roth</td>
+                <td>配對市場與美國住院醫師訓練系統</td>
+                <td>應用賽局與配對理論解決住院醫師實習與市場配對失靈之問題。</td>
+                <td><span class="tag tag-nobel">2012 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>2002 Roth</td>
+                <td>腎臟捐贈與選校系統機制設計</td>
+                <td>運用配對理論設計高效能平台與制度，優化無價格市場之資源配置。</td>
+                <td><span class="tag tag-nobel">2012 諾貝爾獎</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>主軸二：契約理論、組織與廠商決策</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>年份 / 作者</th>
+                <th>論文題目 / 核心主題</th>
+                <th>重要觀念與實證應用</th>
+                <th>榮譽標籤</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>5</td>
+                <td>1979 Holmström</td>
+                <td>道德風險與可觀測性<br>(Moral Hazard)</td>
+                <td>建立委託人-代理人模型 ($Principal-Agent$)，探討資訊不可觀測下的最適契約設計。</td>
+                <td><span class="tag tag-nobel">2016 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>1991 Holmström & Milgrom</td>
+                <td>多任務代理模型<br>(Multitask Principal-Agent)</td>
+                <td>打破單一任務假設，研究當員工需兼顧業績與品質等多重目標時的薪資與組織設計。</td>
+                <td><span class="tag tag-nobel">2016 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>1994 Baker et al.</td>
+                <td>激勵機製與主觀績效考核</td>
+                <td>研究企業內部個體管理、主觀評估與組織誘因機製之間的相互作用。</td>
+                <td><span class="tag tag-classic">經典巨作</span></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>1999 Maskin & Tirole</td>
+                <td>不完全契約理論<br>(Incomplete Contracts)</td>
+                <td>探討當未來所有狀況無法完全寫入合約時，個體廠商如何分配剩餘控制權。</td>
+                <td><span class="tag tag-nobel">2007/14 諾貝爾獎</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>主軸三：個體選擇與行為經濟學</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>年份 / 作者</th>
+                <th>論文題目 / 核心主題</th>
+                <th>重要觀念與實證應用</th>
+                <th>榮譽標籤</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>9</td>
+                <td>1979 Kahneman & Tversky</td>
+                <td><em>Prospect Theory: An Analysis of Decision under Risk</em></td>
+                <td>發表於 <em>Econometrica</em>，奠定行為經濟學基礎，分析風險下的非理性決策與損失趨避。</td>
+                <td><span class="tag tag-nobel">2002 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>1990 Thaler</td>
+                <td><em>Mental Accounting and Consumer Choice</em></td>
+                <td>提出「心理帳戶」概念，說明人們劃分資金帳戶如何導致違反傳統替代效應的行為。</td>
+                <td><span class="tag tag-nobel">2017 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>1999 Fehr & Schmidt</td>
+                <td><em>A Theory of Fairness, Competition, and Cooperation</em></td>
+                <td>建構公平理論，說明情緒與公平感受對個體決策的影響（如最後通牒賽局 Ultimatum Game）。</td>
+                <td><span class="tag tag-classic">行為賽局典範</span></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>2006 DellaVigna & Malmendier</td>
+                <td><em>Paying Not to Go to the Gym</em></td>
+                <td>結合健身房真實合約資料，實證分析消費者的自我控制偏誤與過度自信。</td>
+                <td><span class="tag tag-classic">實證行為經濟</span></td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>2018 Stantcheva</td>
+                <td>租稅偏好與公共經濟學研究</td>
+                <td>透過大規模調查實驗法分析納稅人對租稅政策與公平性的認知機制。</td>
+                <td><span class="tag tag-clark">克拉克獎得主</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>主軸四：應用個體實證與因果推論</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>年份 / 作者</th>
+                <th>論文題目 / 核心主題</th>
+                <th>重要觀念與實證應用</th>
+                <th>榮譽標籤</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>14</td>
+                <td>1994 Card & Krueger</td>
+                <td>最低工資與僱用<br>(Minimum Wages)</td>
+                <td>以紐澤西快餐店為例，示範運用雙重差分法 (DID) 評估最低工資對勞動市場的真實影響。</td>
+                <td><span class="tag tag-nobel">2021 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>2002 Currie et al.</td>
+                <td>健康經濟學與醫療需求</td>
+                <td>評估嬰兒與孕婦健康政策、醫療利用及家庭決策，為個體健康政策評估之典範。</td>
+                <td><span class="tag tag-classic">健康經濟典範</span></td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>1999 Angrist & Lavy</td>
+                <td>麥蒙尼德原則與班級人數<br>(Maimonides' Rule)</td>
+                <td>尋找外生制度斷點，使用斷點回歸 (RDD) 估計班級規模對學生學習效果的因果推論。</td>
+                <td><span class="tag tag-nobel">2021 諾貝爾獎</span></td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>2004 Bertrand & Mullainathan</td>
+                <td><em>Are Emily and Greg More Employable than Lakisha and Jamal?</em></td>
+                <td>寄送不同文化背景姓名的履歷進行真實欄位實驗，測量勞動市場的種族歧視情況。</td>
+                <td><span class="tag tag-classic">實證實驗典範</span></td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>2013 Chetty et al.</td>
+                <td>租稅知識差異對 EITC 所得的影響</td>
+                <td>運用大數據分析社區間租稅知識差異對勞動供給與減免稅決策的影響。</td>
+                <td><span class="tag tag-clark">克拉克獎得主</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>第二部分：教科書第二章——生產要素與成本極小化</h2>
+
+    <h3>1. 基本概念與生產函數 ($2.1$)</h3>
+    <p>生產是將投入資源轉換為產出的過程。定義勞動為 $L$、資本為 $K$、中間原料為 $M$，產出為 $Q$：</p>
+    
+    <div class="formula-box">
+        $$\text{一般生產函數：} Q = f(L, K)$$
+        $$\text{柯布-道格拉斯 (Cobb-Douglas) 生產函數：} Q = A L^{\alpha} K^{\beta}$$
+    </div>
+
+    <p><strong>對數線性化 (Log-Linearization)：</strong> 取對數後可將非線性關係轉化為線性迴歸模型：</p>
+    <div class="formula-box">
+        $$\ln Q = \ln A + \alpha \ln L + \beta \ln K$$
+    </div>
+
+    <h3>2. 等產量線與等成本線 ($2.2 - 2.4$)</h3>
+    <ul>
+        <li><strong>等產量線 (Isoquant)：</strong> 代表在給定產量 $\bar{Q}$ 下，所有可能的投入要素組合。其斜率的絕對值為<strong>邊際技術替代率 (MRTS)</strong>：
+            $$MRTS_{LK} = -\frac{dK}{dL} = \frac{MP_L}{MP_K}$$
+        </li>
+        <li><strong>等成本線 (Isocost)：</strong> 給定總成本 $C$、工資率 $w$（或 $P_L$）與資本價格 $r$（或 $P_K$）：
+            $$C = wL + rK \implies K = \frac{C}{r} - \left(\frac{w}{r}\right)L$$
+        </li>
+    </ul>
+
+    <h3>3. 最適化：成本極小化條件 ($2.2.2 - 2.4$)</h3>
+    <p>廠商的目標是在給定目標產量 $\bar{Q}$ 下追求總成本最小化：</p>
+    <div class="formula-box">
+        $$\min_{L,K} \; wL + rK \quad \text{s.t.} \quad f(L,K) = \bar{Q}$$
+        $$\text{建立拉格朗日函數 (Lagrangian)：} \mathcal{L}(L, K, \lambda) = wL + rK + \lambda \left[\bar{Q} - f(L,K)\right]$$
+    </div>
+
+    <p><strong>一階最適條件 (FOCC)：</strong></p>
+    <ol>
+        <li><strong>內部解 (Interior Solution)：</strong> 當等產量線與等成本線相切於第一象限內時：
+            $$MRTS_{LK} = \frac{MP_L}{MP_K} = \frac{w}{r} \implies \frac{MP_L}{w} = \frac{MP_K}{r}$$
+            <em>直覺解釋：每一單位貨幣花費在勞動上的邊際產量，必須等於花費在資本上的邊際產量。</em>
+        </li>
+        <li><strong>角解 (Corner Solution)：</strong> 若兩要素為完全替代或某要素價格過高，最適點落在座標軸上（只選用單一要素）。</li>
+    </ol>
+
+    <h2>第三部分：課堂習題精選與詳細推導 ($2.6$)</h2>
+
+    <div class="example-box">
+        <h3>習題 1：閣樓草藥種植案例</h3>
+        <p><strong>已知條件：</strong></p>
+        <ul>
+            <li>生產函數：$Q = 3 K^{0.5} L^{0.5}$，目標附加價值 $Q = 18,000$。</li>
+            <li>資本租用成本 $r = 0.20$，勞動機會成本 $w = 7.2$ 美元/小時。</li>
+            <li>等產量線斜率絕對值為 $\frac{K}{L}$。</li>
+        </ul>
+        <p><strong>求解與推導：</strong></p>
+        <ol>
+            <li><strong>求解最適投入量 $(K^*, L^*)$：</strong>
+                <p>根據切點條件 $MRTS = \frac{w}{r}$：</p>
+                $$\frac{K}{L} = \frac{7.2}{0.20} = 36 \implies K = 36L$$
+                <p>代回生產函數求解 $L$：</p>
+                $$18,000 = 3 (36L)^{0.5} L^{0.5} = 3 \times 6 \times L = 18L \implies L^* = 1,000 \text{ 小時}$$
+                <p>代回求 $K$：</p>
+                $$K^* = 36 \times 1,000 = 36,000 \text{ 美元}$$
+            </li>
+            <li><strong>獲利評估：</strong>
+                $$\text{總經濟成本 } TC = (0.20 \times 36,000) + (7.2 \times 1,000) = 7,200 + 7,200 = 14,400 \text{ 美元}$$
+                $$\text{經濟利潤 } \pi = \text{淨收益 } Q - TC = 18,000 - 14,400 = 3,600 \text{ 美元}$$
+                <p><strong>結論：</strong>可獲得 <strong>3,600 美元</strong> 之純利潤，該方案<strong>可以獲利</strong>。</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="example-box">
+        <h3>習題 2：看門狗最佳飲食配方</h3>
+        <p><strong>已知條件：</strong></p>
+        <ul>
+            <li>大腸量為 $C$，鯊魚肉量為 $S$。大腸單價 $P_C = 1$ 美元，鯊魚肉單價 $P_S = 4$ 美元。</li>
+            <li>等成本線為 $4S + C = C_{ost}$，斜率絕對值為 $4$。</li>
+        </ul>
+        <p><strong>求解與判斷：</strong></p>
+        <ol>
+            <li>計算可得切點對應之 $S \approx -0.26$。由於投入量不得為負數 ($S \ge 0$)，顯示切點不在可行域（第一象限）內，故不存在內部解。</li>
+            <li><strong>端點（角解）比較：</strong>
+                <ul>
+                    <li>全買大腸 ($S = 0, C = 4$)：$\text{成本 } = 4 \times 0 + 1 \times 4 = 4 \text{ 美元}$</li>
+                    <li>全買鯊魚肉 ($S = 4, C = 0$)：$\text{成本 } = 4 \times 4 + 1 \times 0 = 16 \text{ 美元}$</li>
+                </ul>
+            </li>
+            <li><strong>結論：</strong>最適組合為<strong>角解 (Corner Solution)</strong>，即 $S^* = 0, C^* = 4$（完全不餵鯊魚肉，全餵大腸），每日最低成本為 <strong>4 美元</strong>。</li>
+        </ol>
+    </div>
+
+    <h2>第四部分：數學工具補充與繪圖輔助 ($2.7$)</h2>
+    <ul>
+        <li><strong>對數與指數律：</strong>
+            $$\ln(x \cdot y) = \ln x + \ln y, \quad \ln\left(\frac{x}{y}\right) = \ln x - \ln y, \quad \ln(x^n) = n \ln x$$
+        </li>
+        <li><strong>微觀數據與變化率：</strong>
+            <p>對數微分 $\frac{d(\ln x)}{dx} = \frac{1}{x} \implies d(\ln x) = \frac{dx}{x}$，代表變數 $x$ 的<strong>百分比變化率</strong>，常用於計算點彈性與計量模型建立。</p>
+        </li>
+        <li><strong>繪圖工具 Desmos 應用：</strong> 課堂中示範可利用 <em>Desmos</em> 圖形計算機，輸入等產量線與等成本線函數，直觀觀察兩線相切點與角解移動。</li>
+    </ul>
+
+    <div class="footer">
+        <p>個體經濟理論 課堂紀錄整理 | 適用於學習歷程與選題討論</p>
+    </div>
+</div>
+
+</body>
+</html>
