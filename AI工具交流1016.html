@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個體經濟理論 - 課堂 AI 工具實務分享</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #d69e2e;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --highlight-bg: #edf2f7;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 35px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin-top: 20px;
+        }
+
+        .meta-box {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .sharing-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .user-tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .tool-badge {
+            display: inline-block;
+            background-color: #e2e8f0;
+            color: #4a5568;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-left: 8px;
+        }
+
+        .tool-link-box {
+            background-color: #f7fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tool-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s, shadow 0.2s;
+        }
+
+        .tool-card:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .tool-name {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .tool-desc {
+            font-size: 0.85em;
+            color: #718096;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-link:hover { text-decoration: underline; }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #718096;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="nav-link">← 返回課程首頁</a>
+    
+    <h1>個體經濟理論：課堂 AI 工具應用與交流紀錄</h1>
+
+    <div class="meta-box">
+        <strong>📌 第三小時交流重點：</strong>
+        <p>本週同學分享如何利用 AI 生成簡報、進行英文課本翻譯與深度問答，並由老師補充如何使用 AI 自動化生成網頁、錄音逐字稿整理與學術論文語音 podcast 解析。</p>
+    </div>
+
+    <h2>第一部分：同學實務簡報製作經驗分享</h2>
+
+    <div class="sharing-card">
+        <span class="user-tag">建廷 同學</span>
+        <span class="tool-badge">Google Gemini</span>
+        
+        <h3>🛠️ 製作流程與心法：</h3>
+        <ul>
+            <li><strong>雙語對照閱讀：</strong> 先將課本英文原文複製丟給 Gemini 翻譯成中文，並在平板上進行中英文對照閱讀與筆記，確保徹底理解專有名詞與概念。</li>
+            <li><strong>局部抽問重研：</strong> 遇到不清楚的特定段落，單獨抽出來向 AI 重複提問，直至觀念完全融會貫通。</li>
+            <li><strong>人工精修（花費約 1 小時）：</strong> Gemini 生成的 PPT 版面容易有數字疊加或跑版問題。建廷會手動刪除不必要的頁面、針對目標函數與數學式直接截圖貼上，並加入紅色重點標註，確保簡報品質。</li>
+        </ul>
+        <p><strong>👨‍🏫 老師點評：</strong> 提問時可直接在 Prompt 中明確提示 AI「包含數學算式與 LaTeX 格式」，能減少數學符號變形的問題。</p>
+    </div>
+
+    <div class="sharing-card">
+        <span class="user-tag">斯育 同學</span>
+        <span class="tool-badge">Poe (Claude 3.5 / GPT-4o)</span>
+        
+        <h3>🛠️ 製作流程與心法：</h3>
+        <ul>
+            <li><strong>多角度深度提問：</strong> 請 AI 翻譯後，針對關鍵觀念（如「什麼是線性規劃技術？」）多角度深入追問核心原理與解法。</li>
+            <li><strong>預先準備答辯：</strong> 請 AI 舉出課本以外的生活應用實例（如人員排班、物流規劃），做為報告時回答老師提問的備案。</li>
+            <li><strong>手打架構再美化：</strong> 自己先手打好基本 PPT 內容，再交由 AI 協助進行版面美化與風格呈現，並匯出成 Google 簡報或 PDF。</li>
+            <li><strong>細節手動校對：</strong> 檢查文字與數字重疊問題，刪除資訊量低的頁面，並向 AI 確認符號意涵（如區分字母 $X$ 與乘號）。</li>
+        </ul>
+        <p><strong>👨‍🏫 老師點評：</strong> 提示詞 (Prompt) 越具體詳細，生成品質越高；產出後務必像斯育一樣進行人工二次校對。</p>
+    </div>
+
+    <div class="sharing-card">
+        <span class="user-tag">敏彰 同學</span>
+        <span class="tool-badge">ChatGPT Plus (GPT-4o)</span>
+        
+        <h3>🛠️ 製作流程與心法：</h3>
+        <ul>
+            <li><strong>16:9 海報式簡報生成法：</strong> 不採用傳統純文字 PPT，而是要求 ChatGPT 依照 <code>16:9</code> 的比例，直接生成包含圖文設計的高質感海報圖片。</li>
+            <li><strong>生動圖文比例：</strong> 每一頁簡報就像一張精美的宣傳海報，文字與插圖比例適中、吸引注意力。</li>
+            <li><strong>對照補充與微調：</strong> 透過 Google 翻譯細讀原文確認無遺漏，再下指令要求 AI 在不破壞視覺風格下進行微調與內容補充。</li>
+        </ul>
+        <p><strong>👨‍🏫 老師點評：</strong> 敏彰的簡報視覺效果非常好，善用了 AI 生成 16:9 圖片的特性。若要修改局部文字，可繼續下指令讓 AI 重新繪製。</p>
+    </div>
+
+    <h2>第二部分：老師教學自動化與進階 AI 工具分享</h2>
+
+    <ul>
+        <li><strong>逐字稿轉網頁紀錄：</strong> 老師將每週課堂錄音檔轉換為文字後，直接輸入給 <strong>Gemini</strong>，下達排版指令與 Markdown/LaTeX 渲染要求，幾秒內即可自動生成精美的網頁內容。</li>
+        <li><strong>Google Notebook 論文解析：</strong> 研讀艱深學術論文時，可將 PDF 上傳至 Google <strong>Notebook</strong>，AI 能自動提取核心脈絡，甚至生成雙人對談的 Audio Overview (Podcast)，幫助建立白話直覺。</li>
+        <li><strong>適度工具投資：</strong> 課堂討論到付費 AI 工具（如 ChatGPT Plus 月費約 NT$600~650）。在預算允許或使用學生優惠下，適度投資好的工具能節省大量時間並提升學習產出。</li>
+    </ul>
+
+    <h2>第三部分：常用 AI 工具資源與相關連結</h2>
+
+    <div class="tool-link-box">
+        <h3>🔗 課堂推薦與常用的 AI 工具清單：</h3>
+        <div class="tool-grid">
+            <a href="https://gemini.google.com" target="_blank" class="tool-card">
+                <div class="tool-name">Google Gemini</div>
+                <div class="tool-desc">適合撰寫 HTML 程式碼、文章翻譯、數學公式處理與多模態分析。</div>
+            </a>
+
+            <a href="https://chatgpt.com" target="_blank" class="tool-card">
+                <div class="tool-name">ChatGPT (OpenAI)</div>
+                <div class="tool-desc">具備強大語言理解與 GPT-4o 圖像生成功能（可產生 16:9 海報簡報）。</div>
+            </a>
+
+            <a href="https://poe.com" target="_blank" class="tool-card">
+                <div class="tool-name">Poe</div>
+                <div class="tool-desc">整合 Claude 3.5, GPT-4o 等多種模型的平台，提供學生優惠。</div>
+            </a>
+
+            <a href="https://notebooklm.google.com" target="_blank" class="tool-card">
+                <div class="tool-name">NotebookLM</div>
+                <div class="tool-desc">Google 打造的文獻研讀神器，支援 PDF 解析與語音 Podcast 導讀。</div>
+            </a>
+
+            <a href="https://www.desmos.com/calculator?lang=zh-TW" target="_blank" class="tool-card">
+                <div class="tool-name">Desmos 圖形計算機</div>
+                <div class="tool-desc">線上免費數學繪圖工具，適合繪製等產量線與等成本線切點。</div>
+            </a>
+
+            <a href="https://www.linearprogramsemantic.com" target="_blank" class="tool-card">
+                <div class="tool-name">Linear Programming Solver</div>
+                <div class="tool-desc">線上線性規劃求解器，適合平板（如 iPad）使用者進行線性極值計算。</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>個體經濟理論 課堂紀錄整理 | 適用於 AI 工具應用交流</p>
+    </div>
+</div>
+
+</body>
+</html>
