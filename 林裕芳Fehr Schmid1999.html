@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個體經濟理論 10/16 經典論文研討與課堂實驗</title>
+    <!-- MathJax 數學公式渲染器 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #d69e2e;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --alert-bg: #fff5f5;
+            --alert-border: #e53e3e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 35px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin-top: 25px;
+        }
+
+        .paper-meta {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .formula-box {
+            background-color: #f7fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .experiment-box {
+            background-color: #fffaf0;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .reflection-box {
+            background-color: #f0fff4;
+            border-left: 4px solid #38a169;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="nav-link">← 返回課程首頁</a>
+    
+    <h1>個體經濟理論：經典論文研討與課堂實驗記錄</h1>
+
+    <div class="paper-meta">
+        <strong>📄 研討論文資訊：</strong>
+        <ul>
+            <li><strong>報告同學：</strong>林裕芳</li>
+            <li><strong>論文題目：</strong><em>A Theory of Fairness, Competition, and Cooperation</em> (1999, QJE)</li>
+            <li><strong>作者：</strong>Ernst Fehr & Klaus M. Schmidt</li>
+            <li><strong>核心議題：</strong>為何人類在某些場合展現強烈公平感（如最後通牒賽局拒絕低出價），但在市場競爭或無懲罰公共財賽局中卻又表現極度自私？如何用統一的模型解釋此矛盾？</li>
+        </ul>
+    </div>
+
+    <h2>第一部分：Fehr & Schmidt (1999) 不平等厭惡模型架構</h2>
+
+    <h3>1. 效用函數與參數定義</h3>
+    <p>作者打破傳統「個體僅關注自身貨幣報酬」的假設，引入<strong>不平等厭惡（Inequity Aversion）</strong>狀態。玩家 $i$ 的效用函數定義為：</p>
+
+    <div class="formula-box">
+        $$U_i(x) = x_i - \alpha_i \frac{1}{n-1} \sum_{j \neq i} \max\{x_j - x_i, 0\} - \beta_i \frac{1}{n-1} \sum_{j \neq i} \max\{x_i - x_j, 0\}$$
+        $$\text{參數限制：} \beta_i \le \alpha_i \quad \text{且} \quad 0 \le \beta_i < 1$$
+    </div>
+
+    <ul>
+        <li>$x_i, x_j$：玩家 $i$ 與玩家 $j$ 的貨幣報酬。</li>
+        <li>$\alpha_i$（吃虧厭惡 / 嫉妒心）：當自己報酬少於他人時所產生的痛苦折算係數 ($\alpha_i \ge \beta_i$)。</li>
+        <li>$\beta_i$（佔便宜厭惡 / 罪惡感）：當自己報酬多於他人時所產生的內疚折算係數 ($0 \le \beta_i < 1$)。</li>
+        <li>當 $\alpha_i = \beta_i = 0$ 時，代表該玩家為傳統的<strong>純粹自利者</strong>。</li>
+    </ul>
+
+    <h3>2. 不同賽局下的理論預測與矛盾解釋</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>賽局類型</th>
+                <th>實證觀察現象</th>
+                <th>Fehr & Schmidt 模型解釋與機制</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>最後通牒賽局<br>(Ultimatum Game)</strong></td>
+                <td>提議者多出價 40%~50%；低於 20% 的提案經常被回應者「玉石俱焚」式拒絕。</td>
+                <td>回應者若拒絕低出價，雖失去貨幣報酬，但消除極大的不平等痛苦（受 $\alpha$ 驅動）；提議者為避免被拒絕而提高出價。</td>
+            </tr>
+            <tr>
+                <td><strong>市場競爭賽局<br>(Market Competition)</strong></td>
+                <td>當存在多位賣方競爭單一買方時，價格迅速收斂至極端不平等的均衡（買方拿走幾乎全部剩餘）。</td>
+                <td><strong>競爭會使公平原則失效</strong>。任何單一回應者若嘗試堅持公平而拒絕交易，無法阻止其他回應者接受交易。競爭強迫關注公平者屈服於市場價格。</td>
+            </tr>
+            <tr>
+                <td><strong>無懲罰公共財賽局<br>(Public Goods without Punishment)</strong></td>
+                <td>初期有部分合作，但隨期數增加，搭便車（Free-riding）人數激增，最後一期近乎 100% 完全搭便車。</td>
+                <td>合作者看到他人搭便車會產生強烈不不平等痛苦（$\alpha$），為了避免吃虧，原本具條件合作意願的人也會被迫停止貢獻。</td>
+            </tr>
+            <tr>
+                <td><strong>有懲罰公共財賽局<br>(Public Goods with Punishment)</strong></td>
+                <td>即使懲罰需自費，少數重視公平者仍會懲罰搭便車者，最終驅使整體走向 100% 完全合作。</td>
+                <td>少數具高 $\alpha$ 的「正義執行者」願意自費懲罰背叛者，使得自利者發現搭便車的懲罰代價高於合作，被迫選擇全額貢獻。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>第二部分：課堂現場「最後通牒賽局」實驗記錄與解析</h2>
+
+    <div class="experiment-box">
+        <h3>🎮 課堂實作實驗：10 分平時成績分配賽局</h3>
+        <p>老師當場發送紙條，將全班同學隨機配對進行最後通牒賽局。提議者決定如何分配 10 分（保留 $s$ 分，給予對手 $10-s$ 分）；對手收到後決定「接受」或「拒絕」（若拒絕則兩人皆得 0 分）。</p>
+        
+        <h4>實驗結果觀察：</h4>
+        <ul>
+            <li><strong>主流行為（5:5 平分）：</strong> 絕大多數同學提案均選擇保留 5 分、給對手 5 分，對手全部無異議接受。</li>
+            <li><strong>謙卑利他者（4:6）：</strong> 有同學選擇僅保留 4 分、給對手 6 分，展現高 $\beta$（罪惡感/分享偏好）。</li>
+            <li><strong>不公平出價（8:2 與 7:3）：</strong> 有同學提出高比例保留，而接收方在評估後選擇「接受」（顯示實務上可能因利益雖少但仍大於零而接受，或回應者 $\alpha$ 較低）。</li>
+        </ul>
+    </div>
+
+    <h2>第三部分：教師檢討與觀念深化（從 1999 到 2025 的理論演進）</h2>
+
+    <div class="reflection-box">
+        <h3>💡 課堂學習方法引導：善用 AI 工具進行概念建構</h3>
+        <p>老師針對課堂報告指出了學習態度與方法的盲點：研讀學術論文時，切忌在未理解基本定義（如「公共財」、「子賽局精確均衡 SPE」）前直接摘要。現代學習者應善用 AI（如 NotebookLM、Gemini）將艱深的理論轉化為白話情境，先建立直覺理解，再進行簡報。</p>
+
+        <h3>📈 公平理論的時間線演進 (1998 $\rightarrow$ 2025)</h3>
+        <ol>
+            <li><strong>1998/1999 年（心理偏好與不平等厭惡）：</strong> 以 Fehr & Schmidt 為代表，將公平視為人類內在的心理特質（$\alpha, \beta$），主張人天生討厭不平等，願意付代價維護正義。</li>
+            <li><strong>市場競爭的削弱：</strong> 當引入多方競爭或市場力量時，個體對公平的堅持會被同儕競爭的恐懼感迅速瓦解，被迫走向極端不平等的市場均衡。</li>
+            <li><strong>2025 年最新前沿研究（長遠理性與現狀效應）：</strong> 最新研究指出，在「無限期重複談判」情境下，<strong>即使是 100% 完全自利、毫無同理心的理性個體，也會主動選擇 50:50 的絕對公平分配</strong>。因為一次屈服於不公平會建立惡劣的「現狀先例 (Precedent)」，導致未來長期談判持續受制於人。因此，公平不僅是心理溫情，更是長遠理性下的最佳防守策略。</li>
+        </ol>
+    </div>
+
+    <div class="footer">
+        <p>個體經濟理論 課堂紀錄整理 | 適用於講義對照與選題討論</p>
+    </div>
+</div>
+
+</body>
+</html>

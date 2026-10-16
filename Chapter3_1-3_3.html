@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個體經濟理論 10/16 課堂內容</title>
+    <!-- MathJax 數學公式渲染器 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['[', ']']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #d69e2e;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 2em;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 35px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin-top: 25px;
+        }
+
+        .meta-box {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .meta-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .formula-box {
+            background-color: #f7fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .example-box {
+            background-color: #fffaf0;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #718096;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="nav-link">← 返回課程首頁</a>
+    
+    <h1>個體經濟理論 10/16 課堂內容記錄</h1>
+
+    <div class="meta-box">
+        <strong>📌 課堂管理說明：</strong>
+        <ul>
+            <li><strong>請假處置機制：</strong>若同學因故請假，可以透過「預錄影片」的方式進行報告，確保個人平時評分權益（如語沛同學即採用預錄報告）。</li>
+            <li><strong>本次報告進度：</strong>由敏彰發表 Section 3.1、建廷發表 Section 3.2、斯育發表 Section 3.3，涵蓋第三章生產限制與線性規劃。</li>
+        </ul>
+    </div>
+
+    <h2>第一部分：3.1 生產實驗的限制（報告：敏彰）</h2>
+    <p>傳統經濟學常透過實地或控制場域的「生產實驗」觀察投入與產出的關係，以繪製等產量曲線。然而傳統生產實驗面臨三大主要限制：</p>
+    
+    <ol>
+        <li><strong>無法解釋替代背後的原因：</strong>生產實驗僅能描述投入要素間可相互替代（如多用機器少用人力），但無法說明背後的經濟機制或運作原因（例如：是因為規模效益變快，還是人力等待機器的閒置時間減少？）。</li>
+        <li><strong>投入要素增加導致成本幾何級數上升：</strong>實驗若僅比較 2 種（最多 3 種）要素尚可進行，但當要素增加（例如加上原料、包材、電力、空間等），需要的組合測試數量龐大，實驗成本與時間會急遽增加，甚至干擾實際營業。</li>
+        <li><strong>無法預測新要素的替代效果：</strong>舊有實驗無法套用到「全新投入要素」上（例如：飲料店引進自動調配機，或農場使用基因改造新品種），必須重新設計實驗。</li>
+    </ol>
+
+    <div class="example-box">
+        <strong>🥤 課堂生活案例：手搖飲料店配置</strong>
+        <ul>
+            <li><strong>配置替代：</strong>1 位店員搭配封口機 vs 2 位純手動店員，均能產出 100 杯飲料，顯示人力與設備存在替代關係。</li>
+            <li><strong>實驗限制：</strong>若要同時考慮店員人數、自動調飲機、包材與冰塊配置，測試組合會過度繁雜；且引入新設備後，必須重新分析清潔維護與補充原料的人力成本。</li>
+        </ul>
+    </div>
+
+    <h2>第二部分：3.2 最低成本飲食問題與線性規劃（報告：建廷）</h2>
+    <p>為了克服傳統生產實驗的限制，1940年代（二戰期間/二戰後）學者引入了<strong>線性規劃（Linear Programming）</strong>，最初應用於 George Stigler (1945) 所提出的「最低成本飲食問題 (Diet Problem)」。</p>
+
+    <h3>1. 線性規劃標準模型架構</h3>
+    <p>設 $N$ 為營養素種類，$M$ 為食物種類；$C_j$ 為第 $j$ 種食物之單價，$X_j$ 為食物使用量；$A_{ij}$ 為每單位第 $j$ 種食物含第 $i$ 種營養素之數量，$B_i$ 為第 $i$ 種營養素每日最低需求量：</p>
+
+    <div class="formula-box">
+        $$\text{目標函數（極小化總成本）：} \min \sum_{j=1}^{M} C_j X_j$$
+        $$\text{限制條件（營養約束）：} \sum_{j=1}^{M} A_{ij} X_j \ge B_i \quad (i=1, \dots, N)$$
+        $$\text{非負限制：} X_j \ge 0 \quad (j=1, \dots, M)$$
+    </div>
+
+    <h3>2. 經典數據範例：高麗菜（甘藍）與馬鈴薯</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>營養要素 / 食物</th>
+                <th>高麗菜 ($X_1$)</th>
+                <th>馬鈴薯 ($X_2$)</th>
+                <th>每日最低需求量 ($B_i$)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>熱量 (kCal)</td>
+                <td>96</td>
+                <td>325</td>
+                <td>3,000</td>
+            </tr>
+            <tr>
+                <td>蛋白質 (g)</td>
+                <td>4.63</td>
+                <td>7.63</td>
+                <td>70</td>
+            </tr>
+            <tr>
+                <td>維生素 A (IU)</td>
+                <td>266</td>
+                <td>152</td>
+                <td>5,000</td>
+            </tr>
+            <tr>
+                <td><strong>每磅單價 ($C_j$)</strong></td>
+                <td><strong>$0.3 美元</strong></td>
+                <td><strong>$0.2 美元</strong></td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="formula-box">
+        $$\min \; 0.3 X_1 + 0.2 X_2$$
+        $$\text{s.t. } 96 X_1 + 325 X_2 \ge 3000 \quad (\text{熱量})$$
+        $$4.63 X_1 + 7.63 X_2 \ge 70 \quad (\text{蛋白質})$$
+        $$266 X_1 + 152 X_2 \ge 5000 \quad (\text{維生素 A})$$
+        $$X_1 \ge 0, \quad X_2 \ge 0$$
+    </div>
+
+    <p><strong>最適內部解：</strong>求解切點與約束邊界交點，得 $X_1^* \approx 16.27$ 磅（高麗菜）、$X_2^* \approx 4.43$ 磅（馬鈴薯），每日最低飲食總成本約為 <strong>$5.76 美元</strong>。</p>
+    <p><strong>對偶問題 (Dual Problem)：</strong> 由 John von Neumann 提出，對偶問題轉為「計算每單位營養素的邊際隱藏價值（影子價格 Shadow Price）並予以最大化」，可用於估算補充劑或純營養品之經濟價值。</p>
+
+    <h2>第三部分：3.3 線性規劃技術與演算工具（報告：斯育）</h2>
+
+    <h3>1. 求解演算法演進</h3>
+    <ul>
+        <li><strong>幾何繪圖法：</strong> 適用於 2 種變數（平面圖形交點），超過 3 種變數則無法直觀繪製。</li>
+        <li><strong>單形法 (Simplex Method)：</strong> 早期代數演算法，沿著可行域的邊界端點（Vertex）逐步移動尋求最佳解。</li>
+        <li><strong>內部點演算法 (Interior-Point Algorithm)：</strong> 近代演算法，直接從可行域內部穿過並快速收斂至最佳端點。</li>
+    </ul>
+
+    <h3>2. 求解軟體與數位工具操作</h3>
+    <p>課本早期介紹 Maple/MuPAD 等代數軟體系統。老師於課堂現場示範現代化替代工具：</p>
+
+    <div class="example-box">
+        <strong>🛠️ 工具 1：Excel 規劃求解 (Solver) 步驟</strong>
+        <ol>
+            <li>點選「檔案」$\rightarrow$「選項」$\rightarrow$「增益集」$\rightarrow$ 執行「規劃求解增益集」。</li>
+            <li>建立目標函數儲存格（如 `=0.3*X1 + 0.2*X2`）。</li>
+            <li>開啟「規劃求解」，設定目標儲存格極小化，並新增三條營養限制式與非負限制。</li>
+            <li>點選「求解」，精準得到 $X_1 = 16.268$, $X_2 = 4.425$，最小成本 $5.765$ 美元。</li>
+        </ol>
+    </div>
+
+    <div class="example-box">
+        <strong>🌐 工具 2：線上線性規劃求解器 (Web Solver / AI)</strong>
+        <p>若使用平板（如 iPad 無法安裝增益集），可直接使用網頁版 Linear Programming Solver 或將不等式直接輸入給 AI 進行分析計算，同樣能精準求得相同最佳解。</p>
+    </div>
+
+    <div class="footer">
+        <p>個體經濟理論 課堂紀錄整理 | 適用於講義對照與選題討論</p>
+    </div>
+</div>
+
+</body>
+</html>
