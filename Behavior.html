@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理帳戶與租稅推理：跨領域學術合成與互動教學</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- MathJax 配置與載入 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Noto+Serif+TC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Serif TC', 'Merriweather', serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .academic-header {
+            border-bottom: 2px solid #0f172a;
+        }
+
+        .section-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        .math-card {
+            background-color: #f1f5f9;
+            border-left: 4px solid #1e3a8a;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #1e3a8a;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <header class="academic-header pb-6 mb-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-900 bg-blue-50 px-2.5 py-1 rounded border border-blue-200">
+                    Behavioral Public Economics Synthesis
+                </span>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-2">
+                    心智帳戶與租稅推理：從微觀抉擇到宏觀財政
+                </h1>
+                <p class="text-sm text-slate-600 mt-1">
+                    理查德·塞勒 (Thaler, 1985) 與 斯蒂芬妮·斯唐切娃 (Stantcheva, 2021) 論文之跨領域合成研討網頁
+                </p>
+            </div>
+            <div class="text-right text-xs text-slate-500 border-l-2 border-slate-300 pl-4">
+                <div><strong>Thaler (1985)</strong> <i>Marketing Science</i></div>
+                <div><strong>Stantcheva (2021)</strong> <i>Quarterly Journal of Economics</i></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content Grid -->
+    <div class="space-y-8">
+
+        <!-- 互動展示一：Thaler 展望理論與享樂框架計算器 -->
+        <section class="section-card p-6">
+            <h2 class="text-lg font-bold text-slate-900 border-b pb-3 mb-4 flex items-center">
+                <i class="fa-solid fa-calculator text-blue-900 mr-2.5"></i>
+                互動展示一：Thaler (1985) 享樂框架與交易效用計算器
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Controls -->
+                <div class="md:col-span-5 space-y-4 bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">獲得金額 $x$ (美元): <span id="valX" class="text-blue-900 font-bold">$100</span></label>
+                        <input type="range" id="sliderX" min="10" max="500" step="10" value="100" class="w-full slider-thumb">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">支付金額 $p$ (美元): <span id="valP" class="text-red-700 font-bold">$80</span></label>
+                        <input type="range" id="sliderP" min="10" max="500" step="10" value="80" class="w-full slider-thumb">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">參考價格 $p^*$ (心智期望價): <span id="valPStar" class="text-emerald-700 font-bold">$100</span></label>
+                        <input type="range" id="sliderPStar" min="10" max="500" step="10" value="100" class="w-full slider-thumb">
+                    </div>
+                </div>
+
+                <!-- Outputs -->
+                <div class="md:col-span-7 flex flex-col justify-between space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 rounded-lg bg-blue-50 border border-blue-200 text-center">
+                            <div class="text-xs text-blue-800 font-medium">獲得效用 (Acquisition)</div>
+                            <div id="resAcq" class="text-2xl font-bold text-blue-900 mt-1">+20.00</div>
+                            <div class="text-[10px] text-slate-500 mt-1">衡量 $v(x - p)$（即消費者剩餘）</div>
+                        </div>
+                        <div class="p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-center">
+                            <div class="text-xs text-emerald-800 font-medium">交易效用 (Transaction)</div>
+                            <div id="resTrans" class="text-2xl font-bold text-emerald-900 mt-1">+20.00</div>
+                            <div class="text-[10px] text-slate-500 mt-1">衡量 $v(-p : -p^*)$（即划算感）</div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-slate-900 text-white text-xs space-y-2">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                            <span>總心智評價 $w(z, p, p^*)$:</span>
+                            <span id="resTotal" class="text-lg font-bold text-amber-400">+40.00</span>
+                        </div>
+                        <p id="thalerInsight" class="text-slate-300 text-[11px] leading-relaxed pt-1">
+                            當實際價格 $p$ 低於參考價格 $p^*$ 時，顧客能獲得正向的「交易效用」（划算感），即使商品本身的價值保持不變。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 互動展示二：Stantcheva 最適所得稅率模擬器（已完整修復） -->
+        <section class="section-card p-6">
+            <h2 class="text-lg font-bold text-slate-900 border-b pb-3 mb-4 flex items-center">
+                <i class="fa-solid fa-sliders text-blue-900 mr-2.5"></i>
+                互動展示二：Stantcheva (2021) 最適最高所得稅率模擬器
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Controls -->
+                <div class="md:col-span-5 space-y-4 bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">
+                            應稅所得彈性 $e$ (效率扭曲損害): <span id="simEVal" class="text-amber-700 font-bold">0.25</span>
+                        </label>
+                        <input type="range" id="simE" min="0.05" max="0.9" step="0.05" value="0.25" class="w-full slider-thumb">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">
+                            高收入者公平權重 $\bar{g}^{\text{top}}$ (社會公平觀): <span id="simGVal" class="text-indigo-700 font-bold">0.20</span>
+                        </label>
+                        <input type="range" id="simG" min="0.0" max="0.9" step="0.05" value="0.20" class="w-full slider-thumb">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">
+                            政府信任度 $\gamma$ (心智浪費感知): <span id="simGammaVal" class="text-teal-700 font-bold">0.80</span>
+                        </label>
+                        <input type="range" id="simGamma" min="0.3" max="1.0" step="0.05" value="0.80" class="w-full slider-thumb">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">
+                            帕累托不平等參數 $a$: <span id="simAVal" class="text-purple-700 font-bold">1.50</span>
+                        </label>
+                        <input type="range" id="simA" min="1.1" max="2.5" step="0.1" value="1.50" class="w-full slider-thumb">
+                    </div>
+                </div>
+
+                <!-- Simulation Output -->
+                <div class="md:col-span-7 flex flex-col justify-center items-center text-center p-6 bg-slate-50 rounded-lg border border-slate-200">
+                    <div class="text-xs text-slate-500 mb-1">根據 Stantcheva (2021) 理論模型演算之</div>
+                    
+                    <!-- 固定公式標題，避免 MathJax 重新渲染出錯 -->
+                    <div class="text-base font-bold text-slate-800 mb-2">
+                        最適最高所得稅率 ($\tau^{\text{top}}$)
+                    </div>
+                    
+                    <div id="simResultTax" class="text-5xl font-extrabold text-blue-900 mb-4">58.3%</div>
+                    
+                    <!-- 使用不含反斜線轉義問題的穩定 HTML 結構 -->
+                    <div id="simExplanation" class="p-4 rounded-lg bg-white border border-slate-200 text-xs text-slate-700 max-w-md leading-relaxed text-left shadow-sm">
+                        <!-- JS 動態寫入內容 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JavaScript 邏輯 -->
+    <script>
+        // --- 互動展示一：Thaler 享樂框架邏輯 ---
+        function updateThalerSim() {
+            const x = parseFloat(document.getElementById('sliderX').value);
+            const p = parseFloat(document.getElementById('sliderP').value);
+            const pStar = parseFloat(document.getElementById('sliderPStar').value);
+
+            document.getElementById('valX').textContent = `$${x}`;
+            document.getElementById('valP').textContent = `$${p}`;
+            document.getElementById('valPStar').textContent = `$${pStar}`;
+
+            // 簡易線性近似示範效用
+            const acqUtility = x - p;
+            const transUtility = pStar - p;
+            const totalUtility = acqUtility + transUtility;
+
+            document.getElementById('resAcq').textContent = (acqUtility >= 0 ? '+' : '') + acqUtility.toFixed(2);
+            document.getElementById('resTrans').textContent = (transUtility >= 0 ? '+' : '') + transUtility.toFixed(2);
+            document.getElementById('resTotal').textContent = (totalUtility >= 0 ? '+' : '') + totalUtility.toFixed(2);
+
+            const insightBox = document.getElementById('thalerInsight');
+            if (p < pStar) {
+                insightBox.innerHTML = `實際價格 ($${p}) 低於參考價格 ($${pStar})，產生了 <strong>+$${transUtility.toFixed(0)}</strong> 的正向交易效用（划算感），增加了購買吸引力。`;
+            } else if (p > pStar) {
+                insightBox.innerHTML = `實際價格 ($${p}) 高於參考價格 ($${pStar})，產生了 <strong>-$${Math.abs(transUtility).toFixed(0)}</strong> 的負向交易效用（感覺被坑），會大幅抑制購買意願。`;
+            } else {
+                insightBox.innerHTML = `實際價格等於參考價格，交易效用為 0，消費者純粹依據獲得效用（$${acqUtility.toFixed(0)}）進行評估。`;
+            }
+        }
+
+        ['sliderX', 'sliderP', 'sliderPStar'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateThalerSim);
+        });
+
+        // --- 互動展示二：Stantcheva 最適稅率邏輯（已修正字串與語法錯誤） ---
+        function updateStantchevaSim() {
+            const e = parseFloat(document.getElementById('simE').value);
+            const g = parseFloat(document.getElementById('simG').value);
+            const gamma = parseFloat(document.getElementById('simGamma').value);
+            const a = parseFloat(document.getElementById('simA').value);
+
+            document.getElementById('simEVal').textContent = e.toFixed(2);
+            document.getElementById('simGVal').textContent = g.toFixed(2);
+            document.getElementById('simGammaVal').textContent = gamma.toFixed(2);
+            document.getElementById('simAVal').textContent = a.toFixed(2);
+
+            // Stantcheva 公式： tau = (1 - g/gamma) / (1 - g/gamma + a * e)
+            const numerator = 1 - (g / gamma);
+            const denominator = 1 - (g / gamma) + (a * e);
+            let tau = (numerator / denominator) * 100;
+
+            if (tau < 0) tau = 0;
+            if (tau > 100) tau = 100;
+
+            document.getElementById('simResultTax').textContent = `${tau.toFixed(1)}%`;
+
+            // 使用標準安全的 HTML 標籤渲染，不傳送包含反斜線的 LaTeX 字串，徹底解決 Math Input Error
+            const expBox = document.getElementById('simExplanation');
+            expBox.innerHTML = `<strong>理論解析：</strong> 當對政府信任度高 (<i>&gamma;</i> = <strong>${gamma.toFixed(2)}</strong>) 且貧富差距公平偏好強烈 (<i>ḡ</i> = <strong>${g.toFixed(2)}</strong>) 時，最適最高所得稅率可達 <strong>${tau.toFixed(1)}%</strong>。<br><br>` +
+                `這驗證了 Stantcheva (2021) 的核心結論：<strong>公平偏好與對政府信任度是決定稅率立場的主導力量</strong>，遠比效率彈性 (<i>e</i> = <strong>${e.toFixed(2)}</strong>) 更關鍵。`;
+        }
+
+        ['simE', 'simG', 'simGamma', 'simA'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateStantchevaSim);
+        });
+
+        // 初始化
+        window.onload = function() {
+            updateThalerSim();
+            updateStantchevaSim();
+        };
+    </script>
+</body>
+</html>
