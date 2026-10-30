@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理帳戶與消費者選擇 - Richard Thaler (1985)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Interactive Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- KaTeX for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0f172a',
+                            900: '#020617',
+                        },
+                        slate: {
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        amber: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Microsoft JhengHei', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Force 16:9 Aspect Ratio Presentation Container */
+        .aspect-16-9-container {
+            width: 100vw;
+            height: 100vh;
+            max-width: 100vw;
+            max-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #020617;
+            overflow: hidden;
+        }
+
+        .slide-deck {
+            position: relative;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 ratio */
+            max-height: 100vh;
+            max-width: 177.78vh; /* 16:9 ratio */
+            background: #0f172a;
+            color: #f8fafc;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(30px);
+            padding: 2.5rem 3.5rem;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .slide.exit-left {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-30px);
+        }
+
+        /* Glassmorphic Cards */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        .glass-card-accent {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+            border-left: 4px solid #f59e0b;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-black text-slate-100 font-sans antialiased select-none">
+
+    <div class="aspect-16-9-container">
+        <div class="slide-deck" id="slideDeck">
+
+            <!-- Top Header Bar -->
+            <header class="absolute top-0 left-0 right-0 h-14 px-8 flex items-center justify-between border-b border-slate-800/80 z-20 bg-slate-900/60 backdrop-blur-md">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-1 rounded-full font-semibold tracking-wide">
+                        Marketing Science (1985)
+                    </span>
+                    <h1 class="text-sm font-medium text-slate-300">
+                        Richard Thaler : <span class="text-white font-semibold">Mental Accounting and Consumer Choice</span>
+                    </h1>
+                </div>
+                <div class="flex items-center space-x-4 text-xs text-slate-400">
+                    <span id="slideCategory" class="text-amber-400 font-medium">導言與背景</span>
+                    <span class="text-slate-600">|</span>
+                    <span id="slideCounter">1 / 10</span>
+                    <button onclick="toggleFullscreen()" class="hover:text-amber-400 transition ml-2" title="全螢幕切換">
+                        <i class="fa-solid font-expand text-sm"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- SLIDE 1: Title & Introduction -->
+            <div class="slide active" data-category="論文簡介">
+                <div class="mt-8 grid grid-cols-12 gap-6 h-full pb-10">
+                    <div class="col-span-7 flex flex-col justify-center pr-4">
+                        <div class="inline-flex items-center space-x-2 text-amber-400 text-sm font-semibold tracking-wider uppercase mb-3">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span>行為經濟學與行銷學里程碑論文</span>
+                        </div>
+                        <h1 class="text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
+                            心理帳戶與消費者選擇
+                        </h1>
+                        <p class="text-lg text-slate-300 mb-6 leading-relaxed">
+                            傳統微觀經濟學假設人是理性且資金具備「可替代性（Fungibility）」。理查德·塞勒（2017諾貝爾得主）在 1985 年提出 <strong class="text-amber-400">心理帳戶（Mental Accounting）</strong>，揭示人們如何透過認知心理學進行收支編碼、交易評估與預算劃分。
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="glass-card p-4">
+                                <div class="text-amber-400 font-bold text-base mb-1">傳統經濟學典範</div>
+                                <p class="text-slate-400">追求效用極大化 $\max U(z)$，認為貨幣沒有標籤，決策不受框架（Framing）影響。</p>
+                            </div>
+                            <div class="glass-card p-4 border-amber-500/40">
+                                <div class="text-teal-400 font-bold text-base mb-1">塞勒心理帳戶理論</div>
+                                <p class="text-slate-400">基於展望理論，將價格直接納入價值函數，引入「交易效用」與類別預算控管。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-5 flex flex-col justify-center">
+                        <div class="glass-card-accent p-6 space-y-4">
+                            <h3 class="text-lg font-bold text-amber-400 border-b border-slate-700 pb-2">
+                                <i class="fa-solid fa-lightbulb mr-2"></i>論文開篇四個經典異象
+                            </h3>
+                            <div class="space-y-3 text-xs text-slate-300">
+                                <div class="p-2.5 rounded bg-slate-800/80">
+                                    <span class="text-amber-300 font-bold">1. 掉魚補償金：</span>獲賠 $300 意外金後花 $225 吃大餐，違背貨幣可替代性（若加薪 $300 則不會如此）。
+                                </div>
+                                <div class="p-2.5 rounded bg-slate-800/80">
+                                    <span class="text-amber-300 font-bold">2. 撲克牌遊戲：</span>贏錢者（+$50）敢跟注，當天股票賺錢者卻蓋牌——心智帳戶具備特定領域與時效。
+                                </div>
+                                <div class="p-2.5 rounded bg-slate-800/80">
+                                    <span class="text-amber-300 font-bold">3. 購屋儲蓄 vs 車貸：</span>一邊存 10% 購屋基金，另一邊卻借 15% 車貸——用制度防範自我控制失敗。
+                                </div>
+                                <div class="p-2.5 rounded bg-slate-800/80">
+                                    <span class="text-amber-300 font-bold">4. 喀什米爾羊毛衫：</span>自己嫌貴不買，妻子用共同帳戶買來送他卻非常高興——禮物給予與高 $k$ 類別。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: Core Concept 1 - Value Function -->
+            <div class="slide" data-category="核心理論 1">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2 flex items-center">
+                            <span class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full inline-flex items-center justify-center text-base font-bold mr-3">1</span>
+                            心智心算與展望理論價值函數 $v(\cdot)$
+                        </h2>
+                        <p class="text-sm text-slate-300">
+                            塞勒使用 Kahneman & Tversky (1979) 的展望理論價值函數取代傳統經濟學的 $U(x)$，作為心理帳戶的基礎心理機制。
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-12 gap-6 my-auto">
+                        <div class="col-span-5 glass-card p-5 flex flex-col justify-between">
+                            <h3 class="text-base font-bold text-amber-400 mb-3">價值函數的三大核心心理特徵</h3>
+                            <ul class="space-y-3 text-xs leading-relaxed text-slate-300">
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-crosshairs text-teal-400 mt-1 mr-2"></i>
+                                    <div>
+                                        <strong class="text-white">1. 參考點依賴（Reference Dependence）：</strong>
+                                        價值基於相對參考點的「感受到的收益與損失」，而非總財富絕對值。
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-chart-line text-teal-400 mt-1 mr-2"></i>
+                                    <div>
+                                        <strong class="text-white">2. 邊際效用遞減（Diminishing Sensitivity）：</strong>
+                                        收益區域為凹函數 ($v''(x) < 0, x>0$)，損失區域為凸函數 ($v''(x) > 0, x<0$)。獲得 $10 與 $20 的心理差異大於 $110 與 $120。
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-1 mr-2"></i>
+                                    <div>
+                                        <strong class="text-white">3. 損失趨避（Loss Aversion）：</strong>
+                                        損失曲線比收益曲線更陡峭 ($v(x) < -v(-x), \forall x>0$)。失去 $100 的痛苦遠大於得到 $100 的快樂（約 2 至 2.5 倍）。
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Interactive Chart Container -->
+                        <div class="col-span-7 glass-card p-4 relative flex flex-col items-center justify-center">
+                            <div class="w-full h-64">
+                                <canvas id="valueFunctionChart"></canvas>
+                            </div>
+                            <div class="text-[11px] text-slate-400 mt-1 text-center">
+                                典型價值函數曲線：$v(x) = x^{0.88}$ (x≥0) ; $v(x) = -2.25(-x)^{0.88}$ (x<0)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card-accent p-3 text-xs text-slate-300">
+                        <strong class="text-amber-400">論文重要延伸：</strong> 塞勒將單一維度的價值函數擴展至處理「複合結果（Compound Outcomes）」 $(x,y)$，探討人們傾向將結果「整合（Integration）」為 $v(x+y)$ 還是「分開（Segregation）」為 $v(x)+v(y)$。
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: Hedonic Framing Principles -->
+            <div class="slide" data-category="核心理論 1">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2">享樂框架原則（Hedonic Framing Principles）</h2>
+                        <p class="text-sm text-slate-300">人們如何透過心智編碼（Coding）來追求心理效用最大化？論文提出四大四大組合原則：</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 my-auto">
+                        <!-- Principle 1 -->
+                        <div class="glass-card p-4 border-l-4 border-emerald-500">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-white text-base">1. 分開收益 (Segregate Gains)</h3>
+                                <span class="text-emerald-400 text-xs font-mono font-bold">$v(x)+v(y) > v(x+y)$</span>
+                            </div>
+                            <p class="text-xs text-slate-300 mb-2">由於收益函數為凹函數，分開兩筆收益產生的心理總效用高於單一總額。</p>
+                            <div class="bg-slate-800/80 p-2 rounded text-[11px] text-slate-400">
+                                💬 <strong>論文實證：</strong> 獲得兩張彩券分別中 $50 與 $25 的人（Mr. A 56%），比單張中 $75 的人（Mr. B 16%）更高興。
+                            </div>
+                        </div>
+
+                        <!-- Principle 2 -->
+                        <div class="glass-card p-4 border-l-4 border-rose-500">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-white text-base">2. 整合損失 (Integrate Losses)</h3>
+                                <span class="text-rose-400 text-xs font-mono font-bold">$v(-x)+v(-y) < v(-(x+y))$</span>
+                            </div>
+                            <p class="text-xs text-slate-300 mb-2">由於損失函數為凸函數，將多筆損失合併能減少總心理痛苦。</p>
+                            <div class="bg-slate-800/80 p-2 rounded text-[11px] text-slate-400">
+                                💬 <strong>論文實證：</strong> 收到國稅局補稅 $100 與州稅 $50 兩封信的人（Mr. A 66%），比收到一封補稅 $150 的人（14%）更不爽。
+                            </div>
+                        </div>
+
+                        <!-- Principle 3 -->
+                        <div class="glass-card p-4 border-l-4 border-teal-500">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-white text-base">3. 混合收益抵銷 (Cancel Mixed Gains)</h3>
+                                <span class="text-teal-400 text-xs font-mono font-bold">$v(x)+v(-y) < v(x-y)$</span>
+                            </div>
+                            <p class="text-xs text-slate-300 mb-2">當淨結果為正（$x > y$），直接抵銷能消除損失帶來的陡峭心理痛苦。</p>
+                            <div class="bg-slate-800/80 p-2 rounded text-[11px] text-slate-400">
+                                💬 <strong>論文實證：</strong> 贏 $100 彩券但地毯弄髒賠 $80（淨賺 $20），其滿意度遠低於只贏 $20 彩券的人（61% 比 22%）。
+                            </div>
+                        </div>
+
+                        <!-- Principle 4 -->
+                        <div class="glass-card p-4 border-l-4 border-amber-500">
+                            <div class="flex justify-between items-center mb-1">
+                                <h3 class="font-bold text-white text-base">4. 銀邊效應 (Silver Lining)</h3>
+                                <span class="text-amber-400 text-xs font-mono font-bold">$v(x)+v(-y) > v(x-y)$</span>
+                            </div>
+                            <p class="text-xs text-slate-300 mb-2">在大額損失下（$x \ll y$），分開小額收益能給人心理撫慰（如修車 $200 但足球彩券中 $25）。</p>
+                            <div class="bg-slate-800/80 p-2 rounded text-[11px] text-slate-400">
+                                💬 <strong>行銷應用：</strong> 汽車大廠高額購車補助款（Rebate）不直接扣抵車價，而是以支票寄給消費者作為銀邊。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: Interactive Calculator for Hedonic Framing -->
+            <div class="slide" data-category="互動模擬">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2 flex items-center">
+                            <i class="fa-solid fa-calculator text-amber-400 mr-3"></i>
+                            互動體驗：享樂框架心理價值計算器
+                        </h2>
+                        <p class="text-sm text-slate-300">請輸入兩筆財務事件金額，觀察心智「分開處理」與「整合處理」的心理總價值差異：</p>
+                    </div>
+
+                    <div class="grid grid-cols-12 gap-6 my-auto glass-card p-6">
+                        <div class="col-span-5 space-y-4 border-r border-slate-700 pr-6">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">事件 1 金額 ($x$)：正數為收益，負數為損失</label>
+                                <input type="number" id="calcX" value="100" class="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">事件 2 金額 ($y$)：正數為收益，負數為損失</label>
+                                <input type="number" id="calcY" value="-80" class="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white focus:outline-none focus:border-amber-500 text-sm">
+                            </div>
+                            <button onclick="calculateHedonicValue()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-2.5 rounded transition text-sm">
+                                重新計算心理效用
+                            </button>
+                        </div>
+
+                        <div class="col-span-7 flex flex-col justify-center pl-4 space-y-4">
+                            <div class="grid grid-cols-2 gap-4 text-center">
+                                <div class="bg-slate-800/90 p-4 rounded-lg border border-slate-700">
+                                    <div class="text-xs text-slate-400 mb-1">分開評估 $v(x) + v(y)$</div>
+                                    <div id="segregatedValue" class="text-2xl font-bold text-teal-400">0.00</div>
+                                </div>
+                                <div class="bg-slate-800/90 p-4 rounded-lg border border-slate-700">
+                                    <div class="text-xs text-slate-400 mb-1">整合評估 $v(x + y)$</div>
+                                    <div id="integratedValue" class="text-2xl font-bold text-amber-400">0.00</div>
+                                </div>
+                            </div>
+                            <div id="hedonicRecommendation" class="p-4 rounded-lg bg-slate-900 border border-amber-500/30 text-xs text-slate-200 leading-relaxed">
+                                建議結果加載中...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: Core Concept 2 - Transaction Utility Theory -->
+            <div class="slide" data-category="核心理論 2">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2 flex items-center">
+                            <span class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full inline-flex items-center justify-center text-base font-bold mr-3">2</span>
+                            交易效用理論 (Transaction Utility Theory)
+                        </h2>
+                        <p class="text-sm text-slate-300">塞勒打破傳統微觀經濟學僅考慮「消費者剩餘」的局限，將總效用拆解為兩部分：</p>
+                    </div>
+
+                    <div class="glass-card p-4 border-amber-500/40 my-2 text-center">
+                        <div class="text-xl font-mono text-amber-400 font-bold">
+                            $w(z, p, p^*) = v(\bar{p}, -p) + v(-p : -p^*)$
+                        </div>
+                        <div class="text-xs text-slate-400 mt-1">總購買價值 = 獲得效用 (Acquisition Utility) + 交易效用 (Transaction Utility)</div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 my-auto">
+                        <div class="glass-card p-5">
+                            <h3 class="text-base font-bold text-teal-400 mb-2">獲得效用 Acquisition Utility</h3>
+                            <div class="text-xs font-mono text-slate-300 mb-2">$v(\bar{p}, -p) \approx v(\bar{p} - p)$</div>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                                取決於商品本身對消費者的價值（等價願付價格 $\bar{p}$）與實際支付價格 $p$ 的比較。相當於傳統經濟學的消費者剩餘。
+                            </p>
+                            <div class="text-[11px] text-slate-400 bg-slate-800/60 p-2 rounded">
+                                特點：對於日常常規消費，成本不被視為心理損失，而是直接整合。
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-5">
+                            <h3 class="text-base font-bold text-amber-400 mb-2">交易效用 Transaction Utility</h3>
+                            <div class="text-xs font-mono text-slate-300 mb-2">$v(-p : -p^*)$</div>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                                取決於實際支付價格 $p$ 與<strong class="text-amber-300">參考價格 $p^*$</strong> 的比較。代表這筆交易本身是否「划算（Good Deal）」。
+                            </p>
+                            <div class="text-[11px] text-slate-400 bg-slate-800/60 p-2 rounded">
+                                特點：參考價格 $p^*$ 由公平性觀感決決定，而公平性主要受賣方成本影響。
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Beer on Beach Experiment Table -->
+                    <div class="glass-card-accent p-3 text-xs">
+                        <strong class="text-amber-400">經典論文實驗：沙灘上的啤酒 (Beer on the Beach)</strong>
+                        <p class="text-slate-300 mt-1">
+                            在炎熱沙灘上想喝冷飲，若請朋友去「高級渡假飯店」買，受訪者願意支付中位數 <strong class="text-amber-400">$2.65</strong>；但若去「破舊小雜貨店」買，願付中位數僅 <strong class="text-teal-400">$1.50</strong>！
+                            （儘管最終消費的啤酒完全相同且都在沙灘享用，雜貨店賣 $2.50 會被認定為「敲竹槓 Rip-off」，產生極負的交易效用）。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: Core Concept 3 - Budgeting & Multiple Accounts -->
+            <div class="slide" data-category="核心理論 3">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2 flex items-center">
+                            <span class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full inline-flex items-center justify-center text-base font-bold mr-3">3</span>
+                            預算制度與多重帳戶 (Budgeting & Multiple Accounts)
+                        </h2>
+                        <p class="text-sm text-slate-300">家庭與個人並非進行全域最佳化，而是透過時間與類別的心智預算進行「自我控制」。</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-5 my-auto">
+                        <div class="glass-card p-4 space-y-2">
+                            <div class="text-amber-400 font-bold text-sm"><i class="fa-solid fa-clock mr-1.5"></i>局部時間預算限制</div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                消費者受制於「當前現金流」而非「一生總財富折現」。多數家庭以「月份」為核心評估週期（因應月結帳單）。
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-4 space-y-2">
+                            <div class="text-teal-400 font-bold text-sm"><i class="fa-solid fa-folder-tree mr-1.5"></i>類別帳戶與影子價格 $k_{it}$</div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                支出被歸類到特定信封（如伙食、娛樂、教育）。決策規則為：
+                                <span class="block font-mono text-amber-300 text-[11px] my-1">$\frac{w(z,p,p^*)}{p} > k_{it}$</span>
+                                各類別影子價格 $k_{it}$ 並不相等，徹底破壞可替代性。
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-4 space-y-2">
+                            <div class="text-rose-400 font-bold text-sm"><i class="fa-solid fa-hand mr-1.5"></i>自我控制 (Self-Control) 機制</div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                為了防止誘惑（如抽菸、暴飲暴食），人會為誘惑類商品設定極高 $k_{it}$ 或絕對禁令。高 $k$ 類別（奢侈品）與低 $k$ 類別（教育/健身）共存。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card border-slate-700 p-4 text-xs text-slate-300">
+                        <h4 class="font-bold text-amber-400 mb-1">禮物給予理論 (Theory of Gift Giving) 的解謎：</h4>
+                        <p>
+                            傳統經濟學主張「送現金最佳」，但現實中人們偏好送實物禮物（如高級巧克力、香水）。
+                            原因：受贈者心理上想享受高 $k$ 類別（禁果/奢侈品），但因自我控制障礙不敢自己買；送他一個高 $k$ 實物，完美解決了他的自我控制困境與罪惡感。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: Real World Marketing Applications -->
+            <div class="slide" data-category="實務應用">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2">行銷與市場應用 (Marketing Applications)</h2>
+                        <p class="text-sm text-slate-300">理查德·塞勒如何運用心理帳戶解釋真實市場的經濟謎題與指導定價策略？</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 my-auto">
+                        <div class="glass-card p-4 space-y-3">
+                            <h3 class="text-sm font-bold text-amber-400 border-b border-slate-700 pb-1.5">
+                                <i class="fa-solid fa-ticket mr-2"></i>清場失敗與黃牛票謎題 (Super Bowl & Scalping)
+                            </h3>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                <strong>現象：</strong>超級盃門票、熱門演唱會官方定價遠低於市場清盤價，導致黃牛盛行。NFL 為何不直接賣 $300 而賣 $60？
+                            </p>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                <strong>塞勒解答：</strong>當存在長期顧客關係時，若售價遠高於常規參考價格 $p^*$，會引發巨大的負交易效用（被認為是暴利）並破壞長期商譽。黃牛吸收了交易不滿，廠商則維持了公平形象。
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-4 space-y-3">
+                            <h3 class="text-sm font-bold text-teal-400 border-b border-slate-700 pb-1.5">
+                                <i class="fa-solid fa-tag mr-2"></i>建議零售價 (SRP) 與提高價格策略
+                            </h3>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                <strong>建議零售價 (SRP)：</strong>廠商設定高 SRP（即使經常打折 50%）是為了向消費者建立高的「參考價格 $p^*$」，從而在實際購買時提供正的交易效用。
+                            </p>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                <strong>無痛漲價：</strong>(1) 增加奢侈感/裝潢提高 $p^*$；(2) 捆綁大額消費（如套裝行程/住房最少三夜限制）稀釋漲價痛苦；(3) 改變包裝規格打破 $p^*$ 記憶。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 text-xs text-slate-300">
+                        <div class="bg-slate-800/80 p-3 rounded">
+                            <strong class="text-amber-300">扣繳與抵銷：</strong> 薪資預扣所得稅比每年四月一次繳大額稅款心理痛苦小得多。
+                        </div>
+                        <div class="bg-slate-800/80 p-3 rounded">
+                            <strong class="text-amber-300">汽車加購配備：</strong> 在買車（$30,000）時加購 $500 選配，因與大額損失整合而極不敏感。
+                        </div>
+                        <div class="bg-slate-800/80 p-3 rounded">
+                            <strong class="text-amber-300">信用卡累積：</strong> 將許多小額損失整合成一張月結單，顯著降低每次消費的即時痛感。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: Graduate Student Life Cases (Part 1) -->
+            <div class="slide" data-category="研究生生活案例">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-2xl font-bold text-white">研究生生活案例（Graduate Student Life Cases）</h2>
+                            <span class="text-xs bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full border border-amber-500/30">案例 A & B</span>
+                        </div>
+                        <p class="text-sm text-slate-300 mt-1">將塞勒的心理帳戶理論應用於學術研究生的真實日常情境：</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 my-auto">
+                        <!-- Case A -->
+                        <div class="glass-card-accent p-5 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                                <h3 class="text-base font-bold text-amber-400">
+                                    <i class="fa-solid fa-trophy mr-2"></i>案例 A：國際研討會獲獎與論文接受
+                                </h3>
+                                <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-amber-300">收益分開 (Segregation)</span>
+                            </div>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p>
+                                    <strong>情境：</strong>研究生小明同一週內收到兩封通知：第一，論文被 Top 期刊接受；第二，獲得研討會最佳論文獎與獎金 $5,000 元。
+                                </p>
+                                <p>
+                                    <strong>心理帳戶分析：</strong>小明選擇在週一向實驗室宣布論文接受，週四再慶祝獲獎。根據 <strong class="text-amber-300">分開收益原則 $v(x)+v(y) > v(x+y)$</strong>，分開兩天發布消息帶來的喜悅峰值與持續時間遠大於在同一天合併宣布。
+                                </p>
+                                <p class="text-slate-400 italic bg-slate-900/60 p-2 rounded">
+                                    💡 且這筆 $5,000 獎金被劃入「意外橫財帳戶」，小明當晚便請全研究室吃大餐，若這是助教加薪 $5,000，他反而會存起來。
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Case B -->
+                        <div class="glass-card-accent p-5 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                                <h3 class="text-base font-bold text-teal-400">
+                                    <i class="fa-solid fa-laptop-code mr-2"></i>案例 B：助教津貼 vs. 筆電修繕
+                                </h3>
+                                <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-teal-300">混合收益抵銷 (Cancellation)</span>
+                            </div>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p>
+                                    <strong>情境：</strong>研究生小華本月領到 RA 研究助理津貼 $15,000 元，但跑實驗用的筆電主機板突然燒毀，維修費花掉了 $12,000 元。
+                                </p>
+                                <p>
+                                    <strong>心理帳戶分析：</strong>若小華將維修費視為獨立損失（-$12,000），其陡峭的損失曲線會引發強烈痛苦；但他將維修費直接從本月 RA 津貼中扣除，歸類為「淨所得 +$3,000」。
+                                </p>
+                                <p class="text-slate-400 italic bg-slate-900/60 p-2 rounded">
+                                    💡 根據 <strong class="text-teal-300">抵銷原則 $v(x-y) > v(x)+v(-y)$</strong>，將損失與較大的收益整合，成功避免了直接面臨 -$12,000 損失區間的心理折磨。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: Graduate Student Life Cases (Part 2) -->
+            <div class="slide" data-category="研究生生活案例">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-2xl font-bold text-white">研究生生活案例（Graduate Student Life Cases）</h2>
+                            <span class="text-xs bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full border border-amber-500/30">案例 C & D</span>
+                        </div>
+                        <p class="text-sm text-slate-300 mt-1">將塞勒的心理帳戶理論應用於學術研究生的真實日常情境：</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 my-auto">
+                        <!-- Case C -->
+                        <div class="glass-card-accent p-5 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                                <h3 class="text-base font-bold text-amber-400">
+                                    <i class="fa-solid fa-mug-hot mr-2"></i>案例 C：福利社美式 vs. 文青咖啡館
+                                </h3>
+                                <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-amber-300">交易效用與參考價格 $p^*$</span>
+                            </div>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p>
+                                    <strong>情境：</strong>寫學位論文期間，小美在校園地下室福利社買 $120 元咖啡覺得是「搶劫」；但在校外高檔文青咖啡館點一杯 $180 元手沖卻覺得很划算。
+                                </p>
+                                <p>
+                                    <strong>心理帳戶分析：</strong>福利社的參考價格 $p^* \approx 40$ 元，賣 $120 元產生極大的 <strong class="text-amber-300">負交易效用</strong>；文青咖啡館提供安靜環境與插座，參考價格 $p^* \approx 200$ 元，賣 $180 元反而產生 <strong class="text-teal-300">正交易效用</strong>。
+                                </p>
+                                <p class="text-slate-400 italic bg-slate-900/60 p-2 rounded">
+                                    💡 雖然消費的活性物質（咖啡因）相同，但交易效用徹底改變了購買決策與滿足感。
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Case D -->
+                        <div class="glass-card-accent p-5 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                                <h3 class="text-base font-bold text-teal-400">
+                                    <i class="fa-solid fa-gift mr-2"></i>案例 D：指導教授送禮與畢業自勵
+                                </h3>
+                                <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-teal-300">自我控制與高 $k$ 類別禮物</span>
+                            </div>
+                            <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+                                <p>
+                                    <strong>情境：</strong>畢業論文口試通過後，研究室學弟妹合資 $3,000 元送小強一套高檔專業簡報筆與高級鋼筆，而非給他 $3,000 現金。
+                                </p>
+                                <p>
+                                    <strong>心理帳戶分析：</strong>小強平時受限於嚴格的自我控制（研究生預算緊縮，高檔鋼筆的影式價格 $k_{it}$ 極高），絕對捨不得自己花錢買精品。
+                                </p>
+                                <p class="text-slate-400 italic bg-slate-900/60 p-2 rounded">
+                                    💡 收到高 $k$ 類別的實物禮物，完美解除了他的「自購罪惡感」，獲得的心理效用遠高於收到 $3,000 元現金後拿去繳房租。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: Summary & Conclusion -->
+            <div class="slide" data-category="總結與結論">
+                <div class="mt-8 h-full flex flex-col justify-between pb-10">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2">結論與學術貢獻 (Conclusion & Summary)</h2>
+                        <p class="text-sm text-slate-300">理查德·塞勒 1985 年的這篇論文奠定了現代行為經濟學與行銷決策的基石：</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-6 my-auto">
+                        <div class="glass-card p-5 space-y-2">
+                            <div class="text-amber-400 font-bold text-base mb-2">
+                                <i class="fa-solid fa-brain mr-2"></i>1. 心理機制的精確化
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                將 Prospect Theory 推廣至複合結果與交易決策，證明人們並非對總財富進行最佳劃分，而是透過心智運算（Coding）尋求快樂極大化。
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-5 space-y-2">
+                            <div class="text-teal-400 font-bold text-base mb-2">
+                                <i class="fa-solid fa-store mr-2"></i>2. 重新定義消費價值
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                引入「交易效用（Transaction Utility）」與「參考價格（$p^*$）」，完美解釋了市場清場失敗、建議零售價（SRP）、折扣促銷與定價框架。
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-5 space-y-2">
+                            <div class="text-rose-400 font-bold text-base mb-2">
+                                <i class="fa-solid fa-piggy-bank mr-2"></i>3. 解開自我控制與預算謎團
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                揭示了心智預算類別（Mental Budgets）與影子價格 $k_{it}$ 如何作為自我控制工具，並給出了禮物給予（Gift Giving）的行為經濟學原理解釋。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Final Quote -->
+                    <div class="glass-card-accent p-4 text-center">
+                        <blockquote class="text-sm font-medium text-slate-200 italic">
+                            "All organizations, from General Motors down to single person households, have explicit and/or implicit accounting systems... which often influence decisions in unexpected ways."
+                        </blockquote>
+                        <div class="text-xs text-amber-400 mt-1 font-semibold">— Richard H. Thaler (Marketing Science, 1985)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Control Navigation Bar -->
+            <footer class="absolute bottom-0 left-0 right-0 h-14 px-8 flex items-center justify-between border-t border-slate-800/80 z-20 bg-slate-900/80 backdrop-blur-md">
+                <!-- Navigation Buttons -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="prevSlide()" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 px-3 py-1.5 rounded text-xs flex items-center transition">
+                        <i class="fa-solid fa-chevron-left mr-1.5"></i> 上一張
+                    </button>
+                    <button onclick="nextSlide()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-3 py-1.5 rounded text-xs flex items-center transition">
+                        下一張 <i class="fa-solid fa-chevron-right ml-1.5"></i>
+                    </button>
+                </div>
+
+                <!-- Slide Thumbnails / Indicator Dots -->
+                <div class="flex items-center space-x-2" id="slideDots">
+                    <!-- Dynamic Dots generated by JS -->
+                </div>
+
+                <!-- Keyboard Helper Hints -->
+                <div class="text-[11px] text-slate-500 hidden md:flex items-center space-x-2">
+                    <span>提示: 可使用 <kbd class="bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 text-slate-300">←</kbd> <kbd class="bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 text-slate-300">→</kbd> 方向鍵切換</span>
+                </div>
+            </footer>
+
+            <!-- Progress Bar -->
+            <div class="absolute bottom-0 left-0 h-1 bg-amber-500 transition-all duration-300 z-30" id="progressBar" style="width: 10%;"></div>
+        </div>
+    </div>
+
+    <!-- Embedded Application JavaScript Logic -->
+    <script>
+        // Slide Presentation State
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const slideCounter = document.getElementById('slideCounter');
+        const slideCategory = document.getElementById('slideCategory');
+        const progressBar = document.getElementById('progressBar');
+        const slideDotsContainer = document.getElementById('slideDots');
+
+        // Initialize Slide Dots
+        slides.forEach((slide, index) => {
+            const dot = document.createElement('button');
+            dot.className = `w-2.5 h-2.5 rounded-full transition-all ${index === 0 ? 'bg-amber-500 w-6' : 'bg-slate-700 hover:bg-slate-500'}`;
+            dot.onclick = () => goToSlide(index);
+            slideDotsContainer.appendChild(dot);
+        });
+
+        function updateSlideUI() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'exit-left');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('exit-left');
+                }
+            });
+
+            // Update Counter & Category
+            slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            const category = slides[currentSlide].getAttribute('data-category') || '簡報';
+            slideCategory.textContent = category;
+
+            // Update Progress Bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Update Dots
+            const dots = slideDotsContainer.querySelectorAll('button');
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.className = 'w-6 h-2.5 bg-amber-500 rounded-full transition-all';
+                } else {
+                    dot.className = 'w-2.5 h-2.5 bg-slate-700 hover:bg-slate-500 rounded-full transition-all';
+                }
+            });
+
+            // Trigger specific chart renderings if slide active
+            if (currentSlide === 1) {
+                renderValueFunctionChart();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideUI();
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlideUI();
+        }
+
+        // Keyboard Shortcuts Control
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // --- Prospect Theory Value Function Mechanics ---
+        function valueFunction(x) {
+            if (x >= 0) {
+                return Math.pow(x, 0.88);
+            } else {
+                return -2.25 * Math.pow(-x, 0.88);
+            }
+        }
+
+        // Render Prospect Theory Chart using Chart.js
+        let vfChart = null;
+        function renderValueFunctionChart() {
+            const ctx = document.getElementById('valueFunctionChart').getContext('2d');
+            if (vfChart) vfChart.destroy();
+
+            const labels = [];
+            const dataValues = [];
+
+            for (let x = -100; x <= 100; x += 5) {
+                labels.push(x);
+                dataValues.push(valueFunction(x));
+            }
+
+            vfChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '心理價值 v(x)',
+                        data: dataValues,
+                        borderColor: '#f59e0b',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            title: { display: true, text: '客觀損益金額 ($)', color: '#94a3b8', font: { size: 11 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#94a3b8', font: { size: 10 } },
+                            title: { display: true, text: '主觀心理價值 v(x)', color: '#94a3b8', font: { size: 11 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `金額: $${context.label}, 心理價值: ${context.parsed.y.toFixed(2)}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Interactive Hedonic Calculator Logic ---
+        function calculateHedonicValue() {
+            const x = parseFloat(document.getElementById('calcX').value) || 0;
+            const y = parseFloat(document.getElementById('calcY').value) || 0;
+
+            const vX = valueFunction(x);
+            const vY = valueFunction(y);
+            const vSegregated = vX + vY;
+            const vIntegrated = valueFunction(x + y);
+
+            document.getElementById('segregatedValue').textContent = vSegregated.toFixed(2);
+            document.getElementById('integratedValue').textContent = vIntegrated.toFixed(2);
+
+            const recBox = document.getElementById('hedonicRecommendation');
+
+            if (vSegregated > vIntegrated) {
+                recBox.className = "p-4 rounded-lg bg-teal-950/80 border border-teal-500/50 text-xs text-teal-200 leading-relaxed";
+                recBox.innerHTML = `<strong><i class="fa-solid fa-circle-check mr-1"></i> 建議採用：分開處理 (Segregation)</strong><br>` +
+                    `心智運算顯示，將兩筆金額分開感受 ($v(x)+v(y) = ${vSegregated.toFixed(2)}$) 比整合感受 ($v(x+y) = ${vIntegrated.toFixed(2)}$) 帶來更高的心理效用。<br>` +
+                    `符合原則：${x > 0 && y > 0 ? '分開收益 (Segregate Gains)' : '銀邊效應 (Silver Lining)'}`;
+            } else {
+                recBox.className = "p-4 rounded-lg bg-amber-950/80 border border-amber-500/50 text-xs text-amber-200 leading-relaxed";
+                recBox.innerHTML = `<strong><i class="fa-solid fa-circle-check mr-1"></i> 建議採用：整合處理 (Integration)</strong><br>` +
+                    `心智運算顯示，將兩筆金額合併算總帳 ($v(x+y) = ${vIntegrated.toFixed(2)}$) 比分開感受 ($v(x)+v(y) = ${vSegregated.toFixed(2)}$) 的心理痛苦更小或效用更高。<br>` +
+                    `符合原則：${x < 0 && y < 0 ? '整合損失 (Integrate Losses)' : '混合收益抵銷 (Cancel Mixed Gains)'}`;
+            }
+        }
+
+        // Initial setup on window load
+        window.onload = function() {
+            updateSlideUI();
+            calculateHedonicValue();
+            // Render KaTeX Formulas dynamically
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError : false
+            });
+        };
+    </script>
+</body>
+</html>

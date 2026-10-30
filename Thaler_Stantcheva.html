@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>行為經濟學與公共財政的跨時代對話：心理帳戶與稅收推理</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for Academic Elegance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- MathJax 3 for Academic Formula Rendering -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            svg: { fontCache: 'global' },
+            options: {
+                enableMenu: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        academic: {
+                            navy: '#1e3a8a',
+                            darkNavy: '#0f172a',
+                            burgundy: '#7f1d1d',
+                            slate: '#334155',
+                            cream: '#f8fafc',
+                            gold: '#b45309',
+                            paper: '#fcfbf9'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Lora', 'Noto Serif TC', 'serif'],
+                        display: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Lora', 'Noto Serif TC', serif;
+            line-height: 1.8;
+        }
+
+        .academic-paper-bg {
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-heading {
+            font-family: 'Cinzel', 'Noto Serif TC', serif;
+            letter-spacing: 0.02em;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .math-display-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #1e3a8a;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+            overflow-x: auto;
+        }
+
+        .interactive-card {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .interactive-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.08);
+            border-color: #93c5fd;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-100 selection:text-blue-900">
+
+    <!-- Sticky Academic Top Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm font-sans text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-academic-navy text-white text-xs font-bold px-2.5 py-1 rounded tracking-wider uppercase">Academic Reader</span>
+                    <span class="font-bold text-slate-800 font-serif text-base hidden sm:inline">行為經濟學與公共財政專題學術導讀</span>
+                </div>
+                <div class="hidden md:flex space-x-6 text-slate-600 font-medium">
+                    <a href="#overview" class="hover:text-academic-navy transition py-2">論文導言</a>
+                    <a href="#thaler" class="hover:text-academic-navy transition py-2">Thaler (1985) 模型</a>
+                    <a href="#stantcheva" class="hover:text-academic-navy transition py-2">Stantcheva (2021) 模型</a>
+                    <a href="#synthesis" class="hover:text-academic-navy transition py-2">理論跨領域融合</a>
+                    <a href="#cases" class="hover:text-academic-navy transition py-2">研究生案例</a>
+                    <a href="#simulators" class="hover:text-academic-navy transition py-2 text-academic-navy font-semibold"><i class="fa-solid fa-calculator mr-1"></i>互動模擬器</a>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="scrollToSection('simulators')" class="bg-academic-navy hover:bg-blue-900 text-white text-xs px-3 py-2 rounded font-sans transition flex items-center">
+                        <i class="fa-solid fa-flask mr-1.5"></i>教學實驗台
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- HEADER / PAPER TITLE BLOCK -->
+        <header class="academic-paper-bg p-8 sm:p-12 rounded-xl mb-10 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-academic-navy via-academic-gold to-academic-burgundy"></div>
+            
+            <div class="inline-block bg-blue-50 text-academic-navy text-xs font-sans font-semibold px-3 py-1 rounded-full border border-blue-200 mb-4 tracking-wide">
+                跨領域行為經濟學與公共經濟學比較導讀
+            </div>
+            
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 font-serif leading-tight mb-6">
+                從個人心智帳戶到國家租稅推理：<br>人如何對金錢與政策進行認知編碼？
+            </h1>
+            
+            <p class="text-slate-600 text-lg font-serif italic max-w-3xl mx-auto mb-8">
+                解構理查德·塞勒（Richard Thaler, 1985）與斯蒂芬妮·斯唐切娃（Stefanie Stantcheva, 2021）的兩篇經典論文：認知心理學如何重塑消費選擇與公共財政決策。
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto font-sans text-xs text-slate-600 border-t border-slate-100 pt-6">
+                <div class="p-3 rounded bg-slate-50 border border-slate-200 text-left">
+                    <div class="font-bold text-academic-navy text-sm mb-1"><i class="fa-solid fa-book-bookmark mr-1"></i> Thaler (1985)</div>
+                    <div><strong class="text-slate-800">論文：</strong> <em>Mental Accounting and Consumer Choice</em></div>
+                    <div><strong class="text-slate-800">期刊：</strong> <i>Marketing Science</i>, 4(3), 199-214.</div>
+                    <div><strong class="text-slate-800">核心：</strong> 展望理論、交易效用 $w(\cdot)$、心理信封</div>
+                </div>
+                <div class="p-3 rounded bg-slate-50 border border-slate-200 text-left">
+                    <div class="font-bold text-academic-burgundy text-sm mb-1"><i class="fa-solid fa-book-bookmark mr-1"></i> Stantcheva (2021)</div>
+                    <div><strong class="text-slate-800">論文：</strong> <em>Understanding Tax Policy: How Do People Reason?</em></div>
+                    <div><strong class="text-slate-800">期刊：</strong> <i>Quarterly Journal of Economics</i>, 136(4), 2309-2369.</div>
+                    <div><strong class="text-slate-800">核心：</strong> 最優稅率公式、社會偏好 $\bar{g}$、 Gelbach 分解</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- SECTION 1: OVERVIEW & CORE THESIS -->
+        <section id="overview" class="academic-paper-bg p-8 sm:p-10 rounded-xl mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 section-heading pb-3 mb-6 flex items-center">
+                <i class="fa-solid fa-compass text-academic-navy mr-3"></i> 一、導言：打破理性人假設的兩次範式轉移
+            </h2>
+            
+            <div class="prose text-slate-700 font-serif leading-relaxed space-y-4">
+                <p>
+                    微觀經濟學傳統典範（Standard Microeconomic Theory）假設個體是完全理性的效用極大化者（Homo Economicus）。在消費行為中，貨幣被視為具備完全的「可替代性（Fungibility）」，且決策完全不受資訊包裝或框架（Framing）影響；在公共財政領域，代表性選民被假設能準確估計稅收的邊際效率損害（Deadweight Loss）與彈性，並根據全域最適化原則進行投票。
+                </p>
+                <p>
+                    然而，<strong>Thaler (1985)</strong> 與 <strong>Stantcheva (2021)</strong> 分別從「微觀消費決策」與「宏觀公共政策態度」兩個層面，以堅實的認知心理學與大規模實驗數據，徹底揭示了人類認知體系的局限性與獨特編碼機制：
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans my-8">
+                <div class="p-6 rounded-lg bg-blue-50/60 border border-blue-200">
+                    <span class="text-xs font-bold uppercase tracking-wider text-academic-navy bg-blue-100 px-2 py-0.5 rounded">微觀消費視角</span>
+                    <h3 class="text-lg font-bold text-slate-900 font-serif mt-2 mb-3">Thaler (1985) 的心智帳戶</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        人們並非將財富視為單一總額，而是在大腦中開設多個專款專用的「心理帳戶」（Mental Accounts）。人們透過展望理論的 S 型價值函數評估單項收益與損失，並引入「交易效用（Transaction Utility）」來解釋人們對「划算感（Good Deal）」與「被坑感（Rip-off）」的強烈執著。
+                    </p>
+                </div>
+                <div class="p-6 rounded-lg bg-red-50/60 border border-red-200">
+                    <span class="text-xs font-bold uppercase tracking-wider text-academic-burgundy bg-red-100 px-2 py-0.5 rounded">宏觀公共財政視角</span>
+                    <h3 class="text-lg font-bold text-slate-900 font-serif mt-2 mb-3">Stantcheva (2021) 的稅收推理</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        公民對所得稅與遺產稅的支持度，主要取決於其內心的「規範性公平觀（Social Preferences）」以及對「政府效率與信任度（Trust in Government）」，而非經濟學家所關心的「效率損失與勞動彈性（Efficiency Costs）」。大眾存在強烈的「事實兩極化」與稅收錯覺。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THALER (1985) MODEL -->
+        <section id="thaler" class="academic-paper-bg p-8 sm:p-10 rounded-xl mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 section-heading pb-3 mb-6 flex items-center">
+                <i class="fa-solid fa-chart-line text-academic-navy mr-3"></i> 二、Thaler (1985)：心理帳戶與交易效用理論
+            </h2>
+
+            <div class="prose text-slate-700 font-serif space-y-4">
+                <p>
+                    理查德·塞勒模型的第一步，是用 Kahneman & Tversky (1979) 的展望理論（Prospect Theory）價值函數 $v(x)$ 取代傳統經濟學的效用函數 $U(x)$。
+                </p>
+
+                <!-- Value Function Math Formula Box (Refactored for Clean LaTeX Display) -->
+                <div class="math-display-box font-sans">
+                    <div class="text-xs font-bold text-academic-navy uppercase tracking-wider mb-2">展望理論價值函數 (Prospect Theory Value Function)</div>
+                    
+                    <div class="text-center py-3 text-lg">
+                        $$v(x) = \begin{cases} 
+                        x^\alpha, & \text{if } x \ge 0 \\ 
+                        -\lambda (-x)^\beta, & \text{if } x < 0 
+                        \end{cases}$$
+                    </div>
+
+                    <div class="bg-white p-3 rounded border border-slate-200 text-xs text-slate-700 mt-2 font-sans space-y-1">
+                        <div class="font-bold text-slate-900 mb-1">公式參數與形狀解析：</div>
+                        <div class="flex items-start">
+                            <span class="text-academic-navy font-mono font-bold mr-2">• $\alpha \approx \beta \approx 0.88$:</span>
+                            <span><b>邊際敏感度遞減</b> — 收益區域為凹函數 ($v''(x) < 0$)，損失區域為凸函數 ($v''(x) > 0$)。</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-academic-burgundy font-mono font-bold mr-2">• $\lambda \approx 2.25 > 1$:</span>
+                            <span><b>損失趨避 (Loss Aversion)</b> — 代表損失區域的曲線比收益區域更加陡峭（失去 $100 的痛苦約為獲得 $100 快樂的 2.25 倍）。</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 font-serif mt-6 mb-3">1. 享樂框架四大原則 (Hedonic Framing Principles)</h3>
+                <p>
+                    當面對複合結果 $(x,y)$ 時，人們可以選擇「分開評估（Segregate）」為 $v(x) + v(y)$，或是「整合評估（Integrate）」為 $v(x+y)$：
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans text-xs my-4">
+                    <div class="p-4 rounded border border-slate-200 bg-slate-50">
+                        <span class="font-bold text-academic-navy text-sm block mb-1">Principle 1: 分開收益 (Segregate Gains)</span>
+                        <div>公式：$v(x) + v(y) > v(x+y) \quad (x, y > 0)$</div>
+                        <div class="text-slate-500 mt-1">應用：不要把所有聖誕禮物裝在同一個盒子裡。分開送禮能帶來更高總效用。</div>
+                    </div>
+                    <div class="p-4 rounded border border-slate-200 bg-slate-50">
+                        <span class="font-bold text-academic-burgundy text-sm block mb-1">Principle 2: 整合損失 (Integrate Losses)</span>
+                        <div>公式：$v(-x) + v(-y) < v(-(x+y)) \quad (x, y > 0)$</div>
+                        <div class="text-slate-500 mt-1">應用：信用卡月結單將許多小額消費損失整合成單一大額損失，顯著減輕消費痛感。</div>
+                    </div>
+                    <div class="p-4 rounded border border-slate-200 bg-slate-50">
+                        <span class="font-bold text-emerald-700 text-sm block mb-1">Principle 3: 混合收益抵銷 (Cancel Mixed Gains)</span>
+                        <div>公式：$v(x) + v(-y) < v(x-y) \quad (x > y > 0)$</div>
+                        <div class="text-slate-500 mt-1">應用：淨收益情況下直接抵銷損失。如薪資預扣所得稅，從薪資中直接扣除比起單獨交稅痛苦小得多。</div>
+                    </div>
+                    <div class="p-4 rounded border border-slate-200 bg-slate-50">
+                        <span class="font-bold text-academic-gold text-sm block mb-1">Principle 4: 銀邊效應 (Silver Lining)</span>
+                        <div>公式：$v(x) + v(-y) > v(x-y) \quad (y \gg x > 0)$</div>
+                        <div class="text-slate-500 mt-1">應用：在大額損失下分開小額收益。如汽車製造商提供獨立的現金回饋（Rebate）支票。</div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 font-serif mt-6 mb-3">2. 交易效用理論 (Transaction Utility Theory)</h3>
+                <p>
+                    塞勒提出購買某一商品 $z$ 帶來的總效用 $w(z, p, p^*)$ 是由兩個獨立部分組成的：
+                </p>
+
+                <div class="math-display-box font-sans">
+                    <div class="text-xs font-bold text-academic-navy uppercase tracking-wider mb-2">購買總價值公式 (Total Utility of Purchase)</div>
+                    <div class="text-center py-2 text-xl font-bold text-academic-navy">
+                        $$w(z, p, p^*) = v(\bar{p}, -p) + v(-p : -p^*)$$
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 mt-3 pt-3 border-t border-slate-200">
+                        <div>
+                            <strong class="text-slate-900 block font-sans">獲得效用 (Acquisition Utility): $v(\bar{p}, -p)$</strong>
+                            相當於傳統經濟學的「消費者剩餘」，比較商品的等價價值 $\bar{p}$ 與實際支付價格 $p$。通常被整合為 $v(\bar{p} - p)$。
+                        </div>
+                        <div>
+                            <strong class="text-slate-900 block font-sans">交易效用 (Transaction Utility): $v(-p : -p^*)$</strong>
+                            比較實際支付價格 $p$ 與<strong class="text-academic-gold">參考價格 (Reference Price, $p^*$)</strong>。若 $p < p^*$ 則獲得正的划算感；若 $p > p^*$ 則產生「被坑感（Rip-off）」。
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-sm bg-slate-50 p-4 rounded border-l-4 border-academic-gold">
+                    <strong>經典實證（沙灘上的啤酒）：</strong> 在炎熱沙灘上，請朋友去「高級渡假飯店」買冷飲，受訪者願意支付的中位數價格為 <strong class="text-academic-navy">$2.65</strong>；但若去「破舊小雜貨店」買完全相同的啤酒，願付中位數僅 <strong class="text-academic-burgundy">$1.50</strong>！因為雜貨店賣 $2.50 會高於其參考價格 $p^*$，產生極大的負交易效用。
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: STANTCHEVA (2021) MODEL -->
+        <section id="stantcheva" class="academic-paper-bg p-8 sm:p-10 rounded-xl mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 section-heading pb-3 mb-6 flex items-center">
+                <i class="fa-solid fa-scale-balanced text-academic-burgundy mr-3"></i> 三、Stantcheva (2021)：大眾如何推理稅收政策？
+            </h2>
+
+            <div class="prose text-slate-700 font-serif space-y-4">
+                <p>
+                    斯蒂芬妮·斯唐切娃在 <i>QJE</i> 論文中建立了一個分析框架，將決策者（選民）內心的最適所得稅與遺產稅公式進行微觀拆解。
+                </p>
+
+                <!-- Optimal Tax Formulas Box -->
+                <div class="math-display-box font-sans border-academic-burgundy">
+                    <div class="text-xs font-bold text-academic-burgundy uppercase tracking-wider mb-2">最適最高所得稅率與遺產稅率公式 (Optimal Tax Formulas)</div>
+                    
+                    <div class="space-y-4 py-2 text-center">
+                        <div>
+                            <div class="text-xs text-slate-500 font-semibold mb-1 text-left">最優最高所得稅率 (Optimal Top Income Tax Rate):</div>
+                            $$\tau^{top} = \frac{1 - \frac{\bar{g}^{top}}{\gamma} + a \cdot \frac{\pi}{z} \cdot e_{\pi}}{1 - \frac{\bar{g}^{top}}{\gamma} + a \cdot e}$$
+                        </div>
+                        <div class="border-t border-slate-200 pt-3">
+                            <div class="text-xs text-slate-500 font-semibold mb-1 text-left">最優遺產稅率 (Optimal Estate Tax Rate):</div>
+                            $$\tau_B = \frac{1 - \frac{\bar{g}^{children}(1+e_B) + \bar{g}^{parents}}{\gamma}}{1 + e_B - \frac{\bar{g}^{parents}}{\gamma}}$$
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-slate-600 border-t border-slate-200 mt-3 pt-3">
+                        <div><b class="text-slate-900">$e, e_B$:</b> 應稅所得/遺產稅收彈性（效率損害）</div>
+                        <div><b class="text-academic-navy">$\bar{g}$:</b> 社會邊際福利權重（規範性公平偏好）</div>
+                        <div><b class="text-academic-burgundy font-mono">&gamma;:</b> 政府信任與效率參數 ($0 \le \gamma \le 1$)</div>
+                        <div><b class="text-academic-gold font-mono">a:</b> 帕累托不平等參數</div>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 font-serif mt-6 mb-3">1. Gelbach 分解法：解開黨派分歧的真正根源</h3>
+                <p>
+                    為何共和黨（Republicans）與民主黨（Democrats）在稅務政策上存在巨大的鴻溝？Stantcheva 使用 Gelbach (2016) 分解法分析發現：<strong class="text-academic-burgundy">效率顧慮（Efficiency Concerns）僅能解釋極少部分的分歧，真正的驅動力是「社會偏好」與「對政府的信任度」！</strong>
+                </p>
+
+                <!-- Gelbach Chart Container -->
+                <div class="my-6 p-4 rounded-lg bg-slate-50 border border-slate-200 font-sans">
+                    <div class="text-xs font-bold text-slate-700 mb-2">Gelbach 分解結果：兩黨稅務立場分歧的解釋比例 (%)</div>
+                    <div class="w-full h-64">
+                        <canvas id="gelbachChart"></canvas>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-900 font-serif mt-6 mb-3">2. 「事實的兩極化」(Polarization of Reality) 與 Econ 101 隨機實驗</h3>
+                <p>
+                    調查顯示兩黨不僅在價值觀上對立，連對客觀事實的感知都完全極化：共和黨人傾向認為當前稅率更高、更累進；民主黨人則傾向高估貧富差距。此外，大眾對稅制存在嚴重的認知迷思：
+                </p>
+                <ul class="list-disc pl-6 text-sm text-slate-700 space-y-1">
+                    <li><strong>最高稅率起徵點：</strong>受訪者平均以為年收入超過 <strong class="text-academic-navy">$18.8萬</strong> 就適用最高稅率（實際為 <strong class="text-academic-navy">$60萬</strong>），誤以為最高稅率影響 20% 的家庭（實際僅 0.73%）。</li>
+                    <li><strong>遺產稅免稅額：</strong>受訪者以為平均每 1,000 人中有 364 人要繳遺產稅（實際不到 1 人），免稅額以為僅 $240萬（實際高達 $1,140萬）。</li>
+                </ul>
+
+                <p class="mt-4">
+                    <strong>Econ 101 實驗發現：</strong>當向受訪者展示教學影片後，「再分配（Redistribution）」與「經濟學家綜合（Economist）」影片大幅提升了加稅支持度（相當於填補了 20%-30% 的兩黨鴻溝）；而強調扭曲與減工的「效率（Efficiency）」影片對最終政策態度幾乎<strong>毫無影響</strong>！這再次證明再分配與公平考量主導了公眾心智。
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: THEORETICAL SYNTHESIS & CROSS-FIELD CORRESPONDENCE -->
+        <section id="synthesis" class="academic-paper-bg p-8 sm:p-10 rounded-xl mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 section-heading pb-3 mb-6 flex items-center">
+                <i class="fa-solid fa-arrows-spin text-academic-gold mr-3"></i> 四、理論深融：個體心智帳戶與國家稅收推理的深層呼應
+            </h2>
+
+            <div class="prose text-slate-700 font-serif space-y-4">
+                <p>
+                    將 Thaler (1985) 的個體心智編碼理論與 Stantcheva (2021) 的公共財政推理進行跨領域對照，可以發現行為經濟學在微觀與宏觀層面的驚人一致性：
+                </p>
+
+                <!-- Comparison Table -->
+                <div class="my-6 overflow-x-auto font-sans text-xs">
+                    <table class="w-full text-left border-collapse border border-slate-200">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-800 border-b border-slate-300">
+                                <th class="p-3 font-bold w-1/4">分析維度</th>
+                                <th class="p-3 font-bold text-academic-navy w-3/8 border-r border-slate-200">Thaler (1985) 微觀個體消費</th>
+                                <th class="p-3 font-bold text-academic-burgundy w-3/8">Stantcheva (2021) 宏觀公共財政</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr>
+                                <td class="p-3 font-bold bg-slate-50">1. 可替代性 (Fungibility)</td>
+                                <td class="p-3 border-r border-slate-200">
+                                    <b>心智信封 (Mental Envelopes):</b><br>
+                                    人們將錢分為伙食、娛樂等帳戶，不同帳戶的影子價格 $k_{it}$ 各異，拒絕跨帳戶套利。
+                                </td>
+                                <td class="p-3">
+                                    <b>專款專用 (Earmarked Taxes):</b><br>
+                                    選民反對無條件加稅，但若承諾「加稅用於低收入兒童教育」，支持率暴增至 76%。
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold bg-slate-50">2. 痛感整合 (Integration)</td>
+                                <td class="p-3 border-r border-slate-200">
+                                    <b>混合收益抵銷: $v(x-y)$</b><br>
+                                    將損失直接從較大的收益中扣除（如信用卡累積付款），可減輕陡峭的損失痛苦。
+                                </td>
+                                <td class="p-3">
+                                    <b>薪資預扣制 (Withholding):</b><br>
+                                    政府每月從薪資直接扣稅，納稅人將其編碼為「淨所得」，避開每年一次性大額交稅的劇痛。
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold bg-slate-50">3. 參考點與錨定 (Reference Points)</td>
+                                <td class="p-3 border-r border-slate-200">
+                                    <b>參考價格 $p^*$:</b><br>
+                                    消費滿意度取決於實付價格 $p$ 與 $p^*$ 的差距。高於 $p^*$ 引發強烈暴利憤怒。
+                                </td>
+                                <td class="p-3">
+                                    <b>稅率現狀錨定與 Schmeduling:</b><br>
+                                    選民以習慣的現行稅率為參考點，誤以為高稅率適用於自己，產生被政府「敲竹槓」的心理。
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold bg-slate-50">4. 自我控制與道德博弈</td>
+                                <td class="p-3 border-r border-slate-200">
+                                    <b>高 $k$ 類別與禮物給予:</b><br>
+                                    人不敢買奢侈品給自己（自我控制）；但極度歡迎別人送奢侈品（解除了罪惡感）。
+                                </td>
+                                <td class="p-3">
+                                    <b>遺產稅交易博弈:</b><br>
+                                    父母想傳承財富（高 $k$ 權利）；但社會追求機會平等。選民內心在兩種公平觀間博弈。
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: GRADUATE STUDENT LIFE CASES -->
+        <section id="cases" class="academic-paper-bg p-8 sm:p-10 rounded-xl mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 section-heading pb-3 mb-6 flex items-center">
+                <i class="fa-solid fa-graduation-cap text-academic-navy mr-3"></i> 五、研究生學術生活案例（Graduate Student Cases）
+            </h2>
+
+            <p class="text-slate-700 font-serif mb-6">
+                為了將兩篇論文的理論進行具體應用，以下提供四個貼近研究生學術日常的經典情境案例：
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
+                <!-- Case 1 -->
+                <div class="interactive-card p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="bg-blue-100 text-academic-navy text-xs font-bold px-2 py-0.5 rounded">案例 A</span>
+                            <span class="text-xs font-mono text-slate-500">Schmeduling & 心智信封</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 font-serif mb-2">TA 助教津貼與研討會最佳論文獎金</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            <strong>情境：</strong>研究生小明每月領取固定 TA 助教津貼 $15,000，年末又獲得研討會最佳論文獎金 $20,000。他極度焦慮，以為這筆獎金會讓他跨入更高的所得稅階，導致「連原本的助教津貼都要被扣高稅」。
+                        </p>
+                    </div>
+                    <div class="p-3 rounded bg-slate-50 text-xs text-slate-700 border-t border-slate-100">
+                        <strong class="text-academic-navy">跨論文解構：</strong>小明犯了典型的 <strong>Schmeduling 稅率平滑化錯覺</strong>（Stantcheva），混淆邊際與平均稅率。同時，他將獎金歸類在「意外橫財信封」（Thaler），若被扣稅會產生強烈負交易效用，因而產生不必要的避稅焦慮。
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="interactive-card p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="bg-red-100 text-academic-burgundy text-xs font-bold px-2 py-0.5 rounded">案例 B</span>
+                            <span class="text-xs font-mono text-slate-500">勞動彈性 e vs. 轉移管道</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 font-serif mb-2">計畫兼任助理（RA）薪資調降與行為回應</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            <strong>情境：</strong>學校宣布因預算刪減，兼任研究助理（RA）的時薪將調降 15%。指導教授擔心學生會因此「罷工減產、少做實驗」。
+                        </p>
+                    </div>
+                    <div class="p-3 rounded bg-slate-50 text-xs text-slate-700 border-t border-slate-100">
+                        <strong class="text-academic-burgundy">跨論文解構：</strong>實證顯示密集邊際（如直接不做實驗）的彈性 $e$ 極小（Stantcheva）；研究生為了畢業依然會做完實驗，但會轉向私下兼差家教（避稅/轉移管道）。時薪調降降低了參考價格 $p^*$，產生負交易效用（Thaler），促使學生重新調整心智影子價格 $k_{it}$。
+                    </div>
+                </div>
+
+                <!-- Case 3 -->
+                <div class="interactive-card p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="bg-amber-100 text-academic-gold text-xs font-bold px-2 py-0.5 rounded">案例 C</span>
+                            <span class="text-xs font-mono text-slate-500">遺產稅博弈 vs. 高 k 禮物</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 font-serif mb-2">學術世家 vs. 第一代研究生的資源博弈</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            <strong>情境：</strong>同研究所的小強父母為知名教授，贊助其無上限購書與出國留學；第一代研究生小莉則完全依靠學貸。兩人討論遺產稅與代際轉移時產生激烈爭執。
+                        </p>
+                    </div>
+                    <div class="p-3 rounded bg-slate-50 text-xs text-slate-700 border-t border-slate-100">
+                        <strong class="text-academic-gold">跨論文解構：</strong>展現了遺產稅的兩難博弈—小強站在父母視角（覺得父母辛苦賺錢傳承無可厚非）；小莉站在子女視角（主張平抑起跑點不公，Stantcheva）。小強父母透過資助留學而非給現金，屬於高 $k$ 類別的「禮物給予」（Thaler），完美解除了小強自購的罪惡感。
+                    </div>
+                </div>
+
+                <!-- Case 4 -->
+                <div class="interactive-card p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">案例 D</span>
+                            <span class="text-xs font-mono text-slate-500">政府信任 &gamma; & Fungibility</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 font-serif mb-2">研究生學會調高會費與「專款專用」</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            <strong>情境：</strong>研究生學會提議調高每人 $500 元會費，用以設立「急難救助基金」。許多學生堅決反對，認為幹部會拿去辦無意義吃喝活動。
+                        </p>
+                    </div>
+                    <div class="p-3 rounded bg-slate-50 text-xs text-slate-700 border-t border-slate-100">
+                        <strong class="text-emerald-800">跨論文解構：</strong>反對者的核心障礙在於「對組織的信任度 $\gamma$ 極低」（Stantcheva），認為提撥的資源會被浪費。支持者成功的關鍵在於「打破可替代性」（Thaler），若承諾「$500 元專款專用且開立獨立審計帳戶」，反對聲浪便迅速消退。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: INTERACTIVE SIMULATORS (TEACHING LAB) -->
+        <section id="simulators" class="academic-paper-bg p-8 sm:p-10 rounded-xl mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 section-heading pb-3 mb-6 flex items-center">
+                <i class="fa-solid fa-flask text-academic-navy mr-3"></i> 六、互動教學實驗台（Interactive Academic Simulators）
+            </h2>
+
+            <p class="text-slate-700 font-serif mb-8">
+                本區塊提供兩個動態計算模擬器，供師生在教學研討中實時演示兩篇論文的數學模型與理論機制：
+            </p>
+
+            <!-- SIMULATOR 1: THALER HEDONIC & TRANSACTION UTILITY -->
+            <div class="border border-slate-300 rounded-xl p-6 bg-slate-50/50 mb-10 font-sans">
+                <div class="flex items-center space-x-2 text-academic-navy font-bold text-lg mb-2">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>模擬器 1：Thaler 展望理論價值 $v(x)$ 與交易效用 $w(\cdot)$ 計算器</span>
+                </div>
+                <p class="text-xs text-slate-600 mb-6">
+                    請輸入兩筆財務事件金額，觀察「分開評估」與「整合評估」的心理價值差異；並設定商品的實付價格與參考價格，演算獲得效用與交易效用：
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Inputs -->
+                    <div class="lg:col-span-5 space-y-4 text-xs bg-white p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-slate-900 border-b pb-2">1. 享樂框架參數 (Hedonic Framing)</h4>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">事件 1 金額 ($x$): 正數為收益，負數為損失</label>
+                            <input type="number" id="simX" value="100" class="w-full bg-slate-50 border border-slate-300 rounded px-3 py-1.5 font-mono text-slate-800">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">事件 2 金額 ($y$): 正數為收益，負數為損失</label>
+                            <input type="number" id="simY" value="-80" class="w-full bg-slate-50 border border-slate-300 rounded px-3 py-1.5 font-mono text-slate-800">
+                        </div>
+
+                        <h4 class="font-bold text-slate-900 border-b pb-2 pt-2">2. 交易效用參數 (Transaction Utility)</h4>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label class="block text-[11px] text-slate-600 mb-1">等價價值 $\bar{p}$</label>
+                                <input type="number" id="simPVal" value="150" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1 font-mono text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-slate-600 mb-1">實際價格 $p$</label>
+                                <input type="number" id="simPAct" value="120" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1 font-mono text-xs">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-slate-600 mb-1">參考價格 $p^*$</label>
+                                <input type="number" id="simPRef" value="180" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1 font-mono text-xs">
+                            </div>
+                        </div>
+
+                        <button onclick="calculateThalerSimulator()" class="w-full bg-academic-navy hover:bg-blue-900 text-white font-bold py-2 rounded text-xs transition">
+                            實時計算心理效用
+                        </button>
+                    </div>
+
+                    <!-- Outputs & Chart -->
+                    <div class="lg:col-span-7 bg-white p-4 rounded-lg border border-slate-200 flex flex-col justify-between">
+                        <div class="grid grid-cols-2 gap-4 text-center text-xs mb-4">
+                            <div class="p-3 bg-blue-50/50 rounded border border-blue-100">
+                                <div class="text-slate-500 mb-1">分開評估 $v(x)+v(y)$</div>
+                                <div id="outSegregated" class="text-xl font-bold text-academic-navy font-mono">0.00</div>
+                            </div>
+                            <div class="p-3 bg-amber-50/50 rounded border border-amber-100">
+                                <div class="text-slate-500 mb-1">整合評估 $v(x+y)$</div>
+                                <div id="outIntegrated" class="text-xl font-bold text-academic-gold font-mono">0.00</div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-50 rounded border border-slate-200 text-xs mb-4">
+                            <div class="flex justify-between mb-1">
+                                <span>獲得效用 $v(\bar{p} - p)$: <strong id="outAcq" class="font-mono text-slate-800">0.00</strong></span>
+                                <span>交易效用 $v(-p : -p^*)$: <strong id="outTrans" class="font-mono text-slate-800">0.00</strong></span>
+                            </div>
+                            <div class="text-slate-600 border-t border-slate-200 pt-1 mt-1">
+                                總購買價值 $w(z,p,p^*)$: <strong id="outTotalW" class="font-mono text-academic-navy text-sm">0.00</strong>
+                            </div>
+                        </div>
+
+                        <!-- Mini Chart for Prospect Theory -->
+                        <div class="w-full h-40">
+                            <canvas id="prospectChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 2: STANTCHEVA OPTIMAL TAX SIMULATOR -->
+            <div class="border border-slate-300 rounded-xl p-6 bg-slate-50/50 font-sans">
+                <div class="flex items-center space-x-2 text-academic-burgundy font-bold text-lg mb-2">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>模擬器 2：Stantcheva 最適最高所得稅率 $\tau^{top}$ 動態演算器</span>
+                </div>
+                <p class="text-xs text-slate-600 mb-6">
+                    拖動滑桿調整 Stantcheva 模型中的四大關鍵變數，觀察選民心智中的最適稅率如何隨之變動：
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Controls -->
+                    <div class="lg:col-span-6 space-y-4 text-xs bg-white p-4 rounded-lg border border-slate-200">
+                        <div>
+                            <div class="flex justify-between font-medium text-slate-700 mb-1">
+                                <span>1. 應稅所得彈性 $e$ (效率損害):</span>
+                                <span id="valE" class="font-mono text-academic-navy font-bold">0.25</span>
+                            </div>
+                            <input type="range" id="sliderE" min="0.05" max="0.9" step="0.05" value="0.25" class="w-full">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-medium text-slate-700 mb-1">
+                                <span>2. 高收入者公平權重 $\bar{g}^{top}$ (規範性公平偏好):</span>
+                                <span id="valG" class="font-mono text-academic-burgundy font-bold">0.20</span>
+                            </div>
+                            <input type="range" id="sliderG" min="0.0" max="0.9" step="0.05" value="0.20" class="w-full">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-medium text-slate-700 mb-1">
+                                <span>3. 政府信任與效率 $\gamma$ ($0 \le \gamma \le 1$):</span>
+                                <span id="valGamma" class="font-mono text-academic-gold font-bold">0.80</span>
+                            </div>
+                            <input type="range" id="sliderGamma" min="0.3" max="1.0" step="0.05" value="0.80" class="w-full">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-medium text-slate-700 mb-1">
+                                <span>4. 帕累托不平等參數 $a$ (頂層集中度):</span>
+                                <span id="valA" class="font-mono text-slate-800 font-bold">1.50</span>
+                            </div>
+                            <input type="range" id="sliderA" min="1.1" max="2.5" step="0.1" value="1.50" class="w-full">
+                        </div>
+                    </div>
+
+                    <!-- Output & Dynamic Explanation -->
+                    <div class="lg:col-span-6 bg-white p-6 rounded-lg border border-slate-200 flex flex-col justify-center items-center text-center">
+                        <div class="text-xs text-slate-500 mb-1">Stantcheva (2021) 理論模型演算出的</div>
+                        <div class="text-sm font-bold text-slate-800 font-serif mb-3">最優最高所得稅率 ($\tau^{top}$)</div>
+                        
+                        <div id="outTaxRate" class="text-5xl font-extrabold text-academic-burgundy font-mono mb-4">
+                            58.3%
+                        </div>
+
+                        <div id="taxDynamicAnalysis" class="p-3 rounded bg-red-50/50 border border-red-100 text-xs text-slate-700 text-left leading-relaxed">
+                            分析加載中...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: SUMMARY & CONCLUSION -->
+        <section class="academic-paper-bg p-8 sm:p-10 rounded-xl mb-10 text-center">
+            <h2 class="text-2xl font-bold text-slate-900 font-serif mb-4">七、結論：構建兼顧效率與心理學的制度</h2>
+            <p class="text-slate-600 font-serif text-sm max-w-3xl mx-auto mb-6 leading-relaxed">
+                結合 Thaler (1985) 與 Stantcheva (2021) 的跨時代洞察，我們可以得到深刻的啟示：不論是企業定價還是政府制定租稅政策，都不可能脫離人類的認知機制獨立存在。政策的成功不僅需要追求經濟學上的效率（Efficiency），更必須尊重人類大腦的心智帳戶（Mental Accounting）、公平感受與信任基礎。
+            </p>
+            <div class="inline-block border-t border-b border-slate-200 py-3 px-6 text-xs text-slate-500 font-sans italic">
+                “Understanding how people reason is the first step toward building institutions that work for human beings.”
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center font-sans text-xs text-slate-500 py-6 border-t border-slate-200">
+            <p>行為經濟學與公共財政專題研討導讀網頁 · 根據 Thaler (1985) 與 Stantcheva (2021) 論文製作</p>
+            <p class="mt-1">由 MathJax 3 & Chart.js 提供動態數學渲染與資料視覺化支援</p>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Smooth scrolling helper
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Prospect Theory Value Function Mechanics v(x)
+        function valueFunction(x) {
+            if (x >= 0) {
+                return Math.pow(x, 0.88);
+            } else {
+                return -2.25 * Math.pow(-x, 0.88);
+            }
+        }
+
+        // --- SIMULATOR 1: THALER CALCULATOR ---
+        let prospectChartInstance = null;
+
+        function calculateThalerSimulator() {
+            const x = parseFloat(document.getElementById('simX').value) || 0;
+            const y = parseFloat(document.getElementById('simY').value) || 0;
+
+            const vX = valueFunction(x);
+            const vY = valueFunction(y);
+            const vSegregated = vX + vY;
+            const vIntegrated = valueFunction(x + y);
+
+            document.getElementById('outSegregated').textContent = vSegregated.toFixed(2);
+            document.getElementById('outIntegrated').textContent = vIntegrated.toFixed(2);
+
+            // Transaction Utility calculations
+            const pVal = parseFloat(document.getElementById('simPVal').value) || 0;
+            const pAct = parseFloat(document.getElementById('simPAct').value) || 0;
+            const pRef = parseFloat(document.getElementById('simPRef').value) || 0;
+
+            const acqUtility = valueFunction(pVal - pAct);
+            const transUtility = valueFunction(pRef - pAct); // v(-p : -p*)
+            const totalW = acqUtility + transUtility;
+
+            document.getElementById('outAcq').textContent = acqUtility.toFixed(2);
+            document.getElementById('outTrans').textContent = transUtility.toFixed(2);
+            document.getElementById('outTotalW').textContent = totalW.toFixed(2);
+
+            renderProspectChart(x, y);
+        }
+
+        function renderProspectChart(currentX, currentY) {
+            const ctx = document.getElementById('prospectChart').getContext('2d');
+            if (prospectChartInstance) prospectChartInstance.destroy();
+
+            const labels = [];
+            const dataVals = [];
+
+            for (let i = -150; i <= 150; i += 10) {
+                labels.push(i);
+                dataVals.push(valueFunction(i));
+            }
+
+            prospectChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '心理價值 v(x)',
+                        data: dataVals,
+                        borderColor: '#1e3a8a',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 } } },
+                        y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 } } }
+                    }
+                }
+            });
+        }
+
+        // --- SIMULATOR 2: STANTCHEVA OPTIMAL TAX CALCULATOR ---
+        function calculateStantchevaSimulator() {
+            const e = parseFloat(document.getElementById('sliderE').value);
+            const g = parseFloat(document.getElementById('sliderG').value);
+            const gamma = parseFloat(document.getElementById('sliderGamma').value);
+            const a = parseFloat(document.getElementById('sliderA').value);
+
+            document.getElementById('valE').textContent = e.toFixed(2);
+            document.getElementById('valG').textContent = g.toFixed(2);
+            document.getElementById('valGamma').textContent = gamma.toFixed(2);
+            document.getElementById('valA').textContent = a.toFixed(2);
+
+            // Formula: tau = (1 - g/gamma) / (1 - g/gamma + a * e)
+            const numerator = 1 - (g / gamma);
+            const denominator = 1 - (g / gamma) + (a * e);
+            let tau = (numerator / denominator) * 100;
+
+            if (tau < 0) tau = 0;
+            if (tau > 100) tau = 100;
+
+            document.getElementById('outTaxRate').textContent = `${tau.toFixed(1)}%`;
+
+            const analysisBox = document.getElementById('taxDynamicAnalysis');
+            analysisBox.innerHTML = `<strong>理論解析：</strong> 當對政府信任度高 ($\gamma = ${gamma.toFixed(2)}$) 且貧富差距公平偏好強烈 ($\bar{g} = ${g.toFixed(2)}$) 時，` +
+                `最適最高所得稅率可達 <strong class="text-academic-burgundy">${tau.toFixed(1)}%</strong>。` +
+                `<br><span class="text-slate-500">這驗證了 Stantcheva (2021) 的核心結論：公平偏好與對政府信任度是決定稅率立場的主導力量，遠比效率彈性 $e$ 更關鍵。</span>`;
+
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise([analysisBox]);
+            }
+        }
+
+        ['sliderE', 'sliderG', 'sliderGamma', 'sliderA'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateStantchevaSimulator);
+        });
+
+        // --- GELBACH DECOMPOSITION CHART ---
+        function renderGelbachChart() {
+            const ctx = document.getElementById('gelbachChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['對政府不信任', '不認為不平等嚴重', '高所得自由權益觀', '相信滴漏效應', '擔憂損害經濟'],
+                    datasets: [{
+                        label: '黨派稅務分歧解釋比例 (%)',
+                        data: [23, 21, 21, 8, 7],
+                        backgroundColor: ['#1e3a8a', '#3b82f6', '#b45309', '#94a3b8', '#7f1d1d'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } },
+                        y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                    }
+                }
+            });
+        }
+
+        // Global Initialization
+        window.onload = function() {
+            calculateThalerSimulator();
+            calculateStantchevaSimulator();
+            renderGelbachChart();
+        };
+    </script>
+</body>
+</html>
