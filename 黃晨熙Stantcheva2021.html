@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個體經濟理論 - 課堂報告記錄：Understanding Tax Preferences</title>
+    <!-- MathJax 數學公式渲染器 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #319795;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --tag-democrats: #3182ce;
+            --tag-republicans: #e53e3e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 35px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin-top: 25px;
+        }
+
+        .paper-meta {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .paper-meta ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .box {
+            background-color: #f7fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .highlight-box {
+            background-color: #fffaf0;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .formula-box {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .tag-dem { background-color: var(--tag-democrats); }
+        .tag-rep { background-color: var(--tag-republicans); }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 6px; }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #718096;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>個體經濟理論 課堂報告記錄：Understanding Tax Preferences</h1>
+
+    <div class="paper-meta">
+        <strong>📄 報告論文資訊：</strong>
+        <ul>
+            <li><strong>報告同學：</strong> 黃晨熙</li>
+            <li><strong>論文題目：</strong> <em>Understanding Tax Preferences: Public Economics Meets Social Psychology</em> (克拉克獎得主作品)</li>
+            <li><strong>作者：</strong> Stefanie Stantcheva</li>
+            <li><strong>核心問題：</strong> 一般大眾在決定是否支持加稅時，到底是在乎效率損失（擔心傷害經濟發展），還是在乎再分配公平？哪些因素才是決定個人稅務政策立場的關鍵？</li>
+        </ul>
+    </div>
+
+    <h2>一、 研究問題與文獻定位</h2>
+    <p>大眾對政策的看法雖可被觀察，但背後機制往往不清晰。政策立場的分析來源通常可歸納為三大類：</p>
+    <ol>
+        <li><strong>經濟運作認知的差異：</strong> 對加稅產生的效率成本與行為反應理解不同。</li>
+        <li><strong>個人與特定群體利益：</strong> 政策對自己及相關族群的好處與損失（自利考量）。</li>
+        <li><strong>公平與道德價值觀：</strong> 對社會公平目標、機會平等與「何謂應得」的價值判斷不同。</li>
+    </ol>
+    
+    <div class="highlight-box">
+        <strong>🎯 作者的三大核心研究目標：</strong>
+        <ul>
+            <li><strong>知識層面：</strong> 大眾對所得稅與遺產稅的真實稅率、課稅對象了解多少？</li>
+            <li><strong>推理層面：</strong> 大眾如何權衡效率成本、分配效果與公平標準？哪一項是決定立場的主導因素？</li>
+            <li><strong>因果因應：</strong> 若給予經濟學邏輯的階段性資訊影片，是否能改變人們的稅務立場？</li>
+        </ul>
+    </div>
+
+    <h2>二、 理論架構（最佳稅率模型的延伸）</h2>
+    <p>作者將受訪者心中對經濟運作與社會價值的想法建立成一個結構化框架。假設每個人心中都有一個「社會規劃者」模型，理想稅率取決於五大核心參數：</p>
+
+    <div class="formula-box">
+        $$\text{理想最適稅率 } \tau^* = f\left( g_{rich}, g_{poor}, e, \eta, \text{GovEfficiency} \right)$$
+    </div>
+
+    <ul>
+        <li>$g_{rich}, g_{poor}$（社會福利權重）：對富人與窮人的邊際社會福利評估。若認為富人主要是靠運氣有錢，則 $g_{rich}$ 較低，傾向高稅率；若認為富人是靠努力得來，則 $g_{rich}$ 較高，傾向低稅率。</li>
+        <li>$\text{GovEfficiency}$（政府效率）：受訪者相信稅收被有效使用而非浪費的比例。不信任政府者偏好低稅率。</li>
+        <li>$e$（不平等感）：對底層不平等與貧富差距嚴重程度的感知。</li>
+        <li>$\eta$（效率成本/行為反應）：相信加稅會導致富人少工作、逃稅或搬家移居的彈性。彈性越高，偏好稅率越低。</li>
+    </ul>
+
+    <h3>遺產稅的公平觀點衝突</h3>
+    <p>遺產稅涉及兩種互相衝突的公平觀念：</p>
+    <ul>
+        <li><strong>父母視角：</strong> 「我辛苦工作賺錢，已繳過所得稅，留給子女是個人自由。」（支持低遺產稅）</li>
+        <li><strong>子女視角：</strong> 「繼承巨額財富並非自身努力，違反起跑點的機會平等。」（支持高遺產稅）</li>
+    </ul>
+
+    <h2>三、 資料來源與隨機對照實驗設計</h2>
+    <p>研究包含兩份大型線上深入問捲調查（所得稅問卷 2,780 戶，遺產稅問卷 2,360 戶，平均填寫時間長達 35 分鐘）：</p>
+
+    <div class="box">
+        <strong>🧪 隨機實驗設計（四組影片處理）：</strong>
+        <ul>
+            <li><strong>控制組：</strong> 無影片。</li>
+            <li><strong>再分配影片組 (Redistribution Video)：</strong> 展示所得不平等現況，強調透過稅收轉移可增加低所得者的邊際效用（兩分鐘動畫）。</li>
+            <li><strong>效率影響影片組 (Efficiency Video)：</strong> 強調加稅帶來的扭曲與歪風（如逃稅、搬家、減少創業與工作動機）。</li>
+            <li><strong>經濟學家綜合影片組 (Economist Video)：</strong> 結合再分配效益與效率成本，強調兩者之間的權衡。</li>
+        </ul>
+    </div>
+
+    <h2>四、 實證發現與分析結果</h2>
+
+    <h3>1. 事實認知的巨大偏誤</h3>
+    <ul>
+        <li><strong>最高邊際稅率對象：</strong> 大眾平均以為年收入 18 萬美元即適用最高稅率（實際需高達 60 萬美元以上）。</li>
+        <li><strong>遺產稅門檻：</strong> 大眾平均以為有 30% 以上的家庭需要繳納遺產稅（實際僅約 0.1%~0.2% 頂層富裕家庭需繳納）。</li>
+        <li><strong>黨派資訊差異：</strong> <span class="tag tag-rep">共和黨</span> 人普遍高估中產階級稅負，並較不願意付費獲取正確的稅務知識；<span class="tag tag-dem">民主黨</span> 人則較關心貧富差距。</li>
+    </ul>
+
+    <h3>2. 效率反應與再分配認知</h3>
+    <ul>
+        <li>大眾普遍相信加稅會引發<strong>逃稅 (88%)</strong> 與<strong>移居外州 (78%)</strong>，但僅少數人認為對富人加稅會對自己造成副作用（Trickle-down 效應信仰在一般大眾中相當低）。</li>
+        <li><strong>支出用途決定支持度：</strong> 若加稅用於「基礎建設」與「兒童機會平等（教育）」，跨黨派支持度最高；若用於直接現金補助低所得者，黨派分歧最大。</li>
+    </ul>
+
+    <h3>3. 因果實驗結果</h3>
+    <div class="highlight-box">
+        <strong>主要實驗發現：</strong>
+        <ol>
+            <li><strong>再分配影片大幅提升加稅支持度：</strong> 再分配影片成功改變了受訪者對不平等的感知，顯著縮小了 18%~23% 的黨派立場差距。</li>
+            <li><strong>效率影片改變了信念，卻無法改變政策立場：</strong> 效率影片雖然成功讓人們相信「加稅會損害經濟效率」，但<strong>並未顯著降低</strong>他們對加稅的支持度。這說明「公平觀點」才是主導政策立場的核心驅動力，效率考量僅為次要因素。</li>
+        </ol>
+    </div>
+
+    <h2>五、 研究限制與課堂討論</h2>
+    <ul>
+        <li><strong>因果方向的確定性：</strong> 個人價值觀、黨派認同與經濟信念之間的因果關係難以完全拆解（到底是政黨立場決定了信念，還是信念決定了政黨立場？）。</li>
+        <li><strong>樣本偏誤：</strong> 線上問卷樣本在學歷上偏高、少數族群偏少，研究採用重置加權修正。</li>
+        <li><strong>臺灣情境延伸思考：</strong> 老師引導全班討論，若將此研究架構移至臺灣進行調查，在兩黨政治背景與健保/企業稅制下，國人對「稅務公平」與「政府信任」的權衡是否會有不同的結果。</li>
+    </ul>
+
+    <div class="footer">
+        <p>個體經濟理論 課堂報告紀錄 | 報告人：黃晨熙同學</p>
+    </div>
+</div>
+
+</body>
+</html>
