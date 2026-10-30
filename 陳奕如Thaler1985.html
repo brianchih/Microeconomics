@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個體經濟理論 - 課堂報告記錄：Mental Accounting and Consumer Choice</title>
+    <!-- MathJax 數學公式渲染器 -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b6cb0;
+            --accent-color: #319795;
+            --bg-color: #f7fafc;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 35px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin-top: 25px;
+        }
+
+        .paper-meta {
+            background-color: #ebf8ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .paper-meta ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .box {
+            background-color: #f7fafc;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .highlight-box {
+            background-color: #fffaf0;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .formula-box {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 6px; }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #718096;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>個體經濟理論 課堂報告記錄：Mental Accounting and Consumer Choice</h1>
+
+    <div class="paper-meta">
+        <strong>📄 報告論文資訊：</strong>
+        <ul>
+            <li><strong>報告同學：</strong> 陳奕如</li>
+            <li><strong>論文題目：</strong> <em>Mental Accounting and Consumer Choice</em> (1985)</li>
+            <li><strong>作者：</strong> Richard H. Thaler (2017 年諾貝爾經濟學獎得主)</li>
+            <li><strong>核心問題：</strong> 為什麼真實消費者在消費時，不一定會像傳統經濟學課本假設的「理性消費者」一樣做決策？為何同筆金額會因來源（如薪水 vs. 獎金/紅包）或用途的不同而產生不同的消費行為？</li>
+        </ul>
+    </div>
+
+    <h2>一、 開場思考與 4 個生活案例</h2>
+    <p>傳統經濟學假設金錢具備<strong>可替代性 (Fungibility)</strong>，亦即不論金額來自何處，經濟價值皆完全相同。然而作者在論文開頭舉出 4 個現象，證明人們心中存在「心理帳戶」：</p>
+    
+    <div class="box">
+        <ol>
+            <li><strong>鮭魚補償金案例：</strong> 夫妻去旅行釣到的魚在寄送時遺失，獲航空公司賠償 300 美元，隨後他們拿其中 225 美元去吃了一頓平時捨不得吃的昂貴晚餐。</li>
+            <li><strong>賭場獲利 vs. 股票獲利：</strong> 撲克牌玩家當晚已贏得 50 美元，因此更敢繼續加碼；另一人當天股票獲利但牌桌上沒贏錢，選擇不跟注。</li>
+            <li><strong>度假屋存款 vs. 高利率車貸：</strong> 夫妻存有 10% 利率的度假屋預備金，但買車時卻另申請 15% 高利率的車貸，原因是害怕動用存款後無法補回。</li>
+            <li><strong>昂貴羊毛衫禮物：</strong> 先生覺得 125 美元的羊毛衫太貴捨不得買，但太太買同一件送他當生日禮物卻非常高興（雖然夫妻為共同財產）。</li>
+        </ol>
+    </div>
+
+    <h2>二、 傳統經濟理論 vs. 心理帳戶模型</h2>
+
+    <h3>1. 傳統消費者理論</h3>
+    <p>傳統模型假設消費者在預算限制下追求效用極大化，金錢完全可替代：</p>
+    <div class="formula-box">
+        $$\max U(f_1, f_2, \dots, f_n) \quad \text{s.t.} \quad \sum P_i V_i \le I$$
+    </div>
+    <p>其中 $U$ 代表商品組合帶來的效用，$P_i$ 為價格，$V_i$ 為購買數量，$I$ 為所得或財富總額。</p>
+
+    <h3>2. 心理帳戶的改進</h3>
+    <p>Thaler 在傳統模型的基礎上加入了三項心理學要素：</p>
+    <ul>
+        <li>引入<strong>展望理論 (Prospect Theory) 的價值函數</strong>來描述人們感受收益與損失的方式。</li>
+        <li>加入<strong>參考價格 (Reference Price)</strong> 評價交易是否划算。</li>
+        <li>放寬金錢可替代性假設，考慮時間與用途的心理分類（劃分不同帳戶）。</li>
+    </ul>
+
+    <h2>三、 核心理論架構</h2>
+
+    <h3>1. 展望理論 (Prospect Theory) 價值函數的 3 大特徵</h3>
+    <ul>
+        <li><strong>參考點 (Reference Point)：</strong> 衡量收益或損失是相對於某個心理參考點，而非單純看總財富。</li>
+        <li><strong>遞減敏感性 (Diminishing Sensitivity)：</strong> 價值函數在收益區為凹函數（Concave），在損失區為凸函數（Convex）。從 10 元增加到 20 元的心理變化遠大於從 110 元增加到 120 元。</li>
+        <li><strong>損失規避 (Loss Aversion)：</strong> 同樣金額的損失帶來的痛苦感受，通常遠大於獲得收益帶來的快樂（估計約為 2 倍以上）。這解釋了<strong>稟賦效應 (Endowment Effect)</strong>。</li>
+    </ul>
+
+    <h3>2. 心理算術 (Mental Arithmetic) 的 4 大編碼原則</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>編碼原則</th>
+                <th>口訣 / 策略</th>
+                <th>實際應用 / 實驗驗證</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>多項收益分開評價</strong></td>
+                <td>好事分開談</td>
+                <td>收到多份小禮物比收到一份同總價大禮物高興（56 人偏好分開領彩券）。</td>
+            </tr>
+            <tr>
+                <td><strong>多項損失合併評價</strong></td>
+                <td>壞事合併看</td>
+                <td>信用卡將多筆消費集中在單張帳單上付款（66 人認為分開補稅通知更難過）。</td>
+            </tr>
+            <tr>
+                <td><strong>大收益併入小損失</strong></td>
+                <td>小損失融入大收益</td>
+                <td>把小費用扣抵在大獎金中，比單獨面對損失的心理感受好。</td>
+            </tr>
+            <tr>
+                <td><strong>大損失中分離小收益</strong></td>
+                <td>銀色襯裡 (Silver Lining)</td>
+                <td>車子修理費 200 美元但獲得 25 美元回饋金，能帶來實質心理安慰（63 人認為單純損失 175 美元較難過）。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3. 取得效用與交易效用 (Acquisition vs. Transaction Utility)</h3>
+    <p>總體驗感受由「取得效用」與「交易效用」兩者加總：</p>
+    <div class="formula-box">
+        $$\text{Total Utility} = \text{Acquisition Utility} + \text{Transaction Utility} = v(p^*, -p) + v(-p, -p_r)$$
+    </div>
+    <ul>
+        <li><strong>取得效用 (Acquisition Utility)：</strong> 商品本身評估價值 $p^*$ 與實際支付價格 $p$ 的比較（買到東西值不值得）。</li>
+        <li><strong>交易效用 (Transaction Utility)：</strong> 實際支付價格 $p$ 與心中參考價格 $p_r$ 的比較（有沒有撿到便宜或被坑）。</li>
+    </ul>
+
+    <div class="highlight-box">
+        <strong>🍺 經典範例：高級飯店 vs. 小雜貨店的海灘啤酒</strong>
+        <p>同品牌啤酒，消費者在高級度假飯店願意支付 2.65 美元，但在破舊小雜貨店只願付 1.50 美元。原因在於兩地的參考價格 $p_r$ 不同，雜貨店賣太貴會產生負的交易效用（覺得被佔便宜）。</p>
+    </div>
+
+    <h3>4. 家庭預算與心理門檻條件</h3>
+    <p>消費者在心理上將金錢劃分為不同用途帳戶（如餐飲、娛樂、儲蓄），帳戶間無法自由流動。購買決策需滿足門檻條件：</p>
+    <div class="formula-box">
+        $$\frac{w}{p} > k$$
+    </div>
+    <p>其中 $w$ 為交易的整體評價（取得效用 + 交易效用），$p$ 為實際價格，$k$ 為該心理帳戶所設定的購買門檻。門檻會隨月份、用途及金錢來源不同而動態改變。</p>
+
+    <h2>四、 行銷啟示與實務應用</h2>
+    <ul>
+        <li><strong>產品呈現與包裝：</strong> 電視購物逐項展示贈品（多項收益分開呈現）；買車加購配備或買房加購裝潢（小損失併入大額支出）。</li>
+        <li><strong>定價與公平感：</strong> 官方熱門門票不直接漲價以維護品牌公平感（避免負交易效用）；透過套裝組合（Bundling）模糊參考價格。</li>
+        <li><strong>送禮經濟學：</strong> 送對方平時想買但受限於心理帳戶門檻捨不得買的奢侈品（如昂貴紅酒、高級巧克力），可幫助收禮者跨過消費門檻。</li>
+    </ul>
+
+    <h2>五、 課堂討論與教師總結</h2>
+
+    <h3>1. 報告同學提出的課堂思考題</h3>
+    <div class="box">
+        <ul>
+            <li><strong>湊免運情境：</strong> 原本買 300 元商品，為了湊 500 元免運多買 220 元商品。雖多花了錢，但獲得「省下運費」的正面交易效用。</li>
+            <li><strong>薪水 vs. 紅包（打工錢 vs. 意外財）：</strong> 打工薪水來自努力工作，傾向存入儲蓄帳戶；過年紅包被歸類為「意外收益」，更傾向花在娛樂與個人愛好上。</li>
+        </ul>
+    </div>
+
+    <h3>2. 老師觀念補充與反饋</h3>
+    <ul>
+        <li><strong>賭場籌碼效應（House Money Effect）：</strong> 老師分享在拉斯維加斯賭場拿到 20 美元免費賭券的經驗，贏錢後人們容易將籌碼視為「賭場的錢」而全數輸光，即典型的心理帳戶分類現象。</li>
+        <li><strong>演唱會門票溢價與參考點：</strong> 討論國外與台灣演唱會門票參考價格 $p_r$ 的差異與剝奪感。</li>
+        <li><strong>損失規避的量級：</strong> 老師強調損失帶來的痛苦通常是等額收益快樂的 2 倍以上。面對「剛領薪水就要繳大筆費用」的不適感，正是損失規避的最佳寫照。</li>
+        <li><strong>學術歷史意義：</strong> 本篇論文发表於 1985 年，當時僅調查 87 位學生，實證樣本較少；但此研究奠定了行為經濟學的基礎，Thaler 最終於 2017 年榮獲諾貝爾經濟學獎（其導師 Kahneman 亦於 2002 年獲獎）。</li>
+    </ul>
+
+    <div class="footer">
+        <p>個體經濟理論 課堂報告紀錄 | 報告人：陳奕如同學</p>
+    </div>
+</div>
+
+</body>
+</html>
