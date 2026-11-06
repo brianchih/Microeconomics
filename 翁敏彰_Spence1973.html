@@ -1,357 +1,392 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>勞動市場訊號理論與教育隱性課程導讀</title>
-<!-- MathJax 數學公式渲染庫 -->
-<script>
-MathJax = {
-tex: {
-inlineMath: [['￼'], ['\(', '\)']],
-displayMath: [['
-'], ['[', ']']]
-}
-};
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<style>
-:root {
---primary-color: #1e3a8a;
---secondary-color: #0284c7;
---accent-color: #d97706;
---bg-color: #f8fafc;
---card-bg: #ffffff;
---text-color: #1e293b;
---border-color: #e2e8f0;
---highlight-bg: #f0f9ff;
---callout-bg: #fffbe3;
---warning-bg: #fef2f2;
---warning-border: #ef4444;
-}
-body {
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-line-height: 1.8;
-color: var(--text-color);
-background-color: var(--bg-color);
-margin: 0;
-padding: 24px;
-}
-.container {
-max-width: 1000px;
-margin: 0 auto;
-background: var(--card-bg);
-padding: 45px;
-border-radius: 12px;
-box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-}
-.header-tag {
-font-size: 0.85rem;
-color: #64748b;
-text-transform: uppercase;
-letter-spacing: 1.2px;
-font-weight: 700;
-margin-bottom: 8px;
-}
-h1 {
-color: var(--primary-color);
-font-size: 2.2rem;
-margin-top: 0;
-border-bottom: 3px solid var(--secondary-color);
-padding-bottom: 16px;
-line-height: 1.3;
-}
-.book-card {
-background-color: var(--highlight-bg);
-border-left: 5px solid var(--secondary-color);
-padding: 20px 24px;
-margin: 25px 0;
-border-radius: 0 8px 8px 0;
-}
-.book-card h3 {
-margin-top: 0;
-color: var(--primary-color);
-font-size: 1.15rem;
-}
-.book-card p {
-margin: 6px 0;
-font-size: 0.95rem;
-}
-h2 {
-color: var(--primary-color);
-font-size: 1.5rem;
-margin-top: 40px;
-border-bottom: 1.5px solid var(--border-color);
-padding-bottom: 10px;
-}
-h3 {
-color: var(--secondary-color);
-font-size: 1.2rem;
-margin-top: 30px;
-}
-.grid-2 {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 20px;
-margin: 25px 0;
-}
-.card {
-background: #fff;
-border: 1px solid var(--border-color);
-border-radius: 8px;
-padding: 22px;
-box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-.card-header {
-font-weight: bold;
-color: var(--primary-color);
-font-size: 1.1rem;
-margin-bottom: 12px;
-}
-.concept-box {
-background-color: var(--callout-bg);
-border: 1px solid #fef08a;
-border-left: 5px solid var(--accent-color);
-padding: 22px;
-border-radius: 8px;
-margin: 25px 0;
-}
-.concept-title {
-font-weight: bold;
-color: #9a3412;
-font-size: 1.1rem;
-margin-bottom: 10px;
-}
-.case-study {
-background-color: #f8fafc;
-border: 1px solid var(--border-color);
-padding: 24px;
-border-radius: 8px;
-margin: 25px 0;
-}
-.case-tag {
-background-color: var(--primary-color);
-color: white;
-font-size: 0.8rem;
-padding: 4px 12px;
-border-radius: 4px;
-font-weight: bold;
-display: inline-block;
-margin-bottom: 12px;
-}
-.math-block {
-background-color: #f1f5f9;
-padding: 16px;
-border-radius: 8px;
-text-align: center;
-font-size: 1.15rem;
-margin: 20px 0;
-overflow-x: auto;
-}
-.discussion-box {
-background-color: #f0fdf4;
-border: 1px solid #bbf7d0;
-border-left: 5px solid #16a34a;
-padding: 22px 26px;
-border-radius: 8px;
-margin: 35px 0;
-}
-.discussion-title {
-font-weight: bold;
-color: #14532d;
-font-size: 1.15rem;
-margin-bottom: 12px;
-}
-table {
-width: 100%;
-border-collapse: collapse;
-margin: 20px 0;
-}
-th, td {
-border: 1px solid var(--border-color);
-padding: 12px;
-text-align: left;
-}
-th {
-background-color: var(--highlight-bg);
-color: var(--primary-color);
-}
-ol, ul {
-padding-left: 22px;
-}
-li {
-margin-bottom: 10px;
-}
-.nav-footer {
-margin-top: 50px;
-padding-top: 22px;
-border-top: 1px solid var(--border-color);
-display: flex;
-justify-content: space-between;
-font-size: 0.95rem;
-}
-.nav-footer a {
-color: var(--secondary-color);
-text-decoration: none;
-font-weight: bold;
-}
-.nav-footer a:hover {
-text-decoration: underline;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spence (1973) 訊號理論與教育隱性課程導讀</title>
+
+    <!-- MathJax 3 數學公式渲染庫 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0284c7;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --highlight-bg: #f0f9ff;
+            --callout-bg: #fffbe3;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        .header-tag {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .book-card {
+            background-color: var(--highlight-bg);
+            border-left: 5px solid var(--secondary-color);
+            padding: 20px 24px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .book-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+        }
+
+        .book-card p {
+            margin: 6px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-top: 40px;
+            border-bottom: 1.5px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .card-header {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .concept-box {
+            background-color: var(--callout-bg);
+            border: 1px solid #fef08a;
+            border-left: 5px solid var(--accent-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #9a3412;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .case-tag {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .math-block {
+            background-color: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.15rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 5px solid #16a34a;
+            padding: 22px 26px;
+            border-radius: 8px;
+            margin: 35px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #14532d;
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--highlight-bg);
+            color: var(--primary-color);
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
-<body>
+<body class="tex2jax_process">
+
 <div class="container">
-<div class="header-tag">碩士班資訊經濟學與個體經濟理論導讀</div>
-<h1>第一部分：Spence (1973) 勞動市場訊號理論 (Job Market Signaling)</h1>
-<div class="book-card">
-<h3>導讀文獻資訊</h3>
-<p><strong>論文題目：</strong>Job Market Signaling</p>
-<p><strong>作者 / 出版：</strong>Michael Spence (1973), <em>The Quarterly Journal of Economics</em>, Vol. 87, No. 3, pp. 355-374. (諾貝爾經濟學獎得獎經典論文)</p>
-<p><strong>導讀簡報人：</strong>翁敏彰</p>
-</div>
-<h2>一、 研究問題與資訊不對稱架構</h2>
-<p>傳統人力資本理論認為教育能提升生產力，但 Michael Spence 提出挑戰：教育本身不一定能提高真實生產力，而可能僅是求職者用以向雇主傳遞「能力」的<strong>訊號（Signal）</strong>。雇主在面試時無法直接觀察到應徵者的實際生產力（資訊不對稱），因此聘僱被視為一種不確定性下的投資。</p>
-<div class="grid-2">
-<div class="card">
-<div class="card-header">1. 訊號 (Signals)</div>
-<p>求職者<strong>可以自行選擇與調整</strong>的可觀察特徵，最主要的例子即為學歷、教育程度（￼）或證照。</p>
-</div>
-<div class="card">
-<div class="card-header">2. 指標 (Indices)</div>
-<p>求職者<strong>無法自行改變</strong>但雇主可觀察的固有特徵，例如性別、年齡或國籍。</p>
-</div>
-</div>
-<h3>雇主的薪資決策數學模型</h3>
-<p>雇主根據可觀察資訊估計求職者的預期邊際生產力（Marginal Product），並決定發放的薪資：</p>
-<div class="math-block">
+    <div class="header-tag">碩士班資訊經濟學與個體經濟理論導讀</div>
+    <h1>第一部分：Spence (1973) 勞動市場訊號理論 (Job Market Signaling)</h1>
 
-</div>
-<p>若低生產力者（￼：￼）與高生產力者（￼：￼）在總體人口中的比例分別為 ￼ 與 ￼，在無任何訊號區隔（混同）情況下，市場平均薪資為：</p>
-<div class="math-block">
+    <div class="book-card">
+        <h3>導讀文獻資訊</h3>
+        <p><strong>論文題目：</strong>Job Market Signaling</p>
+        <p><strong>作者 / 出版：</strong>Michael Spence (1973), <em>The Quarterly Journal of Economics</em>, Vol. 87, No. 3, pp. 355-374. (諾貝爾經濟學獎得獎經典論文)</p>
+        <p><strong>導讀簡報人：</strong>翁敏彰</p>
+    </div>
 
-</div>
-<h2>二、 訊號傳遞與市場均衡機制</h2>
-<h3>1. 均衡形成過程（資訊循環）</h3>
-<ol>
-<li><strong>雇主信念：</strong> 雇主建立先驗信念（如：教育程度 ￼ 者為高生產力者）。</li>
-<li><strong>薪資供給：</strong> 雇主設定薪資階梯 ￼。</li>
-<li><strong>求職者優化：</strong> 求職者比較薪資與教育成本，極大化淨報酬：￼。</li>
-<li><strong>市場實際結果：</strong> 雇主觀察入職者的真實表現，自我修正信念（Self-Confirming Beliefs）並達到均衡。</li>
-</ol>
-<h3>2. 分離均衡 (Separating Equilibrium) 的關鍵條件</h3>
-<p>要使學歷成為有效訊號，<strong>高能力者的教育成本必須顯著低於低能力者</strong>（即單調交叉條件 Single-Crossing Property）：</p>
-<div class="math-block">
-高能力者教育成本：￼ 低能力者教育成本：￼
-</div>
-<p>為達成分離均衡（低能力者選擇 ￼，高能力者選擇 ￼），門檻 ￼ 必須滿足下列自我約束條件：</p>
-<div class="math-block">
+    <h2>一、 研究問題與資訊不對稱架構</h2>
+    <p>傳統人力資本理論認為教育能提升生產力，但 Michael Spence 提出挑戰：教育本身不一定能提高真實生產力，而可能僅是求職者用以向雇主傳遞「能力」的<strong>訊號（Signal）</strong>。雇主在面試時無法直接觀察到應徵者的實際生產力（資訊不對稱），因此聘僱被視為一種不確定性下的投資。</p>
 
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">1. 訊號 (Signals)</div>
+            <p>求職者<strong>可以自行選擇與調整</strong>的可觀察特徵，最主要的例子即為學歷、教育程度 $y$ 或證照。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">2. 指標 (Indices)</div>
+            <p>求職者<strong>無法自行改變</strong>但雇主可觀察的固有特徵，例如性別、年齡或國籍。</p>
+        </div>
+    </div>
+
+    <h3>雇主的薪資決策數學模型</h3>
+    <p>雇主根據可觀察資訊估計求職者的預期邊際生產力（Marginal Product），並決定發放的薪資：</p>
+
+    <div class="math-block">
+        $$W(y) = E[MP \mid y]$$
+    </div>
+
+    <p>若低生產力者（Group 1：$MP = 1$）與高生產力者（Group 2：$MP = 2$）在總體人口中的比例分別為 $q_1$ 與 $1 - q_1$，在無任何訊號區隔（混同）情況下，市場平均薪資為：</p>
+
+    <div class="math-block">
+        $$W = 1 \cdot q_1 + 2 \cdot (1 - q_1) = 2 - q_1$$
+    </div>
+
+    <h2>二、 訊號傳遞與市場均衡機制</h2>
+
+    <h3>1. 均衡形成過程（資訊循環）</h3>
+    <ol>
+        <li><strong>雇主信念：</strong> 雇主建立先驗信念（例如：教育程度 $y \ge y^*$ 者為高生產力者）。</li>
+        <li><strong>薪資供給：</strong> 雇主設定薪資階梯 $W(y)$。</li>
+        <li><strong>求職者優化：</strong> 求職者比較薪資與教育成本，極大化淨報酬：$U = W(y) - C(y)$。</li>
+        <li><strong>市場實際結果：</strong> 雇主觀察入職者的真實表現，自我修正信念（Self-Confirming Beliefs）並達到均衡。</li>
+    </ol>
+
+    <h3>2. 分離均衡 (Separating Equilibrium) 的數理導導與條件</h3>
+    <p>要使學歷成為有效訊號，<strong>高能力者的教育成本必須顯著低於低能力者</strong>（單調交叉條件 Single-Crossing Property）：</p>
+
+    <div class="math-block">
+        高能力者教育成本：$$C_2(y) = \frac{y}{2}$$ <br>
+        低能力者教育成本：$$C_1(y) = y$$
+    </div>
+
+    <p>為達成分離均衡（低能力者選擇 $y = 0$，高能力者選擇 $y = y^*$），門檻 $y^*$ 必須滿足下列自我約束條件：</p>
+
+    <div class="math-block">
+        $$\text{低能力者不模仿條件：} \quad 1 > 2 - y^* \implies y^* > 1$$
+    </div>
+    <div class="math-block">
+        $$\text{高能力者投資條件：} \quad 2 - \frac{y^*}{2} > 1 \implies y^* < 2$$
+    </div>
+    <div class="math-block">
+        $$\text{分離均衡門檻數值範圍：} \quad 1 < y^* < 2$$
+    </div>
+
+    <h2>三、 均衡型態比較與福利分析</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>均衡類型</th>
+                <th>教育選擇與門檻 ($y$)</th>
+                <th>薪資結構 ($W$)</th>
+                <th>社會福利與效率評價</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>分離均衡<br>(Separating Equilibrium)</strong></td>
+                <td>Group 1 選擇 $y=0$<br>Group 2 選擇 $y=y^*$ ($1 < y^* < 2$)</td>
+                <td>$W(0) = 1$<br>$W(y^*) = 2$</td>
+                <td>雇主可完全識別能力，但高能力者必須支付無實質生產力提升的教育成本，可能造成帕雷托劣勢（Pareto Inferior）。</td>
+            </tr>
+            <tr>
+                <td><strong>混同均衡<br>(Pooling Equilibrium)</strong></td>
+                <td>所有類型皆選擇 $y=0$</td>
+                <td>所有求職者獲得平均薪資 $W = 2 - q_1$</td>
+                <td>省去教育資源浪費，但高能力者遭受低估薪資，低能力者獲得補貼。</td>
+            </tr>
+            <tr>
+                <td><strong>指標群體非對稱均衡<br>(Gender / Group Index)</strong></td>
+                <td>對男性與女性設定不同的 $y^*$ 門檻，或出現一邊分離、一邊混同</td>
+                <td>因群體統計判斷（信念）不同而異</td>
+                <td>即使男女真實能力分布完全相同，市場先驗信念差異仍會造成結構性薪資與教育不平等。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 碩士班課堂討論：私人報酬 vs. 社會報酬 (Private vs. Social Returns)</div>
+        <p>Spence 模型深刻指出：個人多拿一張證書或學歷，能成功向雇主爭取高薪（高私人報酬）；但若教育無法提升實際生產產出，從社會的角度來看，這僅是純粹的「分類與資源浪費」（低社會報酬）。</p>
+    </div>
+
+    <hr style="margin: 50px 0; border: none; border-top: 2px dashed var(--border-color);">
+
+    <div class="header-tag">第二部分：教育哲學與社會體制反思</div>
+    <h1>批判性導讀：蓋託（John Taylor Gatto）《教育的隱性課程》</h1>
+
+    <div class="book-card">
+        <h3>導讀主題與文獻背景</h3>
+        <p><strong>主題內容：</strong>批判國家義務教育體制對個體獨立思考能力的系統性馴化與破解機制</p>
+        <p><strong>作者背景：</strong>John Taylor Gatto (美國紐約州與紐約市年度最佳教師，30年教學經驗後辭職反思體制)</p>
+        <p><strong>授課教授引言與點評：</strong>池秉聰 教授</p>
+    </div>
+
+    <h2>一、 學校教育的六大隱性課程 (Hidden Curriculum)</h2>
+    <p>蓋託指出，現代義務教育起源於福特流水線式的工業化需求，旨在培養「聽話、焦慮、需要被認可且不敢獨立思考」的標準化勞動力。隱性課程作用於人格底層而非知識結構：</p>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">1. 混亂 (Disconnection)</div>
+            <p>學科之間割裂無關聯，學習碎片化知識點，使學生終身依賴專家解釋複雜問題。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">2. 階層固化 (Class Position)</div>
+            <p>以分數與排名劃分學生等級，從小內化社會金字塔定位與叢林法則。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">3. 冷漠 (Indifference)</div>
+            <p>按鐘聲強制切換任務，系統性打斷對事物的深度熱情與專注力。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">4. 情感依賴 (Emotional Dependence)</div>
+            <p>自我價值完全由成績單與評價決定，情緒控制權被外部體系剝奪。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">5. 智慧依賴 (Intellectual Dependence)</div>
+            <p>習慣尋求標準答案，喪失批判性判斷力，遇事第一反應是服從權威。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">6. 自我審查 (Privacy Loss)</div>
+            <p>時刻處於被觀察與評估狀態，內化堅守體制、自我設限。</p>
+        </div>
+    </div>
+
+    <h2>二、 破局之道：奪回個人教育主權的四大新建構</h2>
+
+    <ol>
+        <li><strong>重建獨處時間：</strong> 每天保留至少 2 小時不受外界手機與訊息中斷的深度思考時間。</li>
+        <li><strong>打破學科邊界：</strong> 主動串聯知識（如將經濟學、歷史學、心理學與數學跨領域結合）。</li>
+        <li><strong>專案替代合辦：</strong> 捨棄抽象記憶，以真實世界的問題解決（Problem-Solving Project）為驅動。</li>
+        <li><strong>警惕評價依賴：</strong> 擺脫他人認可驅動，在無人關注時依然全力以赴自主成長。</li>
+    </ol>
+
+    <h2>三、 授課教授點評與學生思考議題</h2>
+
+    <div class="case-study">
+        <span class="case-tag">教授課堂反思：為何我們在大學課堂中不敢問問題？</span>
+        <p><strong>池秉聰教授：</strong> 「大家想一下，為什麼會有義務教育？為什麼我們要被鎖在學校裡那麼久？到了大學與研究所，大家是自願選擇來學習的。當我問各位有什麼問題時，為什麼大家常常沒有問題？是不是過去受到的訓練讓我們覺得『問問題是找麻煩的問題學生』？我的課堂鼓勵大家提問與跨領域思考。數學與經濟模型背後，終究是人的邏輯與思考方式。我們要找回教育的主權，進行系統性的自主思考。」</p>
+    </div>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 綜合研討問題</div>
+        <ol>
+            <li><strong>Spence 訊號理論與蓋託批判的連結：</strong> 大學文憑如果只是一張證明自己「耐得住體制馴化」的訊號（Spence Model），研究所階段應如何將其轉化為具備實質創新力的真實能力？</li>
+            <li><strong>跨領域研究的突破：</strong> 在經濟學研究中，如何借鑑數學工具而不陷入「純公式操作」，進而回答真實社會的制度與行為問題？</li>
+        </ol>
+    </div>
 </div>
-<h2>三、 均衡型態比較與福利分析</h2>
-<table>
-<thead>
-<tr>
-<th>均衡類型</th>
-<th>教育選擇與門檻 (￼)</th>
-<th>薪資結構 (￼)</th>
-<th>社會福利與效率評價</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>分離均衡
-(Separating Equilibrium)</strong></td>
-<td>Group 1 選擇 ￼
-Group 2 選擇 ￼ (￼)</td>
-<td>￼
-￼</td>
-<td>雇主可完全識別能力，但高能力者必須支付無實質生產力提升的教育成本，可能造成帕雷托劣勢（Pareto Inferior）。</td>
-</tr>
-<tr>
-<td><strong>混同均衡
-(Pooling Equilibrium)</strong></td>
-<td>所有類型皆選擇 ￼</td>
-<td>所有求職者獲得平均薪資 ￼</td>
-<td>省去教育資源浪費，但高能力者遭受低估薪資，低能力者獲得補貼。</td>
-</tr>
-<tr>
-<td><strong>指標群體非對稱均衡
-(Gender / Group Index)</strong></td>
-<td>對男性與女性設定不同的 ￼ 門檻，或出現一邊分離、一邊混同</td>
-<td>因群體統計判斷（信念）不同而異</td>
-<td>即使男女真實能力分布完全相同，市場先驗信念差異仍會造成結構性薪資與教育不平等。</td>
-</tr>
-</tbody>
-</table>
-<div class="concept-box">
-<div class="concept-title">💡 碩士班課堂討論：私人報酬 vs. 社會報酬 (Private vs. Social Returns)</div>
-<p>Spence 模型深刻指出：個人多拿一張證書或學歷，能成功向雇主爭取高薪（高私人報酬）；但若教育無法提升實際生產產出，從社會的角度來看，這僅是純粹的「分類與資源浪費」（低社會報酬）。</p>
-</div>
-<div class="nav-footer">
-<a href="chapter4_guide.html">← 上一單元：第4章 生產理論與成本函數</a>
-<a href="#section2">下一部分：教育隱性課程導讀 →</a>
-</div>
-<hr style="margin: 50px 0; border: none; border-top: 2px dashed var(--border-color);">
-<div id="section2" class="header-tag">第二部分：教育哲學與社會體制反思</div>
-<h1>批判性導讀：蓋託（John Taylor Gatto）《教育的隱性課程》</h1>
-<div class="book-card">
-<h3>導讀主題與文獻背景</h3>
-<p><strong>主題內容：</strong>批判國家義務教育體制對個體獨立思考能力的系統性馴化與破解機制</p>
-<p><strong>作者背景：</strong>John Taylor Gatto (美國紐約州與紐約市年度最佳教師，30年教學經驗後辭職反思體制)</p>
-<p><strong>授課教授引言與點評：</strong>池秉聰 教授</p>
-</div>
-<h2>一、 學校教育的六大隱性課程 (Hidden Curriculum)</h2>
-<p>蓋託指出，現代義務教育起源於福特流水線式的工業化需求，旨在培養「聽話、焦慮、需要被認可且不敢獨立思考」的標準化勞動力。隱性課程作用於人格底層而非知識結構：</p>
-<div class="grid-2">
-<div class="card">
-<div class="card-header">1. 混亂 (Disconnection)</div>
-<p>學科之間割裂無關聯，學習碎片化知識點，使學生終身依賴專家解釋複雜問題。</p>
-</div>
-<div class="card">
-<div class="card-header">2. 階層固化 (Class Position)</div>
-<p>以分數與排名劃分學生等級，從小內化社會金字塔定位與叢林法則。</p>
-</div>
-<div class="card">
-<div class="card-header">3. 冷漠 (Indifference)</div>
-<p>按鐘聲強制切換任務，系統性打斷對事物的深度熱情與專注力。</p>
-</div>
-<div class="card">
-<div class="card-header">4. 情感依賴 (Emotional Dependence)</div>
-<p>自我價值完全由成績單與評價決定，情緒控制權被外部體系剝奪。</p>
-</div>
-<div class="card">
-<div class="card-header">5. 智慧依賴 (Intellectual Dependence)</div>
-<p>習慣尋求標準答案，喪失批判性判斷力，遇事第一反應是服從權威。</p>
-</div>
-<div class="card">
-<div class="card-header">6. 自我審查 (Privacy Loss)</div>
-<p>時刻處於被觀察與評估狀態，內化堅守體制、自我設限。</p>
-</div>
-</div>
-<h2>二、 破局之道：奪回個人教育主權的四大新建構</h2>
-<ol>
-<li><strong>重建獨處時間：</strong> 每天保留至少 2 小時不受外界手機與訊息中斷的深度思考時間。</li>
-<li><strong>打破學科邊界：</strong> 主動串聯知識（如將經濟學、歷史學、心理學與數學跨領域結合）。</li>
-<li><strong>專案替代合辦：</strong> 捨棄抽象記憶，以真實世界的問題解決（Problem-Solving Project）為驅動。</li>
-<li><strong>警惕評價依賴：</strong> 擺脫他人認可驅動，在無人關注時依然全力以赴自主成長。</li>
-</ol>
-<h2>三、 授課教授點評與學生思考議題</h2>
-<div class="case-study">
-<span class="case-tag">教授課堂反思：為何我們在大學課堂中不敢問問題？</span>
-<p><strong>池秉聰教授：</strong> 「大家想一下，為什麼會有義務教育？為什麼我們要被鎖在學校裡那麼久？到了大學與研究所，大家是自願選擇來學習的。當我問各位有什麼問題時，為什麼大家常常沒有問題？是不是過去受到的訓練讓我們覺得『問問題是找麻煩的問題學生』？我的課堂鼓勵大家提問與跨領域思考。數學與經濟模型背後，終究是人的邏輯與思考方式。我們要找回教育的主權，進行系統性的自主思考。」</p>
-</div>
-<div class="discussion-box">
-<div class="discussion-title">💬 綜合研討問題</div>
-<ol>
-<li><strong>Spence 訊號理論與蓋託批判的連結：</strong> 大學文憑如果只是一張證明自己「耐得住體制馴化」的訊號（Spence Model），研究所階段應如何將其轉化為具備實質創新力的真實能力？</li>
-<li><strong>跨領域研究的突破：</strong> 在經濟學研究中，如何借鑑數學工具而不陷入「純公式操作」，進而回答真實社會的制度與行為問題？</li>
-</ol>
-</div>
-<div class="nav-footer">
-<a href="chapter4_guide.html">← 返回第4章教材</a>
-<a href="index.html">返回課程總覽主頁 →</a>
-</div>
-</div>
+
 </body>
 </html>
