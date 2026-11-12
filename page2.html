@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>現實市場的四大難題（互補性與連動限制）— 大學生生活實例教學</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --purple: #7c3aed;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #1e1b4b 0%, #1e3a8a 60%, #0f766e 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e7ff;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #cbd5e1;
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 58, 138, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.18rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.55rem; }
+
+  /* Analogy Box */
+  .analogy-banner {
+    background: linear-gradient(to right, #eff6ff, #f0fdfa);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.35rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-banner .tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .analogy-banner h4 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout.danger { background: #fef2f2; border-left-color: var(--danger); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+  .callout.danger .callout-title { color: #b91c1c; }
+
+  /* Stepper / Interactive Demo */
+  .sim-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.4rem 0;
+  }
+  .step-controls {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .step-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .step-btn.active, .step-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .step-display {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem;
+    min-height: 120px;
+  }
+
+  /* Comparison Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 700;
+  }
+  tr:hover td { background: #f8fafc; }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.95rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">賽局理論 × 市場設計進階教學（延伸論文第一節 A &amp; 附錄 C）</div>
+  <h1>當課本公式失靈：現實世界的四大「連動難題」</h1>
+  <p>為什麼加了「情侶檔」、「雙主修／先修課」與「名額流用」之後，連諾貝爾獎演算法都可能算到當機？</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 難題：情侶檔（Couples）</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 難題：附帶先修志願</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 &amp; 4 難題：名額流用與偶數限制</button>
+    <button class="tab-btn" onclick="openTab(3)">互動演示：為什麼會無限迴圈？</button>
+    <button class="tab-btn" onclick="openTab(4)">隨堂小測驗</button>
+  </div>
+
+  <!-- Tab 1: Couples -->
+  <div class="tab-panel active">
+    <h2>難題 1：情侶／夫妻檔（Couples）——「要上一起上，要走一起走」</h2>
+    <p>在教科書的簡單配對模型裡，每個人都是「獨立個體」，只要管好自己的志願就好。但在真實的美國醫師配對中，每年約有 <strong>4% 的申請者是夫妻或情侶</strong>，他們希望分發到同一座城市的醫院。</p>
+
+    <div class="analogy-banner">
+      <span class="tag">大學生日常比喻 · 雙人交換學生／校外合租</span>
+      <h4>情境：情侶一起申請「歐洲交換學生」</h4>
+      <p>大三情侶檔<strong>小宇和晴晴</strong>一起申請交換學生。對他們來說，單獨去巴黎或單獨去柏林都沒有意義，他們填的是<strong>「成對組合志願表」</strong>：</p>
+      <ul>
+        <li><strong>第 1 志願組合：</strong>（小宇去巴黎 A 校，晴晴去巴黎 B 校）</li>
+        <li><strong>第 2 志願組合：</strong>（小宇去柏林 C 校，晴晴去柏林 D 校）</li>
+      </ul>
+      <p style="margin-bottom:0;"><strong>災難怎麼發生？</strong> 原本巴黎 A 校已經暫時錄取小宇，並為此拒絕了原本排隊的<strong>阿豪</strong>。但下一秒，巴黎 B 校收到更優秀的申請者，把晴晴刷掉了！為了去第 2 志願柏林，小宇被迫主動放棄巴黎 A 校——此時<strong>巴黎 A 校後悔莫及</strong>：「早知道小宇會落跑，我剛剛就不該拒絕阿豪啊！」</p>
+    </div>
+
+    <div class="callout danger">
+      <div class="callout-title">💥 打破教科書定理（一）：穩定配對可能「根本不存在」！</div>
+      在簡單市場中，Gale-Shapley 演算法保證一定找得到穩定配對。但數學家 Roth (1984) 證明：只要市場出現這種「成對綁定」的互補偏好（Complementarities），<strong>有時候無論電腦怎麼排，永遠都會有人想私下跳槽，整個市場根本不存在穩定解！</strong>
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一難題：附帶先修志願 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2: Supplemental Lists -->
+  <div class="tab-panel">
+    <h2>難題 2：附帶第一年志願表（Supplemental ROLs）——「條件式連動」</h2>
+    <p>在美國醫療訓練中，某些專科（例如皮膚科、眼科）是從「住院醫師第二年」才開始，但規定醫生必須先在「第一年」完成內科或外科的基礎訓練。每年約有 <strong>8%～12%</strong> 的醫學生會用到這種「兩階段綁定志願表」。</p>
+
+    <div class="analogy-banner">
+      <span class="tag">大學生日常比喻 · 申請「學分學程」與「先修課程」</span>
+      <h4>情境：想修「AI 實戰專題」，必須先搶到「Python 基礎課」</h4>
+      <p>大二的<strong>佳佳</strong>在選課系統填寫志願，她的主志願表（大三專題）與補充志願表（大二先修課）是連動的：</p>
+      <ul>
+        <li><strong>主志願 1：</strong>「AI 實戰專題（週三班）」➔ <em>系統自動啟動補充志願表</em>：必須同時選上「週一 Python 基礎班」。</li>
+        <li><strong>主志願 2：</strong>「企管個案分析（無先修要求）」➔ <em>不需要補充志願表</em>。</li>
+      </ul>
+      <p style="margin-bottom:0;"><strong>問題出在哪？</strong> 如果佳佳主志願 1 錄取了，但補充志願「週一 Python 基礎班」沒排上，或者她在主志願 1 被更強的人擠掉、改分發到主志願 2，系統就必須<strong>立刻收回她原本佔住的先修課名額</strong>，進而引發一連串骨牌效應！</p>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ 打破教科書定理（二）：「回溯（Backtracking）」出現了！</div>
+      在簡單市場中，演算法只會一路往下走，永遠不會回頭修改已經處理過的階段；但有了附帶志願表後，演算法必須不斷「回頭撤銷」原本暫定的配對，讓運算複雜度暴增。
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一難題</button>
+      <button class="nav-btn" onclick="openTab(2)">下一難題：名額流用與偶數限制 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3: Reversions & Even/Odd -->
+  <div class="tab-panel">
+    <h2>難題 3 &amp; 4：名額流用（Reversions）與偶數限制（Even/Odd）</h2>
+    <p>除了學生端有複雜需求，<strong>醫院（供給端）</strong>在招募時也有兩種讓數學家頭痛的彈性規則：</p>
+
+    <div class="analogy-banner">
+      <span class="tag">難題 3 · 名額自動轉移（Reversions，約 7% 醫院使用）</span>
+      <h4>大學生日常比喻：社團「大一幹部名額」流用給「大二轉學生」</h4>
+      <p>假設吉他社今年預計招收 <strong>5 名大一新生</strong>和 <strong>3 名大二社員</strong>。社團跟課外活動組約定：「如果大一新生招不滿 5 人（例如只招到 3 人），剩下的 2 個名額就<strong>自動轉移</strong>給大二社員名額（變成大二可收 5 人）！」</p>
+      <p style="margin-bottom:0;"><strong>為什麼難算？</strong> 在配對還沒結束前，根本不知道大一會不會招滿，導致大二的總名額（Quota）在運算過程中會<strong>動態變大變小</strong>！</p>
+    </div>
+
+    <div class="analogy-banner" style="background: linear-gradient(to right, #fffbeb, #fef2f2); border-color: #fde68a;">
+      <span class="tag" style="background:#b45309;">難題 4 · 偶數名額限制（Even/Odd，少數醫院使用）</span>
+      <h4>大學生日常比喻：宿營隊輔必須「一男一女成雙成對」</h4>
+      <p>系學會辦宿營，某小隊原本希望招收 <strong>4 名隊輔</strong>（兩組搭檔）。但如果報名人數不足、只能招到 3 個人，會多出 1 個落單的隊輔無法排班，於是系學會規定：「如果招不到 4 人，那我們<strong>寧可只收 2 人（偶數）</strong>，多出來的第 3 個人請分發去別隊！」</p>
+      <p style="margin-bottom:0;"><strong>打破教科書定理（三）：</strong> 在簡單市場裡，不管換哪種穩定配對演算法，<strong>最終錄取的總人數與被填滿的總職缺數一定一模一樣</strong>（著名的「鄉村醫院定理」）。但有了名額流用和偶數限制後，不同演算法竟然會讓<strong>總錄取人數變多或變少</strong>！</p>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一難題</button>
+      <button class="nav-btn" onclick="openTab(3)">互動演示：無限迴圈怎麼發生？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4: Interactive Loop Demo -->
+  <div class="tab-panel">
+    <h2>互動演示：當「情侶檔」遇上配對系統，為什麼會陷入無限迴圈？</h2>
+    <p>論文在第一節（頁 11-12）舉了一個經典反例，說明為什麼「延遲接受演算法」在有情侶檔時會繞圈圈。我們把它改寫成<strong>「實習生搶名額」</strong>的場景，請依序點擊步驟 1 到步驟 4 觀察：</p>
+
+    <div class="sim-box">
+      <div class="step-controls">
+        <button class="step-btn active" onclick="showStep(1)">步驟 1：單身學生先占位</button>
+        <button class="step-btn" onclick="showStep(2)">步驟 2：情侶檔進場踢人</button>
+        <button class="step-btn" onclick="showStep(3)">步驟 3：情侶另一半被刷掉</button>
+        <button class="step-btn" onclick="showStep(4)">步驟 4：悲劇！不穩定與迴圈誕生</button>
+      </div>
+      <div class="step-display" id="loop-output"></div>
+    </div>
+
+    <h3>總結：簡單市場 vs. 複雜醫療市場的三大差異</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>特性比較</th>
+          <th>教科書簡單市場</th>
+          <th>真實 NRMP 複雜市場（四大難題）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>穩定配對是否存在？</strong></td>
+          <td>100% 保證存在</td>
+          <td>理論上<strong>可能不存在</strong>（可能陷入無限迴圈）</td>
+        </tr>
+        <tr>
+          <td><strong>錄取總人數是否固定？</strong></td>
+          <td>所有穩定解的錄取人數完全相同</td>
+          <td>不同解可能導致<strong>錄取人數不同</strong></td>
+        </tr>
+        <tr>
+          <td><strong>誠實填志願是否最佳？</strong></td>
+          <td>學生主動提議時，誠實永遠是最佳策略</td>
+          <td>理論上<strong>不存在</strong>讓所有人誠實的完美機制</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(4)">前往隨堂小測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5: Quiz -->
+  <div class="tab-panel">
+    <h2>隨堂小測驗：檢驗你的市場設計直覺！</h2>
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1;">
+      <h4>情境題：跨校選課與學分抵免</h4>
+      <p>某大學開放學生申請「海外雙聯學位」，規定必須<strong>同時申請上「國外 A 校」與「國內指導教授實驗室」</strong>才算成立（缺一不可，類似情侶檔或兩階段綁定志願）。請問這種制度設計會對原本的電腦分發演算法造成什麼影響？</p>
+
+      <button class="quiz-option" onclick="checkQuiz(1)">A. 沒有任何影響，只要用課本的延遲接受演算法，100% 一定能找到對所有學生最有利的結果。</button>
+      <button class="quiz-option" onclick="checkQuiz(2)">B. 因為出現了「互補性（Complementarities）」，一旦其中一邊落選就必須撤回另一邊的錄取，可能導致系統出現「後悔的阻礙配對」甚至無限迴圈。</button>
+      <button class="quiz-option" onclick="checkQuiz(3)">C. 會讓所有人的錄取名額自動增加一倍，不會有人落榜。</button>
+
+      <div class="quiz-feedback" id="quiz-result"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 難題 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  教學內容延伸改編自 Alvin E. Roth &amp; Elliott Peranson (1999) 論文第一節 A《Stable matchings in simple and complex matching markets》及附錄 C。
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showStep(step) {
+    document.querySelectorAll('.step-btn').forEach((b, i) => b.classList.toggle('active', i === step - 1));
+    const box = document.getElementById('loop-output');
+    const steps = {
+      1: `
+        <h4 style="color:#1e3a8a; margin-bottom:0.5rem;">步驟 1：單身學生「阿明」先獲得暫時錄取</h4>
+        <p>台北的 <strong>Google 實習（名額 1 人）</strong>收到單身學生<strong>阿明</strong>的申請，暫時把名額留給阿明。</p>
+      `,
+      2: `
+        <h4 style="color:#0f766e; margin-bottom:0.5rem;">步驟 2：情侶檔（大偉 &amp; 小美）進場，阿明被踢掉！</h4>
+        <p>情侶檔（大偉、小美）第一志願是「兩人都留在台北」，於是<strong>大偉</strong>投了台北 Google，<strong>小美</strong>投了台北 Meta。<br>
+        Google 覺得大偉比阿明更優秀，於是<strong>拒絕了阿明</strong>，改留大偉！</p>
+      `,
+      3: `
+        <h4 style="color:#b45309; margin-bottom:0.5rem;">步驟 3：意外發生！小美被台北 Meta 刷掉了</h4>
+        <p>這時，台北 Meta 收到了更強的申請者，把<strong>小美</strong>刷掉了！<br>
+        因為大偉和小美是「成對綁定」的，既然小美不能留台北，大偉也必須<strong>主動從台北 Google 撤回申請</strong>，兩人改去投第 2 志願（新竹的兩家公司）。</p>
+      `,
+      4: `
+        <h4 style="color:#b91c1c; margin-bottom:0.5rem;">步驟 4：Google 後悔了！系統陷入不穩定與迴圈</h4>
+        <p>大偉撤回後，台北 Google 突然變成<strong>空缺</strong>！Google 心中大喊：「早知道大偉會跑掉，我剛剛就不該拒絕阿明！」<br>
+        而阿明被拒絕後可能已經去擠掉別人、引發一連串連鎖反應，如果阿明又回來找 Google，整個演算法就會像鬼打牆一樣<strong>無限循環</strong>！</p>
+      `
+    };
+    box.innerHTML = steps[step];
+  }
+
+  function checkQuiz(ans) {
+    const fb = document.getElementById('quiz-result');
+    fb.style.display = 'block';
+    if (ans === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>完全正確！</strong> 兩個職位之間的「綁定關係（互補性）」正是現實配對市場最棘手的地方，因為單方面的撤回會破壞延遲接受演算法「永不後悔」的數學基礎，這也是為什麼 Roth 和 Peranson 需要重新設計演算法並加入「迴圈偵測器」的原因！';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>答錯囉！</strong> 課本的簡單定理只適用於「每個人單獨申請單一職位」的情況。一旦出現成對綁定或條件式連動，延遲接受演算法就可能失效甚至繞圈圈。';
+    }
+  }
+
+  showStep(1);
+</script>
+</body>
+</html>

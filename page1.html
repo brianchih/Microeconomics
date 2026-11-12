@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>市場失靈與配對機制入門 — 大學生生活實例教學</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(59, 130, 246, 0.25);
+    border: 1px solid rgba(147, 197, 253, 0.4);
+    color: #bfdbfe;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #cbd5e1;
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 58, 138, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.2rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.5rem; }
+
+  /* Analogy Cards */
+  .analogy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.2rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-card {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--primary-light);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .analogy-card.teal { border-top-color: var(--accent); }
+  .analogy-card.warn { border-top-color: var(--warn); }
+  .analogy-tag {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    background: #dbeafe;
+    color: var(--primary);
+    margin-bottom: 0.6rem;
+  }
+  .analogy-card.teal .analogy-tag { background: #ccfbf1; color: #0f766e; }
+  .analogy-card.warn .analogy-tag { background: #fef3c7; color: #b45309; }
+  .analogy-card h4 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #0f172a; }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+
+  /* Interactive Simulator */
+  .sim-box {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .sim-controls {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+  .sim-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: 2px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .sim-btn.active, .sim-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .sim-result {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .match-pair {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    background: #f8fafc;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border);
+  }
+  .badge-win { background: #dcfce7; color: #166534; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+  .badge-lose { background: #fee2e2; color: #991b1b; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.9rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">賽局理論 × 市場設計入門教學</div>
+  <h1>為什麼好制度會陷入「信任危機」？</h1>
+  <p>從美國住院醫師分發（NRMP）出發，用大學生日常例子看懂「提前搶跑」、「穩定配對」與「主動權優勢」</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 課：什麼是提前搶跑？</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 課：穩定配對與跳槽誘因</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 課：主動 vs. 被動差在哪？</button>
+    <button class="tab-btn" onclick="openTab(3)">第 4 課：為什麼想「偷改志願」？</button>
+    <button class="tab-btn" onclick="openTab(4)">隨堂小測驗</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div class="tab-panel active">
+    <h2>第 1 課：沒有統一分發時，為什麼大家會「提前搶跑」？</h2>
+    <p>在論文的第一部分提到：1940 年代美國沒有統一的醫師分發系統，結果醫院為了搶優秀學生，竟然在醫學生<strong>畢業前兩年</strong>就逼他們簽約！經濟學家把這種現象稱為<strong>「市場提前搶跑（Unraveling）」</strong>。</p>
+
+    <h3>大學生每天都在經歷的「提前搶跑」例子</h3>
+    <div class="analogy-grid">
+      <div class="analogy-card">
+        <span class="analogy-tag">例子 A · 期末分組報告</span>
+        <h4>開學第一週就在找組員</h4>
+        <p>明明期末報告第 16 週才要交，但第 2 週大家就急著私訊認識的學霸：「這學期一起一組好不好？」因為怕等到期中，厲害的人都被搶光了。結果彼此都還不熟，甚至有人後來退選，整組直接開天窗。</p>
+      </div>
+      <div class="analogy-card teal">
+        <span class="analogy-tag">例子 B · 大學校外租屋</span>
+        <h4>下學期還沒開始就簽下學年合約</h4>
+        <p>房東怕好房客被搶走，學生怕好房子被租光，於是還沒期中考大家就瘋狂看房、下訂金。結果還沒真正住習慣，就被迫決定未來一年的住處，雙方資訊都極度不完整。</p>
+      </div>
+      <div class="analogy-card warn">
+        <span class="analogy-tag">例子 C · 暑期實習提前招募</span>
+        <h4>大二就在投大三暑假的實習</h4>
+        <p>科技業與外商為了搶頂尖工程師，把實習面試越拉越早。學生根本還沒修完核心專業課，公司也看不出學生真正的實力，雙方都在「盲選」之下倉促簽約。</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">💡 核心概念總結</div>
+      當市場缺乏一個<strong>「統一截止日與中央配對機制（Clearinghouse）」</strong>時，每個人出於「怕落單」的恐懼，都會選擇比別人更早出手，最終導致整個市場在資訊極度不透明的情況下草率成交——這就是 <strong>NRMP（全國住院醫師配對計畫）</strong>誕生的原因！
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一課：什麼是穩定配對？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2 -->
+  <div class="tab-panel">
+    <h2>第 2 課：中央分發最重要的條件——「穩定配對」</h2>
+    <p>成立中央分發系統（就像台灣的大學分科測驗志願分發，或是通識課電腦抽籤）後，電腦要怎麼配對才不會讓大家私下毀約？論文指出，成功的系統必須達成<strong>「穩定配對（Stable Matching）」</strong>。</p>
+
+    <h3>什麼叫「不穩定」？用社團幹部徵選來理解！</h3>
+    <p>假設系學會要選「活動長」與「公關長」，每個人只能接一個職位：</p>
+    <ul>
+      <li><strong>小明的志願：</strong> 1. 活動長 ＞ 2. 公關長</li>
+      <li><strong>活動長職缺的偏好：</strong> 1. 小明 ＞ 2. 小華</li>
+    </ul>
+    <p>如果電腦最後把小明分去當「公關長」，把小華分去當「活動長」，會發生什麼事？</p>
+
+    <div class="callout warn">
+      <div class="callout-title">🚨 發現「阻礙配對（Blocking Pair）」！</div>
+      小明心想：「我比較想當活動長啊！」而活動長團隊也心想：「我們其實更想要小明來當活動長！」<br>
+      於是<strong>小明跟活動長團隊就會私下串通、毀掉系統的分發結果</strong>，直接私下成交！在賽局理論中，這對互相看對眼卻沒被配在一起的組合，就叫做<strong>「阻礙配對（Blocking Pair）」</strong>。只要市場裡存在任何一對這樣的組合，系統就會崩潰。
+    </div>
+
+    <div class="callout teal">
+      <div class="callout-title">✅ 穩定配對（Stable Matching）的定義</div>
+      當分發結果出爐後，<strong>找不到任何一對「學生與醫院（或職位）」同時覺得「跟對方在一起比現在的結果更好」</strong>。每個人雖然不一定拿到第一志願，但比你更想去某間醫院的人，全部都比你更受該醫院歡迎，因此你完全沒有理由、也沒有機會私下跳槽！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(2)">下一課：誰主動提議差在哪？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3 -->
+  <div class="tab-panel">
+    <h2>第 3 課：同樣都是「穩定配對」，為什麼醫院與學生會吵架？</h2>
+    <p>1995 年美國醫學生之所以抗議，是因為數學家 Gale 和 Shapley 證明了一件驚人的事：<strong>穩定配對通常不只一種！</strong>而且根據「由誰主動提議（Proposing）」，結果會系統性地偏向其中一方！</p>
+
+    <h3>🎮 互動模擬器：兩男兩女的「舞會配對實驗」</h3>
+    <p>假設有兩位學生（<strong>阿哲、阿凱</strong>）和兩間熱門實驗室（<strong>AI實驗室、資安實驗室</strong>），每個實驗室只收 1 人。雙方的真實喜好如下：</p>
+    <ul>
+      <li><strong>阿哲的志願：</strong> 1. AI實驗室 ＞ 2. 資安實驗室</li>
+      <li><strong>阿凱的志願：</strong> 1. 資安實驗室 ＞ 2. AI實驗室</li>
+      <li><strong>AI實驗室的偏好：</strong> 1. 阿凱 ＞ 2. 阿哲</li>
+      <li><strong>資安實驗室的偏好：</strong> 1. 阿哲 ＞ 2. 阿凱</li>
+    </ul>
+    <p>點擊下方按鈕，看看「學生主動投履歷」和「實驗室主動搶人」，結果有什麼不同：</p>
+
+    <div class="sim-box">
+      <div class="sim-controls">
+        <button class="sim-btn active" id="btn-student" onclick="runSim('student')">模式 A：學生主動提議（新演算法）</button>
+        <button class="sim-btn" id="btn-lab" onclick="runSim('lab')">模式 B：實驗室主動提議（舊演算法）</button>
+      </div>
+      <div class="sim-result" id="sim-output">
+        <!-- JS populates this -->
+      </div>
+    </div>
+
+    <p>看懂了嗎？<strong>兩種結果都是「完全穩定」的（沒有人能私下跳槽成功）</strong>，但模式 A 讓所有學生拿到第一志願，模式 B 卻讓所有實驗室拿到第一志願！這就是為什麼 1995 年美國醫學生會質疑舊系統「合法但偏袒醫院」的原因。</p>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(3)">下一課：為什麼想偷改志願？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4 -->
+  <div class="tab-panel">
+    <h2>第 4 課：在舊系統下，學生為什麼想「策略性隱瞞志願」？</h2>
+    <p>論文第一部分提到，醫學生當時紛紛討論要不要「操弄志願表（Gaming the system）」。在「實驗室主動提議（舊系統）」下，學生真的有辦法靠作弊拿到更好的結果嗎？答案是：<strong>理論上可以，但風險超大！</strong></p>
+
+    <h3>沿用剛才的「實驗室搶人」例子（模式 B）</h3>
+    <p>原本在模式 B（實驗室主動搶人）下，阿哲被迫只能去<strong>第二志願（資安實驗室）</strong>。</p>
+    <p>這時，如果阿哲心機很重，在填志願表時<strong>故意把「資安實驗室」刪掉不填（只填第 1 志願 AI 實驗室，稱為「截斷志願表 Truncation」）</strong>，會發生什麼事？</p>
+
+    <ol>
+      <li>第一輪：資安實驗室向阿哲發錄取通知，但阿哲的志願表上根本沒填資安，所以<strong>系統自動幫阿哲拒絕了資安實驗室！</strong></li>
+      <li>第二輪：資安實驗室被拒絕後，只好退而求其次，去向<strong>阿凱</strong>發錄取通知。</li>
+      <li>第三輪：阿凱原本被 AI 實驗室暫時留住，但阿凱更喜歡資安實驗室，於是<strong>阿凱跳槽去資安實驗室</strong>，把 AI 實驗室的位置空出來了！</li>
+      <li>第四輪：AI 實驗室沒人了，只好轉頭錄取<strong>阿哲</strong>！</li>
+    </ol>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ 為什麼說這是「高風險心理戰」？</div>
+      阿哲透過故意不填第二志願，成功逼迫系統把自己推進了第一志願！<br>
+      <strong>但是！</strong>如果 AI 實驗室根本沒把阿哲放在名單裡，阿哲這一刪，就會直接變成<strong>「雙頭落空（落榜）」</strong>！在一個公平的好制度（如新演算法：學生主動提議）裡，學生<strong>絕對不需要玩這種心驚膽戰的心理戰</strong>，只要老實把最喜歡的排第一名就是最佳策略。
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(4)">前往隨堂小測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5 -->
+  <div class="tab-panel">
+    <h2>隨堂小測驗：測試你是否完全理解了！</h2>
+    <p>試著用剛剛學到的概念，回答下面這題情境題：</p>
+
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <h4>情境題：大學宿營隊輔配對</h4>
+      <p>系學會辦宿營，採用<strong>「隊輔主動填志願（Applicant-Proposing）」</strong>的穩定配對演算法來分配各小隊隊長。小美最想去「第一小隊」，第二想去「第二小隊」。小美在猶豫：「我如果把第一小隊填第一志願，萬一第一輪沒上，會不會害我連第二小隊都沒名額？」</p>
+      <p><strong>請問你應該給小美什麼建議？</strong></p>
+
+      <button class="quiz-option" onclick="checkAnswer(1)">A. 為了保險起見，應該把比較容易上的「第二小隊」填在第一志願。</button>
+      <button class="quiz-option" onclick="checkAnswer(2)">B. 照實把「第一小隊」填第一、「第二小隊」填第二，完全不會因為先衝第一志願而吃虧。</button>
+      <button class="quiz-option" onclick="checkAnswer(3)">C. 只填「第一小隊」，把「第二小隊」刪掉，這樣系統才會被迫把第一小隊給她。</button>
+
+      <div class="quiz-feedback" id="quiz-fb"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(0)">重新複習第 1 課 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  教學內容改編自 Alvin E. Roth &amp; Elliott Peranson (1999) 論文第一節《Background to the present study》。
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function runSim(mode) {
+    document.getElementById('btn-student').classList.toggle('active', mode === 'student');
+    document.getElementById('btn-lab').classList.toggle('active', mode === 'lab');
+    const out = document.getElementById('sim-output');
+
+    if (mode === 'student') {
+      out.innerHTML = `
+        <h4 style="color:#1e3a8a; margin-bottom:0.6rem;">🚀 學生主動投履歷的過程與結果：</h4>
+        <p style="font-size:0.92rem; color:#475569;">阿哲直接投第一志願「AI實驗室」，阿凱直接投第一志願「資安實驗室」。兩間實驗室各自都只收到 1 份履歷，沒有競爭者，直接成交！</p>
+        <div class="match-pair">
+          <span><strong>阿哲</strong> ➔ AI 實驗室</span>
+          <span class="badge-win">學生拿到第 1 志願（實驗室為第 2 偏好）</span>
+        </div>
+        <div class="match-pair">
+          <span><strong>阿凱</strong> ➔ 資安實驗室</span>
+          <span class="badge-win">學生拿到第 1 志願（實驗室為第 2 偏好）</span>
+        </div>
+      `;
+    } else {
+      out.innerHTML = `
+        <h4 style="color:#b45309; margin-bottom:0.6rem;">🏢 實驗室主動搶人的過程與結果：</h4>
+        <p style="font-size:0.92rem; color:#475569;">AI實驗室主動向第一偏好「阿凱」發 Offer，資安實驗室主動向第一偏好「阿哲」發 Offer。兩人各自只收到 1 份 Offer，別無選擇只好接受！</p>
+        <div class="match-pair">
+          <span><strong>阿哲</strong> ➔ 資安實驗室</span>
+          <span class="badge-lose">學生只拿到第 2 志願（實驗室為第 1 偏好）</span>
+        </div>
+        <div class="match-pair">
+          <span><strong>阿凱</strong> ➔ AI 實驗室</span>
+          <span class="badge-lose">學生只拿到第 2 志願（實驗室為第 1 偏好）</span>
+        </div>
+      `;
+    }
+  }
+
+  function checkAnswer(choice) {
+    const fb = document.getElementById('quiz-fb');
+    fb.style.display = 'block';
+    if (choice === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>答對了！</strong> 在「申請人主動提議」的演算法中，就算第一志願沒上，系統也只會把你「暫時保留」的資格釋放出來，接著讓你去排第二志願，名額不會被別人先佔走，因此<strong>誠實填寫真實志願序就是最完美的策略</strong>！';
+    } else if (choice === 1) {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>再想一下喔！</strong> 這是很多人對志願分發的常見誤解。延遲接受演算法（Deferred Acceptance）是「暫時保留」制，不是先搶先贏，先衝第一志願就算被刷掉，依然能用原本的排序去競爭第二志願。';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>太危險啦！</strong> 在「申請人主動」的系統下，刪掉第二志願完全不會增加你上第一志願的機率，反而會讓你在第一志願落選時直接落榜！';
+    }
+  }
+
+  // Init simulator
+  runSim('student');
+</script>
+</body>
+</html>

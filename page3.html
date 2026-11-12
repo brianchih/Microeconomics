@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新演算法怎麼運作？（Roth-Peranson 漸進式配對與工程決策）— 大學生教學版</title>
+<style>
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0369a1 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0f2fe;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #cbd5e1;
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 58, 138, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.18rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.55rem; }
+
+  /* Analogy Banner */
+  .analogy-banner {
+    background: linear-gradient(to right, #eff6ff, #f0fdfa);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.35rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-banner .tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .analogy-banner h4 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+
+  /* Interactive Stack & Stepper */
+  .sim-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.4rem 0;
+  }
+  .step-controls {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .step-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .step-btn.active, .step-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .step-display {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+  .stack-col {
+    background: #f1f5f9;
+    border: 1px dashed #94a3b8;
+    border-radius: 8px;
+    padding: 0.85rem;
+  }
+  .stack-col h5 {
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 0.4rem;
+  }
+  .pill {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin: 0.2rem 0.2rem 0 0;
+  }
+  .pill.blue { background: #dbeafe; color: #1e40af; }
+  .pill.amber { background: #fef3c7; color: #b45309; }
+  .pill.green { background: #dcfce7; color: #166534; }
+  .pill.red { background: #fee2e2; color: #991b1b; }
+
+  /* Comparison Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 700;
+  }
+  tr:hover td { background: #f8fafc; }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.95rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">演算法設計 × 經濟工程學教學（延伸論文第三節）</div>
+  <h1>新演算法怎麼設計？化繁為簡的「逐一配對術」</h1>
+  <p>從「社團迎新分組」與「圖書館搶座位」看懂 Roth-Peranson 演算法的堆疊機制、迴圈偵測與排隊順序巧思</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 招：逐一進場（不一次全擠）</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 招：待處理清單（Stack 骨牌效應）</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 招：為什麼單身先跑、情侶殿後？</button>
+    <button class="tab-btn" onclick="openTab(3)">第 4 招：迴圈偵測器與可重現性</button>
+    <button class="tab-btn" onclick="openTab(4)">隨堂小測驗</button>
+  </div>
+
+  <!-- Tab 1: Incremental Addition -->
+  <div class="tab-panel active">
+    <h2>第 1 招：化繁為簡——「每次只放一位新人進場」</h2>
+    <p>在傳統課本的演算法中，所有 20,000 名學生是在同一秒「集體同時丟履歷」。但論文指出，當市場有情侶檔與各種綁定條件時，同時丟履歷會亂成一團！因此作者改用<strong>「漸進式加入（Instability-Chaining）」</strong>的設計：</p>
+
+    <div class="analogy-banner">
+      <span class="tag">大學生日常比喻 · 期中考前「圖書館熱門包廂劃位」</span>
+      <h4>想像你是管理員，要幫 100 位學生安排 30 個熱門討論室座位</h4>
+      <p>如果你把門打開讓 100 個人同時衝進去搶位置，一定會吵到不可開交。於是你改用<strong>「叫號制（一次只放 1 個人進場）」</strong>：</p>
+      <ol style="margin-bottom:0;">
+        <li><strong>初始狀態 A(0)：</strong>所有 30 個座位都是空的，場內 0 位學生。</li>
+        <li><strong>叫 1 號進場 A(1)：</strong>1 號看自己的志願表，走到最喜歡的「1 號包廂」坐下。場內沒有人想換位置，目前<strong>「小圈圈完全穩定」</strong>！</li>
+        <li><strong>叫 2 號進場 A(2)：</strong>2 號也最喜歡「1 號包廂」。包廂管理員比較偏好 2 號，於是請 1 號讓位，1 號只好去坐自己的第二志願「2 號包廂」。等兩人坐定、確認沒人想再換位後，才叫 3 號進場！</li>
+      </ol>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">💡 為什麼這樣設計很聰明？</div>
+      演算法維持了一個核心不變量（Invariant）：<strong>「每當第 $k$ 個人處理完畢時，目前場內這 $k$ 個人與所有職缺之間，絕對不存在任何不穩定（想私下跳槽）的情況！」</strong>把兩萬人的超大難題，拆解成兩萬個「每次只多加 1 個人」的小難題來逐一擊破。
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一招：堆疊機制（Stack）怎麼處理骨牌效應？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2: Applicant & Program Stacks -->
+  <div class="tab-panel">
+    <h2>第 2 招：連鎖反應怎麼辦？「雙堆疊待處理清單（Stacks）」</h2>
+    <p>如果每個進場的都是單身學生，被踢掉的人只要自己去投下一個志願就好。但如果進場或被踢掉的是<strong>「情侶檔」</strong>，一個人被踢掉，另一半也要跟著撤離原本的醫院，瞬間就會同時多出「好幾個被踢掉的人」與「好幾個突然變空的職缺」！</p>
+    <p>為了解決這種骨牌效應，作者設計了兩個暫存籃：<strong>「申請人堆疊（Applicant Stack）」</strong>與<strong>「醫院堆疊（Program Stack）」</strong>。</p>
+
+    <h3>🎮 互動模擬：觀察「雙堆疊」如何消化連鎖反應！</h3>
+    <p>點擊下方 4 個步驟，看看當<strong>情侶檔（大偉、小美）</strong>加入已穩定的場內時，系統怎麼用兩個待處理清單把風波平息：</p>
+
+    <div class="sim-box">
+      <div class="step-controls">
+        <button class="step-btn active" onclick="showStackStep(1)">1. 情侶進場踢人</button>
+        <button class="step-btn" onclick="showStackStep(2)">2. 另一半撤回產生空缺</button>
+        <button class="step-btn" onclick="showStackStep(3)">3. 清空「申請人清單」</button>
+        <button class="step-btn" onclick="showStackStep(4)">4. 檢查「醫院空缺清單」</button>
+      </div>
+      <div class="step-display" id="stack-output"></div>
+    </div>
+
+    <div class="callout teal">
+      <div class="callout-title">✅ 什麼時候算處理完畢？</div>
+      當<strong>「申請人堆疊」和「醫院堆疊」兩個籃子都徹底清空</strong>時，代表這波連鎖反應已經完全平息，場內重新達到 100% 穩定，系統這才準備叫下一位新人進場！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一招</button>
+      <button class="nav-btn" onclick="openTab(2)">下一招：為什麼單身先跑、情侶殿後？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3: Sequencing Experiments -->
+  <div class="tab-panel">
+    <h2>第 3 招：工程實驗決策——為什麼「單身先跑，情侶殿後」？</h2>
+    <p>在簡單市場中，誰先叫號、誰後叫號，最終配對結果都一模一樣。但在有情侶檔的複雜市場中，<strong>叫號順序（Sequencing）</strong>會影響結果嗎？作者用 1993、1994、1995 年的真實數據做了 18 組排列組合實驗，結果有兩個超有趣的發現！</p>
+
+    <div class="analogy-banner">
+      <span class="tag">大學生日常比喻 · 辦大型露營活動「分配帳篷」</span>
+      <h4>你要先幫「單身個人」排帳篷，還是先幫「情侶／死黨雙人組」排帳篷？</h4>
+      <p>假設有 100 個營位，裡面有 96 位單身同學和 2 對情侶檔：</p>
+      <ul>
+        <li><strong>情況一（情侶先排）：</strong>一開始場內空蕩蕩，情侶檔隨便挑最好的位置住進去；結果後面 96 位單身同學陸續進場時，不斷把情侶檔的其中一人擠出來，害情侶檔一直搬家、全場雞飛狗跳（系統偵測到高達 <strong>59 次迴圈</strong>）！</li>
+        <li><strong>情況二（單身先排，情侶殿後）：</strong>先讓 96 位單身同學全部安頓好、把場內的競爭格局定型，最後再讓 2 對情侶檔進場找合適的雙人空位。結果不僅情侶拿到的位置跟先排幾乎一模一樣，全場搬家次數（迴圈數）更直接降到 <strong>0～2 次</strong>！</li>
+      </ul>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>實驗測試的排隊順序</th>
+          <th>對最終配對結果的影響</th>
+          <th>系統發生「迴圈（Loops）」的次數</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>情侶最先排（Couples First）</strong></td>
+          <td>與基準幾乎相同（最多僅影響 2 人）</td>
+          <td>較多（1994 年高達 <strong>59 次</strong>迴圈）</td>
+        </tr>
+        <tr>
+          <td><strong>單身與情侶混合排（Intermixed）</strong></td>
+          <td>基準線</td>
+          <td>中等（每年約 3～6 次迴圈）</td>
+        </tr>
+        <tr>
+          <td><strong>單身先排，情侶最後（Couples Last）✅</strong></td>
+          <td>與基準幾乎相同（99.99% 一致）</td>
+          <td><strong>最少！（1994、1995 年皆為 0 次）</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>這就是典型的<strong>「經濟工程學」</strong>：理論告訴我們順序可能會影響穩定性，而真實數據實驗幫我們找到了既不偏袒任何人、又能讓系統最不易當機的最佳排隊規則！</p>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一招</button>
+      <button class="nav-btn" onclick="openTab(3)">下一招：迴圈偵測器與可重現性 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4: Loop Detector & Reproducibility -->
+  <div class="tab-panel">
+    <h2>第 4 招：防當機安全氣囊——「迴圈偵測器」與「拒絕隨機化」</h2>
+    <p>就算採用了「單身先排、情侶殿後」的最佳順序，萬一在未來的某一屆配對中，還是不小心遇到「A 擠掉 B、B 擠掉 C、C 又回頭擠掉 A」的無窮迴圈怎麼辦？</p>
+
+    <h3>1. 安裝「行車紀錄器」（Loop Detector）</h3>
+    <p>作者發現，任何無窮迴圈都一定牽涉到「某位情侶或附帶志願者被迫撤回名額，導致某個職缺變空」。因此程式在每個階段都會記錄<strong>「誰在什麼時候從哪個職缺撤出」</strong>。一旦發現一模一樣的撤出紀錄重複出現，就代表系統正在鬼打牆（進入迴圈），程式就能立刻介入處理。</p>
+
+    <h3>2. 為什麼工程師拒絕用「擲骰子（隨機化）」來逃離迴圈？</h3>
+    <div class="callout warn">
+      <div class="callout-title">🎲 理論學家 vs. 實務工程師的抉擇</div>
+      在 1990 年的純理論論文中，數學家證明「只要在排隊時加入隨機亂數（擲骰子），就能保證逃離某些無窮迴圈」。<br>
+      <strong>但 Roth 和 Peranson 在實際寫 NRMP 程式時，果斷拒絕了隨機化！</strong>
+    </div>
+
+    <div class="analogy-banner">
+      <span class="tag">大學生日常比喻 · 為什麼分發系統不能靠「抽籤亂數」？</span>
+      <h4>想像你去教務處申訴選課結果，助教跟你說：「因為電腦擲骰子決定你落選」</h4>
+      <p>在每年牽涉兩萬名醫學生職業生涯、甚至受到美國司法部反壟斷調查關注的正式分發中，<strong>「可重現性（Reproducibility）」</strong>是最高原則！</p>
+      <p style="margin-bottom:0;">也就是說，只要輸入同一份志願資料，不管重跑幾百次、甚至請第三方公正機構來驗算，<strong>必須每次都算出 100% 一模一樣的結果</strong>，不能因為電腦亂數種子不同就讓某人從台大變成落榜。因為實驗證明「單身先跑、情侶殿後」已經幾乎不會產生迴圈，所以保留「固定學號／代碼順序」的透明規則才是最負責任的工程設計！</p>
+    </div>
+
+    <h3>最後一步：收尾處理「名額流用」與「偶數限制」</h3>
+    <p>等到所有單身與情侶都進場安頓好之後，演算法才在最後階段統一檢查「有沒有科別沒招滿需要把名額流用給別科」以及「有沒有醫院要求偶數名額」，若有變動再把受影響的人放回堆疊裡微調，直到全場大功告成！</p>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一招</button>
+      <button class="nav-btn" onclick="openTab(4)">前往隨堂小測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5: Quiz -->
+  <div class="tab-panel">
+    <h2>隨堂小測驗：測試你是否懂「演算法工程學」！</h2>
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1;">
+      <h4>情境題：設計大學宿舍「雙人房＋單人房」統一抽籤分發系統</h4>
+      <p>假設你們學校要重新設計宿舍分發系統，開放「單身學生」申請單人床位，也允許「兩人室友檔」綁定申請雙人房。根據 Roth-Peranson 論文第三節的實驗經驗，為了讓演算法<strong>最不容易陷入無限迴圈（當機）</strong>，且<strong>最能讓學生信服</strong>，你應該怎麼設定程式？</p>
+
+      <button class="quiz-option" onclick="checkQuiz(1)">A. 讓「兩人室友檔」最優先進場選房，最後再排單身學生；如果遇到迴圈就用隨機亂數解決。</button>
+      <button class="quiz-option" onclick="checkQuiz(2)">B. 先讓所有「單身學生」按固定學號順序完成初步配對，最後再讓「兩人室友檔」進場，並保持固定順序不加隨機亂數以確保結果可重現。</button>
+      <button class="quiz-option" onclick="checkQuiz(3)">C. 讓兩萬名學生在同一毫秒內同時搶位置，誰網速快誰就先贏。</button>
+
+      <div class="quiz-feedback" id="quiz-result"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一招</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 招 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  教學內容延伸改編自 Alvin E. Roth &amp; Elliott Peranson (1999) 論文第三節《Design of the applicant-proposing algorithm》。
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showStackStep(step) {
+    document.querySelectorAll('.step-btn').forEach((b, i) => b.classList.toggle('active', i === step - 1));
+    const out = document.getElementById('stack-output');
+    const data = {
+      1: `
+        <h4 style="color:#1e3a8a; margin-bottom:0.4rem;">步驟 1：情侶檔進場，同時踢掉兩個人！</h4>
+        <p style="font-size:0.93rem;">大偉錄取了 A 醫院（踢掉原本在裡面的 <strong>小王</strong>），小美錄取了 B 醫院（踢掉原本在裡面的 <strong>小李</strong>）。<br>
+        系統立刻處理小王，並把來不及處理的小李先放進<strong>「申請人堆疊」</strong>排隊！</p>
+        <div class="stack-grid">
+          <div class="stack-col"><h5>👤 申請人堆疊（待重新投履歷）</h5><span class="pill blue">小李</span></div>
+          <div class="stack-col"><h5>🏥 醫院堆疊（突然多出空缺）</h5><span style="color:#94a3b8; font-size:0.85rem;">目前無</span></div>
+        </div>
+      `,
+      2: `
+        <h4 style="color:#b45309; margin-bottom:0.4rem;">步驟 2：小王轉投 B 醫院，意外拆散了另一對情侶！</h4>
+        <p style="font-size:0.93rem;">被踢掉的小王改投 B 醫院，結果把 B 醫院裡的 <strong>阿強</strong> 擠出來了！<br>
+        偏偏阿強跟 <strong>小芬</strong> 是情侶檔！阿強被踢掉後，小芬也必須自動放棄原本的 C 醫院。於是 C 醫院突然多出一個空缺，被放進<strong>「醫院堆疊」</strong>！</p>
+        <div class="stack-grid">
+          <div class="stack-col"><h5>👤 申請人堆疊</h5><span class="pill blue">小李</span><span class="pill amber">情侶檔(阿強 &amp; 小芬)</span></div>
+          <div class="stack-col"><h5>🏥 醫院堆疊（突然多出空缺）</h5><span class="pill red">C 醫院 (空出 1 缺)</span></div>
+        </div>
+      `,
+      3: `
+        <h4 style="color:#0f766e; margin-bottom:0.4rem;">步驟 3：先把「申請人堆疊」清空</h4>
+        <p style="font-size:0.93rem;">系統先讓「申請人堆疊」裡的小李、阿強與小芬依序往下投遞他們的新志願，直到所有被踢掉的人都找到新歸宿（或志願表投完為止）。此時申請人堆疊清空了！</p>
+        <div class="stack-grid">
+          <div class="stack-col"><h5>👤 申請人堆疊</h5><span class="pill green">已清空 ✓</span></div>
+          <div class="stack-col"><h5>🏥 醫院堆疊（待檢查是否有人想跳槽）</h5><span class="pill red">C 醫院 (空出 1 缺)</span></div>
+        </div>
+      `,
+      4: `
+        <h4 style="color:#166534; margin-bottom:0.4rem;">步驟 4：檢查「醫院堆疊」，大功告成！</h4>
+        <p style="font-size:0.93rem;">接著系統打開「醫院堆疊」裡的 <strong>C 醫院</strong>，檢查場內有沒有誰「現在去的地方比 C 醫院差，而且 C 醫院也想要他」：<br>
+        • 如果有，就把那些人放回「申請人堆疊」讓他們跳槽過來！<br>
+        • 如果沒有，C 醫院就正式維持空缺，兩個堆疊<strong>雙雙清空</strong>，全場重回 100% 穩定！</p>
+        <div class="stack-grid">
+          <div class="stack-col"><h5>👤 申請人堆疊</h5><span class="pill green">已清空 ✓</span></div>
+          <div class="stack-col"><h5>🏥 醫院堆疊</h5><span class="pill green">已清空 ✓</span></div>
+        </div>
+      `
+    };
+    out.innerHTML = data[step];
+  }
+
+  function checkQuiz(ans) {
+    const fb = document.getElementById('quiz-result');
+    fb.style.display = 'block';
+    if (ans === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>完全正確！</strong> 你已經掌握了「經濟工程學」的精髓！先讓單身學生建立穩定的市場基底，最後再加入綁定組合，能把迴圈機率降到最低；而採用固定代碼順序而非隨機亂數，則確保了分發結果百分之百公開透明、可重複驗證！';
+    } else if (ans === 1) {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>剛好相反喔！</strong> 論文實驗顯示「情侶先排」反而會引發最多迴圈（高達 59 次）；而且加入隨機亂數會讓分發結果無法重現，在正式制度上會引發公平性爭議。';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>這樣會變搶演唱會門票啦！</strong> 集中配對系統的核心價值就是消除網速與時間差競爭，改用「逐一叫號＋堆疊穩定」來找出所有人都服氣的結果。';
+    }
+  }
+
+  showStackStep(1);
+</script>
+</body>
+</html>
