@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>論文導讀：美國醫師配對市場的重新設計</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --accent-bg: #eff6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 36px 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2);
+    }
+
+    header .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    header p {
+      color: #dbeafe;
+      font-size: 1rem;
+    }
+
+    /* 分頁導覽列 */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .tab-btn {
+      flex: 1 1 auto;
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .tab-btn:hover {
+      background: var(--bg);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    }
+
+    /* 內容區塊 */
+    .tab-content {
+      display: none;
+      background: var(--card-bg);
+      padding: 32px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      color: #0f172a;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent-bg);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+      margin: 20px 0 10px;
+    }
+
+    p {
+      margin-bottom: 14px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .highlight-box {
+      background: var(--accent-bg);
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .highlight-box strong {
+      color: var(--primary-dark);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      background: #fafafa;
+    }
+
+    .card h4 {
+      color: #0f172a;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--accent-bg);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* 大學生案例連結卡片 */
+    .case-link-box {
+      margin-top: 28px;
+      padding: 20px 24px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f0fdfa 0%, #eff6ff 100%);
+      border: 1.5px solid #99f6e4;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .case-link-info {
+      flex: 1 1 320px;
+    }
+
+    .case-link-badge {
+      display: inline-block;
+      background: var(--teal);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    .case-link-info h4 {
+      font-size: 1.1rem;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .case-link-info p {
+      margin-bottom: 0;
+      font-size: 0.92rem;
+      color: #334155;
+    }
+
+    .case-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--teal);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(13, 148, 136, 0.25);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .case-link-btn:hover {
+      background: var(--teal-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(13, 148, 136, 0.35);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="badge">NBER Working Paper No. 6963 (1999) · 賽局理論與市場設計經典</div>
+    <h1>美國醫師配對市場的重新設計</h1>
+    <p>作者：Alvin E. Roth（2012諾貝爾經濟學獎得主） & Elliott Peranson ｜ 大學生白話導讀版</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="openTab(event, 'tab1')">1. 故事背景與危機</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab2')">2. 現實世界的四大難題</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab3')">3. 新演算法怎麼運作？</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab4')">4. 實驗結果：差多少？</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab5')">5. 為什麼差距這麼小？</button>
+    <button class="tab-btn" onclick="openTab(event, 'tab6')">6. 經濟學家的工程學</button>
+  </nav>
+
+  <!-- 分頁 1 -->
+  <section id="tab1" class="tab-content active">
+    <h2>1. 故事背景：醫學生對分發系統的「信任危機」</h2>
+    <p>想像一下，每年全美國有超過 <strong>20,000 名醫學院畢業生</strong> 要找醫院的住院醫師缺額。如果讓大家自由競爭，醫院為了搶好學生會越來越早發錄取通知（在 1940 年代甚至提前兩年簽約），導致市場大亂。</p>
+    <p>為了解決這個問題，美國自 1950 年代起設立了集中配對中心 <strong>NRMP（全國住院醫師配對計畫）</strong>。運作方式很像台灣的大學指考/分科測驗填志願，但差別在於<strong>雙向填志願</strong>：</p>
+    <ul>
+      <li><strong>醫學生</strong>面試完後，把想去的醫院按喜好排序（ROL, 志願序）。</li>
+      <li><strong>醫院</strong>面試完後，也把想要的學生按喜好排序，並報出名額。</li>
+      <li>系統透過演算法，幫大家找出<strong>「穩定配對（Stable Matching）」</strong>——也就是配對完成後，不會出現「某學生更想去某醫院，而該醫院也更想要該學生」的私下毀約情況。</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>💥 1990 年代爆發的信任危機：</strong><br>
+      當時醫學生團體與學者發現，NRMP 舊演算法主要是<strong>「醫院主動提議（Program-Proposing）」</strong>。根據賽局理論（Gale-Shapley 演算法），主動提議的一方會拿到對自己最有利的穩定結果，被動的一方則會拿到最差的！學生們抗議系統偏袒醫院，甚至開始討論要不要「策略性填志願（作弊/灌水）」來反制。為了挽救市場崩潰，NRMP 在 1995 年委託作者群重新設計一套以<strong>「學生主動提議（Applicant-Proposing）」</strong>為核心的新演算法。
+    </div>
+
+    <div class="case-link-box">
+      <div class="case-link-info">
+        <span class="case-link-badge">🎓 大學生生活案例延伸教學 · page1.html</span>
+        <h4>看懂「搶跑危機」與 Gale-Shapley 穩定配對</h4>
+        <p>用「社團提前搶幹部」、「宿舍室友雙向配對」與互動模擬器，體驗誰主動提議到底差在哪！</p>
+      </div>
+      <a href="page1.html" target="_blank" class="case-link-btn">開啟 page1.html 互動教學 &rarr;</a>
+    </div>
+  </section>
+
+  <!-- 分頁 2 -->
+  <section id="tab2" class="tab-content">
+    <h2>2. 為什麼不能直接套用課本裡的完美公式？</h2>
+    <p>在經濟學課本的「簡單配對模型（例如婚姻配對或單純大學招生）」中，只要讓學生主動丟履歷，就一定能找到對所有學生最棒的穩定配對，而且學生只要「誠實填志願」就是最佳策略。</p>
+    <p>但現實中的美國醫師市場有<strong>四大複雜變因（Match Variations）</strong>，打破了課本的所有完美假設：</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4>👩‍❤️‍👨 1. 情侶檔同時配對（Couples）</h4>
+        <p>約有 4% 的申請者是情侶或夫妻，他們希望被分發到<strong>同一座城市或鄰近醫院</strong>。因此他們提交的是「成對的醫院志願序」。一旦其中一人被刷掉，另一人也必須跟著放棄原本的醫院，這會引發連鎖反應。</p>
+      </div>
+      <div class="card">
+        <h4>🔗 2. 兩階段綁定志願（Supplemental ROLs）</h4>
+        <p>約 8%~12% 的學生申請的是「第二年專科」，但錄取後必須先去另一家醫院完成「第一年基礎訓練」。這讓一個人同時需要兩個互補的職缺。</p>
+      </div>
+      <div class="card">
+        <h4>🔄 3. 名額自動流轉（Reversions）</h4>
+        <p>約 7% 的醫院科別設有條款：如果某個專科沒招滿，剩下的名額會自動轉移給同醫院的另一個科別使用。</p>
+      </div>
+      <div class="card">
+        <h4>⚖️ 4. 偶數名額限制（Even/Odd）</h4>
+        <p>極少數醫院要求：如果不能招滿全部名額，那錄取的人數<strong>必須是偶數</strong>（例如為了方便排班輪值），否則寧可少收一人。</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>⚠️ 理論上的災難：</strong> 數學家已經證明，只要市場中存在「情侶檔」等互補條件，<strong>「穩定配對」甚至可能根本不存在</strong>！就算存在，也找不到對所有學生都最有利的單一解法，而且學生誠實填志願不再保證是最佳策略。
+    </div>
+
+    <div class="case-link-box">
+      <div class="case-link-info">
+        <span class="case-link-badge">🎓 大學生生活案例延伸教學 · page2.html</span>
+        <h4>「情侶申請歐洲交換」、「AI 專題綁定 Python 先修課」</h4>
+        <p>看四大連動難題如何讓電腦分發系統後悔莫及，甚至陷入無限迴圈！</p>
+      </div>
+      <a href="page2.html" target="_blank" class="case-link-btn">開啟 page2.html 互動教學 &rarr;</a>
+    </div>
+  </section>
+
+  <!-- 分頁 3 -->
+  <section id="tab3" class="tab-content">
+    <h2>3. 新演算法怎麼設計？「逐一解決不穩定」的工程智慧</h2>
+    <p>既然課本公式無法直接用，作者群借鏡了 Roth 與 Vande Vate (1990) 的「不穩定連鎖解決法（Instability-Chaining）」，設計出全新的<strong>學生主動提議演算法（Roth-Peranson 演算法）</strong>。</p>
+
+    <h3>核心運作邏輯（白話版）：</h3>
+    <ol style="margin-left: 20px; margin-bottom: 16px;">
+      <li><strong>一次加入一位學生：</strong> 系統一開始是空的，每次只放進一位新學生，讓他依照自己的志願序從第一志願開始「投履歷」。</li>
+      <li><strong>擠掉現任者（踢館機制）：</strong> 如果醫院還有空缺，就暫時收下他；如果名額滿了，但醫院更喜歡這位新學生，醫院就會<strong>踢掉目前錄取名單中排名最末端的學生</strong>。</li>
+      <li><strong>處理連鎖反應（堆疊機制）：</strong> 被踢掉的學生會進入「待處理學生堆疊」，接著去投他的下一個志願。如果被踢掉的是「情侶檔」之一，另一半也必須撤回申請，空出來的醫院名額則進入「待處理醫院堆疊」。</li>
+      <li><strong>安裝「無窮迴圈偵測器（Loop Detector）」：</strong> 因為情侶檔可能會讓系統陷入「A擠掉B、B擠掉C、C又回頭擠掉A」的死胡同，工程師在程式裡裝了紀錄器，一旦發現重複狀態就調整處理順序來跳脫迴圈。</li>
+    </ol>
+
+    <h3>工程細節測試：排隊順序有差嗎？</h3>
+    <p>在簡單市場中，誰先投履歷完全不影響最終結果；但在複雜市場中，順序可能影響結果。作者用 1993–1995 年的真實數據做了大量電腦實驗，發現：<strong>「先讓所有單身學生跑完配對，最後再讓情侶檔進場」</strong>，產生的程式無窮迴圈最少，系統最穩定！</p>
+
+    <div class="case-link-box">
+      <div class="case-link-info">
+        <span class="case-link-badge">🎓 大學生生活案例延伸教學 · page3.html</span>
+        <h4>從「圖書館包廂叫號」與「露營排帳篷」看懂新演算法</h4>
+        <p>互動模擬雙堆疊（Stacks）如何消化骨牌效應，並了解為何工程師拒絕隨機亂數！</p>
+      </div>
+      <a href="page3.html" target="_blank" class="case-link-btn">開啟 page3.html 互動教學 &rarr;</a>
+    </div>
+  </section>
+
+  <!-- 分頁 4 -->
+  <section id="tab4" class="tab-content">
+    <h2>4. 電腦實驗大對決：新舊演算法到底差多少？</h2>
+    <p>作者拿了 1987 年以及 1993–1996 年共五年的真實歷史志願數據（超過 10 萬名醫學生），把舊演算法（醫院主動）與新演算法（學生主動）拿來做平行宇宙對比：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>比較項目</th>
+          <th>實驗發現的真實數據</th>
+          <th>白話解讀</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>結果改變的學生人數</strong></td>
+          <td>每年約 20,000 多人中，只有 <strong>14 到 21 人</strong>（約 <strong>0.1%</strong>）的結果不同。</td>
+          <td>99.9% 的人無論用哪套系統，分發到的醫院完全一模一樣！</td>
+        </tr>
+        <tr>
+          <td><strong>受影響學生的好壞</strong></td>
+          <td>多數人拿到更前面的志願，但極少數年份有幾個人反而變差。</td>
+          <td>因為情侶檔與兩階段志願的連鎖反應，極少數人會被意外波及。</td>
+        </tr>
+        <tr>
+          <td><strong>結果改變的醫院數量</strong></td>
+          <td>每年約 3,700 間科別中，只有 <strong>15 到 23 間</strong>（約 <strong>0.5%</strong>）不同。</td>
+          <td>醫院端受到的衝擊也微乎其微。</td>
+        </tr>
+        <tr>
+          <td><strong>策略性作弊（截斷志願）</strong></td>
+          <td>在舊系統下每年最多約 11~22 人能靠「故意少填志願」獲利；在新系統下降至 <strong>0 到 9 人</strong>。</td>
+          <td>想靠「不誠實填志願」來占便宜幾乎不可能成功，風險極高（一不小心就會落榜）。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <strong>💡 既然只有 0.1% 的人受影響，為什麼還是決定改用新演算法？</strong><br>
+      作者指出：對一間大醫院來說，錄取第 7 志願或第 17 志願的學生差別可能不大；但對那 20 位受影響的醫學生來說，<strong>「去西雅圖還是去邁阿密生活」是人生大事</strong>！改用學生主動演算法能大幅提升學生福祉與對制度的信任，且幾乎不損害醫院利益，因此 NRMP 董事會在 1997 年全票通過採用新系統。
+    </div>
+
+    <div class="case-link-box">
+      <div class="case-link-info">
+        <span class="case-link-badge">🎓 大學生生活案例延伸教學 · page4.html</span>
+        <h4>「西雅圖 vs. 邁阿密的不對稱幸福」與大四面試成本</h4>
+        <p>親自拉動互動滑桿調整市場人數與面試家數，測試偷刪志願到底能不能佔到便宜！</p>
+      </div>
+      <a href="page4.html" target="_blank" class="case-link-btn">開啟 page4.html 互動教學 &rarr;</a>
+    </div>
+  </section>
+
+  <!-- 分頁 5 -->
+  <section id="tab5" class="tab-content">
+    <h2>5. 令人驚訝的理論發現：為什麼新舊系統差距這麼小？</h2>
+    <p>原本經濟學家以為，醫院主動與學生主動是兩個極端，結果應該會天差地遠。為什麼在兩萬人的大市場裡，受影響的只有區區 20 人（0.1%）？</p>
+    <p>作者透過上千次電腦模擬，發現了一個全新的經濟學現象（一種新型態的<strong>核心收斂 Core Convergence</strong>）：</p>
+
+    <h3>關鍵秘密：人的時間有限，不可能面試所有醫院！</h3>
+    <ul>
+      <li><strong>假設沒有面試成本（k = n）：</strong> 如果每位學生都能面試全美 3,000 家醫院並全部填入志願，電腦模擬顯示：市場越大，新舊演算法的差異就越大（當人數達 1,000 人時，超過 <strong>90%</strong> 的人結果會不同）。</li>
+      <li><strong>現實是有面試上限（k 很小，n 很大）：</strong> 現實中，一位醫學生受限於時間與機票錢，頂多只能面試並填寫約 <strong>10 到 15 個志願（k = 15）</strong>。</li>
+      <li><strong>驚人的數學結果：</strong> 當每個人的志願長度 $k$ 固定，而市場總人數 $n$ 越來越龐大時，所有「穩定配對」的集合會迅速縮小！當 $n > 10,000$ 且 $k = 15$ 時，即使大家的喜好完全隨機，新舊演算法的差異也會自動收斂到 <strong>0.1% 以下</strong>！</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>🎯 一句話總結：</strong><br>
+      正是因為<strong>「面試有交易成本」</strong>（每人只能填十幾個志願），才讓龐大的醫學生配對市場幾乎只有唯一解。這也徹底證明了：學生在填志願時，<strong>完全不需要搞小動作，只要照實把最想去的排在最前面就對了</strong>！
+    </div>
+
+    <div class="case-link-box">
+      <div class="case-link-info">
+        <span class="case-link-badge">🎓 大學生生活案例延伸教學 · page5.html</span>
+        <h4>經濟學家的「工程學」：從蓋吊橋到腎臟交換配對</h4>
+        <p>用「大一普物公式 vs. 蓋跨海大橋」與「學生會長改革社團制度」看懂市場設計方法論！</p>
+      </div>
+      <a href="page5.html" target="_blank" class="case-link-btn">開啟 page5.html 互動教學 &rarr;</a>
+    </div>
+  </section>
+
+  <!-- 分頁 6 -->
+  <section id="tab6" class="tab-content">
+    <h2>6. 給經濟學界的啟示：像「蓋吊橋」一樣做市場設計</h2>
+    <p>在論文的最後，Roth 提出了一個非常經典的比喻，呼籲經濟學界應該建立一門<strong>「經濟設計的工程學（Engineering Aspects of Economic Design）」</strong>：</p>
+
+    <div class="card" style="margin-bottom: 20px; background: #fffbeb; border-color: #fde68a;">
+      <h4>🌉 吊橋設計的比喻</h4>
+      <p>大學物理課教的牛頓力學非常優美，能算出懸索橋鋼纜的理想曲線。但沒有任何工程師敢只靠課本公式就蓋一座真實的橋——因為真實世界有<strong>金屬疲乏、地質土壤、海浪與強風</strong>。工程師必須透過電腦模擬與風洞實驗，去測量那些課本沒寫的「現實摩擦力」到底有多大。</p>
+    </div>
+
+    <p><strong>市場設計也是如此：</strong></p>
+    <ul>
+      <li><strong>純理論（牛頓力學）：</strong> 告訴我們「穩定配對」很重要，並指出學生主動提議對學生比較好。</li>
+      <li><strong>真實市場的摩擦力（風浪與土壤）：</strong> 情侶檔、兩階段訓練、名額流轉等制度細節。純數學只能舉出「反例」說這可能會出事，卻算不出「出事的機率有多高」。</li>
+      <li><strong>電腦實驗（風洞測試）：</strong> 透過真實歷史數據與蒙地卡羅模擬，精準測量出「反例發生的機率只有 0.1%」，並找出最佳的排隊處理順序。</li>
+    </ul>
+    <p>這篇論文不僅成功改革了美國醫師分發制度（該系統沿用至今，並擴展到牙醫、藥師、律師等數十個專業市場），更奠定了現代<strong>「市場設計（Market Design）」</strong>結合賽局理論與電腦模擬的研究典範，成為 Alvin Roth 榮獲 2012 年諾貝爾經濟學獎的核心代表作之一。</p>
+
+    <div class="case-link-box">
+      <div class="case-link-info">
+        <span class="case-link-badge">🎓 大學生生活案例延伸教學 · page6.html</span>
+        <h4>附錄 A 偽代碼大解密：大型活動工作人員自動分發系統</h4>
+        <p>用單步除錯器（Step Debugger）親自追蹤 Loop 1～3 與名額流用程式碼如何運作！</p>
+      </div>
+      <a href="page6.html" target="_blank" class="case-link-btn">開啟 page6.html 互動教學 &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    整理自 Alvin E. Roth & Elliott Peranson (1999), NBER Working Paper 6963.
+  </footer>
+</div>
+
+<script>
+  function openTab(evt, tabId) {
+    // 隱藏所有分頁內容
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.remove('active'));
+
+    // 移除所有按鈕的 active 狀態
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    // 顯示目前點擊的分頁並加上 active 樣式
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
