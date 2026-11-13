@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4章習題、做中學實驗與第5章完全競爭市場導讀</title>
+
+    <!-- MathJax 3 數學公式渲染庫 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0284c7;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --highlight-bg: #f0f9ff;
+            --callout-bg: #fffbe3;
+            --warning-bg: #fef2f2;
+            --warning-border: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        .header-tag {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .book-card {
+            background-color: var(--highlight-bg);
+            border-left: 5px solid var(--secondary-color);
+            padding: 20px 24px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .book-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+        }
+
+        .book-card p {
+            margin: 6px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-top: 40px;
+            border-bottom: 1.5px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .card-header {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .concept-box {
+            background-color: var(--callout-bg);
+            border: 1px solid #fef08a;
+            border-left: 5px solid var(--accent-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #9a3412;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background-color: var(--warning-bg);
+            border: 1px solid #fca5a5;
+            border-left: 5px solid var(--warning-border);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .warning-title {
+            font-weight: bold;
+            color: #991b1b;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .case-tag {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .math-block {
+            background-color: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.15rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 5px solid #16a34a;
+            padding: 22px 26px;
+            border-radius: 8px;
+            margin: 35px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #14532d;
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--highlight-bg);
+            color: var(--primary-color);
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+<div class="container">
+    <div class="header-tag">碩士班個體經濟理論導讀課程</div>
+    <h1>第4章習題與實驗（4.8 ~ 4.9）暨第5章完全競爭市場（5.1 ~ 5.6）</h1>
+
+    <div class="book-card">
+        <h3>課程發表與研討總覽</h3>
+        <p><strong>報告學生與主題：</strong></p>
+        <ul>
+            <li><strong>建廷：</strong>Section 4.8 習題演算（擴張線推導、規模報酬判定、三次總成本與 $AC/MC$ 極值）</li>
+            <li><strong>斯育：</strong>Section 4.9 規模經濟與做中學實驗（紙飛機生產線實測）</li>
+            <li><strong>語沛：</strong>Section 5.1 完全競爭廠商的生產決策、經濟利潤 vs. 會計利潤、四大市場結構比較</li>
+            <li><strong>辰鴻：</strong>Section 5.3 供給曲線（個別廠商供給、長期產業供給與後彎型供給、供給價格彈性）</li>
+            <li><strong>奕如：</strong>Section 5.4 第五章章節摘要與核心概念統整</li>
+            <li><strong>裕芳：</strong>Exercises 5.1 ~ 5.2 利潤極大化三步驟與實際營業案例</li>
+            <li><strong>晨熙：</strong>Exercises 5.5 ~ 5.6 單一廠商短期均衡與完全競爭產業長期均衡推導</li>
+        </ul>
+        <p><strong>核心教材對照：</strong>John P. Burkett《Microeconomics: Optimization, Experiments, and Behavior》Chapter 4 &amp; Chapter 5</p>
+    </div>
+
+    <h2>一、 建廷：Section 4.8 生產與成本函數習題演算</h2>
+
+    <h3>1. 擴張路徑（Expansion Path）推導</h3>
+    <p>給定邊際技術替代率與要素價格比率 $\frac{w}{r} = 2$，成本極小化條件為：</p>
+    <div class="math-block">
+        $$MRTS_{L,K} = \frac{L - 1}{K} = \frac{w}{r} = 2 \implies L = 2K + 1 \quad (L \ge 1)$$
+    </div>
+    <p>隨著生產規模擴大，勞資比 $\frac{L}{K} = 2 + \frac{1}{K}$ 會逐漸趨近於 $2$。</p>
+
+    <h3>2. 四種生產函數之規模報酬判定（將 $K, L$ 同乘 $\lambda &gt; 1$）</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>生產函數</th>
+                <th>投入放大 $\lambda$ 倍後</th>
+                <th>規模報酬類型</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$Q = 3K + 4L$</td>
+                <td>$3(\lambda K) + 4(\lambda L) = \lambda Q$</td>
+                <td><strong>規模報酬固定 (CRS)</strong></td>
+            </tr>
+            <tr>
+                <td>$Q = 0.5KL$</td>
+                <td>$0.5(\lambda K)(\lambda L) = \lambda^2 Q &gt; \lambda Q$</td>
+                <td><strong>規模報酬遞增 (IRS)</strong></td>
+            </tr>
+            <tr>
+                <td>$Q = \min(3K, 4L)$</td>
+                <td>$\min(3\lambda K, 4\lambda L) = \lambda Q$</td>
+                <td><strong>規模報酬固定 (CRS)</strong></td>
+            </tr>
+            <tr>
+                <td>$Q = 6K^{1/3}L^{1/3}$</td>
+                <td>$6(\lambda K)^{1/3}(\lambda L)^{1/3} = \lambda^{2/3} Q &lt; \lambda Q$</td>
+                <td><strong>規模報酬遞減 (DRS)</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3. 三次總成本函數與平均、邊際成本極值</h3>
+    <p>給定總成本函數 $TC(Q) = Q^3 - 30Q^2 + 301Q$：</p>
+    <div class="math-block">
+        $$AC(Q) = \frac{TC(Q)}{Q} = Q^2 - 30Q + 301$$
+        $$MC(Q) = \frac{d\,TC(Q)}{dQ} = 3Q^2 - 60Q + 301$$
+    </div>
+    <ul>
+        <li><strong>平均成本最低點：</strong> 令 $\frac{d\,AC}{dQ} = 2Q - 30 = 0 \implies Q = 15$，此時 $AC(15) = 15^2 - 30(15) + 301 = 76$。</li>
+        <li><strong>邊際成本最低點：</strong> 令 $\frac{d\,MC}{dQ} = 6Q - 60 = 0 \implies Q = 10$，此時 $MC(10) = 3(10^2) - 60(10) + 301 = 1$。</li>
+    </ul>
+
+    <h2>二、 斯育：Section 4.9 規模經濟與做中學實驗</h2>
+    <p>透過「紙飛機折疊生產線」實驗（每回合 4 分鐘規劃分工、3 分鐘實際折疊與試飛品管，共進行 4 回合），同時觀察兩種動態與規模效應：</p>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">1. 團隊規模與規模報酬（橫向比較）</div>
+            <p>當團隊人數由 1、2、4、6、8 人逐步擴大時，初期因<strong>專業化分工</strong>（折機身、折機翼、品管測試）使平均產出上升（IRS）；但當人數過多時，受限於空間與溝通協調成本，產出增幅趨緩甚至下降（DRS）。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">2. 做中學效應（Learning by Doing，縱向比較）</div>
+            <p>隨著第 1 至第 4 回合重複操作，成員累積經驗並改良折疊流程，使<strong>每單位時間的良率與產量持續攀升</strong>，展現典型的學習曲線（Learning Curve）。</p>
+        </div>
+    </div>
+
+    <h2>三、 語沛 ＆ 奕如：第5章 完全競爭廠商決策與市場結構（5.1 &amp; 5.4）</h2>
+
+    <h3>1. 經濟利潤 vs. 會計利潤</h3>
+    <div class="math-block">
+        $$\text{總收益：} TR = P \times Q$$
+        $$\text{會計利潤} = TR - \text{外顯成本（Explicit Costs）}$$
+        $$\text{經濟利潤 } (\pi) = TR - (\text{外顯成本} + \text{隱藏成本／機會成本})$$
+    </div>
+    <p>當<strong>經濟利潤 $\pi = 0$</strong> 時，並非企業經營失敗，而是代表企業所賺取的收益剛好足以支付所有資源的機會成本（即獲得「正常利潤 Normal Profit」）。</p>
+
+    <h3>2. 四大市場結構比較</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>市場結構</th>
+                <th>廠商數量</th>
+                <th>產品性質</th>
+                <th>定價能力</th>
+                <th>課堂與生活實例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>完全競爭市場</strong></td>
+                <td>眾多</td>
+                <td>完全同質</td>
+                <td>價格接受者（Price Taker）</td>
+                <td>大宗農產品（玉米、黃豆期貨）</td>
+            </tr>
+            <tr>
+                <td><strong>獨佔市場</strong></td>
+                <td>僅一家</td>
+                <td>無相近替代品</td>
+                <td>價格決定者</td>
+                <td>具獨家關鍵專利的特殊晶片技術、公用事業</td>
+            </tr>
+            <tr>
+                <td><strong>獨佔性競爭</strong></td>
+                <td>眾多</td>
+                <td>具差異性</td>
+                <td>有限定價能力</td>
+                <td>手搖飲店（50嵐、CoCo）、連鎖咖啡（星巴克、路易莎）</td>
+            </tr>
+            <tr>
+                <td><strong>寡佔市場</strong></td>
+                <td>少數幾家</td>
+                <td>同質或異質</td>
+                <td>相互依賴（策略互動）</td>
+                <td>四大超商（7-ELEVEN、全家促銷戰）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>四、 辰鴻：Section 5.3 個別廠商供給、長期產業供給與彈性</h2>
+
+    <h3>1. 個別廠商短期供給曲線</h3>
+    <p>完全競爭廠商追求利潤極大化，一階條件為 $P = MC$。當市場價格低於最低平均成本（長期）或最低平均變動成本（短期歇業點）時，廠商會停止生產。因此，<strong>個別廠商的供給曲線即為最低平均成本點以上的邊際成本（$MC$）上升段</strong>。</p>
+
+    <h3>2. 自由進出與長期產業供給曲線</h3>
+    <p>長期下廠商可自由進出市場，超額利潤會吸引新廠商進入、壓低價格，直到所有廠商經濟利潤歸零（$P = MC = \min AC$）。依據產業擴張對生產成本的影響，長期產業供給曲線分為三類：</p>
+    <ul>
+        <li><strong>成本不變產業：</strong> 產業擴張不影響要素價格與外部性，長期供給曲線為<strong>水平線</strong>。</li>
+        <li><strong>成本遞增產業：</strong> 產業擴張引發負外部性或要素價格上漲（如漁場資源耗竭、土地租金飆升），長期供給曲線為<strong>正斜率</strong>。</li>
+        <li><strong>成本遞減產業：</strong> 產業群聚帶來正外部性或共用設備成本下降，長期供給曲線為<strong>負斜率</strong>。</li>
+        <li><strong>後彎型長期供給曲線（Backward-Bending）：</strong> 如海洋漁業，當魚價過高引發過度捕撈導致魚群資源枯竭時，價格再上升反而使總漁獲供給量減少。</li>
+    </ul>
+
+    <h3>3. 供給價格彈性（Price Elasticity of Supply, $E_s$）</h3>
+    <div class="math-block">
+        $$\text{弧彈性：} E_s = \frac{(Q_B - Q_A)/Q_A}{(P_B - P_A)/P_A} = \frac{\Delta Q}{\Delta P} \cdot \frac{P_A}{Q_A}$$
+        $$\text{點彈性：} E_s = \frac{dQ}{dP} \cdot \frac{P}{Q}$$
+    </div>
+    <p>完全無彈性（垂直供給線，如土地總量固定）$E_s = 0$；單位彈性 $E_s = 1$；富有彈性 $E_s &gt; 1$；完全彈性（水平供給線）$E_s \to \infty$。</p>
+
+    <h2>五、 裕芳 ＆ 晨熙：第5章 利潤極大化與長期均衡計算（5.1 ~ 5.6）</h2>
+
+    <h3>1. 裕芳：利潤極大化三步驟與實例檢驗（Exercises 5.1 &amp; 5.2）</h3>
+    <ol>
+        <li><strong>邊際條件求解：</strong> 令 $MC(Q) = P$ 求解候選產量。</li>
+        <li><strong>二階條件與合理性篩選：</strong> 剔除負產量，並確認 $MC$ 處於上升階段。</li>
+        <li><strong>歇業條件檢驗：</strong> 確認 $P \ge AC(Q)$（長期）或 $P \ge AVC(Q)$（短期），計算總利潤 $\pi = (P - AC) \times Q$。</li>
+    </ol>
+    <p>例如 Exercise 5.1 中，$TC = Q^3 - 6Q^2 + 15Q$，$MC = 3Q^2 - 12Q + 15$。當 $P = 30$ 時，解得 $Q = 5$（剔除 $Q = -1$），此時 $AC(5) = 10 \le 30$，總利潤 $\pi = (30 - 10) \times 5 = 100$。</p>
+
+    <h3>2. 晨熙：從短期超額利潤到長期競爭均衡（Exercises 5.5 &amp; 5.6）</h3>
+    <p>已知每家廠商的總成本與邊際成本函數為：</p>
+    <div class="math-block">
+        $$TC(Q) = Q^3 - 6Q^2 + 13Q \implies MC(Q) = 3Q^2 - 12Q + 13, \quad AC(Q) = Q^2 - 6Q + 13$$
+    </div>
+    <ul>
+        <li><strong>單一廠商短期決策（Exercise 5.5）：</strong> 當市場價格 $P = 13$ 時，令 $MC = 13 \implies 3Q^2 - 12Q = 0$，得 $Q = 0$（利潤極小點，$MC$ 遞減）或 $Q = 4$（利潤極大點，$MC$ 遞增）。在 $Q = 4$ 時，$AC(4) = 5$，單一廠商獲得超額利潤 $\pi = (13 - 5) \times 4 = 32$。</li>
+        <li><strong>長期自由進出均衡（Exercise 5.6）：</strong> 超額利潤吸引新廠商進入，價格一路下跌至最低平均成本處。令 $\frac{d\,AC}{dQ} = 2Q - 6 = 0 \implies Q^* = 3$，此時長期均衡價格 $P^* = \min AC = AC(3) = 4$，各廠商經濟利潤 $\pi = (4 - 4) \times 3 = 0$。</li>
+        <li><strong>產業總產量與均衡廠商數：</strong> 若市場總需求為 $P = 34 - 0.1Q_{\text{total}}$，代入 $P^* = 4$ 得產業總產量 $Q_{\text{total}} = 300$，因此市場容納的均衡廠商總家數為 $\frac{300}{3} = 100$ 家。</li>
+    </ul>
+
+    <div class="warning-box">
+        <div class="warning-title">⚠️ 課堂共同提醒：AI 輔助研究與繪圖的驗證責任</div>
+        <p>在本次報告中，多位同學運用生成式 AI 協助繪製成本曲線與計算習題。池秉聰教授特別提醒研究生：</p>
+        <ul>
+            <li><strong>切勿盲信 AI 輸出：</strong> AI 在處理數學函數微積分、反曲點或曲線交點（如 $MC$ 必須由下往上穿過 $AC$ 最低點）時，仍可能出現數值或幾何錯誤。</li>
+            <li><strong>建立獨立驗算習慣：</strong> 作為負責任的研究者，使用 AI 產出數據或圖表後，務必透過手算一階/二階條件或使用專業繪圖工具（如 Desmos）進行交叉驗證。</li>
+        </ul>
+    </div>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課堂研討與思考問題</div>
+        <ol>
+            <li><strong>自然資源與後彎型供給曲線：</strong> 除了海洋漁業與森林木材之外，現代經濟中還有哪些資源（如特定稀有金屬、碳排放配額或銀行體系總量管制的房貸資金）可能出現供給曲線後彎或垂直無彈性的現象？</li>
+            <li><strong>完全競爭長期零利潤的迷思：</strong> 既然完全競爭市場長期經濟利潤為零，為何現實中仍有大量創業者願意投入餐飲、農產或零售業？請從「正常利潤」與「企業家機會成本」的角度解釋。</li>
+        </ol>
+    </div>
+</div>
+
+</body>
+</html>
