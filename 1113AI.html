@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究生 AI 實證資料分析指南：AI 輔助工具與科學驗證流程</title>
+
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0284c7;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --highlight-bg: #f0f9ff;
+            --callout-bg: #fffbe3;
+            --warning-bg: #fef2f2;
+            --warning-border: #ef4444;
+            --success-bg: #f0fdf4;
+            --success-border: #16a34a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        .header-tag {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .book-card {
+            background-color: var(--highlight-bg);
+            border-left: 5px solid var(--secondary-color);
+            padding: 20px 24px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .book-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+        }
+
+        .book-card p {
+            margin: 6px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-top: 40px;
+            border-bottom: 1.5px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .card-header {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .warning-box {
+            background-color: var(--warning-bg);
+            border: 1px solid #fca5a5;
+            border-left: 5px solid var(--warning-border);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .warning-title {
+            font-weight: bold;
+            color: #991b1b;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .concept-box {
+            background-color: var(--callout-bg);
+            border: 1px solid #fef08a;
+            border-left: 5px solid var(--accent-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #9a3412;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .case-tag {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .step-box {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        .code-prompt {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.95rem;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .discussion-box {
+            background-color: var(--success-bg);
+            border: 1px solid #bbf7d0;
+            border-left: 5px solid var(--success-border);
+            padding: 22px 26px;
+            border-radius: 8px;
+            margin: 35px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #14532d;
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--highlight-bg);
+            color: var(--primary-color);
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-tag">碩士班論文研究方法與實證工具工作坊</div>
+    <h1>研究生 AI 實證資料分析指南：用 AI 驅動科學工具，而非直接索取答案</h1>
+
+    <div class="book-card">
+        <h3>課堂教學與實作示範資訊</h3>
+        <p><strong>主講教授：</strong>池秉聰 教授（淡江大學產業經濟學系／經濟學系）</p>
+        <p><strong>示範工具生態：</strong>Google Gemini + Google Drive + Google Colab (Python) / Stata / Desmos</p>
+        <p><strong>示範資料集：</strong>2026 國科會計畫 — SRDA「華人家庭動態資料庫（PSFD）」跨年度追蹤調查資料</p>
+    </div>
+
+    <h2>一、 核心警戒：生圖工具不是科學工具</h2>
+    <p>在進行碩士論文實證研究時，許多同學習慣直接將數據或函數丟給生成式 AI，要求 AI 直接畫圖或給出分析結果。池秉聰教授對此提出嚴正提醒：</p>
+
+    <div class="warning-box">
+        <div class="warning-title">⚠️ 切勿直接把原始資料丟給 AI 要它給分析結果！</div>
+        <ul>
+            <li><strong>生成式 AI 的本質是「編故事」與「生圖」：</strong> 語言模型與生圖工具並不會真正對龐大資料集進行嚴謹的統計運算，它們往往只掃描大概，就順著邏輯編造出「看起來合理、很可信」的文字或圖表。</li>
+            <li><strong>「有圖有真相」的時代已經過去：</strong> 現在所有的函數圖形與統計圖表都可以被 AI 憑空生成，若未經數學與程式驗證，表面看似無誤的圖表往往隱藏致命錯誤（例如函數交點錯位、數值失真）。</li>
+            <li><strong>正確的科學研究心法：</strong> <strong>不要讓 AI 替你做分析，而是讓 AI 幫你「寫出操作專業工具的程式碼」，再由你親自把程式碼放進科學工具中執行！</strong></li>
+        </ul>
+    </div>
+
+    <h2>二、 錯誤做法 vs. 正確科學研究流程對照</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>研究環節</th>
+                <th>❌ 錯誤做法（直接向 AI 索取結果）</th>
+                <th>✅ 正確做法（AI 撰寫代碼 ＋ 科學工具執行）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>繪製經濟函數圖形</strong></td>
+                <td>直接叫 AI 生成一張成本曲線或供需圖（容易畫錯切點與座標）。</td>
+                <td>請 AI 整理出精確的數學方程式，再將方程式輸入 <strong>Desmos</strong> 或用 <strong>Python (Matplotlib/Plotly)</strong> 繪製。</td>
+            </tr>
+            <tr>
+                <td><strong>計量迴歸與資料分析</strong></td>
+                <td>把 Excel/CSV 檔案直接上傳給 AI，問它：「幫我跑迴歸並告訴我顯著性」。</td>
+                <td>告知 AI 資料結構、變數名稱、被解釋變數與解釋變數，請 AI 產出 <strong>Python / Stata / R 程式碼</strong>，由研究者在本地端或 Colab 執行運算。</td>
+            </tr>
+            <tr>
+                <td><strong>大型資料庫整理</strong></td>
+                <td>人工逐一打開數十個資料夾與問卷檔案抄寫變數編碼。</td>
+                <td>透過 Gemini 連接 Google Drive 讀取目錄結構，生成 Python 批次掃描程式，在 Colab 自動彙整所有變數清單。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>三、 實戰示範：Gemini ＋ Google Drive ＋ Colab 處理大型追蹤資料</h2>
+    <p>教授以<strong>「2026 國科會計畫 — SRDA 家庭動態調查資料庫（PSFD）」</strong>為例，示範如何運用 Google 雲端生態系，在幾分鐘內完成數十個資料檔、上萬筆變數的自動化盤點與跨年度個體追蹤。</p>
+
+    <div class="step-box">
+        <div class="step-title">步驟 1：建立雲端環境與目錄連結（@Google Drive）</div>
+        <p>將研究資料夾上傳至 Google 雲端硬碟（Google Drive），並使用同一個 Google 帳號登入 <strong>Google Colab</strong>（無需在本地端安裝複雜環境，開啟瀏覽器即可執行 Python）。在 Gemini 對話框中輸入 <code>@</code> 符號選取 <strong>Google 雲端硬碟</strong>，精準指定目標資料夾路徑（例如：<code>2026國科會計畫 / SRDA資料 / 家庭動態調查資料庫</code>）。</p>
+    </div>
+
+    <div class="step-box">
+        <div class="step-title">步驟 2：讓 Gemini 讀取資料結構並生成「第一段掃描程式碼」</div>
+        <p>由於資料庫包含多個年份子目錄，每個 CSV 檔案約有上千筆資料，且變數名稱皆為密密麻麻的編碼（如 X01、X02）。透過 Gemini 檢視雲端硬碟內的資料夾架構，下達精準指令：</p>
+        <div class="code-prompt">
+            「請幫我用 Colab (Python) 寫一段程式碼，自動掃描我雲端硬碟中指定資料夾下的所有子目錄，讀取裡面的 CSV 檔案，統計每個檔案的資料筆數與所有變數名稱，並將結果自動彙整儲存成一份『總變數整理.xlsx』Excel 檔。」
+        </div>
+    </div>
+
+    <div class="step-box">
+        <div class="step-title">步驟 3：在 Colab 掛載雲端硬碟並執行程式</div>
+        <ol>
+            <li>在 Google Colab 新增筆記本，點選左側「檔案」圖示掛載 Google 雲端硬碟並完成授權。</li>
+            <li>貼上 Gemini 產出的 Python 程式碼並按下執行（Play 鍵）。</li>
+            <li>程式忠實地逐層掃描目錄，<strong>短短時間內便處理完 39 個 CSV 檔案，精準擷取出 26,000 多筆變數記錄</strong>，並自動輸出整理好的 Excel 總表。</li>
+        </ol>
+    </div>
+
+    <div class="step-box">
+        <div class="step-title">步驟 4：結合「資料使用說明檔」進行跨年度個體識別（第二段程式碼）</div>
+        <p>為了追蹤同一位受訪者在不同年份調查檔案中的動態變化，必須找出跨檔共通的「個人識別碼（ID）」。教授進一步觀察子目錄中附帶的說明文件（如 <code>1999資料使用說明</code> 或 <code>CODE.doc / .docx</code>），再次請 Gemini 產出第二段程式碼：</p>
+        <div class="code-prompt">
+            「我要追蹤同一個個體在不同年度調查檔案中的資料。請參考各年度子目錄下的『資料使用說明』或編碼表文件，幫我寫第二段 Python 程式碼，自動偵測並比對各個 CSV 檔案中用來辨認同一個體的識別變數（例如 X01 或 X02）。」
+        </div>
+        <p>在 Colab 中點選「<code>+ 程式碼</code>」新增區塊貼上執行，即可讓程式自動完成跨檔案變數對照。</p>
+    </div>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 研究者的最終責任：人工抽樣核對（Sanity Check）</div>
+        <p>程式碼跑完並產出結果後，研究工作尚未結束。教授強調：<strong>「我們的工作是去檢查它跑出來的結果到底正不正確。」</strong>研究者必須隨機挑選幾個原始 CSV 檔案與說明書，人工核對程式抓出的變數定義與筆數是否完全吻合，確認無誤後才能進入後續的計量模型估計。</p>
+    </div>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課後實作與思考檢核</div>
+        <ol>
+            <li><strong>建立你的研究工作流：</strong> 請試著登入 Google Colab，練習將自己手邊的期末報告或論文資料集上傳至 Google Drive，並透過 <code>@Google 雲端硬碟</code> 請 Gemini 寫出第一段描述性統計（Descriptive Statistics）程式碼。</li>
+            <li><strong>提示詞（Prompt）的精準度：</strong> 在請 AI 撰寫 Stata 或 Python 迴歸程式碼時，你應該提供哪些必要資訊（例如：資料格式、遺漏值編碼方式、固定效果控制項、標準誤群聚層級），才能讓 AI 寫出一次就能跑通的程式碼？</li>
+        </ol>
+    </div>
+</div>
+
+</body>
+</html>
