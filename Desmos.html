@@ -15,9 +15,7 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- 引入 Desmos API -->
-    <script src="https://www.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
-    <!-- 修正為正確的 Desmos 官方網址 -->
+    <!-- 正確引入 Desmos API -->
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 
     <style>
@@ -101,11 +99,10 @@
             $M_{PL} = 3x^{1/3}y^{-1/2}$
         </div>
 
-        <h2>2. 為什麼原本 Desmos 畫不出來？</h2>
+        <h2>2. Desmos 繪圖小技巧</h2>
         <ul>
-            <li><strong>二維限制：</strong> Desmos 是 2D 平面繪圖工具。若直接輸入雙變數函數定義 $Q(x,y)$，它只會知道數值對應關係，卻不知道該對應到哪個畫面座標，因而無法成圖。</li>
-            <li><strong>解決方法：</strong> 我們可以利用**滑桿參數**（例如固定產出或將其中一項變數設為常數/滑桿），或是直接繪製邊際產出隨某一變數變動的截面圖。</li>
-            <li>右側互動視窗已設定好透過滑桿控制對應變數的正確繪圖方式，你可以直接動手操作！</li>
+            <li><strong>二維變數處理：</strong> 由於 Desmos 是 2D 平面工具，我們透過設定 $y$ 的滑桿數值（例如固定 $y = 4$），來觀察資本 $x$ 變動時對邊際產出的影響。</li>
+            <li>你可以直接在右側的 Desmos 互動視窗中拖動滑桿或修改方程式！</li>
         </ul>
     </div>
 
@@ -125,7 +122,7 @@
         settingsMenu: true
     });
 
-    // 設定預設帶入的運算式（透過滑桿 c 或固定變數讓 2D 順利繪圖）
+    // 設定預設帶入的運算式
     calculator.setExpressions([
         { id: 'slider_y', latex: 'y = 4', sliderBounds: { min: '0.1', max: '20', step: '0.1' } },
         { id: 'mpk_curve', latex: 'M_{PK} = 2x^{-2/3}y^{1/2}', color: '#e74c3c' },
