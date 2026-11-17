@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寇博-道格拉斯生產函數與邊際產出 Desmos 繪圖教學</title>
+    <title>寇博-道格拉斯生產函數與邊際產出 Desmos 教學</title>
     
-    <!-- 引入 KaTeX 數學公式渲染套件 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
-        onload="renderMathInElement(document.body);"></script>
+    <!-- 引入 MathJax 數學公式渲染套件 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <!-- 引入 Desmos API -->
+    <script src="https://www.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <!-- 修正為正確的 Desmos 官方網址 -->
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 
     <style>
@@ -71,7 +77,7 @@
 
 <header>
     <h1>經濟學圖形教學：寇博-道格拉斯生產函數</h1>
-    <p>以 Desmos 互動式繪圖呈現總產出與邊際產出 ($MP_K, MP_L$)[span_0](start_span)[span_0](end_span)</p>
+    <p>以 MathJax 排版與 Desmos 互動式繪圖呈現總產出與邊際產出[span_0](start_span)[span_0](end_span)</p>
 </header>
 
 <div class="container">
@@ -83,23 +89,23 @@
             總產出函數：<br>
             $Q(x, y) = 6x^{1/3}y^{1/2}$[span_2](start_span)[span_2](end_span)
         </div>
-        <p>其中 $x$ 代表資本 ($K$)，$y$ 代表勞動 ($L$)[span_3](start_span)[span_3](end_span)。利用微分求取各別的邊際產出（Marginal Products）[span_4](start_span)[span_4](end_span)：</p>
+        <p>其中 $x$ 代表資本 ($K$)，$y$ 代表勞動 ($L$)[span_3](start_span)[span_3](end_span)。利用偏微分求取各別的邊際產出[span_4](start_span)[span_4](end_span)：</p>
         
         <div class="formula-box">
             資本邊際產出 ($MP_K$)：<br>
-            $M_{PK}(x, y) = \frac{\partial Q}{\partial x} = 6 \cdot \frac{1}{3} x^{-2/3} y^{1/2} = 2x^{-2/3}y^{1/2}$
+            $M_{PK} = 2x^{-2/3}y^{1/2}$
         </div>
 
         <div class="formula-box">
             勞動邊際產出 ($MP_L$)：<br>
-            $M_{PL}(x, y) = \frac{\partial Q}{\partial y} = 6 \cdot x^{1/3} \cdot \frac{1}{2} y^{-1/2} = 3x^{1/3}y^{-1/2}$
+            $M_{PL} = 3x^{1/3}y^{-1/2}$
         </div>
 
-        <h2>2. Desmos 輸入注意事項</h2>
+        <h2>2. 為什麼原本 Desmos 畫不出來？</h2>
         <ul>
-            <li><strong>避免多字元函數名稱：</strong> Desmos 不允許直接命名函數如 `MPK(x,y)`，請改用帶下標的變數名稱 `M_{PK}(x, y)` 或直接定義方程式。</li>
-            <li><strong>設定變數區間：</strong> 由於經濟學產出中投入要素 $x > 0$ 且 $y > 0$，可在 Desmos 運算式後方加上限制條件（例如 `{x > 0}`），讓圖面更乾淨。</li>
-            <li>右側的互動視窗已預先帶入上述公式，您可以直接點擊查看圖形或修改參數！</li>
+            <li><strong>二維限制：</strong> Desmos 是 2D 平面繪圖工具。若直接輸入雙變數函數定義 $Q(x,y)$，它只會知道數值對應關係，卻不知道該對應到哪個畫面座標，因而無法成圖。</li>
+            <li><strong>解決方法：</strong> 我們可以利用**滑桿參數**（例如固定產出或將其中一項變數設為常數/滑桿），或是直接繪製邊際產出隨某一變數變動的截面圖。</li>
+            <li>右側互動視窗已設定好透過滑桿控制對應變數的正確繪圖方式，你可以直接動手操作！</li>
         </ul>
     </div>
 
@@ -119,11 +125,11 @@
         settingsMenu: true
     });
 
-    // 設定預設帶入的數學式（符合 Desmos 語法，消除驚嘆號）
+    // 設定預設帶入的運算式（透過滑桿 c 或固定變數讓 2D 順利繪圖）
     calculator.setExpressions([
-        { id: 'q_func', latex: 'Q(x,y) = 6x^{1/3}y^{1/2}', color: '#2980b9' },
-        { id: 'mpk', latex: 'M_{PK}(x,y) = 2x^{-2/3}y^{1/2}', color: '#e74c3c' },
-        { id: 'mpl', latex: 'M_{PL}(x,y) = 3x^{1/3}y^{-1/2}', color: '#27ae60' },
+        { id: 'slider_y', latex: 'y = 4', sliderBounds: { min: '0.1', max: '20', step: '0.1' } },
+        { id: 'mpk_curve', latex: 'M_{PK} = 2x^{-2/3}y^{1/2}', color: '#e74c3c' },
+        { id: 'mpl_curve', latex: 'M_{PL} = 3x^{1/3}y^{-1/2}', color: '#27ae60' },
         { id: 'note', latex: 'x > 0 \\operatorname{and} y > 0', color: '#7f8c8d' }
     ]);
 </script>
