@@ -15,7 +15,7 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- 引入 Desmos API -->
+    <!-- 正確引入 Desmos API（絕對沒有 www.com） -->
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 
     <style>
@@ -99,10 +99,10 @@
             $MP_L = 3x^{1/3}y^{-1/2}$
         </div>
 
-        <h2>2. 為什麼剛剛會畫不出來？</h2>
+        <h2>2. Desmos 繪圖小技巧</h2>
         <ul>
-            <li><strong>語法陷阱：</strong> 在 Desmos 裡不要寫具名函數（如 `Q(x,y)=...`），直接輸入運算式本身即可。</li>
-            <li><strong>變數對應：</strong> 畫圖時我們把勞動 $y$ 設為滑桿變數（例如預設 $y = 4$），就能完美呈現資本 $x$ 變動時的邊際產出曲線下滑與凸性（convex）特徵！</li>
+            <li><strong>變數控制：</strong> 我們將勞動 $y$ 設為滑桿變數（預設 $y = 4$），方便觀察資本 $x$ 變動時的邊際產出曲線。</li>
+            <li>您可以直接在右側的 Desmos 互動視窗中拖動滑桿！</li>
         </ul>
     </div>
 
@@ -122,7 +122,7 @@
         settingsMenu: true
     });
 
-    // 修正後的 Desmos 表達式（拿掉會導致報錯的函數名稱包裝）
+    // 載入正確的表達式
     calculator.setExpressions([
         { id: 'slider_y', latex: 'y = 4', sliderBounds: { min: '0.1', max: '20', step: '0.1' } },
         { id: 'mpk_curve', latex: '2x^{-2/3}y^{1/2}', color: '#e74c3c' },
