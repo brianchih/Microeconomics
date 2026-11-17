@@ -15,7 +15,7 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- 正確引入 Desmos API -->
+    <!-- 引入 Desmos API -->
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 
     <style>
@@ -85,24 +85,24 @@
         <p>依據圖片中的練習題範例[span_1](start_span)[span_1](end_span)：</p>
         <div class="formula-box">
             總產出函數：<br>
-            $Q(x, y) = 6x^{1/3}y^{1/2}$[span_2](start_span)[span_2](end_span)
+            $Q = 6x^{1/3}y^{1/2}$[span_2](start_span)[span_2](end_span)
         </div>
         <p>其中 $x$ 代表資本 ($K$)，$y$ 代表勞動 ($L$)[span_3](start_span)[span_3](end_span)。利用偏微分求取各別的邊際產出[span_4](start_span)[span_4](end_span)：</p>
         
         <div class="formula-box">
             資本邊際產出 ($MP_K$)：<br>
-            $M_{PK} = 2x^{-2/3}y^{1/2}$
+            $MP_K = 2x^{-2/3}y^{1/2}$
         </div>
 
         <div class="formula-box">
             勞動邊際產出 ($MP_L$)：<br>
-            $M_{PL} = 3x^{1/3}y^{-1/2}$
+            $MP_L = 3x^{1/3}y^{-1/2}$
         </div>
 
-        <h2>2. Desmos 繪圖小技巧</h2>
+        <h2>2. 為什麼剛剛會畫不出來？</h2>
         <ul>
-            <li><strong>二維變數處理：</strong> 由於 Desmos 是 2D 平面工具，我們透過設定 $y$ 的滑桿數值（例如固定 $y = 4$），來觀察資本 $x$ 變動時對邊際產出的影響。</li>
-            <li>你可以直接在右側的 Desmos 互動視窗中拖動滑桿或修改方程式！</li>
+            <li><strong>語法陷阱：</strong> 在 Desmos 裡不要寫具名函數（如 `Q(x,y)=...`），直接輸入運算式本身即可。</li>
+            <li><strong>變數對應：</strong> 畫圖時我們把勞動 $y$ 設為滑桿變數（例如預設 $y = 4$），就能完美呈現資本 $x$ 變動時的邊際產出曲線下滑與凸性（convex）特徵！</li>
         </ul>
     </div>
 
@@ -122,12 +122,12 @@
         settingsMenu: true
     });
 
-    // 設定預設帶入的運算式
+    // 修正後的 Desmos 表達式（拿掉會導致報錯的函數名稱包裝）
     calculator.setExpressions([
         { id: 'slider_y', latex: 'y = 4', sliderBounds: { min: '0.1', max: '20', step: '0.1' } },
-        { id: 'mpk_curve', latex: 'M_{PK} = 2x^{-2/3}y^{1/2}', color: '#e74c3c' },
-        { id: 'mpl_curve', latex: 'M_{PL} = 3x^{1/3}y^{-1/2}', color: '#27ae60' },
-        { id: 'note', latex: 'x > 0 \\operatorname{and} y > 0', color: '#7f8c8d' }
+        { id: 'mpk_curve', latex: '2x^{-2/3}y^{1/2}', color: '#e74c3c' },
+        { id: 'mpl_curve', latex: '3x^{1/3}y^{-1/2}', color: '#27ae60' },
+        { id: 'note', latex: 'x > 0', color: '#7f8c8d' }
     ]);
 </script>
 
