@@ -15,7 +15,7 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- 正確引入 Desmos API（絕對沒有 www.com） -->
+    <!-- 引入 Desmos API -->
     <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 
     <style>
@@ -75,34 +75,34 @@
 
 <header>
     <h1>經濟學圖形教學：寇博-道格拉斯生產函數</h1>
-    <p>以 MathJax 排版與 Desmos 互動式繪圖呈現總產出與邊際產出[span_0](start_span)[span_0](end_span)</p>
+    <p>以 MathJax 排版與 Desmos 互動式繪圖呈現總產出與邊際產出</p>
 </header>
 
 <div class="container">
     <!-- 左側：理論說明與步驟 -->
     <div class="card">
         <h2>1. 數學原理與化簡</h2>
-        <p>依據圖片中的練習題範例[span_1](start_span)[span_1](end_span)：</p>
+        <p>依據練習題範例：</p>
         <div class="formula-box">
             總產出函數：<br>
-            $Q = 6x^{1/3}y^{1/2}$[span_2](start_span)[span_2](end_span)
+            $Q = 6K^{1/3}L^{1/2}$
         </div>
-        <p>其中 $x$ 代表資本 ($K$)，$y$ 代表勞動 ($L$)[span_3](start_span)[span_3](end_span)。利用偏微分求取各別的邊際產出[span_4](start_span)[span_4](end_span)：</p>
+        <p>其中 $K$ 代表資本（對應圖形橫軸 $x$），$L$ 代表勞動。利用偏微分求取邊際產出：</p>
         
         <div class="formula-box">
             資本邊際產出 ($MP_K$)：<br>
-            $MP_K = 2x^{-2/3}y^{1/2}$
+            $MP_K = 2K^{-2/3}L^{1/2}$
         </div>
 
         <div class="formula-box">
             勞動邊際產出 ($MP_L$)：<br>
-            $MP_L = 3x^{1/3}y^{-1/2}$
+            $MP_L = 3K^{1/3}L^{-1/2}$
         </div>
 
-        <h2>2. Desmos 繪圖小技巧</h2>
+        <h2>2. Desmos 繪圖設定說明</h2>
         <ul>
-            <li><strong>變數控制：</strong> 我們將勞動 $y$ 設為滑桿變數（預設 $y = 4$），方便觀察資本 $x$ 變動時的邊際產出曲線。</li>
-            <li>您可以直接在右側的 Desmos 互動視窗中拖動滑桿！</li>
+            <li><strong>座標對應：</strong> 橫軸設為資本 $x$（即 $K$），縱軸 $y$ 代表邊際產出數值。</li>
+            <li><strong>參數滑桿：</strong> 勞動 $L$ 設為可調整的滑桿變數，方便即時觀察 $L$ 變動對 $MP_K$ 與 $MP_L$ 曲線的影響。</li>
         </ul>
     </div>
 
@@ -122,11 +122,11 @@
         settingsMenu: true
     });
 
-    // 載入正確的表達式
+    // 修正變數：使用 L 作為滑桿，x 作為橫軸變數，y 作為縱軸數值
     calculator.setExpressions([
-        { id: 'slider_y', latex: 'y = 4', sliderBounds: { min: '0.1', max: '20', step: '0.1' } },
-        { id: 'mpk_curve', latex: '2x^{-2/3}y^{1/2}', color: '#e74c3c' },
-        { id: 'mpl_curve', latex: '3x^{1/3}y^{-1/2}', color: '#27ae60' },
+        { id: 'slider_L', latex: 'L = 4', sliderBounds: { min: '0.1', max: '20', step: '0.1' } },
+        { id: 'mpk_curve', latex: 'y = 2x^{-2/3}L^{1/2}', color: '#e74c3c' },
+        { id: 'mpl_curve', latex: 'y = 3x^{1/3}L^{-1/2}', color: '#27ae60' },
         { id: 'note', latex: 'x > 0', color: '#7f8c8d' }
     ]);
 </script>
