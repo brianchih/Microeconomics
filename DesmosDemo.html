@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寇博-道格拉斯生產函數與邊際產出 Desmos 繪圖教學</title>
+    
+    <!-- 引入 KaTeX 數學公式渲染套件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body);"></script>
+
+    <!-- 引入 Desmos API -->
+    <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { margin: 0 0 10px 0; font-size: 1.8rem; }
+        p { margin: 5px 0; }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h2 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-top: 0; font-size: 1.3rem; }
+        .formula-box {
+            background: #f1f4f8;
+            padding: 12px 15px;
+            border-left: 4px solid #3498db;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 1.05rem;
+        }
+        #calculator {
+            width: 100%;
+            height: 550px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>經濟學圖形教學：寇博-道格拉斯生產函數</h1>
+    <p>以 Desmos 互動式繪圖呈現總產出與邊際產出 ($MP_K, MP_L$)[span_0](start_span)[span_0](end_span)</p>
+</header>
+
+<div class="container">
+    <!-- 左側：理論說明與步驟 -->
+    <div class="card">
+        <h2>1. 數學原理與化簡</h2>
+        <p>依據圖片中的練習題範例[span_1](start_span)[span_1](end_span)：</p>
+        <div class="formula-box">
+            總產出函數：<br>
+            $Q(x, y) = 6x^{1/3}y^{1/2}$[span_2](start_span)[span_2](end_span)
+        </div>
+        <p>其中 $x$ 代表資本 ($K$)，$y$ 代表勞動 ($L$)[span_3](start_span)[span_3](end_span)。利用微分求取各別的邊際產出（Marginal Products）[span_4](start_span)[span_4](end_span)：</p>
+        
+        <div class="formula-box">
+            資本邊際產出 ($MP_K$)：<br>
+            $M_{PK}(x, y) = \frac{\partial Q}{\partial x} = 6 \cdot \frac{1}{3} x^{-2/3} y^{1/2} = 2x^{-2/3}y^{1/2}$
+        </div>
+
+        <div class="formula-box">
+            勞動邊際產出 ($MP_L$)：<br>
+            $M_{PL}(x, y) = \frac{\partial Q}{\partial y} = 6 \cdot x^{1/3} \cdot \frac{1}{2} y^{-1/2} = 3x^{1/3}y^{-1/2}$
+        </div>
+
+        <h2>2. Desmos 輸入注意事項</h2>
+        <ul>
+            <li><strong>避免多字元函數名稱：</strong> Desmos 不允許直接命名函數如 `MPK(x,y)`，請改用帶下標的變數名稱 `M_{PK}(x, y)` 或直接定義方程式。</li>
+            <li><strong>設定變數區間：</strong> 由於經濟學產出中投入要素 $x > 0$ 且 $y > 0$，可在 Desmos 運算式後方加上限制條件（例如 `{x > 0}`），讓圖面更乾淨。</li>
+            <li>右側的互動視窗已預先帶入上述公式，您可以直接點擊查看圖形或修改參數！</li>
+        </ul>
+    </div>
+
+    <!-- 右側：Desmos 互動圖形 -->
+    <div class="card">
+        <h2>3. Desmos 互動繪圖板</h2>
+        <div id="calculator"></div>
+    </div>
+</div>
+
+<script>
+    // 初始化 Desmos 計算機
+    var elt = document.getElementById('calculator');
+    var calculator = Desmos.GraphingCalculator(elt, {
+        expressions: true,
+        graphpaper: true,
+        settingsMenu: true
+    });
+
+    // 設定預設帶入的數學式（符合 Desmos 語法，消除驚嘆號）
+    calculator.setExpressions([
+        { id: 'q_func', latex: 'Q(x,y) = 6x^{1/3}y^{1/2}', color: '#2980b9' },
+        { id: 'mpk', latex: 'M_{PK}(x,y) = 2x^{-2/3}y^{1/2}', color: '#e74c3c' },
+        { id: 'mpl', latex: 'M_{PL}(x,y) = 3x^{1/3}y^{-1/2}', color: '#27ae60' },
+        { id: 'note', latex: 'x > 0 \\operatorname{and} y > 0', color: '#7f8c8d' }
+    ]);
+</script>
+
+</body>
+</html>
