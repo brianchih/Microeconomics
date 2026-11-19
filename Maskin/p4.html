@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>分頁 4 延伸教學：福利中性、兩大前提條件與藍紅蛋糕反例（Maskin & Tirole, 1999）</title>
+<title>延伸教學：福利中性、兩大前提條件與藍紅蛋糕反例（Maskin & Tirole, 1999）</title>
 <style>
   :root {
     --primary: #1e40af;
@@ -451,14 +451,16 @@
     const out = document.getElementById('cake-out');
     if (mode === 1) {
       out.innerHTML = `
-        <h4 style="color:#1e40af; margin-bottom:0.5rem;">世界 A（完全契約）：事前預見顏色 $ightarrow$ 實現「零風險完美激勵」！</h4>
+        <h4 style="color:#1e40af; margin-bottom:0.5rem;">世界 A（完全契約）：事前預見顏色 $
+ightarrow$ 實現「零風險完美激勵」！</h4>
         <p>老闆直接在合約白紙黑字寫下：<br>
         <em>「只要烤出來的蛋糕是<strong>藍色</strong>的，不管最後好不好吃、賺不賺錢，老闆一律發給你 <strong>3,000 元固定薪水</strong>；如果是<strong>紅色</strong>的，一毛錢都沒有（0 元）！」</em></p>
         <p style="margin-bottom:0;"><strong>結果（100 分 First-Best）：</strong> 學弟為了拿到 3,000 元一定會乖乖認真做出藍色蛋糕；而且因為不管運氣好壞都穩拿 3,000 元，怕風險的學弟<strong>完全不用承擔任何市場失敗風險</strong>！</p>
       `;
     } else {
       out.innerHTML = `
-        <h4 style="color:#dc2626; margin-bottom:0.5rem;">世界 B（不完全契約）：想不到會有顏色 $ightarrow$ 效率損失真的發生了！</h4>
+        <h4 style="color:#dc2626; margin-bottom:0.5rem;">世界 B（不完全契約）：想不到會有顏色 $
+ightarrow$ 效率損失真的發生了！</h4>
         <p>簽約時雙方根本不知道蛋糕會變色。事後就算學弟偷懶烤出<strong>紅色蛋糕</strong>，在測謊遊戲裡，學弟只要死口咬定：「報告裁判，『紅色蛋糕世界』跟『藍色蛋糕世界』的口味與利潤分數一模一樣（福利中性），請照樣發給我 3,000 元！」——<strong>裁判完全無法區分這兩個世界！</strong></p>
         <p style="margin-bottom:0;"><strong>被迫降級的結果（Second-Best 效率損失）：</strong> 老闆無法再靠「顏色」發固定薪水，只能改用傳統的「好吃發 5,000 元、難吃只發 1,000 元」業績獎金制。這會迫使怕風險的學弟承擔痛苦的運氣波動，老闆也必須多付風險貼水——<strong>此時「無法預見未來」真的造成了真實的經濟損失！</strong></p>
       `;
