@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分頁 2 延伸教學：數字代號契約、解碼鑰匙與「證券」類比（Maskin & Tirole, 1999）</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 55%, #0d9488 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ccfbf1;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  header h1 {
+    font-size: 1.95rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #dbeafe;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.48rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.18rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.55rem; }
+
+  /* Analogy Banner */
+  .analogy-banner {
+    background: linear-gradient(to right, #eff6ff, #f0fdfa);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.35rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-banner .tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .analogy-banner h4 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Grid & Cards */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    background: #f8fafc;
+  }
+  .card h4 {
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+
+  /* Interactive Simulator */
+  .sim-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.4rem 0;
+  }
+  .sim-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .sim-btn {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .sim-btn.active, .sim-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .sim-display {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.35rem;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.95rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+
+<!-- MathJax 數學公式渲染設定 -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="badge">分頁 2 深度延伸教學 · 論文第 2–3 節：三階段時間軸、數字代號契約與「證券」類比</div>
+  <h1>不知道未來會發生什麼事，要怎麼簽合約？</h1>
+  <p>從「三階段博弈時間軸」與「解碼鑰匙（Deciphering Key $\sigma^\theta$）」看懂為何我們只需要約定「數字代號」</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 課：三階段時間軸（Date 0 → Date 2）</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 課：為什麼傳統契約會卡關？</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 課：互動模擬「解碼鑰匙 $\sigma^\theta$」</button>
+    <button class="tab-btn" onclick="openTab(3)">第 4 課：Arrow-Debreu 證券類比與唯一漏洞</button>
+    <button class="tab-btn" onclick="openTab(4)">隨堂小測驗</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div class="tab-panel active">
+    <h2>第 1 課：論文第 2 節的舞台設定——三階段博弈時間軸（Date 0 $\rightarrow$ Date 1 $\rightarrow$ Date 2）</h2>
+    <p>為了把「未預見的突發狀況（Unforeseen Contingencies）」放進嚴謹的數學模型裡，Maskin 與 Tirole 在第 2 節（第 86–88 頁）設定了一個經典的三期雙人模型（當事人 $i \in \{1, 2\}$）：</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-top: 4px solid var(--primary);">
+        <h4>📅 Date 0（期初簽約日）：迷霧籠罩的起點</h4>
+        <p style="margin-bottom:0;">雙方簽訂一份合約。此時世界未來會變成哪一種狀態 $\theta \in \Theta$ <strong>完全未知</strong>，雙方甚至連 $\theta$ 的物理名字（例如「明年爆發新型晶片短缺」或「競爭對手突然倒閉」）都寫不出來！<br>
+        <em>（但關鍵在於：雙方各自擁有一個主觀機率信念，能做動態規劃算出未來的預期效用分布！）</em></p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--accent);">
+        <h4>💪 Date 1（期中投資日）：關係專屬投資 $(e_1, e_2)$</h4>
+        <p style="margin-bottom:0;">在謎底揭曉之前，雙方各自投入不可驗證的努力或關係專屬投資 $e_1 \in E_1$ 與 $e_2 \in E_2$。<br>
+        例如：研究生 A 熬夜開發演算法架構，研究生 B 跑遍實驗室訪談客戶需求。這些努力會影響未來各種狀態 $\theta$ 發生的機率分布 $p(\theta \mid e_1, e_2)$。</p>
+      </div>
+    </div>
+
+    <div class="card" style="border-top: 4px solid var(--warn); margin-top: 1rem;">
+      <h4>🎯 Date 2（期末實現日）：謎底 $\theta$ 揭曉，執行行動 $a$ 與金錢轉移 $(y_1, y_2)$</h4>
+      <p style="margin-bottom:0;">自然狀態 $\theta$ 正式實現，<strong>雙方都親眼看清了實際狀況 $\theta$</strong>（對稱資訊 Symmetric Information，但法院/裁判仍看不見內心效用）。此時可行的物理行動集合為 $X^\theta$，雙方從中選出一個行動 $a \in X^\theta$ 並進行金錢轉帳 $(y_1, y_2)$（滿足預算平衡 $y_1 + y_2 \le 0$），最終效用為：
+      $$u_i^\theta(a, y_i) \quad (i = 1, 2)$$</p>
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一課：為什麼傳統「物理行動契約」會卡關？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2 -->
+  <div class="tab-panel">
+    <h2>第 2 課：為什麼寫「具體物理行動」會失敗，改寫「數字代號」卻能過關？</h2>
+    <p>在傳統完全契約理論（Complete Contracts）中，合約是狀態依存的函數（State-Contingent Contract），直接把每個狀態 $\theta$ 對應到具體行動與轉帳：$\theta \mapsto \big(a(\theta), y_1(\theta), y_2(\theta)\big)$。一旦當事人在 Date 0 無法預見 $\theta$ 的物理特徵，這套寫法就立刻失效！</p>
+
+    <div class="analogy-banner">
+      <span class="tag">🎓 研究生日常案例 1：兩位研究生合寫「頂尖期刊論文」的投稿與分紅協議</span>
+      <h4>問題：在 Date 0 剛開始做研究時，你們根本不知道半年後審稿人會提出什麼刁鑽意見（狀態 $\theta$）！</h4>
+      <ul style="margin-bottom:0;">
+        <li><strong>傳統寫法的困境：</strong> 你們在 Date 0 寫不出「如果審稿人要求補做蒙地卡羅模擬，就由 A 跑程式、B 寫附錄」，因為你們在開題當天根本想不到「蒙地卡羅模擬」這五個字！</li>
+        <li><strong>Maskin &amp; Tirole 的天才轉換：</strong> 雖然你們寫不出「蒙地卡羅模擬」的名字，但你們在 Date 0 做動態規劃時，心裡早就算過：「未來到了 Date 2，不管遇到哪種審稿意見，屆時擺在眼前的所有可行修改方案 $X^\theta$，無非就是那幾種『各自辛苦程度與發表價值 $(v_1, v_2)$』的組合！」</li>
+        <li><strong>於是你們在 Date 0 只簽「抽象數字合約」：</strong> 合約裡完全不提任何研究方法名稱，只把未來所有可行方案用抽象符號編號為<strong>「方案 $\hat{x}_1$、方案 $\hat{x}_2$、方案 $\hat{x}_3$」</strong>，並約定好：「到時候哪個方案的報酬組合長什麼樣子，就選哪一個編號並按約定分紅！」</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">📌 核心概念：從「物理空間 $X^\theta$」映射到「抽象代號空間 $\hat{X}$」</div>
+      在 Date 0，合約只需要定義在一個與具體物理意義無關的抽象行動集合 $\hat{X}$ 上。真正的物理意義，留到 Date 2 謎底揭曉後再由<strong>「解碼鑰匙（Deciphering Key）」</strong>現場填入！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(2)">下一課：互動模擬「解碼鑰匙 $\sigma^\theta$」如何運作 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3 -->
+  <div class="tab-panel">
+    <h2>第 3 課：互動模擬——Date 2 謎底揭曉時的「解碼鑰匙 $\sigma^\theta$」</h2>
+    <p>到了 Date 2，真實世界狀態 $\theta$ 終於發生，所有可行物理方案 $X^\theta$ 都攤在眼前。此時，雙方需要一把<strong>解碼鑰匙（Deciphering Key）</strong>，這是一個一對一映射函數：
+    $$\sigma^\theta : \hat{X} \leftrightarrow X^\theta$$
+    它負責把 Date 0 合約裡的「抽象編號 $\hat{x}_k$」，精準翻譯成 Date 2 現實世界中的「具體物理行動 $a \in X^\theta$」，使得每個編號對應的雙方效用組合 $(v_1, v_2)$ 與期初動態規劃時預想的完全一致！</p>
+
+    <p>請點擊下方兩種突發研究情境，觀察同一份 Date 0 抽象合約如何透過不同 $\sigma^\theta$ 自動解碼：</p>
+
+    <div class="sim-box">
+      <div class="sim-controls">
+        <button class="sim-btn active" onclick="decodeSim(1)">情境 $\theta_1$：審稿人要求「補做實證穩健性檢定」</button>
+        <button class="sim-btn" onclick="decodeSim(2)">情境 $\theta_2$：競爭團隊搶先發表，必須「改投另一本期刊」</button>
+      </div>
+      <div class="sim-display" id="decode-out"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(3)">下一課：為什麼這就像金融市場的「證券」？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4 -->
+  <div class="tab-panel">
+    <h2>第 4 課：論文第 3 節的絕妙比喻——為什麼「數字代號合約」就像金融市場的「證券」？</h2>
+    <p>在論文第 3 節（第 88–89 頁），Maskin 與 Tirole 舉了一個經濟學系研究生最熟悉的經典類比：<strong>Arrow-Debreu 實物商品合約 vs. 金融證券（Securities）</strong>！</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>比較維度</th>
+          <th>傳統「實物商品合約」<br>（Contingent Commodities）</th>
+          <th>Maskin &amp; Tirole「金融證券合約」<br>（Securities + Spot Market）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>事前需要知道什麼？</strong></td>
+          <td>必須在 Date 0 寫清楚未來每種狀態下要交付「幾公斤小麥、幾顆蘋果、幾台新型伺服器」。一旦未來發明了你沒聽過的新產品，合約直接破產！</td>
+          <td>在 Date 0 根本不需要知道未來會發明什麼新產品！合約上只寫<strong>「純粹的金額數字（例如：在狀態 1 支付 $100 元）」</strong>。</td>
+        </tr>
+        <tr>
+          <td><strong>事後如何完成交易？</strong></td>
+          <td>直接按合約搬運實物商品。</td>
+          <td>等到 Date 2 未來發生後，你拿著證券兌現的 $100 元，直接走進當天的<strong>現貨市場（Spot Market）</strong>購買當時最適合的商品！</td>
+        </tr>
+        <tr>
+          <td><strong>對本論文的啟示</strong></td>
+          <td>把契約綁死在「具體物理事件名稱」上，才會誤以為無法預見未來會限制契約能力。</td>
+          <td>只要契約定義在「效用/報酬空間 $(v_1, v_2)$」上，事後再透過解碼鑰匙 $\sigma^\theta$ 對應回物理行動，就能達到完全相同的資源配置效率！</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ 關鍵轉折（銜接分頁 3）：如果有人在 Date 2 故意「亂配對解碼鑰匙」怎麼辦？</div>
+      <p style="margin-bottom:0;">金融證券之所以能直接兌現，是因為「美元金額」是法院可以客觀驗證的；但在我們的模型裡，<strong>「每個物理行動 $a$ 帶給研究生 A 與 B 的真實效用 $(v_1, v_2)$」是私人資訊，法院（裁判）根本看不出來！</strong><br>
+      如果研究生 A 在 Date 2 故意拿著假密碼本說謊：「報告裁判，『全部由 B 熬夜寫程式』這件事其實只讓 B 辛苦 10 分（實際上 B 痛苦 90 分）」，法院要怎麼拆穿他？這正是下一分頁（分頁 3）<strong>「子賽局完美執行機制（Subgame-Perfect Implementation）」</strong>要解決的核心問題！</p>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(4)">前往隨堂小測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5 -->
+  <div class="tab-panel">
+    <h2>隨堂小測驗：測試你是否看懂「解碼鑰匙 $\sigma^\theta$」與「證券類比」！</h2>
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1;">
+      <h4>概念檢核題：在 Maskin &amp; Tirole (1999) 的三階段模型中，為什麼當事人在 Date 0 即使完全寫不出 Date 2 具體會發生什麼物理事件 $\theta$，卻仍然有辦法在 Date 0 簽出有效的合約？</h4>
+      <p>請選出最精準的理論解釋：</p>
+
+      <button class="quiz-option" onclick="checkQuiz(1)">A. 因為裁判會在 Date 0 先幫雙方把未來所有可能發生的物理事件全部寫進合約附錄裡。</button>
+      <button class="quiz-option" onclick="checkQuiz(2)">B. 因為在標準動態規劃架構下，當事人在 Date 0 雖然不知道物理事件的名字，卻已經能預測未來各種狀態下「雙方可能獲得的效用/報酬組合 $(v_1, v_2)$ 及其機率分布」。因此雙方可以在 Date 0 針對抽象代號 $\hat{x} \in \hat{X}$ 的報酬結構簽約，等到 Date 2 謎底揭曉後，再透過解碼鑰匙 $\sigma^\theta$ 將抽象代號映射回真實物理行動 $a \in X^\theta$。</button>
+      <button class="quiz-option" onclick="checkQuiz(3)">C. 因為在 Date 1 投資結束後，雙方可以直接取消合約、各自回家，不需要執行任何 Date 2 行動。</button>
+
+      <div class="quiz-feedback" id="quiz-res"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 課 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  教學內容延伸改編自 Eric Maskin &amp; Jean Tirole (1999), "Unforeseen Contingencies and Incomplete Contracts", Sections 2 &amp; 3.
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function decodeSim(mode) {
+    document.querySelectorAll('.sim-btn').forEach((b, i) => b.classList.toggle('active', i === mode - 1));
+    const out = document.getElementById('decode-out');
+    if (mode === 1) {
+      out.innerHTML = `
+        <h4 style="color:#1e40af; margin-bottom:0.5rem;">情境 $\\theta_1$：審稿人要求「補做實證穩健性檢定」</h4>
+        <p>Date 0 合約事先寫好了抽象代號 $\\hat{x}_1$ 的特徵：<em>「執行該方案時，A 獲得淨效用 $+80$、B 獲得淨效用 $+60$，且 A 需轉帳 $2,000$ 元給 B。」</em></p>
+        <p style="margin-bottom:0;"><strong>Date 2 現場解碼 $\\sigma^{\\theta_1}(\\hat{x}_1)$：</strong> 雙方在 Date 2 檢視所有可行方案 $X^{\\theta_1}$ 後，發現<strong>「A 負責跑 Python 穩健性迴歸、B 負責撰寫文獻回顧與回覆信」</strong>這個物理行動，帶給兩人的淨效用正好就是 $(+80, +60)$！於是解碼鑰匙自動將 $\\hat{x}_1$ 配對到此行動並執行轉帳。</p>
+      `;
+    } else {
+      out.innerHTML = `
+        <h4 style="color:#0d9488; margin-bottom:0.5rem;">情境 $\\theta_2$：競爭團隊搶先發表，必須「改投另一本期刊」</h4>
+        <p>這是一個在 Date 0 完全沒預料到的突發狀況！但神奇的是，這個新世界 $X^{\\theta_2}$ 裡的可行行動，帶給雙方的淨效用數字結構竟然跟情境 $\\theta_1$ 屬於同一類型。</p>
+        <p style="margin-bottom:0;"><strong>Date 2 現場解碼 $\\sigma^{\\theta_2}(\\hat{x}_1)$：</strong> 同一份 Date 0 抽象合約完全不用修改！解碼鑰匙 $\\sigma^{\\theta_2}$ 自動把代號 $\\hat{x}_1$ 對應到<strong>「A 重寫理論模型並改投《Journal of Economic Theory》、B 負責投稿與排版」</strong>，照樣精準完成激勵與分紅！</p>
+      `;
+    }
+    if (window.MathJax) {
+      MathJax.typesetPromise([out]);
+    }
+  }
+
+  function checkQuiz(ans) {
+    const fb = document.getElementById('quiz-res');
+    fb.style.display = 'block';
+    if (ans === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>完全正確！</strong> 這就是「數字代號契約」與「解碼鑰匙 $\\sigma^\\theta$」的核心機制：只要事前能預測報酬空間的機率分布（動態規劃），物理事件的名字就可以留到事後再現場配對！';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>再想一下喔！</strong> Date 0 時雙方確實無法寫出任何未來物理事件的名字；關鍵在於雙方是透過「抽象報酬代號 $\\hat{x}$」簽約，並於 Date 2 再利用解碼鑰匙 $\\sigma^\\theta$ 對應回真實行動。';
+    }
+    if (window.MathJax) {
+      MathJax.typesetPromise([fb]);
+    }
+  }
+
+  decodeSim(1);
+</script>
+</body>
+</html>
