@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分頁 1 延伸教學：未預見的突發狀況與不完全契約（Maskin & Tirole, 1999）</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 55%, #0d9488 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ccfbf1;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  header h1 {
+    font-size: 1.95rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #dbeafe;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.48rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.18rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.55rem; }
+
+  /* Analogy Banner */
+  .analogy-banner {
+    background: linear-gradient(to right, #eff6ff, #f0fdfa);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.35rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-banner .tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .analogy-banner h4 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Grid & Cards */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    background: #f8fafc;
+  }
+  .card h4 {
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+
+  /* Interactive Simulator */
+  .sim-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.4rem 0;
+  }
+  .sim-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .sim-btn {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .sim-btn.active, .sim-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .sim-display {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.35rem;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.95rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">分頁 1 深度延伸教學 · 契約理論的邏輯革命（Maskin &amp; Tirole, 1999）</div>
+  <h1>為什麼「寫不出未來細節」的合約，依然能做到 100 分？</h1>
+  <p>從「畢業專題開發 App」與「社團慶功宴點餐」看懂諾貝爾獎得主對不完全契約的靈魂拷問</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 課：什麼是不完全契約？</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 課：傳統理論的邏輯人格分裂</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 課：互動模擬「空白支票合約」</button>
+    <button class="tab-btn" onclick="openTab(3)">第 4 課：現實生活對照（股票與選擇權）</button>
+    <button class="tab-btn" onclick="openTab(4)">隨堂小測驗</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div class="tab-panel active">
+    <h2>第 1 課：為什麼現實中的合約永遠寫不完？</h2>
+    <p>在經濟學與法律的世界裡，合約分成兩種：<strong>完全契約（Complete Contract）</strong>與<strong>不完全契約（Incomplete Contract）</strong>。現實世界幾乎 100% 都是不完全契約。</p>
+
+    <div class="analogy-banner">
+      <span class="tag">🎓 大學生日常案例 1：跟學長合夥寫一款「校園二手書拍賣 App」</span>
+      <h4>你們準備在期初簽一份合作契約，約定你負責寫程式、學長負責拉贊助</h4>
+      <p style="margin-bottom:0;">試著把未來一年可能發生的所有狀況都寫進合約裡吧！你們很快就會發現根本寫不完：</p>
+    </div>
+
+    <ul>
+      <li><strong>狀況 1（想得到但條文太長，寫合約太貴）：</strong> 如果伺服器當機怎麼辦？如果蘋果商店審核退件怎麼辦？如果期中考週沒人用怎麼辦？每多寫一條條文，律師費與討論時間就暴增。</li>
+      <li><strong>狀況 2（根本預見不到的突發狀況 Unforeseen Contingencies）：</strong> 你們簽約時，根本想不到三個月後學校會突然宣布「全面改用電子教科書」，或者突然有個校外創投公司跑來出價 500 萬想收購你們的 App！</li>
+      <li><strong>狀況 3（法院法官看不懂）：</strong> 就算你們在合約寫「雙方必須全力以赴寫出高品質程式碼」，萬一吵架鬧上法院，法官根本無法客觀驗證「你昨晚熬夜寫的程式算不算高品質」。</li>
+    </ul>
+
+    <div class="callout">
+      <div class="callout-title">📌 傳統經濟學家的標準答案（Williamson、Grossman、Hart）：</div>
+      過去大家認為：正因為未來充滿「未預見的突發狀況」，寫完全契約的<strong>交易成本（Transaction Costs）</strong>太高，所以人類只好退而求其次，簽一份非常粗糙的「不完全契約」——例如直接約定「App 專利權歸學長所有（產權配置）」，到時候發生什麼事就由學長拍板決定。
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一課：Maskin &amp; Tirole 發現的邏輯矛盾 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2 -->
+  <div class="tab-panel">
+    <h2>第 2 課：抓到了！傳統理論裡的「邏輯人格分裂」</h2>
+    <p>1999 年，兩位後來雙雙獲得諾貝爾經濟學獎的大師 <strong>Eric Maskin</strong> 與 <strong>Jean Tirole</strong> 發表了這篇震撼學界的論文。他們沒有否定「未來無法預見」，而是指出傳統不完全契約模型在數學假設上出現了嚴重的<strong>自我矛盾</strong>：</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-top: 4px solid var(--danger);">
+        <h4>🤪 假設一：簽約時「笨到無法描述未來」</h4>
+        <p>為了合理化「為什麼不能把細節寫進合約」，模型假設當事人面對未來的物理世界（States of Nature）是一片模糊，完全寫不出「如果發生 X 事件，就執行 Y 動作」。</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--primary);">
+        <h4>🧠 假設二：計算投資時「聰明到會做動態規劃」</h4>
+        <p>但緊接著在下一行公式裡，為了算出「你今天會願意花多少心血寫程式」，模型又假設你是一個<strong>超級理性計算機</strong>，會用<strong>動態規劃（Dynamic Programming）</strong>往回推算：你精準知道未來有幾種賺賠情境、各自的機率是多少、以及每種情境下你跟學長各自能賺多少錢（Payoffs）！</p>
+      </div>
+    </div>
+
+    <div class="analogy-banner" style="background: linear-gradient(to right, #fffbeb, #eff6ff); border-color: #fde68a;">
+      <span class="tag" style="background:#b45309;">🎓 大學生日常案例 2：去沒去過的「神秘無菜單料理餐廳」</span>
+      <h4>這就像你跟朋友說：「我完全無法想像這家餐廳會端出什麼菜，所以我沒辦法跟你約好怎麼點餐。」</h4>
+      <p style="margin-bottom:0;">結果下一秒你卻拿出計算機說：「不過我已經算出來了，有 30% 機率會端出讓我們滿意度 +100 分的菜、50% 機率會端出 +60 分的菜、20% 機率會端出 -20 分的菜！」<br>
+      <strong>Maskin 和 Tirole 笑著說：</strong>「既然你連每道菜的『滿意度分數（Payoffs）』與機率都算得一清二楚了，你根本不需要知道那道菜叫『松露野菇燉飯』還是『法式油封鴨』啊！」</p>
+    </div>
+
+    <div class="callout teal">
+      <div class="callout-title">💡 無關性定理（Irrelevance Theorem）的核心精神：</div>
+      人們在乎的最終不是「事件叫什麼名字（物理狀態）」，而是「這件事能帶給我多少利益（Payoffs）」。只要雙方能預測未來的報酬分配，合約就可以<strong>直接針對「報酬數字」來簽</strong>，等未來真的發生後再把具體行動填進去，效果跟「預知未來的完全契約」<strong>100% 一模一樣</strong>！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(2)">下一課：互動模擬「報酬代號合約」怎麼簽 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3 -->
+  <div class="tab-panel">
+    <h2>第 3 課：互動模擬——不用寫出突發狀況，也能簽出完美合約！</h2>
+    <p>讓我們回到<strong>「校園二手書拍賣 App」</strong>的例子。現在是期初（Date 0），你跟學長根本不知道明年會發生什麼突發事件。請點擊下方三個按鈕，看看 Maskin &amp; Tirole 教你們怎麼簽這份合約：</p>
+
+    <div class="sim-box">
+      <div class="sim-controls">
+        <button class="sim-btn active" onclick="showSim(1)">Step 1：期初只簽「數字代號報酬表」</button>
+        <button class="sim-btn" onclick="showSim(2)">Step 2：期中突發「電子書政策」震撼彈</button>
+        <button class="sim-btn" onclick="showSim(3)">Step 3：期末拿出「密碼本」填入細節</button>
+      </div>
+      <div class="sim-display" id="sim-out"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(3)">下一課：現實金融市場早就在用這招！ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4 -->
+  <div class="tab-panel">
+    <h2>第 4 課：現實生活早就存在這種合約——「金融證券（Securities）」</h2>
+    <p>在論文第 1 節（第 84 頁）中，Maskin 與 Tirole 特別引用了經濟學大師 Kenneth Arrow (1953) 的經典洞見，指出金融市場裡的<strong>「證券交易」</strong>就是這種合約的完美化身：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>比較維度</th>
+          <th>實體商品契約（傳統完全契約）</th>
+          <th>金融證券契約（Payoff-denominated Contracts）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>合約上寫什麼？</strong></td>
+          <td>「明年 9 月 1 日若下大雨，甲方須交付 500 顆蘋果給乙方；若出大太陽，則交付 300 瓶礦泉水。」</td>
+          <td>「明年 9 月 1 日不管天氣如何，只要狀態 A 發生，甲方就支付乙方 <strong>現金 10,000 元</strong>。」</td>
+        </tr>
+        <tr>
+          <td><strong>事後怎麼完成交易？</strong></td>
+          <td>直接按合約搬運蘋果或礦泉水（但如果明年突然流行喝椰子水，合約就卡死了）。</td>
+          <td>等明年 9 月 1 日到來，乙方拿到 10,000 元現金後，直接去當時的<strong>現貨市場（Spot Market）</strong>買他最想要的椰子水！</td>
+        </tr>
+        <tr>
+          <td><strong>對未知未來的適應力</strong></td>
+          <td>極差（必須事前窮舉所有實體商品）。</td>
+          <td><strong>完美適應！</strong> 事前只需約定「金錢報酬」，事後再填補「物理行動細節」，同樣達到帕累托最適效率。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <div class="callout-title">🤔 既然這麼神，那現實中為什麼還是有「不完全契約」？</div>
+      Maskin 與 Tirole 強調：他們並不是說現實世界沒有不完全契約，而是要提醒經濟學家——<strong>「單純假設未來無法預見」並不足以解釋不完全契約的存在！</strong> 如果想要在理論上真正解釋為什麼企業要合併、為什麼要把控制權交給老闆，經濟學界必須放棄「人類會做完美動態規劃」的假設，轉而建立一套真正的<strong>「有限理性（Bounded Rationality）」</strong>理論（承認人類連未來報酬機率都算不出來！）。
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(4)">前往隨堂小測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5 -->
+  <div class="tab-panel">
+    <h2>隨堂小測驗：檢驗你對分頁 1 核心論點的理解！</h2>
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1;">
+      <h4>觀念題：Maskin &amp; Tirole (1999) 認為傳統不完全契約理論最大的內在矛盾是什麼？</h4>
+      <p>請選出最精準描述論文第 1 節核心批判的選項：</p>
+
+      <button class="quiz-option" onclick="checkQuiz(1)">A. 傳統理論認為律師費很便宜，但現實中律師費非常昂貴。</button>
+      <button class="quiz-option" onclick="checkQuiz(2)">B. 傳統理論一邊假設簽約雙方「笨到無法預見未來的具體事件」而寫不出合約，另一邊卻又假設雙方「聰明到能做動態規劃（精準預測未來各種情況的機率與報酬）」。只要能預測報酬，雙方就能直接針對「報酬數字」簽約並在事後填入細節，達到與完全契約相同的效率。</button>
+      <button class="quiz-option" onclick="checkQuiz(3)">C. 傳統理論忘記把通貨膨脹與銀行利率寫進數學公式裡。</button>
+
+      <div class="quiz-feedback" id="quiz-res"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 課 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  教學內容延伸改編自 Eric Maskin &amp; Jean Tirole (1999), "Unforeseen Contingencies and Incomplete Contracts", Section 1.
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showSim(step) {
+    document.querySelectorAll('.sim-btn').forEach((b, i) => b.classList.toggle('active', i === step - 1));
+    const out = document.getElementById('sim-out');
+    const views = {
+      1: `
+        <h4 style="color:#1e40af; margin-bottom:0.5rem;">Step 1：期初（Date 0）只簽「抽象報酬表」</h4>
+        <p style="margin-bottom:0;">你們不在合約裡寫任何「電子書」或「創投收購」的字眼，而是約定：<br>
+        「不管一年後市場變成什麼樣子，到時候我們把所有可行方案按照總利潤高低排成 <strong>方案 1、方案 2、方案 3</strong>。只要雙方期初都有認真投入（根據利潤結果反推），我們就執行總利潤最高的<strong>方案 1</strong>，並且利潤<strong>一人一半（50% : 50%）</strong>！」</p>
+      `,
+      2: `
+        <h4 style="color:#0d9488; margin-bottom:0.5rem;">Step 2：期中（Date 1 &amp; 2）發生完全沒料到的「電子教科書革命」！</h4>
+        <p style="margin-bottom:0;">半年後，學校真的突然全面改用電子教科書，紙本二手書市場一夕歸零！但同時你們發現，可以把 App 改造成「二手平板與觸控筆交易平台」，預期能大賺 20 萬元；如果擺爛不改版，就會虧損 5 萬元。</p>
+      `,
+      3: `
+        <h4 style="color:#b45309; margin-bottom:0.5rem;">Step 3：事後拿出「解碼鑰匙」填入物理細節！</h4>
+        <p style="margin-bottom:0;">此時雙方都看清楚了現實選項，於是拿出解碼鑰匙把具體行動填入期初的代號中：<br>
+        • <strong>方案 1</strong> ＝ 改版成「二手平板交易平台」（淨賺 20 萬，每人分 10 萬）<br>
+        • <strong>方案 2</strong> ＝ 維持原狀擺爛（淨虧 5 萬，每人賠 2.5 萬）<br>
+        透過互相檢舉防弊機制（防止任何一方謊報利潤），雙方乖乖執行「方案 1」，<strong>結果跟當初有水晶球預知電子書革命時一模一樣！</strong></p>
+      `
+    };
+    out.innerHTML = views[step];
+  }
+
+  function checkQuiz(ans) {
+    const fb = document.getElementById('quiz-res');
+    fb.style.display = 'block';
+    if (ans === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>完全正確！</strong> 這正是 Maskin &amp; Tirole 整篇論文的出發點：只要當事人具備做動態規劃（預測未來各種情況的報酬分配）的能力，無法預見具體物理事件就不會成為最佳契約的障礙！';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>答錯囉！</strong> 再看一次第 2 課的對比卡片：關鍵矛盾在於「無法描述物理事件」與「有能力做動態規劃預測報酬」之間的衝突。';
+    }
+  }
+
+  showSim(1);
+</script>
+</body>
+</html>

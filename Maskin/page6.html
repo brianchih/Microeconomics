@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分頁 6 延伸教學：經濟學的未來出路與有限理性（Maskin & Tirole, 1999 Section 9）</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 55%, #0d9488 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ccfbf1;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  header h1 {
+    font-size: 1.95rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #dbeafe;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.48rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.18rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.55rem; }
+
+  /* Analogy Banner */
+  .analogy-banner {
+    background: linear-gradient(to right, #eff6ff, #f0fdfa);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.35rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-banner .tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .analogy-banner h4 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Grid & Cards */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    background: #f8fafc;
+  }
+  .card h4 {
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+
+  /* Interactive Simulator */
+  .sim-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.4rem 0;
+  }
+  .sim-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .sim-btn {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .sim-btn.active, .sim-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .sim-display {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.35rem;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.95rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">分頁 6 深度延伸教學 · 論文第 9 節（Discussion）：結論、方法論反思與有限理性</div>
+  <h1>為什麼現實世界還是充滿「簡單合約」？</h1>
+  <p>從「全知全能的動態規劃」走向「有限理性（Bounded Rationality）」——兩位諾貝爾獎得主給經濟學界的終極啟示</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 課：我們不是否定交易成本！</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 課：為什麼不能「一半聰明、一半笨」？</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 課：互動對照「動態規劃 vs. 有限理性」</button>
+    <button class="tab-btn" onclick="openTab(3)">第 4 課：現實中的簡單合約與企業邊界</button>
+    <button class="tab-btn" onclick="openTab(4)">終極總複習測驗（3 題挑戰）</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div class="tab-panel active">
+    <h2>第 1 課：澄清誤會——Maskin &amp; Tirole 並不是說「交易成本不存在」！</h2>
+    <p>很多大學生讀完前面五個分頁後，會產生一個大疑問：<em>「既然靠『數字代號合約＋互相檢舉機制』就能繞過所有未預見的突發狀況，那為什麼現實生活中的租屋合約、雇傭合約、公司章程還是寫得那麼簡單，而且常常因為合約不完全而吵架呢？」</em></p>
+
+    <div class="analogy-banner">
+      <span class="tag">🎓 大學生日常案例 1：物理學家的「真空無摩擦力實驗」</span>
+      <h4>這篇論文就像是物理課本裡的「無摩擦力斜面實驗」——目的不是說現實沒有摩擦力，而是找出「真正造成摩擦力」的原因！</h4>
+      <p style="margin-bottom:0;">在論文第 9 節（Discussion，第 102–103 頁）開頭，Maskin 與 Tirole 非常謙虛且明確地澄清：<br>
+      • <strong>我們完全同意現實世界充滿「交易成本（Transaction Costs）」與「簡單合約」！</strong><br>
+      • <strong>我們的真正貢獻是：</strong> 過去經濟學家習慣把「不完全契約」歸咎於「人無法預見未來的物理事件（Unforeseen Contingencies）」，但我們的定理證明了——<strong>在標準動態規劃架構下，「無法預見未來事件」根本不會造成契約不完全！</strong> 換句話說，經濟學界找錯兇手了！</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">🔍 方法論的警鐘（Methodological Critique）：</div>
+      科學理論最忌諱「雙重標準」。Maskin 與 Tirole 指出，傳統不完全契約文獻（如 Grossman-Hart-Moore 產權理論）在模型設定上犯了「不對稱假設」的毛病——而這個毛病必須被修正，契約理論才能真正進步。
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一課：為什麼經濟學模型不能「一半聰明、一半笨」？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2 -->
+  <div class="tab-panel">
+    <h2>第 2 課：方法論的兩難——人類不可能同時「神機妙算」又「一無所知」</h2>
+    <p>讓我們把傳統不完全契約理論的假設放在顯微鏡下檢查。Maskin 與 Tirole 指出，當你同時假設以下兩件事時，整個邏輯鏈條會自動把「不完全契約」抵銷掉：</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-top: 4px solid var(--primary);">
+        <h4>🔮 傳統假設 1：會做動態規劃（Dynamic Programming）</h4>
+        <p>為了算出「期初要投資多少努力」，模型假設你是一個<strong>機率論大師</strong>：你精準知道未來有幾種賺賠情況、每種情況發生的機率是多少、以及在每種情況下雙方分別能拿多少報酬（Payoffs）。</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--danger);">
+        <h4>🙈 傳統假設 2：無法描述未來事件（Unforeseen Contingencies）</h4>
+        <p>為了限制你不能簽完全契約，模型又假設你是一個<strong>語言白痴</strong>：你完全寫不出「如果明天發生 X 事件，就執行 Y 動作」，所以合約只能寫「由老闆說了算」。</p>
+      </div>
+    </div>
+
+    <div class="analogy-banner" style="background: linear-gradient(to right, #fffbeb, #eff6ff); border-color: #fde68a;">
+      <span class="tag" style="background:#b45309;">🎓 大學生日常案例 2：選課前夕的「神算子 vs. 健忘症」矛盾</span>
+      <h4>想像你的室友在選課前一天對你說：</h4>
+      <p style="margin-bottom:0;">「我完全不知道這學期修這門『賽局理論』會遇到什麼樣的期中考題型、也不知道教授會不會點名，所以我沒辦法跟你約好期末怎麼分組合作。」<br>
+      結果下一秒他又說：「不過我已經用貝氏機率算出來了，我有 40% 機率拿到 95 分、40% 機率拿到 82 分、20% 機率拿到 65 分，而且我為了拿高分決定每週投入 6.5 小時唸書！」<br><br>
+      <strong>這就是 Maskin &amp; Tirole 戳破的荒謬：</strong> 既然你連「各種成績分布的機率」都算得這麼精準，那你們根本不需要預先寫出「考題長什麼樣子」，只要針對「95 分、82 分、65 分」這三個數字來約定獎懲就夠了！</p>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(2)">下一課：互動體驗「真正的原因：有限理性」 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3 -->
+  <div class="tab-panel">
+    <h2>第 3 課：互動對照——什麼才是真正的「有限理性（Bounded Rationality）」？</h2>
+    <p>既然單靠「寫不出物理事件名字」沒辦法解釋不完全契約，那我們該怎麼辦？Maskin 與 Tirole 在論文最後（第 103 頁）指出了經濟學未來的聖杯：<strong>建立一套真正的「有限理性（Bounded Rationality）」決策理論！</strong></p>
+    <p>請點擊下方兩種決策模式，比較「傳統動態規劃人類」與「真實有限理性人類」在面對未知未來時的思考方式：</p>
+
+    <div class="sim-box">
+      <div class="sim-controls">
+        <button class="sim-btn active" onclick="mindSim(1)">模式 A：傳統經濟學「全知動態規劃人」（無關性定理成立）</button>
+        <button class="sim-btn" onclick="mindSim(2)">模式 B：真實世界「有限理性人類」（不完全契約真正誕生！）</button>
+      </div>
+      <div class="sim-display" id="mind-out"></div>
+    </div>
+
+    <div class="callout teal">
+      <div class="callout-title">🎓 給經濟系與商管學院大學生的研究靈感：</div>
+      自從 1999 年這篇論文發表後，全球契約理論界掀起了一場大革命（俗稱「Maskin-Tirole 批判」）。後來的經濟學家（如 Hart &amp; Moore 2008 的「合約作為參考點」、Tirole 2009 的「認知成本與有限理性合約」）正是順著這篇論文指出的方向，放棄了「全知動態規劃」，才真正建立起現代不完全契約的新理論！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(3)">下一課：現實世界裡的「簡單合約」長什麼樣子？ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4 -->
+  <div class="tab-panel">
+    <h2>第 4 課：現實生活對照——為什麼真實企業都用「產權」與「簡單合約」？</h2>
+    <p>當我們承認人類是「有限理性」（算不出未來所有報酬機率、也負擔不起複雜法庭對質的認知成本）時，現實生活中隨處可見的制度設計就完全說得通了：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>現實商業與校園制度</th>
+          <th>為什麼不用 Maskin-Tirole 複雜測謊遊戲？</th>
+          <th>現實中的「簡單合約」替代方案</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>新創公司與企業合併（产權理論）</strong></td>
+          <td>創業者在 Day 1 根本算不出 5 年後 AI 市場的報酬矩陣，也沒心力每次開會都玩二選一測謊遊戲。</td>
+          <td><strong>直接分配「剩餘控制權（Residual Control Rights）」：</strong> 合約只寫「誰當 CEO / 誰擁有公司股權」，遇到合約沒寫到的突發狀況，直接由老闆拍板決定！</td>
+        </tr>
+        <tr>
+          <td><strong>大學生租屋契約</strong></td>
+          <td>房東與學生不可能為「冷氣突然漏水」、「樓上鄰居半夜練吉他」設計幾百條賠償機率表與賭局懲罰。</td>
+          <td><strong>標準化制式契約＋押金制度：</strong> 只寫幾條核心規則（租金、押金、修繕責任），其餘模糊地帶靠雙方日常協商與社會聲譽解決。</td>
+        </tr>
+        <tr>
+          <td><strong>公司聘僱合約（Employment Contract）</strong></td>
+          <td>老闆每天要指派員工做幾十件瑣事，如果每件事都要寫數字代號報酬表，公司早就倒閉了。</td>
+          <td><strong>權威關係（Authority）：</strong> 員工簽約同意「在合理範圍內聽從主管指揮」，換取每月固定薪水，大幅省下事前規劃與事後對質的認知成本。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(4)">前往終極總複習測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5 -->
+  <div class="tab-panel">
+    <h2>終極總複習測驗：三題檢驗你是否徹底征服這篇諾貝爾獎級論文！</h2>
+
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1; margin-bottom:1.2rem;">
+      <h4>第 1 題（核心批判）：Maskin &amp; Tirole (1999) 認為傳統不完全契約理論最大的邏輯矛盾是什麼？</h4>
+      <button class="quiz-option" onclick="checkQ(1, 1)">A. 傳統理論假設法官永遠不會犯錯，但現實中法官常常判錯。</button>
+      <button class="quiz-option" onclick="checkQ(1, 2)">B. 傳統理論一邊假設簽約雙方「無法描述未來的具體物理事件」，另一邊卻假設雙方「能用動態規劃精準算出未來各種情況的機率與報酬」。只要能預測報酬，雙方就能透過數字代號合約與事後懲罰機制達到與完全契約相同的最佳效率。</button>
+      <button class="quiz-option" onclick="checkQ(1, 3)">C. 傳統理論沒有考慮到跨國匯率波動與稅制差異。</button>
+      <div class="quiz-feedback" id="q-res-1"></div>
+    </div>
+
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1; margin-bottom:1.2rem;">
+      <h4>第 2 題（反例邊界）：在「藍色蛋糕 vs. 紅色蛋糕」反例中，為什麼無法預見「顏色」會導致效率損失？</h4>
+      <button class="quiz-option" onclick="checkQ(2, 1)">A. 因為「顏色」本身不影響效用結構（吃起來一樣好吃），卻偷偷洩漏了員工有沒有認真努力的資訊。事前沒寫進合約時，裁判只看報酬數字矩陣無法區分藍紅世界，導致偷懶者可以謊稱紅色世界就是藍色世界而逃過懲罰。</button>
+      <button class="quiz-option" onclick="checkQ(2, 2)">B. 因為藍色食用色素成本太高，會讓甜點店直接破產。</button>
+      <button class="quiz-option" onclick="checkQ(2, 3)">C. 因為顧客只喜歡吃紅色蛋糕，討厭藍色蛋糕。</button>
+      <div class="quiz-feedback" id="q-res-2"></div>
+    </div>
+
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1;">
+      <h4>第 3 題（未來出路）：根據論文第 9 節（Discussion），經濟學界未來必須發展什麼理論，才能真正解釋現實世界充滿簡單合約與企業邊界的現象？</h4>
+      <button class="quiz-option" onclick="checkQ(3, 1)">A. 更複雜的超級電腦平行運算演算法。</button>
+      <button class="quiz-option" onclick="checkQ(3, 2)">B. 有限理性（Bounded Rationality）決策理論——放棄「人類能對未知未來進行全知全能動態規劃」的假設，正視人類認知與計算能力的限制。</button>
+      <button class="quiz-option" onclick="checkQ(3, 3)">C. 完全廢除法院與所有書面合約的無政府主義理論。</button>
+      <div class="quiz-feedback" id="q-res-3"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 課 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  全系列導讀完結 · 改編自 Eric Maskin &amp; Jean Tirole (1999), "Unforeseen Contingencies and Incomplete Contracts", <em>Review of Economic Studies</em>, 66(1), 83–114.
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function mindSim(mode) {
+    document.querySelectorAll('.sim-btn').forEach((b, i) => b.classList.toggle('active', i === mode - 1));
+    const out = document.getElementById('mind-out');
+    if (mode === 1) {
+      out.innerHTML = `
+        <h4 style="color:#1e40af; margin-bottom:0.5rem;">模式 A：傳統「全知動態規劃人」的腦袋</h4>
+        <ul style="margin-bottom:0;">
+          <li><strong>他們怎麼思考？</strong> 雖然講不出未來具體會發生什麼事，但腦袋裡有一張完整的「未來賺賠機率分布表」，能精準算出每個投資決策的期望效用。</li>
+          <li><strong>合約長什麼樣子？</strong> 可以簽出一份包含所有數字代號、解碼鑰匙、二選一測謊陷阱與零和賭局懲罰的<strong>「神級複雜合約」</strong>。</li>
+          <li><strong>結論：</strong> 這種世界裡根本不存在真正的「不完全契約」（無關性定理成立）。</li>
+        </ul>
+      `;
+    } else {
+      out.innerHTML = `
+        <h4 style="color:#0d9488; margin-bottom:0.5rem;">模式 B：真實「有限理性人類」的腦袋（作者呼籲的方向！）</h4>
+        <ul style="margin-bottom:0;">
+          <li><strong>他們怎麼思考？</strong> 面對未知的未來，人類<strong>連「未來有哪些報酬機率分布」都算不出來</strong>（無法做完整動態規劃），只能靠經驗法則、粗略估計與直覺做決定！</li>
+          <li><strong>合約長什麼樣子？</strong> 因為連未來的報酬數字都寫不出來，也負擔不起設計複雜測謊機制的腦力與法律成本，人類只好簽<strong>「極度簡單的合約」</strong>（例如：「房子租你一年、每月一萬五，有事再商量」或「你當老闆、我領月薪」）。</li>
+          <li><strong>結論：</strong> <strong>只有放棄動態規劃、擁抱有限理性，經濟學才能真正解釋現實世界的不完全契約！</strong></li>
+        </ul>
+      `;
+    }
+  }
+
+  function checkQ(qNum, ans) {
+    const fb = document.getElementById('q-res-' + qNum);
+    fb.style.display = 'block';
+    const solutions = {
+      1: {
+        correct: 2,
+        ok: '🎉 <strong>第 1 題完全正確！</strong> 這就是貫穿整篇論文的「無關性定理（Irrelevance Theorem）」核心邏輯！',
+        no: '❌ <strong>第 1 題再想一下喔！</strong> 關鍵在於「無法描述物理事件」與「能用動態規劃精準預測報酬分配」之間的邏輯衝突。'
+      },
+      2: {
+        correct: 1,
+        ok: '🎉 <strong>第 2 題完全正確！</strong> 因為顏色不影響效用卻洩漏了努力線索（打破 Unidentified Effort 條件），一旦無法事前寫入合約，裁判只看報酬數字就無法懲罰偷懶者！',
+        no: '❌ <strong>第 2 題再想一下喔！</strong> 顏色本身對蛋糕好不好吃完全沒影響，問題出在它偷偷透露了「員工有沒有認真做」的線索！'
+      },
+      3: {
+        correct: 2,
+        ok: '🎉 <strong>第 3 題完全正確！恭喜你完成全部 6 個分頁的深度學習！</strong> 你已經掌握了這篇諾貝爾獎級經典論文的完整脈絡與學術貢獻！',
+        no: '❌ <strong>第 3 題再想一下喔！</strong> 作者在論文最後強調，必須發展不同於「全知動態規劃」的「有限理性（Bounded Rationality）」決策理論！'
+      }
+    };
+    if (ans === solutions[qNum].correct) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = solutions[qNum].ok;
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = solutions[qNum].no;
+    }
+  }
+
+  mindSim(1);
+</script>
+</body>
+</html>

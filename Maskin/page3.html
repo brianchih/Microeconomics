@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分頁 3 延伸教學：抓說謊的懲罰遊戲與簡約原則（Maskin & Tirole, 1999）</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 55%, #0d9488 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ccfbf1;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  header h1 {
+    font-size: 1.95rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #dbeafe;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.48rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.18rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.55rem; }
+
+  /* Analogy Banner */
+  .analogy-banner {
+    background: linear-gradient(to right, #eff6ff, #f0fdfa);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.35rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-banner .tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .analogy-banner h4 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Grid & Cards */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    background: #f8fafc;
+  }
+  .card h4 {
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+
+  /* Interactive Simulator */
+  .sim-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.4rem 0;
+  }
+  .sim-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .sim-btn {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .sim-btn.active, .sim-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .sim-display {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.35rem;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.95rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">分頁 3 深度延伸教學 · 論文第 4–5 節 &amp; 第 7 節：機制設計與簡約原則</div>
+  <h1>法官不知道誰在說謊？那就設計一場「抓鬼懲罰遊戲」！</h1>
+  <p>從「期末共筆版權分紅」與「測謊二選一陷阱題」看懂諾貝爾獎級的機制設計（Implementation）</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 課：資訊不對稱 vs. 裁判盲區</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 課：三招抓鬼挑戰（Section 4）</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 課：互動測謊實驗室（Option A vs B）</button>
+    <button class="tab-btn" onclick="openTab(3)">第 4 課：偷懶升級版「簡約原則」（Section 7）</button>
+    <button class="tab-btn" onclick="openTab(4)">隨堂小測驗</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div class="tab-panel active">
+    <h2>第 1 課：為什麼「兩個人都知道真相」，法官卻無法直接判決？</h2>
+    <p>在上一分頁我們看到，當未來的自然狀態實現時，合夥雙方（Agent 1 與 Agent 2）都會看清真相，但<strong>法院法官（第三方裁判）卻是瞎子</strong>，看不見每個方案分別讓雙方賺多少快樂或利潤。</p>
+
+    <div class="analogy-banner">
+      <span class="tag">🎓 大學生日常案例 1：你跟學妹合寫「微積分必勝筆記」賣給全校</span>
+      <h4>你們在期初約好：「期末考前如果筆記大賣，總收益最高的方案要一人分一半！」</h4>
+      <p style="margin-bottom:0;">到了期末考前一周，市場狀況揭曉了（<strong>可觀察但不可驗證 Observable, but Unverifiable</strong>）：<br>
+      • <strong>你們兩人都知道：</strong> 賣「電子版＋題庫影音」可以淨賺 50,000 元；只賣「黑白影印版」只能賺 10,000 元。<br>
+      • <strong>但法官（學校仲裁委員會）不知道：</strong> 因為影音版是在私人社團秘密交易，法官沒有帳本，根本沒辦法直接命令你們「執行利潤最高的那個方案」！<br>
+      <strong>這時學妹（Agent 1）動了歪腦筋：</strong> 她想向法官謊報「黑白影印版才是利潤最高的（而且只賺 2,000 元）」，然後私底下把影音版偷偷賣給學弟妹獨吞 50,000 元！</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">💡 Maskin 的看家本領：機制設計（Implementation Theory）</div>
+      Maskin（2007 年諾貝爾經濟學獎得主，正是因為「機制設計理論」獲獎！）說：<br>
+      <strong>「裁判不需要知道真相！只要讓兩位當事人互相監督，並規定『只要有人說謊被抓包，就重罰天價罰金 $P$ 賠給對方』，在子賽局完美均衡（Subgame-Perfect Equilibrium）下，沒有人敢說謊！」</strong>
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一課：學長姐抓鬼的「三種檢舉武器」 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2 -->
+  <div class="tab-panel">
+    <h2>第 2 課：論文第 4 節的「三招抓鬼武器」如何封死所有說謊路線？</h2>
+    <p>在論文第 4 節（第 90–91 頁）中，合約規定由 <strong>Agent 1（學妹）</strong>負責公開宣布三件事：(1) 可行方案集合 $X$、(2) 雙方的數字報酬表 $(v_1, v_2)$、(3) 解碼鑰匙 $\sigma$。而 <strong>Agent 2（你）</strong>只要發現任何不對勁，就可以按下檢舉鍵，使用以下<strong>三種武器</strong>之一讓學妹賠掉天價罰金 $P$：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>檢舉武器（論文編號）</th>
+          <th>學妹可能犯的說謊伎倆</th>
+          <th>你怎麼抓包？（裁判如何判決？）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>武器 (i)：抓包漏報或虛報方案</strong></td>
+          <td>學妹故意把最賺錢的「影音題庫版」從方案清單 $X$ 裡刪掉，假裝市場上根本沒有這個選項。</td>
+          <td><strong>法庭可驗證「可行性」！</strong> 你只要當場把「影音題庫檔案」拿給法官看，證明這個行動在現實中明明可行卻沒被列入 $X$，學妹立刻被判說謊，直接賠你罰金 $P$！</td>
+        </tr>
+        <tr>
+          <td><strong>武器 (ii)：測謊「學妹自己的報酬」</strong></td>
+          <td>學妹把「影音版」列入清單，卻謊報：「影音版只能讓我賺 5,000 元（其實能賺 50,000 元）」，藉此壓低要分給你的錢。</td>
+          <td><strong>設計「二選一選擇題」讓學妹自己選！</strong><br>你提出：<strong>(a)</strong> 照做影音版（不給額外補貼）；<strong>(b)</strong> 取消所有販售，你直接拿現金 <strong>5,001 元</strong>。<br>只要學妹選了 (a)，就當場自爆「影音版價值超過 5,000 元」，立刻沒收天價罰金 $P$！（下一課可親自操作！）</td>
+        </tr>
+        <tr>
+          <td><strong>武器 (iii)：反駁「學妹亂報你的報酬」</strong></td>
+          <td>學妹不敢亂報自己的利益，卻故意謊報「這個方案會讓學長（你）虧大錢」，企圖誘導合約選出對學妹有利的方案。</td>
+          <td><strong>角色互換反制！</strong> 你直接提出正確的報酬表 $v_2'$；如果學妹敢嘴硬反駁，雙方立刻角色對調，換你用「武器 (ii) 的二選一選擇題」把學妹逼到牆角！</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <div class="callout-title">🛡️ 防止「奧客亂檢舉」的雙重保險（2P 懲罰）：</div>
+      你可能會問：「那如果學妹明明很誠實，你卻故意亂按檢舉鍵想敲詐罰金 $P$ 怎麼辦？」<br>
+      論文設計得滴水不漏：一旦你檢舉失敗（例如學妹乖乖選了 5,001 元現金，證明她真的沒低報），<strong>你不但拿不到一毛錢，還必須倒賠高達 $2P$ 的天價罰款給第三方！</strong> 因此，只有當對方真的說謊時，檢舉才會啟動；在均衡狀態下，學妹 100% 誠實，你也 100% 不會檢舉！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(2)">下一課：互動測謊實驗室（Option A vs B） &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3 -->
+  <div class="tab-panel">
+    <h2>第 3 課：互動測謊實驗室——體驗「武器 (ii)」如何逼說謊者自爆！</h2>
+    <p>很多大學生第一次讀到論文第 91 頁的 $(a)$ 與 $(b)$ 選項時會覺得很燒腦。現在我們把數學符號換成新台幣，請你親自扮演<strong>「動了歪腦筋的合夥人 A」</strong>，看看你逃不逃得出這個陷阱！</p>
+
+    <div class="analogy-banner" style="margin-bottom: 1rem;">
+      <span class="tag">實驗背景設定</span>
+      <h4>真實情況：執行「方案 1」其實會讓你賺進 50,000 元，但你剛剛向裁判謊報「只能賺 10,000 元」！</h4>
+      <p style="margin-bottom:0;">對手 B 識破你在低報，立刻發動<strong>武器 (ii) 測謊挑戰</strong>（設定 $\epsilon = +1$ 元），並當場逼你從下面兩個選項二選一（注意：因為你被挑戰，你已經先被扣押了 <strong>100 萬元懲罰保證金 $P$</strong>）：</p>
+    </div>
+
+    <div class="sim-box">
+      <div class="sim-controls">
+        <button class="sim-btn active" onclick="testLie(1)">選擇 (a)：硬著頭皮執行「方案 1」（拿實際 50,000 元）</button>
+        <button class="sim-btn" onclick="testLie(2)">選擇 (b)：放棄方案 1，改拿對手給的現金「10,001 元」</button>
+      </div>
+      <div class="sim-display" id="lie-out"></div>
+    </div>
+
+    <div class="callout teal">
+      <div class="callout-title">🎯 賽局理論的「逆向歸納法（Backward Induction）」結論：</div>
+      不管你選 (a) 還是選 (b)，只要你一開始低報（50,000 報成 10,000），你最後一定會慘賠 100 萬罰金！那如果你改成「高報（10,000 報成 50,000）」呢？對手只要把 $\epsilon$ 設成 $-1$ 元（給你 49,999 元現金），你一樣死路一條！所以<strong>「不偏不倚說出真實數字」是你唯一的生路</strong>！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(3)">下一課：懶人福音「簡約原則」（Section 7） &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4 -->
+  <div class="tab-panel">
+    <h2>第 4 課：不用每次都寫幾百頁密碼本！「簡約原則（Parsimony）」升級版</h2>
+    <p>讀完第 4 節和第 5 節後，務實的大學生可能會抗議：<em>「每次都要把市場上所有可行方案 $X$ 全部列出來公布，萬一有一萬種方案，光打字就會打到手斷掉吧！」</em></p>
+    <p>Maskin 與 Tirole 早就想到了這一點！在<strong>論文第 7 節（Parsimony，第 97–98 頁）</strong>中，他們給這套機制裝上了一個「懶人快捷鍵」：</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-top: 4px solid var(--muted);">
+        <h4>🐢 舊版機制（第 4–5 節）：全套清單公布</h4>
+        <p>每次結算時，Agent 1 必須把整個可行方案集合 $X$ 與整本解碼鑰匙 $\sigma$ 全部寫出來交給裁判，哪怕其中 999 個方案根本不會被用到。</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--accent);">
+        <h4>🚀 升級版機制（第 7 節）：只報「單一行動」</h4>
+        <p><strong>平時（均衡路徑上）：</strong> Agent 1 <strong>只需要直接報出「最終要執行的那 1 個行動 $(x, y)$」</strong>（例如：「我們今天賣影音題庫版，然後我轉帳 25,000 元給學長」）！<br>
+        <strong>Agent 2 點頭說「同意」：</strong> 交易直接完成，<strong>完全不用列任何清單</strong>！</p>
+      </div>
+    </div>
+
+    <div class="analogy-banner">
+      <span class="tag">🎓 大學生日常案例 2：社團活動「核銷報帳」的快速通關制度</span>
+      <h4>為什麼社長平時只交「一張發票」就能核銷，卻沒人敢亂報假帳？</h4>
+      <p style="margin-bottom:0;">• <strong>快速通關（Stage 1 &amp; 2）：</strong> 社長直接報出最終採購方案與分帳，財務長看金額合理就直接簽核通過——省下 99% 的行政文書成本！<br>
+      • <strong>啟動查帳（只有發生爭議時）：</strong> 只有當財務長覺得社長在亂搞、按下「拒絕並申訴」鍵（且自願先繳一筆<strong>極小的申訴手續費 $\delta$</strong>，防止無聊人士天天按著玩）時，系統才會把社長拉進「第 4 節的完整對質法庭」，要求他把所有比價單與密碼本全部攤開來接受測謊！<br>
+      • <strong>結果：</strong> 因為社長知道「一旦被查帳就會死得很難看」，所以他在第一關就會乖乖報出最公平的唯一行動，連查帳程序都根本不會被觸發！</p>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(4)">前往隨堂小測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5 -->
+  <div class="tab-panel">
+    <h2>隨堂小測驗：測試你的「機制設計防弊直覺」！</h2>
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1;">
+      <h4>邏輯題：在論文第 7 節的「簡約機制（Parsimonious Mechanism）」中，為什麼規定當 Agent 2 拒絕 Agent 1 的提議並啟動完整對質程序時，Agent 2 必須先付一筆極小的手續費 $\delta$？</h4>
+      <p>請選出最正確的賽局設計原因：</p>
+
+      <button class="quiz-option" onclick="checkQuiz(1)">A. 因為裁判（法院）很窮，需要靠這筆手續費來發薪水。</button>
+      <button class="quiz-option" onclick="checkQuiz(2)">B. 為了防止「無聊的惡意拒絕（Frivolous Challenges）」！如果拒絕完全免費，就算 Agent 1 已經給出最公平的方案，Agent 2 也可能無差別地按下拒絕鍵；加上微小手續費 $\delta > 0$ 後，只要 Agent 1 的提議夠公平，Agent 2 就會乖乖接受，讓均衡路徑上只需宣布「單一行動」即可。</button>
+      <button class="quiz-option" onclick="checkQuiz(3)">C. 為了讓 Agent 1 有時間逃出國外。</button>
+
+      <div class="quiz-feedback" id="quiz-res"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 課 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  教學內容延伸改編自 Eric Maskin &amp; Jean Tirole (1999), "Unforeseen Contingencies and Incomplete Contracts", Sections 4, 5 &amp; 7.
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function testLie(choice) {
+    document.querySelectorAll('.sim-btn').forEach((b, i) => b.classList.toggle('active', i === choice - 1));
+    const out = document.getElementById('lie-out');
+    if (choice === 1) {
+      out.innerHTML = `
+        <h4 style="color:#dc2626; margin-bottom:0.5rem;">💥 你選了 (a)：當場自爆說謊！慘賠 100 萬元！</h4>
+        <p style="margin-bottom:0;">裁判冷笑一聲：<em>「你剛剛不是宣稱方案 1 只值 10,000 元嗎？那面前擺著 10,001 元現金你不要，卻跑去選方案 1，證明你剛剛絕對在說謊！」</em><br>
+        <strong>最終結算：</strong> 挑戰成功！你雖然拿到方案 1 的 50,000 元，但<strong>100 萬元懲罰保證金 $P$ 全部沒收賠給對手 B</strong>（淨虧 95 萬元）！</p>
+      `;
+    } else {
+      out.innerHTML = `
+        <h4 style="color:#b45309; margin-bottom:0.5rem;">💸 你選了 (b)：雖然沒被判說謊，但 100 萬元照樣拿不回來！</h4>
+        <p style="margin-bottom:0;">裁判點頭說：<em>「好吧，你願意用 10,001 元換掉方案 1，算你沒違反邏輯（挑戰不成功，對手 B 必須倒賠 200 萬給第三方）。」</em><br>
+        <strong>但別忘了：</strong> 因為你在階段 2 已經先支付了 <strong>100 萬元挑戰罰金 $P$</strong> 給對手 B，你最後只拿到 10,001 元現金，<strong>整體還是慘賠 989,999 元</strong>！（更何況只要你一開始誠實報 50,000 元，根本不會被挑戰！）</p>
+      `;
+    }
+  }
+
+  function checkQuiz(ans) {
+    const fb = document.getElementById('quiz-res');
+    fb.style.display = 'block';
+    if (ans === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>完全正確！</strong> 這就是論文第 97 頁所說的「prevent frivolous challenges」！只要加上極小的手續費 $\delta$，就能把複雜的密碼本對質藏在「均衡路徑之外（Off the Equilibrium Path）」，平時只需報出單一行動就能完美運作！';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>再想一下喔！</strong> 在賽局設計中，小額費用 $\delta$ 的作用是打破無差異（Indifference），讓理性的 Agent 2 在面對公平提議時嚴格偏好「直接接受」，而不是無聊按拒絕鍵。';
+    }
+  }
+
+  testLie(1);
+</script>
+</body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>論文導讀：未預見的突發狀況與不完全契約（Maskin & Tirole, 1999）</title>
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-light: #3b82f6;
+      --accent: #0d9488;
+      --warn: #d97706;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --accent-bg: #eff6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e40af 60%, #0d9488 100%);
+      color: white;
+      padding: 36px 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px -5px rgba(30, 64, 175, 0.25);
+    }
+
+    header .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      font-weight: 500;
+      color: #ccfbf1;
+    }
+
+    header h1 {
+      font-size: 1.85rem;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    header p {
+      color: #dbeafe;
+      font-size: 1rem;
+    }
+
+    /* 分頁導覽列 */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: var(--card-bg);
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .tab-btn {
+      flex: 1 1 auto;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .tab-btn:hover {
+      background: var(--bg);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.25);
+    }
+
+    /* 內容區塊 */
+    .tab-content {
+      display: none;
+      background: var(--card-bg);
+      padding: 32px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      color: #0f172a;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent-bg);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--primary);
+      margin: 22px 0 10px;
+    }
+
+    p {
+      margin-bottom: 14px;
+    }
+
+    ul, ol {
+      margin-left: 22px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .highlight-box {
+      background: var(--accent-bg);
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    .highlight-box.teal {
+      background: #f0fdfa;
+      border-left-color: var(--accent);
+    }
+
+    .highlight-box.warn {
+      background: #fffbeb;
+      border-left-color: var(--warn);
+    }
+
+    .highlight-box strong {
+      color: var(--primary);
+    }
+    .highlight-box.teal strong { color: #0f766e; }
+    .highlight-box.warn strong { color: #b45309; }
+
+    .analogy-card {
+      background: linear-gradient(to right, #eff6ff, #f0fdfa);
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 18px 0;
+    }
+
+    .analogy-tag {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .analogy-card h4 {
+      font-size: 1.1rem;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      background: #fafafa;
+    }
+
+    .card h4 {
+      color: #0f172a;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: var(--accent-bg);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* 互動模擬與測驗元件 */
+    .sim-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .step-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .step-btn {
+      padding: 8px 14px;
+      border: 1.5px solid var(--primary);
+      background: white;
+      color: var(--primary);
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .step-btn.active, .step-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .step-output {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+
+    .quiz-option:hover {
+      background: #eff6ff;
+      border-color: var(--primary-light);
+    }
+
+    .quiz-feedback {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+      font-weight: 600;
+    }
+
+    .ext-link-box {
+      margin: 22px 0 6px;
+      padding: 14px 18px;
+      background: #f0fdfa;
+      border: 1px dashed #0d9488;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ext-link-btn {
+      display: inline-block;
+      background: #0d9488;
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+
+    .ext-link-btn:hover {
+      background: #0f766e;
+    }
+
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-btn {
+      background: #f1f5f9;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .nav-btn:hover {
+      background: #e2e8f0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="badge">Review of Economic Studies (1999) · 契約理論與機制設計經典</div>
+    <h1>未預見的突發狀況與不完全契約</h1>
+    <p>作者：Eric Maskin（2007諾貝爾經濟學獎得主） &amp; Jean Tirole（2014諾貝爾經濟學獎得主）｜ 研究生白話導讀版</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">1. 核心問題與學術大戰</button>
+    <button class="tab-btn" onclick="openTab(1)">2. 密碼本解題法（無關性定理）</button>
+    <button class="tab-btn" onclick="openTab(2)">3. 互動機制：抓說謊的懲罰遊戲</button>
+    <button class="tab-btn" onclick="openTab(3)">4. 兩個關鍵條件與例外反例</button>
+    <button class="tab-btn" onclick="openTab(4)">5. 事後反悔重新談判怎麼辦？</button>
+    <button class="tab-btn" onclick="openTab(5)">6. 總結啟示與隨堂測驗</button>
+  </nav>
+
+  <!-- 分頁 1 -->
+  <section class="tab-content active">
+    <h2>1. 故事背景：兩位諾貝爾獎得主對「不完全契約」的靈魂拷問</h2>
+    <p>在現實生活中，幾乎所有的合約都是<strong>「不完全契約（Incomplete Contracts）」</strong>——無論是公司章程、專利授權還是租屋合約，都不可能把未來所有可能發生的突發狀況（例如突然爆發疫情、AI 技術橫空出世）一條一條寫進合約裡。</p>
+
+    <div class="analogy-card">
+      <span class="analogy-tag">🎓 研究生日常比喻：跟室友合開一家「校園宵夜外送店」</span>
+      <h4>問題來了：你們現在簽合夥契約，寫得出明年會流行什麼新飲料或遇到什麼奇葩奧客嗎？</h4>
+      <p style="margin-bottom:0;">傳統經濟學家（如 Williamson、Grossman、Hart）說：「因為未來無法預知、寫合約太貴（交易成本），所以大家只好簽簡單的合約，把『最終決定權（產權）』交給其中一個人。」<br>
+      但 <strong>Maskin 和 Tirole 跳出來潑了一盆冷水</strong>，指出傳統理論有一個巨大的邏輯矛盾！</p>
+    </div>
+
+    <h3>傳統理論的邏輯矛盾在哪裡？</h3>
+    <ul>
+      <li><strong>矛盾點 A（假設人很笨）：</strong> 傳統理論說，簽約雙方因為「無法預見未來的物理狀態（Unforeseen Contingencies）」，所以寫不出完整合約。</li>
+      <li><strong>矛盾點 B（又假設人超級聰明）：</strong> 但在計算「現在要投資多少努力」時，傳統模型又假設雙方會做<strong>動態規劃（Dynamic Programming）</strong>——也就是雙方在簽約當下，早就精準算出了「未來各種情況發生的機率，以及每種情況下各自能賺多少錢（Payoffs）」！</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>💥 本文的核心震撼彈（無關性定理 Irrelevance Theorem）：</strong><br>
+      Maskin 與 Tirole 證明：既然你們腦袋聰明到能算出未來各種情況的「預期收益（Payoffs）」，那你們根本不需要在合約裡預先描述「未來會發生什麼具體事件」！只要在合約裡寫好<strong>「賺到多少錢就怎麼分」</strong>，等未來真的發生時再把細節填進去，就能達到跟「預知未來的完美合約」<strong>一模一樣的最佳效果</strong>！換句話說，<strong>「無法預見未來」本身，並不會造成任何效率損失！</strong>
+    </div>
+
+    <div class="ext-link-box">
+      <span>📖 <strong>延伸閱讀教材（分頁 1）：</strong>想要深入探討核心問題與方法論矛盾？</span>
+      <a href="p1.html" target="_blank" class="ext-link-btn">前往第 1 節延伸教學（p1.html） &nearr;</a>
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一節：不用寫出具體事件也能簽完美合約？ &rarr;</button>
+    </div>
+  </section>
+
+  <!-- 分頁 2 -->
+  <section class="tab-content">
+    <h2>2. 神級解題法：用「數字代號」與「密碼本」繞過未知未來</h2>
+    <p>在論文第 2 節與第 3 節中，作者建立了一個三階段時間軸（Date 0 簽約 $e_1, e_2$ 各自投入努力 $ightarrow$ Date 1 $ightarrow$ Date 2 謎底揭曉、執行行動 $a$），並展示了一個天才般的轉換技巧：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>合約寫法</th>
+          <th>傳統「完全契約」做法</th>
+          <th>Maskin &amp; Tirole「數字代號契約」做法</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>事前（Date 0）怎麼寫？</strong></td>
+          <td>寫死物理行動：「如果明年流行珍珠奶茶，就買封口機；如果流行水果茶，就買榨汁機。」<br><em>（缺點：想不到還有可能流行氣泡飲！）</em></td>
+          <td>只寫<strong>數字代號與報酬表</strong>：「不管明年流行什麼，我們把到時候所有可行方案按賺賠排序成<strong>方案 1、方案 2、方案 3</strong>，並約定好各自拿多少分紅。」</td>
+        </tr>
+        <tr>
+          <td><strong>事後（Date 2）怎麼做？</strong></td>
+          <td>照著合約白紙黑字執行對應的機器採購。</td>
+          <td>當明年真的到來、雙方都看清市場後，拿出各自的<strong>「解碼鑰匙（Deciphering Key $\sigma^	heta$）」</strong>，把「方案 1 = 買氣泡水機」填進去執行！</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="analogy-card">
+      <span class="analogy-tag">🎓 研究生日常比喻：期末報告的「盲測點餐合約」</span>
+      <h4>你跟組員約好，報告做完要去慶功，但現在根本不知道當天學校附近哪家店有開</h4>
+      <p style="margin-bottom:0;">你們不需要把全台灣一萬家餐廳寫進約定裡！你們只要約定：「當天打開外送 App，把評價最高的前三名店面編號為<strong>1 號餐、2 號餐、3 號餐</strong>，如果我們這次拿 A+ 就吃 1 號餐、拿 B 就吃 3 號餐。」<br>
+      這就像金融市場裡的<strong>「證券（Securities）」</strong>：證券合約上寫的不是「小麥或蘋果」，而是「純粹的金額數字」，等未來發生後大家再用錢去現貨市場買東西！</p>
+    </div>
+
+    <div class="highlight-box warn">
+      <strong>⚠️ 唯一的漏洞：如果有人「說謊」怎麼辦？</strong><br>
+      事後解碼時，法官並不知道「買氣泡水機」到底讓你賺 100 萬還是 50 萬（效用函數不可驗證）。萬一組員為了省錢，故意謊報「2 號餐才是評價最高的」怎麼辦？這就需要第 3 節的<strong>「機制設計（Implementation）」</strong>來防弊！
+    </div>
+
+    <div class="ext-link-box">
+      <span>📖 <strong>延伸閱讀教材（分頁 2）：</strong>想要深入探討數字代號與密碼本解題法？</span>
+      <a href="p2.html" target="_blank" class="ext-link-btn">前往第 2 節延伸教學（p2.html） &nearr;</a>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一節</button>
+      <button class="nav-btn" onclick="openTab(2)">下一節：互動體驗「抓說謊懲罰遊戲」 &rarr;</button>
+    </div>
+  </section>
+
+  <!-- 分頁 3 -->
+  <section class="tab-content">
+    <h2>3. 互動機制設計：讓雙方「不敢說謊」的互相檢舉遊戲</h2>
+    <p>論文第 4 節與第 5 節（定理 1）設計了一套精妙的<strong>「子賽局完美均衡執行機制（Subgame-Perfect Implementation）」</strong>。雖然法官不知道每件事帶給你們多少快樂（效用），但只要雙方事後「心知肚明」各自賺多少，就能設計一個遊戲逼大家說實話！</p>
+    <p>請點擊下方按鈕，模擬當<strong>合夥人 A（你）</strong>想在事後偷改「密碼本」貪污時，<strong>合夥人 B（室友）</strong>如何啟動抓鬼機制：</p>
+
+    <div class="sim-box">
+      <div class="step-btns">
+        <button class="step-btn active" onclick="simStep(1)">階段 1：合夥人 A 公布密碼本</button>
+        <button class="step-btn" onclick="simStep(2)">階段 2：合夥人 B 決定是否檢舉</button>
+        <button class="step-btn" onclick="simStep(3)">檢舉方式 (i)：抓包漏報可行方案</button>
+        <button class="step-btn" onclick="simStep(4)">檢舉方式 (ii)：用「二選一陷阱」測謊</button>
+      </div>
+      <div class="step-output" id="mech-output"></div>
+    </div>
+
+    <div class="highlight-box teal">
+      <strong>💡 第 7 節的「簡約原則（Parsimony）」升級版：</strong><br>
+      你可能會想：「每次都要把幾百個可行方案全部列出來公布，也太累了吧？」作者在第 7 節貼心改良了遊戲：在正常均衡下，合夥人 A <strong>只需要直接報出「最終要執行的那一個行動」</strong>就好！只有當 B 不服氣提出質疑（並先付一筆小手續費防止亂檢舉）時，才需要啟動完整的對質程序。
+    </div>
+
+    <div class="ext-link-box">
+      <span>📖 <strong>延伸閱讀教材（分頁 3）：</strong>想要深入探討子賽局完美執行機制與測謊遊戲？</span>
+      <a href="p3.html" target="_blank" class="ext-link-btn">前往第 3 節延伸教學（p3.html） &nearr;</a>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一節</button>
+      <button class="nav-btn" onclick="openTab(3)">下一節：定理成立的兩大條件與例外 &rarr;</button>
+    </div>
+  </section>
+
+  <!-- 分頁 4 -->
+  <section class="tab-content">
+    <h2>4. 什麼時候「無法預見未來」真的會出事？（定理 2 與三大反例）</h2>
+    <p>既然這套密碼本機制這麼神，那是不是所有合約都能這樣玩？作者在<strong>定理 1 與定理 2（第 5–6 節）</strong>指出，合約必須滿足<strong>「福利中性（Welfare-Neutrality）」</strong>——也就是如果兩個未來世界帶給雙方的「快樂結構」完全一樣（只是事件名稱不同），合約給雙方的福利也必須一樣。</p>
+    <p>為了讓合約滿足「福利中性」，現實環境必須符合<strong>兩個基本條件</strong>（而幾乎所有現有不完全契約文獻都符合這兩點！）：</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4>條件一：金錢邊際效用比例不受狀態影響</h4>
+        <p><strong>白話文：</strong> 不管明年發生什麼突發事件，你跟合夥人對「多賺 1 塊錢的渴望程度比例」不能因此扭曲改變（例如兩人都屬風險中立或準線性偏好）。</p>
+      </div>
+      <div class="card">
+        <h4>條件二：努力程度無法從「無關細節」偷看</h4>
+        <p><strong>白話文（Unidentified Effort）：</strong> 兩個報酬結構完全相同的未來世界，它們發生的相對機率，不能偷偷洩漏「你當初有沒有偷懶」的線索。</p>
+      </div>
+    </div>
+
+    <h3>論文第 6 節的經典反例：當「顏色」洩漏了你有沒有偷懶！</h3>
+    <div class="analogy-card" style="background: linear-gradient(to right, #fffbeb, #fef2f2); border-color: #fde68a;">
+      <span class="analogy-tag" style="background:#b45309;">🎓 研究生日常比喻：藍色蛋糕 vs. 紅色蛋糕（藍紅小工具反例）</span>
+      <h4>假設你請同學幫你研發一款新甜點，研發成功機率取決於他有沒有認真做（努力不可直接觀測）</h4>
+      <ul style="margin-bottom:0;">
+        <li><strong>神奇設定：</strong> 甜點做出來有分「好吃」或「難吃」；但只要他<strong>有認真做</strong>，烤出來的蛋糕一定是<strong>藍色</strong>；如果他<strong>偷懶打混</strong>，烤出來的蛋糕一定是<strong>紅色</strong>！顏色本身對吃的人來說完全沒差（不影響效用）。</li>
+        <li><strong>如果事前能預見「顏色」（完全契約）：</strong> 老闆只要在合約寫「只要蛋糕是藍色的，不管好不好吃都給你 100% 固定薪水」，同學就會乖乖認真做，而且完全不用承擔失敗風險！</li>
+        <li><strong>如果事前根本想不到會有「藍/紅顏色」（不完全契約）：</strong> 事後裁判無法分辨「藍色」和「紅色」在效用上有什麼差別（因為吃起來一樣），同學就會謊稱「紅色就是以前的藍色」！於是老闆只能改用「好吃才給錢、難吃扣錢」的獎懲制，迫使怕風險的同學承擔額外風險——<strong>這時，「無法預見未來」就真的造成了效率損失！</strong></li>
+      </ul>
+    </div>
+
+    <div class="ext-link-box">
+      <span>📖 <strong>延伸閱讀教材（分頁 4）：</strong>想要深入探討福利中性、兩大條件與藍紅蛋糕反例？</span>
+      <a href="p4.html" target="_blank" class="ext-link-btn">前往第 4 節延伸教學（p4.html） &nearr;</a>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一節</button>
+      <button class="nav-btn" onclick="openTab(4)">下一節：如果事後雙方「私下反悔重談」怎麼辦？ &rarr;</button>
+    </div>
+  </section>
+
+  <!-- 分頁 5 -->
+  <section class="tab-content">
+    <h2>5. 終極難題：如果雙方事後「私下重新談判（Renegotiation）」怎麼辦？</h2>
+    <p>讀到這裡，聰明的研究生一定會問：<em>「在剛才第 3 節的懲罰遊戲裡，如果合夥人 A 說謊被抓包，合約規定要『把 100 萬罰款燒掉（交給無關的第三方）』或『直接停業銷毀』，但 A 跟 B 都是理性人，他們難道不會私下握手言和：『別把錢交給外人啦，我們私下五五分帳、把舊合約撕掉重簽』嗎？」</em></p>
+
+    <p>這就是論文<strong>第 8 節（Renegotiation）</strong>要解決的終極大魔王！如果雙方預期「就算亂搞，事後也能重新談判雙贏」，那原本用來嚇阻說謊的懲罰就失效了！Maskin 與 Tirole 提出了<strong>兩大破解之道</strong>：</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4>破解法 1：用「告密者獎金」鎖死合約</h4>
+        <p>雙方在簽第一份合約時就先去公證登記，並寫一條<strong>「防反悔條款」</strong>：「未來只要任何一方拿出『雙方私下重簽第二份合約』的證據，就能直接向對方索賠 1,000 萬！」這會把私下重談變成<strong>囚徒困境</strong>，誰都不敢跟對方私下重簽，因為對方隨時會拿著新合約去法院告密領賞！</p>
+      </div>
+      <div class="card">
+        <h4>破解法 2：風險趨避者的「大樂透懲罰」（定理 3）</h4>
+        <p>就算法律不允許鎖死合約、允許雙方事後重談，只要當事人<strong>哪怕只有一點點怕風險（Risk Averse）</strong>，機制依然有效！<br>
+        合約可以規定：如果 B 亂檢舉失敗，B 必須跟 A 玩一場<strong>「期望值為 0、但輸贏極大（例如 50% 贏一億、50% 賠一億）」的瘋狂賭局</strong>！對怕風險的 B 來說，這種雲霄飛車賭局的心理痛苦極大，就算事後能花錢跟 A 協商取消賭局，B 付出的代價也遠高於當初乖乖誠實的收益，因此徹底打消亂檢舉的念頭！</p>
+      </div>
+    </div>
+
+    <div class="highlight-box warn">
+      <strong>⚖️ 事後重談的代價（定理 5）：</strong><br>
+      作者也坦承，一旦允許雙方事後重新談判，合約設計的條件會變得更嚴苛（必須滿足「重談福利中性」）。因為許多用來嚇阻說謊的「兩敗俱傷懲罰」都會被雙方事後協商掉，此時「無法預見未來」確實比完全禁止重談時更容易造成限制。
+    </div>
+
+    <div class="ext-link-box">
+      <span>📖 <strong>延伸閱讀教材（分頁 5）：</strong>想要深入探討事後重新談判與大樂透懲罰機制？</span>
+      <a href="p5.html" target="_blank" class="ext-link-btn">前往第 5 節延伸教學（p5.html） &nearr;</a>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一節</button>
+      <button class="nav-btn" onclick="openTab(5)">下一節：總結啟示與隨堂測驗 &rarr;</button>
+    </div>
+  </section>
+
+  <!-- 分頁 6 -->
+  <section class="tab-content">
+    <h2>6. 給經濟學界的啟示與隨堂測驗</h2>
+    <p>在論文最後一節（第 9 節 Discussion），Maskin 與 Tirole 總結了這篇論文對現代經濟學的深遠影響：</p>
+    <ul>
+      <li><strong>我們不是說交易成本不存在，而是指出模型邏輯必須一致：</strong> 現實世界當然有交易成本，合約也確實很簡單（例如直接規定「誰是老闆、誰擁有產權」）。但經濟學家不能一邊假設人「笨到寫不出合約」，另一邊又假設人「聰明到會算動態規劃」。</li>
+      <li><strong>真正的出路在於「有限理性（Bounded Rationality）」：</strong> 要真正解釋為什麼現實世界充滿簡單合約與企業邊界，經濟學界必須發展出一套有別於「全知全能動態規劃」的<strong>有限理性理論</strong>——也就是承認人類真的算不出未來所有的期望報酬！</li>
+    </ul>
+
+    <div class="sim-box">
+      <h3 style="margin-top:0;">📝 隨堂小測驗：測試你是否看懂諾貝爾獎得主的核心論點！</h3>
+      <p><strong>問題：</strong> 為什麼 Maskin 與 Tirole 認為，傳統不完全契約理論中「因為無法預見未來事件，所以無法簽署最佳合約」的說法在邏輯上站不住腳？</p>
+
+      <button class="quiz-option" onclick="checkQuiz(1)">A. 因為現代電腦與 AI 已經可以百分之百準確預測未來會發生的所有天災與科技發明。</button>
+      <button class="quiz-option" onclick="checkQuiz(2)">B. 因為傳統模型同時假設簽約雙方會做「動態規劃」（能預測未來各種情況的機率與貨幣報酬）。既然能預測報酬，雙方只要在合約寫好「報酬數字代號」，等未來發生後再透過機制激勵雙方如實填入具體行動細節，就能達到跟完全契約一樣的最佳效率。</button>
+      <button class="quiz-option" onclick="checkQuiz(3)">C. 因為法院法官在事後可以讀心術，直接看穿每個人心裡對每個商品的真實滿意度。</button>
+
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+    </div>
+
+    <div class="ext-link-box">
+      <span>📖 <strong>延伸閱讀教材（分頁 6）：</strong>想要深入探討方法論反思、有限理性與現實簡單合約？</span>
+      <a href="p6.html" target="_blank" class="ext-link-btn">前往第 6 節延伸教學（p6.html） &nearr;</a>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(4)">&larr; 上一節</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 節 &#8634;</button>
+    </div>
+  </section>
+
+  <footer>
+    整理自 Eric Maskin &amp; Jean Tirole (1999), "Unforeseen Contingencies and Incomplete Contracts", <em>Review of Economic Studies</em>, 66(1), 83–114.
+  </footer>
+</div>
+
+<script>
+  function openTab(index) {
+    const buttons = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+    buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
+    contents.forEach((content, i) => content.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function simStep(step) {
+    document.querySelectorAll('.step-btn').forEach((btn, i) => btn.classList.toggle('active', i === step - 1));
+    const out = document.getElementById('mech-output');
+    const views = {
+      1: `
+        <h4 style="color:#1e40af; margin-bottom:6px;">階段 1：合夥人 A 負責「翻譯密碼本」</h4>
+        <p style="margin-bottom:0;">明年市場情況明朗後，合約指定由<strong>合夥人 A</strong> 站出來向裁判宣布：(1) 現在有哪些可行的營運方案 $X$；(2) 每個方案分別能讓 A 和 B 賺多少錢 $(v_1, v_2)$；(3) 哪個具體行動對應哪個編號 $\sigma$。<br>
+        <strong>A 的誘惑：</strong> A 很想偷偷竄改數字，讓系統挑出「對 A 自己最有利、但害 B 少賺錢」的方案！</p>
+      `,
+      2: `
+        <h4 style="color:#0f766e; margin-bottom:6px;">階段 2：合夥人 B 擁有「一鍵檢舉權」</h4>
+        <p style="margin-bottom:0;"><strong>合夥人 B</strong> 就在旁邊看著（因為兩人都看得到實際市場狀況）。<br>
+        • 如果 B 覺得 A 很誠實、沒有灌水，B 選擇「不檢舉」，合約直接按報告執行，皆大歡喜！<br>
+        • 如果 A 敢說謊，B 只要按下檢舉鍵並舉證成功，<strong>A 必須立刻賠償 B 一筆天價罰金 $P$</strong>（例如 500 萬元）！</p>
+      `,
+      3: `
+        <h4 style="color:#b45309; margin-bottom:6px;">抓包方式 (i)：隱藏方案立刻穿幫</h4>
+        <p style="margin-bottom:0;">假設市場上明明有「跟校外餐廳聯名」這個超賺錢方案，A 卻故意不列進清單裡。因為<strong>「某個行動在現實中可不可行」是裁判（法院）事後可以客觀驗證的</strong>，B 只要當場拿出聯名企劃書證明該方案可行，A 立刻被判說謊出局，直接賠掉天價罰金 $P$！</p>
+      `,
+      4: `
+        <h4 style="color:#dc2626; margin-bottom:6px;">抓包方式 (ii)：用「二選一選擇題」逼 A 自爆！</h4>
+        <p style="margin-bottom:0;">如果 A 謊報「方案 1 只讓我賺 10 萬（其實他能賺 50 萬）」，裁判雖然不知道 A 心裡多賺錢，但 B 可以設計一個陷阱題給 A 選：<br>
+        <strong>選項 (a)：</strong> 執行方案 1（A 實際暗爽賺 50 萬）；<br>
+        <strong>選項 (b)：</strong> 什麼都不做，B 直接給 A 現金 <strong>10萬 + 1塊錢</strong>！<br>
+        如果 A 真的只賺 10 萬，他一定會選 (b)；但如果他選了 (a)，就當場證明他剛剛說謊（方案 1 價值超過 10 萬），立刻沒收天價罰金 $P$！A 算到這步，從一開始就不敢說謊了。</p>
+      `
+    };
+    out.innerHTML = views[step];
+  }
+
+  function checkQuiz(ans) {
+    const fb = document.getElementById('quiz-feedback');
+    fb.style.display = 'block';
+    if (ans === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>完全正確！</strong> 這就是「無關性定理（Irrelevance Theorem）」的精髓：只要人們具備做動態規劃（預測未來報酬分配）的能力，合約就不需要預先寫出物理事件，只要寫出「報酬代號」並搭配事後懲罰機制，就能達到與完全契約相同的最佳效果！';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>再想一下喔！</strong> 法院並不知道雙方的內心快樂程度（效用不可驗證），未來物理事件也確實無法預知；關鍵在於雙方能預估「未來可能的報酬數字（動態規劃）」，因此可以透過數字代號與互相檢舉機制來事後填補細節！';
+    }
+  }
+
+  simStep(1);
+</script>
+
+</body>
+</html>

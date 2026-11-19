@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分頁 5 延伸教學：事後重新談判（Renegotiation）與大樂透懲罰機制（Maskin & Tirole, 1999）</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 55%, #0d9488 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ccfbf1;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  header h1 {
+    font-size: 1.95rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #dbeafe;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.48rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.18rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.55rem; }
+
+  /* Analogy Banner */
+  .analogy-banner {
+    background: linear-gradient(to right, #eff6ff, #f0fdfa);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.35rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-banner .tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .analogy-banner h4 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Grid & Cards */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    background: #f8fafc;
+  }
+  .card h4 {
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+
+  /* Interactive Simulator */
+  .sim-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.4rem 0;
+  }
+  .sim-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .sim-btn {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .sim-btn.active, .sim-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .sim-display {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.35rem;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.95rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">分頁 5 深度延伸教學 · 論文第 8 節：事後重新談判（Renegotiation）與定理 3–5</div>
+  <h1>如果雙方事後「私下反悔重談」怎麼辦？</h1>
+  <p>從「撕毀舊合約私下分贓」到「告密者獎金鎖死法」與「大樂透賭局懲罰（Lottery Punishment）」</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 課：為什麼「重新談判」會摧毀懲罰？</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 課：破解法 1——用「告密獎金」鎖死合約</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 課：互動模擬——「大樂透賭局」懲罰（定理 3）</button>
+    <button class="tab-btn" onclick="openTab(3)">第 4 課：事後重談的真實代價（定理 4 &amp; 5）</button>
+    <button class="tab-btn" onclick="openTab(4)">隨堂小測驗</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div class="tab-panel active">
+    <h2>第 1 課：威脅失效的危機——當兩個理性人決定「私下把舊合約撕掉重簽」</h2>
+    <p>在前面分頁的抓鬼機制中，為了嚇阻大家說謊或亂檢舉，我們在合約裡設計了<strong>「兩敗俱傷的懲罰」</strong>——例如：「一旦檢舉失敗，就把 200 萬元罰金充公捐給無關的第三方，或直接把公司解散拍賣！」</p>
+
+    <div class="analogy-banner" style="background: linear-gradient(to right, #fef2f2, #fffbeb); border-color: #fecaca;">
+      <span class="tag" style="background:#dc2626;">🎓 大學生日常案例 1：跟室友合開「校園設計工作室」的私下和解誘惑</span>
+      <h4>想像你們在期初合約寫了一條超狠的防弊罰則：「誰亂檢舉失敗，就要把工作室價值 50 萬的 Mac 設備全部砸爛！」</h4>
+      <p style="margin-bottom:0;">到了期末結算日，你（Agent 2）故意按檢舉鍵想敲詐室友，結果檢舉失敗，按照舊合約，你們的 Mac 設備明天就要被裁判砸爛了！<br>
+      <strong>這時你悄悄把室友拉到走廊旁邊說：</strong><br>
+      <em>「喂！反正合約是我們兩個人簽的，又沒有外人被害到！明天裁判要把這台 50 萬的電腦砸爛，對你我也沒好處。不如我們現在<strong>私下重簽一份新合約（Renegotiation）</strong>，把舊合約作廢，電腦留著繼續用，我私下轉帳 20 萬賠償你就好，這樣不是雙贏嗎？」</em><br><br>
+      <strong>災難發生了：</strong> 只要室友是理性人，他一定會答應這個雙贏提議！而一旦你事前就預料到「就算我亂檢舉失敗，事後也能靠重談逃過砸電腦的懲罰」，<strong>你從一開始就會肆無忌憚地亂檢舉</strong>——整套機制當場崩潰！</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">📌 契約理論著名的「承諾問題（Commitment Problem）」：</div>
+      當懲罰依賴「把錢交給第三方」或「銷毀效率（Pareto Inefficient Punishment）」時，只要法律允許合約雙方事後一致同意修改合約，<strong>無效率的懲罰就永遠不會真正被執行</strong>（因為事後一定會被重新談判掉）！
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一課：破解法 1——用「告密獎金」把合約鎖死！ &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2 -->
+  <div class="tab-panel">
+    <h2>第 2 課：破解法 1——註冊公證＋「告密者獎金條款」（製造囚徒困境）</h2>
+    <p>面對雙方事後想「私下重簽合約（Side-Contracting）」的誘惑，Maskin 與 Tirole 在論文第 8.1 節（第 98–99 頁）提出了第一個絕妙破解法：<strong>利用公證登記與「抓耙仔（告密者）獎金」把重談之路徹底封死！</strong></p>
+
+    <div class="analogy-banner">
+      <span class="tag">🎓 大學生日常案例 2：如何在合約裡寫下「誰敢私下重簽就死定了」的魔法條文？</span>
+      <h4>假設法律允許你們在期初簽約時，把第一份合約拿去法院「公證登記（Registration）」</h4>
+      <ol style="margin-bottom:0;">
+        <li><strong>寫入「防反悔懸賞條款」：</strong> 你們在第一份公證合約裡白紙黑字寫明：<em>「本合約簽署後，未來任何一方只要向法院舉報『雙方曾私下簽署任何修改或取代本合約的新協議』，舉報者即可直接從對方帳戶獲得 <strong>1,000 萬元天價賠償金</strong>！」</em></li>
+        <li><strong>事後想私下和解時會發生什麼事？</strong><br>
+        就算你跟室友在走廊上口頭談好「私下轉帳 20 萬、作廢舊合約」，<strong>你們兩個人誰都不敢真的簽下那份新協議！</strong> 因為只要新協議一簽字（或一轉帳留下證據），室友下一秒就會拿著這份新協議衝去法院按鈴告密，直接領走 1,000 萬獎金！</li>
+        <li><strong>賽局結果：</strong> 原本的「雙贏合作」瞬間被改造成<strong>「囚徒困境（Prisoner's Dilemma）」</strong>——因為雙方都預期對方一定會背叛去領告密獎金，所以誰都不敢私下重新談判，第一份合約因此變得<strong>100% 不可重談（Commitment）</strong>！</li>
+      </ol>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ 但是，如果法律「禁止鎖死合約」怎麼辦？</div>
+      現實中許多國家的民法與合約法規定：「契約自由原則——只要簽約雙方事後一致同意，任何時候都有權廢除舊約、重簽新約，且事前寫的『禁止重談條款』一律無效！」<br>
+      Maskin 與 Tirole 問：<strong>「好！那我們就假設法律完全禁止鎖死合約、雙方隨時可以自由重新談判，這樣我們的機制還有救嗎？」</strong>——答案在下一課揭曉！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(2)">下一課：互動模擬「大樂透賭局懲罰」（定理 3） &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3 -->
+  <div class="tab-panel">
+    <h2>第 3 課：破解法 2（定理 3）——針對怕風險者的「零和瘋狂大樂透懲罰」！</h2>
+    <p>在論文第 8.2 節（Theorem 3，第 99–100 頁）中，Maskin 與 Tirole 展現了令人拍案叫絕的數學創意：<strong>即使雙方隨時可以自由重新談判，只要當事人哪怕只有一點點「風險趨避（Risk Averse）」，我們依然可以不用第三方、只靠兩人之間的「零和賭局（Zero-Sum Lottery）」完成懲罰！</strong></p>
+
+    <div class="analogy-banner" style="background: linear-gradient(to right, #eff6ff, #f0fdfa); border-color: #bfdbfe;">
+      <span class="tag">🎓 大學生日常案例 3：如果「亂檢舉失敗」的代價是跟室友玩一場「丟硬幣賭身家」？</span>
+      <h4>為什麼「50% 贏一億、50% 賠一億」的零和賭局，就算事後重新談判也救不了你？</h4>
+      <p style="margin-bottom:0;">在舊合約裡，如果 A 亂檢舉 B 失敗，合約規定雙方必須立刻進行一場<strong>公平丟硬幣賭局（期望值為 0 的零和轉帳）</strong>：正面由 B 付給 A <strong>1,000 萬元</strong>，反面由 A 付給 B <strong>1,000 萬元</strong>！請點擊下方兩個階段，看看事後重談會發生什麼事：</p>
+    </div>
+
+    <div class="sim-box">
+      <div class="sim-controls">
+        <button class="sim-btn active" onclick="lottoSim(1)">階段 1：在「丟硬幣之前」雙方坐下來重新談判（買保險）</button>
+        <button class="sim-btn" onclick="lottoSim(2)">階段 2：如果雙方撐到「丟硬幣之後」才想重新談判？</button>
+      </div>
+      <div class="sim-display" id="lotto-out"></div>
+    </div>
+
+    <div class="callout teal">
+      <div class="callout-title">🏆 定理 3（Theorem 3）的驚人威力：</div>
+      透過這場「零和賭局」，原本需要交給第三方的懲罰，成功轉化成了<strong>「向對方支付一筆巨額風險保費（Risk Premium）」</strong>！因為這個風險保費在事後重談時無論如何都躲不掉，所以 A 從一開始就不敢亂檢舉——<strong>即使在完全允許事後自由重新談判的世界裡，所有原本的合約依然 100% 有效！</strong>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(3)">下一課：如果雙方「完全不怕風險」呢？（定理 4 &amp; 5） &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4 -->
+  <div class="tab-panel">
+    <h2>第 4 課：最後一道防線——當雙方「完全風險中立」又「允許重談」時（定理 4 &amp; 5）</h2>
+    <p>如果現實環境同時滿足兩個極端條件：(1) 法律禁止鎖死合約（隨時可重談），而且 (2) 簽約雙方都是<strong>「完全不怕風險的鋼鐵人（Risk Neutral）」</strong>，那剛才的「大樂透賭局」就嚇不到他們了（因為對風險中立者來說，50% 贏一億、50% 賠一億跟拿 0 元一樣無感）。</p>
+    <p>在這種最嚴苛的情況下，Maskin 與 Tirole 給出了本篇論文最後兩個定理（第 100–102 頁）：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>定理編號</th>
+          <th>核心條件名稱</th>
+          <th>大學生白話翻譯與直覺</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>定理 4（Theorem 4）</strong><br>可重談執行條件</td>
+          <td><strong>可重談福利中性（Renegotiation Welfare-Neutrality）</strong></td>
+          <td>在允許事後重談的風險中立世界裡，合約要能被執行，除了要滿足原本的「福利中性」之外，還必須額外保證：<strong>任何用來嚇阻說謊的「離路徑懲罰行動」，在事後重談達成的新帕累托最適結果下，依然不會讓說謊者佔到便宜！</strong></td>
+        </tr>
+        <tr>
+          <td><strong>定理 5（Theorem 5）</strong><br>無關性定理（重談版）</td>
+          <td><strong>加性可分效用（Additively Separable Utility）</strong></td>
+          <td>當每個人的效用都能寫成「工作快樂度 $w_i^	heta(x)$ ＋ 現金收入 $y_i$」時（幾乎所有不完全契約文獻都這樣假設！），<strong>即使允許雙方事後自由重新談判，「無法預見未來」依然不會造成任何額外限制！</strong> 因為只要雙方能預測未來各狀態的「總餅大小（總剩餘）」，事前就能直接針對總剩餘來分帳！</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(4)">前往隨堂小測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5 -->
+  <div class="tab-panel">
+    <h2>隨堂小測驗：測試你是否看懂「大樂透懲罰機制（定理 3）」的奧妙！</h2>
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1;">
+      <h4>賽局推理題：在允許事後自由重新談判的世界裡，為什麼對「怕風險（Risk Averse）」的當事人施加一場「期望值為 0、輸贏各 1,000 萬的零和賭局」，能成功取代第三方罰款來嚇阻他亂檢舉？</h4>
+      <p>請選出最精準的經濟學解釋：</p>
+
+      <button class="quiz-option" onclick="checkQuiz(1)">A. 因為裁判會偷偷在硬幣上做手腳，保證讓亂檢舉的人輸掉 1,000 萬。</button>
+      <button class="quiz-option" onclick="checkQuiz(2)">B. 因為在丟硬幣之前，雙方確實會為了避免「兩敗俱傷的風險痛苦」而進行事後重新談判（取消賭局）；但為了說服對手放棄這場賭局，極度怕風險的亂檢舉者必須自掏腰包付給對手一筆「巨額風險保費（確定現金賠償）」！這筆保費等效於實質罰款，因此他在一開始就不敢亂檢舉。</button>
+      <button class="quiz-option" onclick="checkQuiz(3)">C. 因為法律規定賭博是非法的，所以雙方看到賭局就會自動去警察局自首。</button>
+
+      <div class="quiz-feedback" id="quiz-res"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 課 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  教學內容延伸改編自 Eric Maskin &amp; Jean Tirole (1999), "Unforeseen Contingencies and Incomplete Contracts", Section 8.
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function lottoSim(stage) {
+    document.querySelectorAll('.sim-btn').forEach((b, i) => b.classList.toggle('active', i === stage - 1));
+    const out = document.getElementById('lotto-out');
+    if (stage === 1) {
+      out.innerHTML = `
+        <h4 style="color:#1e40af; margin-bottom:0.5rem;">階段 1（丟硬幣前重談）：怕風險的 A 為了逃離噩夢，主動付「保費」求饒！</h4>
+        <p>硬幣還沒丟下去！此時 A 想到「我有 50% 機率會破產負債 1,000 萬」，嚇得冷汗直流（對風險趨避者來說，這場賭局的確定等價損失高達 <strong>-300 萬元</strong>）！</p>
+        <p style="margin-bottom:0;">於是 A 主動找 B 重新談判：<em>「求求你，我們別丟硬幣了！我直接確定轉帳 <strong>200 萬元現金</strong>給你，把這場賭局取消好不好？」</em><br>
+        <strong>結果：</strong> B 欣然同意（對 B 來說白賺 200 萬），而 A 雖然成功取消了賭局，卻<strong>實實在在賠掉了 200 萬元現金</strong>！這個 200 萬「風險保費」成功扮演了懲罰罰金的角色！</p>
+      `;
+    } else {
+      out.innerHTML = `
+        <h4 style="color:#0d9488; margin-bottom:0.5rem;">階段 2（丟硬幣後）：已經是「純現金零和轉帳」，完全沒有重談空間！</h4>
+        <p style="margin-bottom:0;">萬一雙方沒有在丟硬幣前談妥，硬幣一旦落地（例如正面朝上，B 必須直接轉帳 1,000 萬給 A），這已經是<strong>帕累托最適的純現金轉帳</strong>（A 多拿 1 元，B 就少拿 1 元，沒有任何浪費掉的餅可以拿出來重新協商雙贏），所以硬幣落地後根本不可能再重新談判！</p>
+      `;
+    }
+  }
+
+  function checkQuiz(ans) {
+    const fb = document.getElementById('quiz-res');
+    fb.style.display = 'block';
+    if (ans === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>完全正確！</strong> 這就是「Risk-Averse Lottery Punishment」的精妙之處：它巧妙利用「事後重談一定會消除風險無效率」的特性，逼迫怕風險的違規者在重談桌上用「確定現金（風險貼水）」向對手買回安全感！';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>再想一下喔！</strong> 硬幣是完全公平的（期望值為 0）；真正讓違規者大失血的，是在丟硬幣「之前」為了消除恐懼而向對手購買保險的談判代價！';
+    }
+  }
+
+  lottoSim(1);
+</script>
+</body>
+</html>

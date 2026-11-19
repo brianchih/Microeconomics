@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分頁 4 延伸教學：福利中性、兩大前提條件與藍紅蛋糕反例（Maskin & Tirole, 1999）</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --accent: #0d9488;
+    --warn: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e40af 55%, #0d9488 100%);
+    color: white;
+    padding: 2.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ccfbf1;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  header h1 {
+    font-size: 1.95rem;
+    font-weight: 800;
+    margin-bottom: 0.6rem;
+  }
+  header p {
+    color: #dbeafe;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.8rem 1.2rem;
+  }
+  /* Tabs */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    padding: 0.75rem 0.9rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.92rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+  }
+  .tab-panel {
+    display: none;
+    background: var(--card-bg);
+    padding: 2.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  h2 {
+    color: var(--primary);
+    font-size: 1.48rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  h3 {
+    color: #0f172a;
+    font-size: 1.18rem;
+    margin: 1.5rem 0 0.7rem;
+  }
+  p { margin-bottom: 1rem; }
+  ul, ol { margin: 0 0 1.2rem 1.5rem; }
+  li { margin-bottom: 0.55rem; }
+
+  /* Analogy Banner */
+  .analogy-banner {
+    background: linear-gradient(to right, #eff6ff, #f0fdfa);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1.35rem;
+    margin: 1.2rem 0;
+  }
+  .analogy-banner .tag {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .analogy-banner h4 {
+    font-size: 1.15rem;
+    color: #0f172a;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Grid & Cards */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    background: #f8fafc;
+  }
+  .card h4 {
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* Callout */
+  .callout {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-light);
+    padding: 1.1rem 1.3rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.3rem 0;
+  }
+  .callout.teal { background: #f0fdfa; border-left-color: var(--accent); }
+  .callout.warn { background: #fffbeb; border-left-color: var(--warn); }
+  .callout-title { font-weight: 700; margin-bottom: 0.3rem; color: var(--primary); }
+  .callout.teal .callout-title { color: #0f766e; }
+  .callout.warn .callout-title { color: #b45309; }
+
+  /* Interactive Simulator */
+  .sim-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.4rem 0;
+  }
+  .sim-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .sim-btn {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .sim-btn.active, .sim-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  .sim-display {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.35rem;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  /* Quiz */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
+  }
+  .quiz-option:hover { background: #eff6ff; border-color: var(--primary-light); }
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.95rem;
+    border-radius: 8px;
+    display: none;
+    font-weight: 500;
+  }
+
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .nav-btn:hover { background: #e2e8f0; }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">分頁 4 深度延伸教學 · 論文第 5–6 節：定理 1、定理 2 與三大反例</div>
+  <h1>什麼時候「無法預見未來」真的會出事？</h1>
+  <p>從「平行宇宙福利中性」與「藍色蛋糕 vs. 紅色蛋糕測謊反例」看懂無關性定理的邊界</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(0)">第 1 課：什麼是「福利中性」？</button>
+    <button class="tab-btn" onclick="openTab(1)">第 2 課：保證無關的兩大前提條件</button>
+    <button class="tab-btn" onclick="openTab(2)">第 3 課：互動實驗「藍紅蛋糕反例」</button>
+    <button class="tab-btn" onclick="openTab(3)">第 4 課：另外兩個反例（金錢敏感與多人合夥）</button>
+    <button class="tab-btn" onclick="openTab(4)">隨堂小測驗</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div class="tab-panel active">
+    <h2>第 1 課：裁判只認「分數」不認「名字」——什麼是福利中性（Welfare-Neutrality）？</h2>
+    <p>在上一分頁我們看到，因為事前合約沒寫具體事件名字，裁判（法院）只能看到「每個方案帶給雙方的數字報酬 $(v_1, v_2)$」。這就導出了一個必然的限制，Maskin 與 Tirole 稱之為<strong>福利中性（Welfare-Neutrality，第 92 頁）</strong>：</p>
+
+    <div class="analogy-banner">
+      <span class="tag">🎓 大學生日常案例 1：兩個長相不同、但「快樂結構完全一樣」的平行宇宙</span>
+      <h4>假設你跟室友在期末抽中「神秘社團體驗券」，但出發前完全不知道會去哪裡</h4>
+      <ul style="margin-bottom:0;">
+        <li><strong>平行宇宙 A（去陽明山露營）：</strong> 搭帳篷讓你開心 +80 分、室友 +40 分；住小木屋讓你 +50 分、室友 +90 分。</li>
+        <li><strong>平行宇宙 B（去墾丁衝浪）：</strong> 學衝浪讓你開心 +80 分、室友 +40 分；在沙灘晒太陽讓你 +50 分、室友 +90 分。</li>
+        <li><strong>福利中性的意義：</strong> 因為合約在事前根本不知道「露營」跟「衝浪」的存在，裁判在事後看到的只有<strong>一模一樣的數字分數矩陣</strong>！因此，合約給你們兩人的最終結果（選擇哪個方案、轉帳多少錢）在宇宙 A 和宇宙 B <strong>必須完全一模一樣</strong>！</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">📌 定理 1（Theorem 1）的震撼結論：</div>
+      只要一份合約滿足「福利中性」（換句話說，只要你們不強求裁判去區分『露營』和『衝浪』這兩個名字），<strong>就算完全無法預見未來會發生什麼物理事件，我們也 100% 找得到一個子賽局完美執行機制來達成它！</strong>
+    </div>
+
+    <div class="nav-footer">
+      <span></span>
+      <button class="nav-btn" onclick="openTab(1)">下一課：現實世界滿足「福利中性」的兩大條件 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 2 -->
+  <div class="tab-panel">
+    <h2>第 2 課：定理 2——現實環境只要符合「兩大條件」，無關性定理就成立！</h2>
+    <p>那麼，什麼情況下「最佳完全契約」會自動滿足福利中性（也就是「無法預見未來」完全不會造成任何效率損失）？Maskin 與 Tirole 在<strong>定理 2（Theorem 2，第 93–94 頁）</strong>證明了只要符合以下<strong>兩個條件</strong>就夠了——而幾乎所有現有不完全契約文獻（如 Hart 1995）都符合這兩點！</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-top: 4px solid var(--primary);">
+        <h4>💰 條件一：金錢邊際效用比例不受狀態影響</h4>
+        <p><strong>數學意義：</strong> 雙方對「多賺 1 塊錢的渴望程度比例（$lpha_1^	heta / lpha_2^	heta$）」不能隨突發事件改變（例如兩人都屬風險中立，或準線性效用 $u_i^	heta(x, y_i) = w_i^	heta(x) + y_i$）。</p>
+        <p style="margin-bottom:0;"><strong>白話翻譯：</strong> 不能發生「在宇宙 A 裡 1 塊錢對你很重要，但在分數結構一模一樣的宇宙 B 裡，1 塊錢突然對你變得像廢紙一樣不重要」。</p>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--accent);">
+        <h4>🕵️ 條件二：努力程度無法從「無關細節」偷看（Unidentified Effort）</h4>
+        <p><strong>數學意義：</strong> 如果兩個未來世界 $	heta$ 和 $\hat{	heta}$ 的報酬結構完全相同，那麼這兩個世界發生的「相對機率（Likelihood Ratio）」，不能因為當事人期中有沒有認真努力而改變。</p>
+        <p style="margin-bottom:0;"><strong>白話翻譯：</strong> 老天爺不能透過「無關痛癢的小細節（例如產品顏色）」偷偷向老闆打小報告說「這傢伙期中偷懶沒認真做」！</p>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      <div class="callout-title">💡 為什麼這兩點如此重要？</div>
+      因為一旦違反了其中任何一點，最佳完全契約就會利用那些「無關分數、但看得出名字的細節」來賞罰員工或分配風險；而當你無法預見未來、寫不出這些細節的名字時，效率就會真的受損！
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(0)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(2)">下一課：互動體驗「藍色蛋糕 vs. 紅色蛋糕」反例 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 3 -->
+  <div class="tab-panel">
+    <h2>第 3 課：互動實驗——論文第 6 節的「藍紅小工具反例（Blue vs. Red Widgets）」</h2>
+    <p>為了讓大家看懂「條件二（Unidentified Effort）」一旦被打破會發生什麼事，Maskin 與 Tirole 在論文第 6 節（第 94 頁）舉了一個傳世經典的<strong>「藍色小工具 vs. 紅色小工具」</strong>反例。我們把它改編成大學生最熟悉的甜點研發創業故事：</p>
+
+    <div class="analogy-banner" style="background: linear-gradient(to right, #fffbeb, #fef2f2); border-color: #fde68a;">
+      <span class="tag" style="background:#b45309;">🎓 大學生日常案例 2：雇用怕風險的學弟研發「校園爆紅新甜點」</span>
+      <h4>設定：你是老闆（風險中立），學弟是研發主廚（極度怕風險 Risk Averse），且你看不到他在廚房有沒有偷懶</h4>
+      <ul style="margin-bottom:0;">
+        <li>甜點做出來只有兩種口味結果：<strong>「超好吃（賣賺 10,000 元）」</strong>或<strong>「超難吃（虧損 0 元）」</strong>。不管學弟多認真，都有 50% 機率成功、50% 機率失敗（運氣成分很大）。</li>
+        <li><strong>神奇的物理規律（條件二被打破！）：</strong> 只要學弟<strong>有認真研發（$e = 	ext{高}$）</strong>，烤出來的蛋糕一定是<strong>【藍色】</strong>；如果學弟<strong>偷懶打混（$e = 	ext{低}$）</strong>，烤出來的蛋糕一定是<strong>【紅色】</strong>！<br>
+        <em>（注意：客人完全不在乎蛋糕是藍色還是紅色，顏色對好吃程度與利潤 0 影響！）</em></li>
+      </ul>
+    </div>
+
+    <p>請點擊下方兩種合約世界，比較「能預見顏色」與「想不到會有藍/紅顏色」的巨大差異：</p>
+
+    <div class="sim-box">
+      <div class="sim-controls">
+        <button class="sim-btn active" onclick="cakeSim(1)">世界 A：事前預見了「藍/紅顏色」（完全契約：100 分完美！）</button>
+        <button class="sim-btn" onclick="cakeSim(2)">世界 B：事前根本想不到會有「藍/紅顏色」（不完全契約：被迫扣分！）</button>
+      </div>
+      <div class="sim-display" id="cake-out"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(1)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(3)">下一課：另外兩個會讓無關性定理失效的反例 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 4 -->
+  <div class="tab-panel">
+    <h2>第 4 課：論文第 6 節補充的另外兩個「破功反例」</h2>
+    <p>除了剛才打破條件二的「藍紅蛋糕反例」之外，Maskin 與 Tirole 在第 6 節（第 95–96 頁）還列出了另外兩種情況，說明何時「無法預見未來」確實會限制合約能力：</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>反例類型</th>
+          <th>打破了哪個假設？</th>
+          <th>大學生日常例子與結果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>反例 2：金錢邊際效用隨狀態劇變</strong><br>（打破條件一）</td>
+          <td>打破「金錢邊際效用比例不變」。</td>
+          <td><strong>「健忘天才與普通人的保險合約」：</strong><br>假設你們合夥擺攤，在宇宙 A（晴天）裡 1,000 元對你跟學弟都很重要；在宇宙 B（遇到佛心贊助商全額買單）裡，所有行動帶給你們的「非金錢快樂結構」跟宇宙 A 一模一樣，但因為贊助商送了無限代金券，<strong>現金 1,000 元在宇宙 B 變得毫無價值（邊際效用為 0）</strong>！<br>完全契約可以在宇宙 B 安排大額現金轉移來提供保險；但裁判只看分數矩陣時分不出宇宙 A 和 B，導致無法提供這份保險！</td>
+        </tr>
+        <tr>
+          <td><strong>反例 3：三人以上的合夥團體</strong><br>（超出兩人模型）</td>
+          <td>合約當事人從 2 人變成 $n \ge 3$ 人。</td>
+          <td><strong>「三人期末報告小組的暗盤交易」：</strong><br>當只有 2 個人時，福利中性就足以讓執行機制運作；但當變成 3 個人（你、學弟、學妹）時，即使滿足條件一與條件二，有些完全契約依然無法被執行——因為在兩人對質測謊時，第三個人可能被邊緣化或與其中一人串通，導致資訊無法完全透過雙邊懲罰套出來！</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(2)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(4)">前往隨堂小測驗 &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Tab 5 -->
+  <div class="tab-panel">
+    <h2>隨堂小測驗：測試你是否看懂「藍紅蛋糕反例」的精髓！</h2>
+    <div class="analogy-banner" style="background:#f8fafc; border-color:#cbd5e1;">
+      <h4>應用題：在「藍色蛋糕 vs. 紅色蛋糕」的例子中，為什麼當老闆事前「無法預見顏色」時，即使事後老闆跟學弟都親眼看到蛋糕是紅色的，法官卻沒辦法懲罰偷懶的學弟？</h4>
+      <p>請選出最精準的機制設計解釋：</p>
+
+      <button class="quiz-option" onclick="checkQuiz(1)">A. 因為法官是色盲，分不清楚藍色跟紅色。</button>
+      <button class="quiz-option" onclick="checkQuiz(2)">B. 因為「顏色」本身完全不影響雙方的效用（吃起來一樣好吃、利潤也一樣）。在事前沒寫進合約的情況下，裁判只能透過雙方的效用數字結構來辨識世界；於是偷懶烤出「紅色蛋糕」的學弟，在事後測謊遊戲中只要謊稱「現在這個紅色世界，就是當初那個藍色世界」，裁判根本無法從報酬數字上拆穿他！</button>
+      <button class="quiz-option" onclick="checkQuiz(3)">C. 因為法律規定不能根據食物的顏色來發薪水。</button>
+
+      <div class="quiz-feedback" id="quiz-res"></div>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="openTab(3)">&larr; 上一課</button>
+      <button class="nav-btn" onclick="openTab(0)">回到第 1 課 &#8634;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  教學內容延伸改編自 Eric Maskin &amp; Jean Tirole (1999), "Unforeseen Contingencies and Incomplete Contracts", Sections 5 &amp; 6.
+</footer>
+
+<script>
+  function openTab(index) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+    document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function cakeSim(mode) {
+    document.querySelectorAll('.sim-btn').forEach((b, i) => b.classList.toggle('active', i === mode - 1));
+    const out = document.getElementById('cake-out');
+    if (mode === 1) {
+      out.innerHTML = `
+        <h4 style="color:#1e40af; margin-bottom:0.5rem;">世界 A（完全契約）：事前預見顏色 $ightarrow$ 實現「零風險完美激勵」！</h4>
+        <p>老闆直接在合約白紙黑字寫下：<br>
+        <em>「只要烤出來的蛋糕是<strong>藍色</strong>的，不管最後好不好吃、賺不賺錢，老闆一律發給你 <strong>3,000 元固定薪水</strong>；如果是<strong>紅色</strong>的，一毛錢都沒有（0 元）！」</em></p>
+        <p style="margin-bottom:0;"><strong>結果（100 分 First-Best）：</strong> 學弟為了拿到 3,000 元一定會乖乖認真做出藍色蛋糕；而且因為不管運氣好壞都穩拿 3,000 元，怕風險的學弟<strong>完全不用承擔任何市場失敗風險</strong>！</p>
+      `;
+    } else {
+      out.innerHTML = `
+        <h4 style="color:#dc2626; margin-bottom:0.5rem;">世界 B（不完全契約）：想不到會有顏色 $ightarrow$ 效率損失真的發生了！</h4>
+        <p>簽約時雙方根本不知道蛋糕會變色。事後就算學弟偷懶烤出<strong>紅色蛋糕</strong>，在測謊遊戲裡，學弟只要死口咬定：「報告裁判，『紅色蛋糕世界』跟『藍色蛋糕世界』的口味與利潤分數一模一樣（福利中性），請照樣發給我 3,000 元！」——<strong>裁判完全無法區分這兩個世界！</strong></p>
+        <p style="margin-bottom:0;"><strong>被迫降級的結果（Second-Best 效率損失）：</strong> 老闆無法再靠「顏色」發固定薪水，只能改用傳統的「好吃發 5,000 元、難吃只發 1,000 元」業績獎金制。這會迫使怕風險的學弟承擔痛苦的運氣波動，老闆也必須多付風險貼水——<strong>此時「無法預見未來」真的造成了真實的經濟損失！</strong></p>
+      `;
+    }
+  }
+
+  function checkQuiz(ans) {
+    const fb = document.getElementById('quiz-res');
+    fb.style.display = 'block';
+    if (ans === 2) {
+      fb.style.background = '#dcfce7';
+      fb.style.color = '#166534';
+      fb.innerHTML = '🎉 <strong>完全正確！</strong> 這就是「福利中性（Welfare-Neutrality）」的威力：任何不影響效用結構、卻能透露努力線索的物理標籤（如顏色），一旦無法在事前寫進合約，事後就無法透過效用測謊機制區分出來！';
+    } else {
+      fb.style.background = '#fee2e2';
+      fb.style.color = '#991b1b';
+      fb.innerHTML = '❌ <strong>再想一下喔！</strong> 即使法官眼睛看得到顏色，但因為期初合約沒寫「藍色」或「紅色」這兩個詞，裁判只能依據雙方的「效用數字矩陣」來判斷這是哪一種狀態。';
+    }
+  }
+
+  cakeSim(1);
+</script>
+</body>
+</html>
