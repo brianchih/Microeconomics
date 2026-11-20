@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>碩士班個體經濟理論導讀：Ch.6 邊際產量與邊際要素需求</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- KaTeX for Mathematical Equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+  <!-- Official Desmos Graphing Calculator API v1.9 -->
+  <script src="https://www.desmos.com/api/v1.9/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', '"Noto Sans TC"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .katex {
+      font-size: 1.04em;
+    }
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+      }
+      .print-break {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-blue-100 selection:text-blue-900">
+
+  <!-- Top Academic Navigation Bar -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-medium text-blue-300 tracking-wide uppercase">
+          <span>Master's Microeconomic Theory Seminar</span>
+          <span>•</span>
+          <span>Chapter 6: Marginal Products & Marginal Factor Demand</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white mt-0.5">
+          碩士班個體經濟理論導讀：第6章 邊際產量與邊際要素需求（6.1 ~ 6.2）
+        </h1>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2.5 text-xs sm:text-sm">
+        <div class="bg-slate-800/90 border border-slate-700 px-3 py-1.5 rounded-lg text-slate-200">
+          授課教師：<span class="font-semibold text-white">池秉聰 教授</span>
+        </div>
+        <a href="#desmos-lab" class="no-print bg-blue-600 hover:bg-blue-500 text-white font-medium px-3.5 py-1.5 rounded-lg transition shadow-sm flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
+          Desmos 互動實驗室
+        </a>
+        <button onclick="downloadSelfHTML()" class="no-print bg-slate-700 hover:bg-slate-600 text-slate-100 font-medium px-3 py-1.5 rounded-lg transition border border-slate-600 flex items-center gap-1.5" title="下載離線 HTML 教材">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          下載 HTML 教材
+        </button>
+        <button onclick="window.print()" class="no-print bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg transition border border-slate-700 flex items-center gap-1" title="列印講義">
+          🖨️ <span class="hidden sm:inline">列印講義</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row gap-6">
+
+    <!-- Sticky Sidebar Navigation -->
+    <aside class="lg:w-64 flex-shrink-0 no-print">
+      <nav class="lg:sticky lg:top-24 bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 px-2">
+          第6章 課程研討導航
+        </div>
+        <ul class="flex lg:flex-col gap-1.5 overflow-x-auto pb-1 lg:pb-0 text-sm">
+          <li>
+            <a href="#banner-overview" class="block whitespace-nowrap px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
+              📌 章節摘要與報告分工
+            </a>
+          </li>
+          <li>
+            <a href="#desmos-lab" class="block whitespace-nowrap px-3 py-2 rounded-lg font-semibold text-blue-700 bg-blue-50/80 hover:bg-blue-100 transition border border-blue-200/70">
+              📈 Desmos 互動實驗室
+            </a>
+          </li>
+          <li>
+            <a href="#sec-6-1" class="block whitespace-nowrap px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-100 transition">
+              一、6.1 邊際產量與函數型態
+            </a>
+          </li>
+          <li>
+            <a href="#sec-calculus-debug" class="block whitespace-nowrap px-3 py-2 rounded-lg font-medium text-rose-700 hover:bg-rose-50 transition">
+              ⚠️ 教授微積分除錯勘誤實錄
+            </a>
+          </li>
+          <li>
+            <a href="#sec-6-2" class="block whitespace-nowrap px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-100 transition">
+              二、6.2 邊際要素需求與效率
+            </a>
+          </li>
+          <li>
+            <a href="#sec-cases" class="block whitespace-nowrap px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-100 transition">
+              🏢 Amazon 與波音案例解析
+            </a>
+          </li>
+          <li>
+            <a href="#sec-discussion" class="block whitespace-nowrap px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-100 transition">
+              💬 課堂思考與研討問題
+            </a>
+          </li>
+        </ul>
+
+        <!-- Textbook & Class Summary Card -->
+        <div class="hidden lg:block mt-5 pt-4 border-t border-slate-100 px-2 space-y-2">
+          <p class="text-xs font-semibold text-slate-500">核心教材對照</p>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            John P. Burkett (2006). <em>Microeconomics: Optimization, Experiments, and Behavior</em>, Chapter 6.
+          </p>
+          <div class="pt-2 border-t border-slate-100 text-[11px] text-slate-500">
+            報告研究生：<strong class="text-slate-700">芷瑄</strong>（Sec 6.1）、<strong class="text-slate-700">韋辰</strong>（Sec 6.2）
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content Column -->
+    <main class="flex-1 min-w-0 space-y-8">
+
+      <!-- Chapter Summary Banner -->
+      <section id="banner-overview" class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-2xl shadow-md p-6 sm:p-8 scroll-mt-24 print-break">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-2.5 max-w-2xl">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-200 border border-blue-400/30">
+              Chapter 6 Seminar Overview • 生產技術偏導數與要素市場最優配置
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">
+              從邊際產量幾何型態到企業要素雇用決策
+            </h2>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              本章探討廠商在給定生產技術下，如何衡量個別生產要素的邊際貢獻（$MP_L, MP_K$），透過微積分驗算釐清生產函數反曲點與課本勘誤，並進一步推導利潤極大化下的邊際要素需求條件（$VMP_L = w, VMP_K = r$）與跨部門資源配置效率。
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 shrink-0 lg:w-80">
+            <a href="#sec-6-1" class="bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl p-3.5 transition">
+              <div class="flex items-center justify-between text-xs text-blue-300 font-semibold mb-1">
+                <span>Section 6.1 報告人：芷瑄</span>
+                <span>生產函數與除錯</span>
+              </div>
+              <div class="text-xs text-slate-200">
+                邊際報酬遞減、Cobb-Douglas 與 S 型生產函數、對數微分法與課本 $MP_K$ 分子勘誤驗證
+              </div>
+            </a>
+            <a href="#sec-6-2" class="bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl p-3.5 transition">
+              <div class="flex items-center justify-between text-xs text-emerald-300 font-semibold mb-1">
+                <span>Section 6.2 報告人：韋辰</span>
+                <span>要素需求與實務</span>
+              </div>
+              <div class="text-xs text-slate-200">
+                $VMP_L = w$ 條件與總利潤辨析、雙產線勞動重分配效率、Amazon 與 Boeing 決策案例
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE DESMOS LABORATORY -->
+      <section id="desmos-lab" class="bg-white rounded-2xl border-2 border-blue-200 shadow-md overflow-hidden scroll-mt-24 print-break">
+        <div class="bg-slate-900 text-white px-6 py-5 border-b border-slate-800">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 text-xs font-bold bg-blue-600 text-white rounded-full">即時互動視覺化實驗室</span>
+                <span class="text-xs text-slate-400">Desmos Graphing Calculator API v1.9</span>
+              </div>
+              <h2 class="text-xl sm:text-2xl font-bold mt-1">第6章 個體經濟理論 Desmos 互動實驗室</h2>
+              <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                點擊下方 4 組課堂模型按鈕即時載入圖形，拖動左側滑桿（Sliders）觀察反曲點、規模報酬與跨產線資源重分配的動態變化。
+              </p>
+            </div>
+          </div>
+
+          <!-- 4 Model Switcher Buttons -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 mt-5 no-print">
+            <button id="btn-model-1" onclick="loadDesmosModel(1)" class="model-tab text-left px-3.5 py-3 rounded-xl border transition flex flex-col justify-between bg-blue-600 border-blue-400 text-white shadow">
+              <div class="flex items-center justify-between w-full">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-blue-100">模型 1 • Sec 6.1 勘誤</span>
+                <span class="text-[10px] bg-white/20 px-1.5 py-0.5 rounded">倒 U 型 MP</span>
+              </div>
+              <div class="font-bold text-xs sm:text-sm mt-1">S 型生產函數與 $MP_K$ 課本勘誤驗證</div>
+            </button>
+
+            <button id="btn-model-2" onclick="loadDesmosModel(2)" class="model-tab text-left px-3.5 py-3 rounded-xl border transition flex flex-col justify-between bg-slate-800/90 border-slate-700 text-slate-200 hover:bg-slate-700">
+              <div class="flex items-center justify-between w-full">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">模型 2 • Sec 6.1 齊次</span>
+                <span class="text-[10px] bg-slate-700 px-1.5 py-0.5 rounded">CRS 檢驗</span>
+              </div>
+              <div class="font-bold text-xs sm:text-sm mt-1">Cobb-Douglas 與規模報酬固定驗證</div>
+            </button>
+
+            <button id="btn-model-3" onclick="loadDesmosModel(3)" class="model-tab text-left px-3.5 py-3 rounded-xl border transition flex flex-col justify-between bg-slate-800/90 border-slate-700 text-slate-200 hover:bg-slate-700">
+              <div class="flex items-center justify-between w-full">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">模型 3 • Sec 6.2 雇用</span>
+                <span class="text-[10px] bg-slate-700 px-1.5 py-0.5 rounded">VMP = w</span>
+              </div>
+              <div class="font-bold text-xs sm:text-sm mt-1">單一產線要素雇用與總利潤面積</div>
+            </button>
+
+            <button id="btn-model-4" onclick="loadDesmosModel(4)" class="model-tab text-left px-3.5 py-3 rounded-xl border transition flex flex-col justify-between bg-slate-800/90 border-slate-700 text-slate-200 hover:bg-slate-700">
+              <div class="flex items-center justify-between w-full">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">模型 4 • Sec 6.2 效率</span>
+                <span class="text-[10px] bg-slate-700 px-1.5 py-0.5 rounded">重分配模擬</span>
+              </div>
+              <div class="font-bold text-xs sm:text-sm mt-1">雙產線勞動重分配與配置效率</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Desmos Canvas & Guide Container -->
+        <div class="p-4 sm:p-6 bg-slate-50">
+          <div class="w-full rounded-xl overflow-hidden border border-slate-300 shadow-inner bg-white">
+            <div id="desmos-calculator" class="w-full h-[460px] sm:h-[540px]"></div>
+          </div>
+
+          <!-- Dynamic Guide & Equations Box -->
+          <div class="mt-5 grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div class="lg:col-span-7 bg-white rounded-xl border border-slate-200 p-4 sm:p-5">
+              <div class="flex items-center justify-between mb-2">
+                <h3 id="guide-title" class="font-bold text-slate-900 text-base">模型 1 操作引導與數學幾何直覺</h3>
+                <span class="text-xs font-medium text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">互動演示重點</span>
+              </div>
+              <div id="guide-content" class="text-sm text-slate-600 space-y-2 leading-relaxed"></div>
+            </div>
+
+            <div class="lg:col-span-5 bg-slate-900 text-slate-100 rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2.5">
+                  <span class="text-xs font-bold uppercase tracking-wider text-blue-300">Desmos 方程式清單（可複製貼上）</span>
+                  <button onclick="copyEquationsList()" id="copy-eq-btn" class="text-xs bg-blue-600 hover:bg-blue-500 text-white px-2.5 py-1 rounded transition">
+                    複製全部公式
+                  </button>
+                </div>
+                <pre id="guide-equations" class="text-xs font-mono text-slate-200 bg-slate-950/80 p-3 rounded-lg border border-slate-800 overflow-x-auto leading-relaxed"></pre>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-2.5">
+                💡 提示：點擊 Desmos 左側任意交點，即可顯示精確的 $(x, y)$ 座標數值；亦可直接拖曳滑桿觀察動態變化。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PART 1: Section 6.1 -->
+      <section id="sec-6-1" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-7 scroll-mt-24 print-break">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-5">
+          <div>
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 mb-1">Section 6.1 • 報告人：芷瑄</span>
+            <h2 class="text-xl font-bold text-slate-900">第一部分：邊際產量（$MP_L, MP_K$）與生產函數型態</h2>
+          </div>
+          <button onclick="loadDesmosModel(2); document.getElementById('desmos-lab').scrollIntoView();" class="no-print text-xs font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition">
+            在 Desmos 測試 Cobb-Douglas ↗
+          </button>
+        </div>
+
+        <div class="space-y-6">
+          <!-- 1.1 Core Definition & Shovel Intuition -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div class="lg:col-span-7 bg-slate-50 rounded-xl p-5 border border-slate-200">
+              <h3 class="font-bold text-slate-900 text-base mb-2">1. 邊際產量定義與邊際報酬遞減法則</h3>
+              <p class="text-sm text-slate-700 leading-relaxed mb-3">
+                在維持其他生產要素投入量固定不變（<em>ceteris paribus</em>）的前提下，額外增加一單位某一特定生產要素所帶來的總產出增量，稱為該要素的<strong>邊際產量（Marginal Product）</strong>：
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-2">
+                <div class="bg-white p-3 rounded-lg border border-slate-200 text-center">
+                  <span class="text-xs text-slate-500 block">勞動邊際產量（$MP_L$）</span>
+                  $$MP_L = \frac{\partial Q(K, L)}{\partial L}$$
+                </div>
+                <div class="bg-white p-3 rounded-lg border border-slate-200 text-center">
+                  <span class="text-xs text-slate-500 block">資本邊際產量（$MP_K$）</span>
+                  $$MP_K = \frac{\partial Q(K, L)}{\partial K}$$
+                </div>
+              </div>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                <strong>邊際報酬遞減（Diminishing Marginal Returns）：</strong>當其他要素固定而持續增加某一要素時，初期可能因專業分工使邊際產量上升，但超過特定臨界點後，新增要素所帶來的額外產出貢獻終將遞減，甚至趨近於零或轉為負值。
+              </p>
+            </div>
+
+            <!-- Shovel Analogy & Jensen Huang Current Event -->
+            <div class="lg:col-span-5 bg-amber-50/70 rounded-xl p-5 border border-amber-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-lg">⛏️</span>
+                  <h3 class="font-bold text-amber-950 text-base">經典直覺：「挖水溝與鏟子」與 AI 時事連結</h3>
+                </div>
+                <p class="text-xs sm:text-sm text-amber-950/90 leading-relaxed mb-2.5">
+                  <strong>課本經典比喻：</strong>假設固定有 2 名工人挖水溝，第 1 把鏟子讓產出開始增加；第 2 把鏟子讓兩人同時開挖、分工協作，產出大幅躍升；但若再增加<strong>第 3 把鏟子</strong>（人力固定為 2 人），多出的鏟子完全派不上用場，$MP_K$ 驟降為 0！
+                </p>
+              </div>
+              <div class="bg-white/90 rounded-lg p-3 border border-amber-200/80 text-xs text-slate-700 leading-relaxed">
+                <strong class="text-amber-900">💡 教授課堂時事補充（NVIDIA 黃仁勳「賣鏟子」比喻）：</strong><br />
+                輝達執行長黃仁勳曾自稱在 AI 淘金熱中扮演「提供鏟子與基礎設施」的角色。當社會大眾擔憂 AI 缺乏管制而失控時，究竟該歸責於「提供鏟子的工具製造商」，還是「使用鏟子挖溝的應用端企業」？這正是技術中性與外部性管制的經典經濟辯論。
+              </div>
+            </div>
+          </div>
+
+          <!-- 1.2 Two Production Function Shapes Comparison -->
+          <div>
+            <h3 class="font-bold text-slate-900 text-base mb-3">2. 兩種生產函數型態與邊際產量曲線的幾何對照</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Type A: Cobb-Douglas -->
+              <div class="rounded-xl border border-slate-200 p-5 bg-white">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-blue-900 text-base">型態 A：Cobb-Douglas 生產函數</span>
+                  <span class="text-xs font-mono bg-blue-50 text-blue-700 px-2 py-0.5 rounded">單調遞減 • 凸向原點</span>
+                </div>
+                <div class="bg-slate-50 p-3 rounded-lg border border-slate-200/80 text-center my-2 text-sm">
+                  $$Q = A K^\alpha L^\beta \implies MP_K = \alpha A K^{\alpha-1} L^\beta, \quad MP_L = \beta A K^\alpha L^{\beta-1}$$
+                </div>
+                <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 leading-relaxed mt-2">
+                  <li>• <strong>單調遞減與凸性：</strong>當 $0 < \alpha, \beta < 1$ 時，一階偏導數隨該要素增加而一路下滑（由陡峭轉為平緩，曲線凸向原點），反映邊際技術替代率遞減（$MRTS$ 遞減）。</li>
+                  <li>• <strong>規模報酬固定（CRS, $\alpha + \beta = 1$）的重要性質：</strong>此時 $Q = A K^\alpha L^{1-\alpha}$，邊際產量可改寫為僅取決於<strong>資本勞動比（$K/L$）</strong>的函數：
+                    $$MP_K = \alpha A \left(\frac{K}{L}\right)^{\alpha - 1}, \quad MP_L = (1-\alpha) A \left(\frac{K}{L}\right)^{\alpha}$$
+                    代表只要 $K$ 與 $L$ 維持<strong>同比例擴張</strong>，$MP_K$ 與 $MP_L$ 皆完全保持不變！
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Type B: S-Shaped Production Function -->
+              <div class="rounded-xl border border-slate-200 p-5 bg-white">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-bold text-emerald-900 text-base">型態 B：先遞增後遞減的 S 型生產函數</span>
+                  <span class="text-xs font-mono bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">倒 U 型邊際產量</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed mb-2">
+                  當固定資本與空間不變，勞動投入由極少逐步增加時，總產量線呈現先凸後凹的 <strong>S 型（Sigmoid-like）</strong>，對應的 $MP_L$ 則呈現先升後降的<strong>倒 U 型</strong>：
+                </p>
+                <div class="space-y-2 text-xs sm:text-sm">
+                  <div class="p-2.5 rounded-lg bg-emerald-50/60 border border-emerald-200/70">
+                    <strong class="text-emerald-950">階段一（邊際產量遞增階段）：</strong>初期人手不足，新增勞動力能透過分工協作大幅提升效率，總產量曲線斜率越來越陡峭，$MP_L$ 一路攀升。
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                    <strong class="text-slate-900">反曲點（Inflection Point）：</strong>滿足 $\frac{\partial MP_L}{\partial L} = \frac{\partial^2 Q}{\partial L^2} = 0$，此時總產量線斜率最陡，<strong>$MP_L$ 達到最高峰</strong>。
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-amber-50/60 border border-amber-200/70">
+                    <strong class="text-amber-950">階段二（邊際產量遞減階段）：</strong>跨越反曲點後，受限於固定空間與設備擁擠，總產量雖仍增加但增速趨緩（斜率轉平），$MP_L$ 開始持續下滑。
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1.3 Professor's Calculus Debugging Record (Textbook Errata) -->
+          <div id="sec-calculus-debug" class="rounded-2xl border-2 border-rose-300 bg-rose-50/40 p-5 sm:p-6 scroll-mt-24">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-xs font-bold">⚠️ 教授現場微積分除錯實錄</span>
+                <h3 class="font-bold text-rose-950 text-base sm:text-lg">課本原題勘誤：利用對數微分法與 Desmos 抓出印錯的 $MP_K$ 與 $MP_L$</h3>
+              </div>
+              <button onclick="loadDesmosModel(1); document.getElementById('desmos-lab').scrollIntoView();" class="no-print text-xs font-semibold bg-rose-600 hover:bg-rose-500 text-white px-3 py-1.5 rounded-lg transition shadow-sm">
+                立即在 Desmos 模型 1 驗證勘誤 ↗
+              </button>
+            </div>
+
+            <p class="text-sm text-slate-800 leading-relaxed mb-4">
+              課堂上，芷瑄與教授嘗試將課本中「先遞增後遞減」的雙要素生產函數 $Q = \frac{50 K^2 L^2}{25^4 + K^2 L^2}$ 輸入 Desmos（3D 繪圖時需限制 $K > 0, L > 0$，以排除二、三、四象限因偶數次方產生的對稱假象），卻發現用課本印出的 $MP_K$ 公式（固定 $L = 50$）畫出來的曲線峰值僅約 $0.0042$，與課本 Figure 6.2 配圖（最高點約 $2.60$）嚴重不符！師生現場透過<strong>對數微分法（Logarithmic Differentiation）</strong>逐步驗算，成功抓出課本的印刷錯誤：<strong>分子中的 $25^2$ 少寫了兩次方，應訂正為 $25^4$，其餘完全正確！</strong>
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+              <!-- Step-by-Step Logarithmic Differentiation -->
+              <div class="lg:col-span-7 bg-white rounded-xl border border-rose-200 p-4 sm:p-5 space-y-2.5 text-xs sm:text-sm">
+                <div class="font-bold text-slate-900">📐 步驟拆解：對數微分法推導正確 $MP_K$ 與 $MP_L$</div>
+                <p class="text-slate-700">
+                  給定課本原題生產函數（$K > 0, L > 0$）：
+                  $$Q(K, L) = \frac{50 K^2 L^2}{25^4 + K^2 L^2}$$
+                </p>
+                <ol class="list-decimal list-inside space-y-1.5 text-slate-700">
+                  <li><strong>兩邊取自然對數（將分式除法轉為減法）：</strong>
+                    $$\ln Q = \ln(50 K^2 L^2) - \ln(25^4 + K^2 L^2)$$
+                  </li>
+                  <li><strong>固定 $L$，兩邊對 $K$ 偏微分：</strong>
+                    $$\frac{1}{Q} \frac{\partial Q}{\partial K} = \frac{100 K L^2}{50 K^2 L^2} - \frac{2 K L^2}{25^4 + K^2 L^2} = \frac{2}{K} - \frac{2 K L^2}{25^4 + K^2 L^2}$$
+                  </li>
+                  <li><strong>通分並化簡分子（$2 K^2 L^2$ 項相互抵消）：</strong>
+                    $$\frac{1}{Q} \frac{\partial Q}{\partial K} = \frac{2(25^4 + K^2 L^2) - 2 K^2 L^2}{K(25^4 + K^2 L^2)} = \frac{2 \cdot 25^4}{K(25^4 + K^2 L^2)}$$
+                  </li>
+                  <li><strong>將 $Q = \frac{50 K^2 L^2}{25^4 + K^2 L^2}$ 乘回右式並約分 $K$：</strong>
+                    $$MP_K = \frac{\partial Q}{\partial K} = \frac{50 K^2 L^2}{25^4 + K^2 L^2} \cdot \frac{2 \cdot 25^4}{K(25^4 + K^2 L^2)} = \frac{50(25^4 \cdot 2 K L^2)}{(25^4 + K^2 L^2)^2}$$
+                  </li>
+                </ol>
+              </div>
+
+              <!-- Errata Comparison Box -->
+              <div class="lg:col-span-5 flex flex-col justify-between gap-3">
+                <div class="bg-white rounded-xl border border-rose-300 p-4">
+                  <div class="text-xs font-bold text-rose-700 uppercase mb-1">❌ 課本原圖誤印（分子誤植為 $25^2$）</div>
+                  <p class="text-xs text-slate-600 mb-1.5">課本公式分子中的 $25^2$ 少寫了兩次方，導致計算出的邊際產量縮小了 $25^2 = 625$ 倍（固定 $L=50$ 時峰值僅約 $0.0042$）：</p>
+                  <div class="bg-rose-50 p-2 rounded text-center text-xs font-mono text-rose-900 space-y-1">
+                    <div>$$MP_K^{\text{errata}} = \frac{50(25^2 \cdot 2 K L^2)}{(25^4 + K^2 L^2)^2}$$</div>
+                    <div>$$MP_L^{\text{errata}} = \frac{50(25^2 \cdot 2 K^2 L)}{(25^4 + K^2 L^2)^2}$$</div>
+                  </div>
+                </div>
+
+                <div class="bg-emerald-50/90 rounded-xl border border-emerald-300 p-4">
+                  <div class="text-xs font-bold text-emerald-800 uppercase mb-1">✅ 教授驗算訂正版（分子 $25^2 \rightarrow 25^4$，其餘不變）</div>
+                  <p class="text-xs text-slate-700 mb-1.5">將分子的 $25^2$ 訂正為 $25^4$ 後，固定 $L = 50$ 時，$MP_K$ 在 $K \approx 4.6$ 處達到最高峰 <strong>$\approx 2.60$</strong>，與課本 Figure 6.2 完全吻合：</p>
+                  <div class="bg-white p-2.5 rounded border border-emerald-200 text-center text-xs sm:text-sm space-y-1">
+                    <div>$$MP_K = \frac{50(25^4 \cdot 2 K L^2)}{(25^4 + K^2 L^2)^2} = \frac{100 \cdot 25^4 K L^2}{(25^4 + K^2 L^2)^2}$$</div>
+                    <div>$$MP_L = \frac{50(25^4 \cdot 2 K^2 L)}{(25^4 + K^2 L^2)^2} = \frac{100 \cdot 25^4 K^2 L}{(25^4 + K^2 L^2)^2}$$</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PART 2: Section 6.2 -->
+      <section id="sec-6-2" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-7 scroll-mt-24 print-break">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-5">
+          <div>
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 mb-1">Section 6.2 • 報告人：韋辰</span>
+            <h2 class="text-xl font-bold text-slate-900">第二部分：邊際要素需求、利潤極大化與資源配置效率</h2>
+          </div>
+          <div class="flex gap-2 no-print">
+            <button onclick="loadDesmosModel(3); document.getElementById('desmos-lab').scrollIntoView();" class="text-xs font-medium text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition">
+              模型 3：單一產線 ↗
+            </button>
+            <button onclick="loadDesmosModel(4); document.getElementById('desmos-lab').scrollIntoView();" class="text-xs font-medium text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition">
+              模型 4：雙產線重分配 ↗
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <!-- 2.1 Profit Maximization & VMP = w -->
+          <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+            <h3 class="font-bold text-slate-900 text-base mb-2">1. 要素雇用決策與一階最適條件（$VMP_L = w, VMP_K = r$）</h3>
+            <p class="text-sm text-slate-700 leading-relaxed mb-3">
+              在產品市場與要素市場皆為價格接受者（給定產品單價 $P$、工資率 $w$、資本租金率 $r$）下，企業選擇資本 $K$ 與勞動 $L$ 以極大化總利潤：
+            </p>
+            <div class="bg-white p-3.5 rounded-xl border border-slate-200 text-center my-2 overflow-x-auto">
+              $$\max_{K, L} \ \pi(K, L) = P \cdot Q(K, L) - r K - w L$$
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 text-sm">
+              <div class="bg-white p-4 rounded-xl border border-slate-200">
+                <div class="font-bold text-blue-900 mb-1">勞動最適雇用一階條件（FOC for $L$）</div>
+                <div class="my-1.5 text-center">$$\frac{\partial \pi}{\partial L} = P \cdot MP_L - w = 0 \implies VMP_L \equiv P \cdot MP_L = w$$</div>
+                <ul class="text-xs text-slate-600 space-y-1 mt-2">
+                  <li>• 若 $VMP_L > w$：多雇一單位勞工帶來的邊際產值高於工資，應<strong>增聘勞工</strong>以擴大總利潤。</li>
+                  <li>• 若 $VMP_L < w$：邊際產值低於工資，多雇反而虧損，應<strong>縮減人力</strong>。</li>
+                </ul>
+              </div>
+              <div class="bg-white p-4 rounded-xl border border-slate-200">
+                <div class="font-bold text-emerald-900 mb-1">資本最適雇用一階條件（FOC for $K$）</div>
+                <div class="my-1.5 text-center">$$\frac{\partial \pi}{\partial K} = P \cdot MP_K - r = 0 \implies VMP_K \equiv P \cdot MP_K = r$$</div>
+                <ul class="text-xs text-slate-600 space-y-1 mt-2">
+                  <li>• <strong>二階條件（SOC）：</strong>必須確保邊際產量遞減（$\frac{\partial^2 Q}{\partial L^2} < 0, \frac{\partial^2 Q}{\partial K^2} < 0$），即沿著向下傾斜的 $VMP$ 曲線決策。</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Crucial Clarification Box -->
+            <div class="mt-4 bg-blue-50/80 border border-blue-200 rounded-xl p-4 text-xs sm:text-sm text-slate-800">
+              <strong class="text-blue-950">🔍 關鍵觀念釐清：「邊際條件 $VMP_L = w$ 成立」$\neq$「企業總利潤為零」！</strong>
+              <p class="mt-1 leading-relaxed text-slate-700">
+                以課堂算例驗證：設固定資本下短期生產函數為 $Q = 12L - 0.5L^2$，產品單價 $P = 10$，工資 $w = 60$，固定設備成本 $FC = 100$。
+                由 $VMP_L = 10(12 - L) = 60$ 解得最適雇用量 <strong>$L^* = 6$</strong>，此時總產量 $Q^* = 12(6) - 0.5(36) = \mathbf{54}$。
+                計算總收益 $TR = 10 \times 54 = \mathbf{540}$，勞動總成本 $wL^* = 60 \times 6 = \mathbf{360}$，扣除固定成本 $100$ 後，企業總利潤仍高達：
+                $$\pi = 540 - 360 - 100 = \mathbf{80\text{ 元}} > 0$$
+              </p>
+            </div>
+          </div>
+
+          <!-- 2.2 Multi-Line Labor Reallocation & Allocative Efficiency -->
+          <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h3 class="font-bold text-slate-900 text-base">2. 跨產線（跨部門）勞動最適重分配與配置效率</h3>
+              <span class="text-xs font-mono bg-white px-2.5 py-0.5 rounded border border-slate-200 text-slate-600">Allocative Efficiency</span>
+            </div>
+            <p class="text-sm text-slate-700 leading-relaxed mb-3">
+              假設同一家公司擁有兩條生產線（產品單價皆為 $P = 10$），公司目前共有 <strong>$8$ 單位總人力</strong>（$L_A + L_B = 8$）：
+              $$\text{高效率產線 A：} Q_A = 12 L_A - 0.5 L_A^2 \implies VMP_A = 120 - 10 L_A$$
+              $$\text{低效率產線 B：} Q_B = 8 L_B - 0.5 L_B^2 \implies VMP_B = 80 - 10 L_B$$
+            </p>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+              <table class="w-full text-xs sm:text-sm text-left">
+                <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+                  <tr>
+                    <th class="px-4 py-3">人力配置方案</th>
+                    <th class="px-4 py-3">產線 A 投入 ($L_A$) 與產值</th>
+                    <th class="px-4 py-3">產線 B 投入 ($L_B$) 與產值</th>
+                    <th class="px-4 py-3">邊際產值比較 ($VMP_A$ vs $VMP_B$)</th>
+                    <th class="px-4 py-3">公司總產值與效率評估</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                  <tr>
+                    <td class="px-4 py-3 font-bold text-slate-800">方案一：平均分配</td>
+                    <td class="px-4 py-3">$L_A = 4 \implies Q_A = 40$（$\$400$）</td>
+                    <td class="px-4 py-3">$L_B = 4 \implies Q_B = 24$（$\$240$）</td>
+                    <td class="px-4 py-3 text-rose-700 font-medium">$VMP_A = 80 > VMP_B = 40$（未均等）</td>
+                    <td class="px-4 py-3 font-semibold text-slate-700">$\$640$（存在 $\$40$ 無謂損失）</td>
+                  </tr>
+                  <tr class="bg-emerald-50/40">
+                    <td class="px-4 py-3 font-bold text-emerald-900">方案二：邊際均等重分配</td>
+                    <td class="px-4 py-3">$L_A = 6 \implies Q_A = 54$（$\$540$）</td>
+                    <td class="px-4 py-3">$L_B = 2 \implies Q_B = 14$（$\$140$）</td>
+                    <td class="px-4 py-3 text-emerald-700 font-bold">$VMP_A = 60 = VMP_B = 60$（完全均等）</td>
+                    <td class="px-4 py-3 font-bold text-emerald-800">$\$680$（淨增 $+\$40$，達配置效率）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-xs text-slate-600 mt-2.5 leading-relaxed">
+              <strong>經濟直覺解析：</strong>在平均分配下，將 1 單位人力從產線 B 調往產線 A，B 僅減少 $\$40$ 產值，A 卻能增加 $\$80$ 產值（淨賺 $\$40$）；繼續調動第 2 單位人力後，兩條產線的邊際產值皆收斂至 $\$60$（若再調動第 3 單位，總產值反而會下降）。這正是市場經濟中「同質要素在各部門的邊際產值趨於一致」的資源配置效率核心。
+            </p>
+          </div>
+
+          <!-- 2.3 Real-World Corporate Case Studies -->
+          <div id="sec-cases" class="scroll-mt-24">
+            <h3 class="font-bold text-slate-900 text-base mb-3">3. 真實企業要素雇用決策案例深度解析</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Amazon Case -->
+              <div class="rounded-xl border border-slate-200 p-5 bg-white shadow-sm flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-slate-900 text-base">📦 案例一：Amazon 季節性擴編 15 萬人</span>
+                    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-0.5 rounded">2021 Q3 / Q4</span>
+                  </div>
+                  <p class="text-xs sm:text-sm text-slate-700 leading-relaxed mb-3">
+                    2021 年 10 月 18 日，Amazon 宣布在美國增聘 <strong>15 萬名季節性倉儲與物流人員</strong>；同時在 Q3 財報中預警，Q4 將因缺工加薪、簽約獎金與供應鏈運輸瓶頸增加<strong>數十億美元營運成本</strong>。
+                  </p>
+                </div>
+                <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 text-xs text-slate-700 space-y-1">
+                  <div class="font-bold text-slate-900">經濟模型權衡：</div>
+                  <p>• <strong>邊際產值（$VMP_L$）：</strong>旺季（黑色星期五至聖誕節）物流履約能力直接決定訂單能否成交與顧客留存，新增人力的邊際營收貢獻極高。</p>
+                  <p>• <strong>邊際要素成本（$w$）：</strong>即便加薪使 $w$ 大幅攀升，只要旺季 $VMP_L > w$，大規模擴編仍符合利潤極大化決策。</p>
+                </div>
+              </div>
+
+              <!-- Boeing Case -->
+              <div class="rounded-xl border border-slate-200 p-5 bg-white shadow-sm flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="font-bold text-slate-900 text-base">✈️ 案例二：Boeing 波音延遲交貨違約風險</span>
+                    <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-0.5 rounded">2024 Annual Report</span>
+                  </div>
+                  <p class="text-xs sm:text-sm text-slate-700 leading-relaxed mb-3">
+                    波音在 2024 年報揭露：部分商用客機合約載明，若<strong>延遲交貨</strong>，客戶有權無償拒收或終止訂單；且在固定價格（Fixed-Price）合約下，成本超支將直接轉化為公司鉅額虧損。
+                  </p>
+                </div>
+                <div class="bg-amber-50/70 p-3.5 rounded-lg border border-amber-200 text-xs text-slate-800 space-y-1">
+                  <div class="font-bold text-amber-950">隱含邊際效益與瓶頸診斷前提：</div>
+                  <p>• <strong>避免損失即邊際產值：</strong>增聘熟練技師縮短交期所「避免的違約罰款與訂單取消損失」，應計入該人力的廣義 $VMP_L$。</p>
+                  <p>• <strong>關鍵前提（瓶頸診斷）：</strong>若延誤卡在<strong>「上游零件缺料」或「FAA 適航認證」</strong>而非組裝人力，則 $MP_L \approx 0$，盲目增加人力完全無法改善交期！</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PART 4: Seminar Discussion Questions -->
+      <section id="sec-discussion" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-7 scroll-mt-24 print-break">
+        <div class="mb-4">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 mb-1">Seminar Discussion & Critical Thinking</span>
+          <h2 class="text-xl font-bold text-slate-900">💬 課堂思考與研討問題（點擊展開研究所層次參考解析）</h2>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Question 1 -->
+          <details class="group rounded-xl border border-slate-200 bg-slate-50/60 open:bg-white open:border-blue-300 transition">
+            <summary class="cursor-pointer p-4 sm:p-5 font-bold text-slate-900 flex items-center justify-between gap-3 list-none text-sm sm:text-base">
+              <span>問題 1：從黃仁勳「賣鏟子」比喻看通用技術（GPT）的外部性與監管邊界</span>
+              <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full shrink-0 group-open:hidden">展開解析</span>
+              <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full shrink-0 hidden group-open:inline">收合</span>
+            </summary>
+            <div class="px-4 sm:px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-700 border-t border-slate-100 space-y-2 leading-relaxed">
+              <p><strong>1. 資本財投入與下游應用外部性的分離：</strong>在生產函數 $Q = f(K_{\text{GPU}}, L_{\text{AI工程師}})$ 中，GPU 晶片屬於通用目的資本財（General Purpose Technology）。若直接對「賣鏟子（晶片硬體）」課徵重稅或限制算力供給，會同時抑制醫療研發、氣候模擬等正向外部性產業的邊際產量。</p>
+              <p><strong>2. 經濟學最適監管原則（Targeting Principle）：</strong>根據庇古稅（Pigouvian Tax）與目標定位原則，政府監管應直接針對產生負外部性的「特定下游應用行為」（如深偽詐騙、演算法歧視或自主武器），而非上游通用生產要素本身。</p>
+            </div>
+          </details>
+
+          <!-- Question 2 -->
+          <details class="group rounded-xl border border-slate-200 bg-slate-50/60 open:bg-white open:border-blue-300 transition">
+            <summary class="cursor-pointer p-4 sm:p-5 font-bold text-slate-900 flex items-center justify-between gap-3 list-none text-sm sm:text-base">
+              <span>問題 2：既然邊際條件要求 $VMP_L = w$，為何企業雇用最後一單位員工的利潤為零，整體卻仍能獲利？</span>
+              <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full shrink-0 group-open:hidden">展開解析</span>
+              <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full shrink-0 hidden group-open:inline">收合</span>
+            </summary>
+            <div class="px-4 sm:px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-700 border-t border-slate-100 space-y-2 leading-relaxed">
+              <p><strong>1. 邊際貢獻 vs. 邊際內剩餘（Intra-marginal Surplus）：</strong>在邊際報酬遞減下，第 $1$ 位至第 $L^*-1$ 位員工的邊際產值皆<strong>嚴格大於工資（$VMP_L > w$）</strong>，每位邊際內員工都為企業創造了正的「要素準租（Quasi-rent）」。</p>
+              <p><strong>2. 幾何面積對照（可於 Desmos 模型 3 驗證）：</strong>總收益 $TR$ 等於 $VMP_L$ 曲線下方面積（梯形），勞動總成本 $wL^*$ 僅為下方矩形面積。兩者相減的三角形面積（生產者剩餘）在扣除固定成本 $FC$ 後，即為企業的正經濟利潤。</p>
+            </div>
+          </details>
+
+          <!-- Question 3 -->
+          <details class="group rounded-xl border border-slate-200 bg-slate-50/60 open:bg-white open:border-blue-300 transition">
+            <summary class="cursor-pointer p-4 sm:p-5 font-bold text-slate-900 flex items-center justify-between gap-3 list-none text-sm sm:text-base">
+              <span>問題 3：結合波音（Boeing）供應鏈瓶頸案例，若生產函數呈現里昂惕夫（Leontief）完全互補型態，增聘人力的邊際產值為何？</span>
+              <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full shrink-0 group-open:hidden">展開解析</span>
+              <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full shrink-0 hidden group-open:inline">收合</span>
+            </summary>
+            <div class="px-4 sm:px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-700 border-t border-slate-100 space-y-2 leading-relaxed">
+              <p><strong>1. 完全互補技術下的角落解與零邊際產量：</strong>當飛機組裝需要「1 套機身零件（$M$）」搭配「$a$ 小時組裝工時（$L$）」，生產函數為 $Q = \min\{M, \frac{L}{a}\}$。</p>
+              <p><strong>2. 決策啟示：</strong>一旦上游零件供給 $M$ 卡死成為限制性瓶頸（Binding Constraint），只要 $L \ge aM$，則 $\frac{\partial Q}{\partial L} = 0$，進而導致 $VMP_L = P \cdot MP_L = 0 < w$。此時企業應將資源優先投入「解決供應商缺料或認證瓶頸」，而非盲目擴編組裝線人員。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>碩士班個體經濟理論導讀數位教材 • 授課教師：池秉聰 教授</div>
+      <div>第6章 邊際產量與邊際要素需求（芷瑄、韋辰報告暨課堂實驗室整合版）</div>
+    </div>
+  </footer>
+
+  <!-- Desmos Interactive Engine & Model Configuration Script -->
+  <script>
+    let calculator = null;
+    let currentEquationsText = "";
+
+    const desmosModels = {
+      1: {
+        title: "模型 1（Sec 6.1 課本勘誤驗證）：S 型生產函數與 MP_K 分子 25² → 25⁴ 訂正對照",
+        viewport: { xmin: -0.5, xmax: 16, ymin: -0.35, ymax: 3.2 },
+        guideHTML: `
+          <p><strong>1. 驗證教授現場微積分除錯成果：</strong>固定勞動 <code class="bg-slate-100 px-1 rounded">L_0 = 50</code>（可拖動左側 <strong>L₀</strong> 滑桿調整投入規模），綠色粗線為將分子 <code class="bg-slate-100 px-1 rounded">25²</code> 訂正為 <code class="bg-slate-100 px-1 rounded">25⁴</code> 後的正確邊際產量 <code class="bg-slate-100 px-1 rounded">MP_K(x) = 50(25⁴ · 2x L₀²) / (25⁴ + x² L₀²)²</code>。</p>
+          <p><strong>2. 對照課本勘誤前後（相差 625 倍）：</strong>點擊綠色曲線最高點，可驗證峰值精準落在 <strong>(4.60, 2.60)</strong>（綠色垂直虛線標示反曲點位置），與課本 Figure 6.2 配圖完全吻合；反觀下方貼近水平軸的紅色虛線，即為課本誤印分子為 <code class="bg-slate-100 px-1 rounded">25²</code> 時的錯誤公式（高度僅約 0.0042）。藍色曲線則為縮小 20 倍顯示的總產量截面 <code class="bg-slate-100 px-1 rounded">Q(x)/20</code>，可同步觀察先凸後凹的 S 型反曲點。</p>
+        `,
+        expressions: [
+          { id: 'l_slider', latex: 'L_{0} = 50', sliderBounds: { min: 10, max: 100, step: 5 } },
+          { id: 'mpk_correct', latex: 'M_{PK}(x) = \\frac{50(25^4 \\cdot 2x L_{0}^2)}{(25^4 + x^2 L_{0}^2)^2} \\left\\{x \\ge 0\\right\\}', color: '#059669', lineWidth: 3.5 },
+          { id: 'mpk_errata', latex: 'M_{errata}(x) = \\frac{50(25^2 \\cdot 2x L_{0}^2)}{(25^4 + x^2 L_{0}^2)^2} \\left\\{x \\ge 0\\right\\}', color: '#dc2626', lineStyle: 'DASHED', lineWidth: 2.5 },
+          { id: 'q_func_scaled', latex: 'Q_{scaled}(x) = \\frac{1}{20} \\cdot \\frac{50 x^2 L_{0}^2}{25^4 + x^2 L_{0}^2} \\left\\{x \\ge 0\\right\\}', color: '#2563eb', lineWidth: 2 },
+          { id: 'inflection_x', latex: 'x_{inf} = \\frac{25^2}{\\sqrt{3} L_{0}}', hidden: true },
+          { id: 'inflection_line', latex: 'x = x_{inf} \\left\\{0 \\le y \\le M_{PK}(x_{inf})\\right\\}', color: '#059669', lineStyle: 'DASHED', lineWidth: 1.8 },
+          { id: 'peak_point', latex: '(x_{inf}, M_{PK}(x_{inf}))', color: '#059669', showLabel: true, label: '反曲點 / 訂正後 MP_K 最高峰 (4.60, 2.60)' }
+        ],
+        copyText: [
+          "L_0 = 50",
+          "Q(x) = (50 * x^2 * L_0^2) / (25^4 + x^2 * L_0^2) {x >= 0}",
+          "MP_K(x) = (50 * 25^4 * 2 * x * L_0^2) / (25^4 + x^2 * L_0^2)^2 {x >= 0}",
+          "MP_errata(x) = (50 * 25^2 * 2 * x * L_0^2) / (25^4 + x^2 * L_0^2)^2 {x >= 0}",
+          "x_inf = 25^2 / (sqrt(3) * L_0)",
+          "x = x_inf {0 <= y <= MP_K(x_inf)}"
+        ].join("\n")
+      },
+
+      2: {
+        title: "模型 2（Sec 6.1 齊次函數性質）：Cobb-Douglas 生產函數與規模報酬固定驗證",
+        viewport: { xmin: -0.5, xmax: 16, ymin: -0.5, ymax: 18 },
+        guideHTML: `
+          <p><strong>1. 單調遞減的邊際產量曲線：</strong>預設 <code class="bg-slate-100 px-1 rounded">A = 4, α = 0.5, β = 0.5, L = 4</code>。藍色為總產量 <code class="bg-slate-100 px-1 rounded">Q(K)</code>，橘色為單調遞減、凸向原點的 <code class="bg-slate-100 px-1 rounded">MP_K(K)</code>。</p>
+          <p><strong>2. 驗證規模報酬固定（α + β = 1）的重要定理：</strong>觀察畫布上的綠色標記點 <code class="bg-slate-100 px-1 rounded">(K₀, MP_K(K₀))</code>，預設 <code class="bg-slate-100 px-1 rounded">K₀ = 4, L = 4</code>（資本勞動比 K/L = 1），此時 <code class="bg-slate-100 px-1 rounded">MP_K = 2</code>。試著將 <strong>K₀ 與 L 同時放大 2 倍（設為 K₀ = 8, L = 8）</strong>，你會發現綠色標記點的高度 <code class="bg-slate-100 px-1 rounded">MP_K</code> 依然精準停留在 <strong>2</strong>，完全不變！</p>
+        `,
+        expressions: [
+          { id: 'a_param', latex: 'A = 4', sliderBounds: { min: 1, max: 10, step: 0.5 } },
+          { id: 'alpha_param', latex: '\\alpha = 0.5', sliderBounds: { min: 0.1, max: 0.9, step: 0.05 } },
+          { id: 'beta_param', latex: '\\beta = 0.5', sliderBounds: { min: 0.1, max: 0.9, step: 0.05 } },
+          { id: 'l_cd', latex: 'L = 4', sliderBounds: { min: 1, max: 12, step: 1 } },
+          { id: 'k0_cd', latex: 'K_{0} = 4', sliderBounds: { min: 1, max: 12, step: 1 } },
+          { id: 'q_cd', latex: 'Q(x) = A x^{\\alpha} L^{\\beta} \\left\\{x > 0\\right\\}', color: '#2563eb', lineWidth: 3 },
+          { id: 'mpk_cd', latex: 'M_{PK}(x) = \\alpha A x^{\\alpha - 1} L^{\\beta} \\left\\{x > 0\\right\\}', color: '#ea580c', lineWidth: 3 },
+          { id: 'test_pt', latex: '(K_{0}, M_{PK}(K_{0}))', color: '#059669', showLabel: true, label: '檢驗點 (K₀, MP_K)' }
+        ],
+        copyText: [
+          "A = 4",
+          "\\alpha = 0.5",
+          "\\beta = 0.5",
+          "L = 4",
+          "K_0 = 4",
+          "Q(x) = A * x^\\alpha * L^\\beta {x > 0}",
+          "MP_K(x) = \\alpha * A * x^(\\alpha - 1) * L^\\beta {x > 0}",
+          "(K_0, MP_K(K_0))"
+        ].join("\n")
+      },
+
+      3: {
+        title: "模型 3（Sec 6.2 單一產線決策）：VMP_L = w 最適雇用量與利潤面積拆解",
+        viewport: { xmin: -0.5, xmax: 14, ymin: -10, ymax: 145 },
+        guideHTML: `
+          <p><strong>1. 驗證課堂算例（Q = 12L - 0.5L², P = 10, w = 60）：</strong>藍色斜線為勞動邊際產值 <code class="bg-slate-100 px-1 rounded">VMP_L = P(12 - L)</code>，橘色水平線為工資率 <code class="bg-slate-100 px-1 rounded">w = 60</code>。兩線交點決定最適雇用量 <strong>L* = 6</strong>。</p>
+          <p><strong>2. 視覺化「邊際條件成立 ≠ 總利潤為零」：</strong></p>
+          <ul class="list-disc list-inside text-xs space-y-1">
+            <li><strong>下方橘色矩形面積</strong>（0 ≤ x ≤ 6, 0 ≤ y ≤ 60）：勞動總成本 <code class="bg-slate-100 px-1 rounded">w · L* = 60 × 6 = 360</code>。</li>
+            <li><strong>上方綠色三角形面積</strong>（60 ≤ y ≤ VMP_L）：邊際內員工創造的<strong>要素準租（生產者剩餘）= 180</strong>。扣除固定成本 <code class="bg-slate-100 px-1 rounded">FC = 100</code> 後，企業總利潤仍高達 <strong>80 元</strong>！</li>
+          </ul>
+          <p><strong>3. 互動測試：</strong>試著調高產品售價 <strong>P</strong> 或調降工資 <strong>w</strong>，觀察最適雇用量 <code class="bg-slate-100 px-1 rounded">L*</code> 如何沿著 <code class="bg-slate-100 px-1 rounded">VMP_L</code> 曲線向右擴張。</p>
+        `,
+        expressions: [
+          { id: 'p_slider', latex: 'P = 10', sliderBounds: { min: 5, max: 20, step: 1 } },
+          { id: 'w_slider', latex: 'w = 60', sliderBounds: { min: 10, max: 110, step: 5 } },
+          { id: 'vmpl_func', latex: 'V_{MP}(x) = P(12 - x) \\left\\{0 \\le x \\le 12\\right\\}', color: '#2563eb', lineWidth: 3.5 },
+          { id: 'wage_line', latex: 'y = w \\left\\{x \\ge 0\\right\\}', color: '#ea580c', lineWidth: 2.5 },
+          { id: 'l_star', latex: 'L_{star} = \\max\\left(0, 12 - \\frac{w}{P}\\right)', hidden: true },
+          { id: 'wage_cost_area', latex: '0 \\le y \\le w \\left\\{0 \\le x \\le L_{star}\\right\\}', color: '#f97316', fillOpacity: 0.2, lines: false },
+          { id: 'surplus_area', latex: 'w \\le y \\le V_{MP}(x) \\left\\{0 \\le x \\le L_{star}\\right\\}', color: '#10b981', fillOpacity: 0.28, lines: false },
+          { id: 'opt_pt', latex: '(L_{star}, w)', color: '#1d4ed8', showLabel: true, label: '最適雇用點 (L*, w)' }
+        ],
+        copyText: [
+          "P = 10",
+          "w = 60",
+          "VMP(x) = P * (12 - x) {0 <= x <= 12}",
+          "y = w {x >= 0}",
+          "L_star = max(0, 12 - w / P)",
+          "0 <= y <= w {0 <= x <= L_star}",
+          "w <= y <= VMP(x) {0 <= x <= L_star}",
+          "(L_star, w)"
+        ].join("\n")
+      },
+
+      4: {
+        title: "模型 4（Sec 6.2 資源配置效率）：雙產線勞動重分配與無謂損失模擬器",
+        viewport: { xmin: -0.5, xmax: 8.8, ymin: -10, ymax: 135 },
+        guideHTML: `
+          <p><strong>1. 雙產線鏡像配置圖（總人力 L_A + L_B = 8）：</strong>橫軸 <code class="bg-slate-100 px-1 rounded">x</code> 代表分配給<strong>產線 A 的人力 L_A</strong>（從左到右 0 → 8），剩餘人力 <code class="bg-slate-100 px-1 rounded">L_B = 8 - x</code> 則自動分配給產線 B。</p>
+          <p><strong>2. 曲線對照：</strong>藍色向下斜線為產線 A 邊際產值 <code class="bg-slate-100 px-1 rounded">VMP_A(x) = 120 - 10x</code>；紫色向上斜線為產線 B 邊際產值鏡像線 <code class="bg-slate-100 px-1 rounded">VMP_B(8 - x) = 10x</code>。</p>
+          <p><strong>3. 拖動滑桿 <code class="bg-slate-100 px-1 rounded">L_A</code> 親眼見證配置效率：</strong></p>
+          <ul class="list-disc list-inside text-xs space-y-1">
+            <li>當預設 <strong>L_A = 4</strong>（平均分配）時，<code class="bg-slate-100 px-1 rounded">VMP_A = 80</code> 遠高於 <code class="bg-slate-100 px-1 rounded">VMP_B = 40</code>，中間的<strong>紅色三角形陰影（面積 = 40 元）</strong>即為資源錯配造成的產值無謂損失！</li>
+            <li>將滑桿 <strong>L_A 向右拖動至 6</strong>，兩線精準交會於 <strong>(6, 60)</strong>（<code class="bg-slate-100 px-1 rounded">VMP_A = VMP_B = 60</code>），紅色無謂損失三角形完全歸零，公司總產值由 640 元極大化至 <strong>680 元</strong>！</li>
+          </ul>
+        `,
+        expressions: [
+          { id: 'la_slider', latex: 'L_{A} = 4', sliderBounds: { min: 0, max: 8, step: 0.5 } },
+          { id: 'vmpa_func', latex: 'V_{MPA}(x) = 120 - 10x \\left\\{0 \\le x \\le 8\\right\\}', color: '#2563eb', lineWidth: 3 },
+          { id: 'vmpb_func', latex: 'V_{MPB}(x) = 10x \\left\\{0 \\le x \\le 8\\right\\}', color: '#7c3aed', lineWidth: 3 },
+          { id: 'alloc_line', latex: 'x = L_{A} \\left\\{0 \\le y \\le 120\\right\\}', color: '#475569', lineStyle: 'DASHED', lineWidth: 2 },
+          { id: 'dwl_right', latex: 'V_{MPB}(x) \\le y \\le V_{MPA}(x) \\left\\{L_{A} \\le x \\le 6\\right\\}', color: '#ef4444', fillOpacity: 0.3, lines: false },
+          { id: 'dwl_left', latex: 'V_{MPA}(x) \\le y \\le V_{MPB}(x) \\left\\{6 \\le x \\le L_{A}\\right\\}', color: '#ef4444', fillOpacity: 0.3, lines: false },
+          { id: 'pt_a', latex: '(L_{A}, V_{MPA}(L_{A}))', color: '#2563eb', showLabel: true, label: '產線 A 邊際產值' },
+          { id: 'pt_b', latex: '(L_{A}, V_{MPB}(L_{A}))', color: '#7c3aed', showLabel: true, label: '產線 B 邊際產值' },
+          { id: 'opt_eq', latex: '(6, 60)', color: '#059669', showLabel: true, label: '最優配置點 (L_A=6, VMP=60)' }
+        ],
+        copyText: [
+          "L_A = 4",
+          "VMP_A(x) = 120 - 10*x {0 <= x <= 8}",
+          "VMP_B(x) = 10*x {0 <= x <= 8}",
+          "x = L_A {0 <= y <= 120}",
+          "VMP_B(x) <= y <= VMP_A(x) {L_A <= x <= 6}",
+          "VMP_A(x) <= y <= VMP_B(x) {6 <= x <= L_A}",
+          "(6, 60)"
+        ].join("\n")
+      }
+    };
+
+    // Initialize Desmos Calculator on DOM Content Loaded
+    window.addEventListener('DOMContentLoaded', () => {
+      const elt = document.getElementById('desmos-calculator');
+      if (window.Desmos && elt) {
+        calculator = Desmos.GraphingCalculator(elt, {
+          expressions: true,
+          settingsMenu: true,
+          zoomButtons: true,
+          expressionsTopbar: true,
+          border: false,
+          keypad: false
+        });
+        loadDesmosModel(1);
+      }
+    });
+
+    // Switch between the 4 Desmos Models
+    function loadDesmosModel(modelId) {
+      const model = desmosModels[modelId];
+      if (!model) return;
+
+      [1, 2, 3, 4].forEach(id => {
+        const btn = document.getElementById(`btn-model-${id}`);
+        if (id === modelId) {
+          btn.className = "model-tab text-left px-3.5 py-3 rounded-xl border transition flex flex-col justify-between bg-blue-600 border-blue-400 text-white shadow";
+        } else {
+          btn.className = "model-tab text-left px-3.5 py-3 rounded-xl border transition flex flex-col justify-between bg-slate-800/90 border-slate-700 text-slate-200 hover:bg-slate-700";
+        }
+      });
+
+      document.getElementById('guide-title').textContent = model.title;
+      document.getElementById('guide-content').innerHTML = model.guideHTML;
+      document.getElementById('guide-equations').textContent = model.copyText;
+      currentEquationsText = model.copyText;
+
+      if (calculator) {
+        calculator.setBlank();
+        calculator.setMathBounds(model.viewport);
+        model.expressions.forEach(expr => {
+          calculator.setExpression(expr);
+        });
+      }
+    }
+
+    // Copy equations list to clipboard (iframe-safe)
+    function copyEquationsList() {
+      const textarea = document.createElement('textarea');
+      textarea.value = currentEquationsText;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        const btn = document.getElementById('copy-eq-btn');
+        const orig = btn.textContent;
+        btn.textContent = '已複製！';
+        btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.classList.replace('bg-emerald-600', 'bg-blue-600');
+        }, 2000);
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Download standalone HTML file
+    function downloadSelfHTML() {
+      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '碩士班個體經濟理論導讀_Ch6_邊際產量與邊際要素需求_Desmos互動教材.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
