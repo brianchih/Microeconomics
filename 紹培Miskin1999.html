@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產權理論與不完全契約：套牢問題、退出選擇權與無關定理導讀</title>
+
+    <!-- MathJax 3 數學公式渲染庫 -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0284c7;
+            --accent-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --highlight-bg: #f0f9ff;
+            --callout-bg: #fffbe3;
+            --warning-bg: #fef2f2;
+            --warning-border: #ef4444;
+            --success-bg: #f0fdf4;
+            --success-border: #16a34a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        .header-tag {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .book-card {
+            background-color: var(--highlight-bg);
+            border-left: 5px solid var(--secondary-color);
+            padding: 20px 24px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .book-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.15rem;
+        }
+
+        .book-card p {
+            margin: 6px 0;
+            font-size: 0.95rem;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-top: 40px;
+            border-bottom: 1.5px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-top: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .card-header {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .concept-box {
+            background-color: var(--callout-bg);
+            border: 1px solid #fef08a;
+            border-left: 5px solid var(--accent-color);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #9a3412;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background-color: var(--warning-bg);
+            border: 1px solid #fca5a5;
+            border-left: 5px solid var(--warning-border);
+            padding: 22px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .warning-title {
+            font-weight: bold;
+            color: #991b1b;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .case-tag {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .math-block {
+            background-color: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.15rem;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .discussion-box {
+            background-color: var(--success-bg);
+            border: 1px solid #bbf7d0;
+            border-left: 5px solid var(--success-border);
+            padding: 22px 26px;
+            border-radius: 8px;
+            margin: 35px 0;
+        }
+
+        .discussion-title {
+            font-weight: bold;
+            color: #14532d;
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--highlight-bg);
+            color: var(--primary-color);
+        }
+
+        ol, ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="tex2jax_process">
+
+<div class="container">
+    <div class="header-tag">碩士班契約經濟學與制度分析導讀</div>
+    <h1>第一部分：紹培導讀——產權理論的兩點評論 (Two Remarks on the Property Rights Literature)</h1>
+
+    <div class="book-card">
+        <h3>導讀文獻與簡報資訊</h3>
+        <p><strong>論文主題：</strong>Two Remarks on the Property Rights Literature（產權文獻的兩點評論）</p>
+        <p><strong>核心議題：</strong>不完全契約（Incomplete Contracts）、套牢問題（Hold-up Problem）、條件式退出選擇權（Option to Sell / Exit）與第三方罰款機制</p>
+        <p><strong>導讀簡報人：</strong>紹培</p>
+    </div>
+
+    <h2>一、 研究背景與問題意識：套牢問題 (Hold-up Problem)</h2>
+    <p>在產權理論中，資產所有權不僅代表法律上的歸屬，更決定了<strong>誰擁有剩餘控制權（Residual Control Rights）</strong>以及<strong>事後重新議價（Ex-post Renegotiation）時的談判破裂點（Threat Point）</strong>。</p>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">1. 專屬性人力資本投資</div>
+            <p>交易包含一位買方（Buyer）與一位賣方（Seller）。在交易發生前（Date 1），買方可投資提升商品價值 $v(b)$，賣方可投資降低生產成本 $c(s)$。此類投資屬於<strong>專屬性人力資本（Human Capital）</strong>，無法直接轉移給外部第三方。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">2. 不可驗證性與套牢困境</div>
+            <p>投資量與投資成果雖可被買賣雙方觀察（Observable），但<strong>無法被法院驗證（Unverifiable）</strong>，因此無法寫入強制執行的契約條款。事後議價時，投資成果會被對方分享，導致雙方事前投資不足（Underinvestment）。</p>
+        </div>
+    </div>
+
+    <h3>效用函數與第一最適條件 (First-Best Benchmark)</h3>
+    <p>設交易價格為 $P$，買方投資成本為 $b$，賣方投資成本為 $s$，雙方皆為風險中立（Risk Neutral）：</p>
+    <div class="math-block">
+        $$\text{買方效用：} U_B = v(b) - P - b$$
+        $$\text{賣方效用：} U_S = P - c(s) - s$$
+        $$\text{社會總淨剩餘：} W = U_B + U_S = v(b) - c(s) - b - s$$
+    </div>
+    <p>第一最適投資量 $(b^*, s^*)$ 必須滿足邊際社會效益等於邊際投資成本：</p>
+    <div class="math-block">
+        $$v'(b^*) = 1, \quad -c'(s^*) = 1$$
+    </div>
+
+    <h2>二、 傳統所有權配置 vs. 附帶退出選擇權之契約</h2>
+    <p>傳統產權理論（如 Grossman-Hart-Moore 模型）僅比較「買方所有」、「賣方所有」與「共同所有」三種靜態配置，並假設事後透過<strong>納什議價（Nash Bargaining）</strong>平分相對於談判破裂點的新增交易剩餘。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>所有權配置方式</th>
+                <th>買方投資誘因強度</th>
+                <th>賣方投資誘因強度</th>
+                <th>經濟直覺與效率評價</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>共同所有 (Joint Ownership)</strong></td>
+                <td>$0.5$</td>
+                <td>$0.5$</td>
+                <td>任一方皆無法單獨與外部交易，投資成果事後對半平分，雙方皆嚴重投資不足。</td>
+            </tr>
+            <tr>
+                <td><strong>買方所有 (Buyer Ownership)</strong></td>
+                <td>$1.0$</td>
+                <td>$0.5$</td>
+                <td>買方擁有外部選項，可完整保留自己創造的邊際價值；但賣方誘因依然不足。</td>
+            </tr>
+            <tr>
+                <td><strong>賣方所有 (Seller Ownership)</strong></td>
+                <td>$0.5$</td>
+                <td>$1.0$</td>
+                <td>賣方擁有外部選項，完整保留降低成本的邊際利益；但買方誘因依然不足。</td>
+            </tr>
+            <tr>
+                <td><strong>共同所有 ＋ 出售持份選擇權與第三方稅款</strong></td>
+                <td><strong>$1.0$ (First-Best)</strong></td>
+                <td><strong>$1.0$ (First-Best)</strong></td>
+                <td>透過契約設計的退出機制與罰款威脅，可同時誘導買賣雙方達成第一最適投資。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>出售持份選擇權契約（Option to Sell）運作流程</h3>
+    <ol>
+        <li><strong>Date 0（簽約期）：</strong> 雙方約定共同擁有資產，並訂定特定退出價格公式與第三方稅款 $T$。</li>
+        <li><strong>Date 1（投資期）：</strong> 買賣雙方各自獨立選擇人力資本投資量 $(b, s)$。</li>
+        <li><strong>Date 2（隨機行使選擇權與議價）：</strong> 系統以各 $\frac{1}{2}$ 的機率隨機選出買方或賣方，賦予其「決定是否將自己持份出售給對方」的選擇權：
+            <ul>
+                <li>若被選中者<strong>不行使出售權</strong>：維持共同所有並進行納什議價。</li>
+                <li>若被選中者<strong>行使出售權</strong>：另一方必須以約定價格買下持份，且<strong>留下的一方必須向第三方（公眾／國庫）繳納一筆稅款 $T$</strong>。</li>
+            </ul>
+        </li>
+    </ol>
+
+    <div class="math-block">
+        $$\text{賣方出售持份之約定價格：} P_S = \frac{v(b^*) - c(s)}{2}$$
+        $$\text{買方出售持份之約定價格：} P_B = \frac{v(b) - c(s^*)}{2}$$
+    </div>
+
+    <div class="concept-box">
+        <div class="concept-title">💡 第三方稅款 $T$ 的威懾邏輯與串謀防範</div>
+        <p><strong>威懾邏輯：</strong> 若買方投資不足（$b &lt; b^*$），商品價值下降，一旦 Date 2 抽中賣方行使選擇權，賣方會選擇退出，迫使買方吞下資產並支付懲罰性稅款 $T$。只要 $T \ge \Delta$（$\Delta$ 為偏離第一最適投資之最大私利），買方事前就不敢偷懶。</p>
+        <p><strong>防範雙方串謀（Collusion）：</strong> 若雙方私下協議「不行使退出權以省下稅款 $T$ 並對半分贓」，只要將稅款門檻提高至 $T \ge 2\Delta$，仍可完全遏止投資不足。此外，若排除第三方罰款並允許自由重新談判，對稱配置下的最高投資誘因上限為 $(0.75, 0.75)$。</p>
+    </div>
+
+    <h3>第二點評論：多零件隨機模型下的所有權最適性（第3節）</h3>
+    <p>當事前存在 $N$ 種潛在零件，而事後僅有一種能創造正交易剩餘（且 $N \to \infty$）時，作者證明任何複雜契約所能提供的賣方投資誘因係數上限均不超過 $\frac{1+a}{2}$（其中 $a$ 為自行使用資產的收益縮放係數），這恰好等於<strong>賣方單獨擁有資產</strong>的誘因係數。這說明傳統產權配置在特定不確定性結構下具有內在合理性。</p>
+
+    <hr style="margin: 50px 0; border: none; border-top: 2px dashed var(--border-color);">
+
+    <div class="header-tag">第二部分：深度對話與延伸文獻導讀</div>
+    <h1>Maskin &amp; Tirole (1999)《未預見的突發狀況與不完全契約》</h1>
+
+    <div class="book-card">
+        <h3>延伸文獻與課堂音檔解析</h3>
+        <p><strong>經典論文：</strong>Eric Maskin &amp; Jean Tirole (1999), "Unforeseen Contingencies and Incomplete Contracts", <em>Review of Economic Studies</em>（兩位諾貝爾經濟學獎得主著作）</p>
+        <p><strong>核心突破：</strong>無關定理（Irrelevance Theorem）、數字／代號合約（Code Contracts）、兩階段挑戰機制與隨機罰款（Lottery Penalty）</p>
+    </div>
+
+    <h2>一、 打破迷思：為什麼合約不需要「預知未來的水晶球」？</h2>
+    <p>傳統交易成本經濟學認為，由於人類無法在簽約時窮盡未來所有可能的<strong>物理狀態（Physical Contingencies）</strong>（例如原物料暴漲、斷水斷電、或突然出現恐龍），合約必然是不完全的。然而，Maskin 與 Tirole 證明了著名的<strong>無關定理（Irrelevance Theorem）</strong>：</p>
+
+    <div class="case-study">
+        <span class="case-tag">核心洞見：從「預測物理事件」轉向「約定效用分數（利得）」</span>
+        <p><strong>日常類比（週末晚餐契約）：</strong> 簽約時不必寫「若週六下暴雨就吃火鍋、若火鍋公休就吃拉麵」，因為意外永遠寫不完。相反地，雙方只需在事前簽訂一份<strong>「代號／數字合約（Code Contract）」</strong>，約定好雙方目標的「效用分數分配規則」（例如：雙方各自獲得 $+80$ 分滿意度）。</p>
+        <p><strong>解碼鑰匙（Deciphering Key）：</strong> 等到週六實際天氣與餐廳營業狀況揭曉（物理狀態實現）後，雙方再根據現場客觀選項「對號入座」，找出能達成 $+80$ 分的行動（例如走進沒人排隊的居酒屋）。因此，無法描述未來具體事件其實無關緊要！</p>
+    </div>
+
+    <h2>二、 防止事後說謊與重新協商的「防彈機制設計」</h2>
+    <p>若事後解碼時，有一方為了私利隱瞞對雙方都有利的選項、謊報對自己有利的壞選項，該如何防範？Maskin &amp; Tirole 設計了精妙的兩階段賽局與風險機制：</p>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">1. 兩階段宣告與「我挑戰！」機制</div>
+            <p><strong>第一階段：</strong> 甲方必須公開宣告當前真實狀態、所有可行行動清單與對應報酬分數。<br>
+            <strong>第二階段：</strong> 乙方可選擇接受，或大喊<strong>「我挑戰（Challenge）！」</strong>並提出證據。若抓到甲方說謊，甲方將面臨毀滅性重罰；反之，若乙方惡意亂挑戰卻拿不出證據，乙方將承受同等重罰（形成「切蛋糕：一人切、一人選」的恐怖平衡）。</p>
+        </div>
+        <div class="card">
+            <div class="card-header">2. 破解私下串謀：隨機罰款（Lottery Penalty）</div>
+            <p>若罰款是固定金額（如 1000 萬且繳交國庫），理性的甲乙雙方可能撕毀合約、私下對分這筆錢而使罰則失效。<br>
+            <strong>解法：</strong> 利用人類<strong>風險趨避（Risk Aversion）</strong>心理，將懲罰設計為「俄羅斯輪盤式的隨機抽獎」（如 50% 機率沒事、50% 機率傾家蕩產）。對旁觀的未受罰方而言，此賭局的確定等值（Certainty Equivalent）為零，徹底消滅雙方私下重新協商的誘因！</p>
+        </div>
+    </div>
+
+    <h2>三、 課堂生活實例與教授總結</h2>
+    <ul>
+        <li><strong>房屋裝修合約應用：</strong> 與其事前列舉無數建材斷貨條款，不如在合約內建「第三方公正鑑定機制（隨機風險）」。若工班謊稱缺料想賺價差，經鑑定屬實將面臨停權與巨額賠償；若業主惡意刁難，則須自負高額鑑定費與停工損失。雙方在第一天就會選擇誠實。</li>
+        <li><strong>池秉聰教授課堂點評：</strong> 這些機制設計的核心，並不是因為經濟學家悲觀地認為人性本惡，而是<strong>透過制度預先防堵最壞的投機行為，好人才能在合作的第一天就毫無後顧之憂地全力投入</strong>。無論是研究生分組做報告防範搭便車、租屋裝潢投資，或是長期人際與合作關係，都蘊含著同樣的契約智慧。</li>
+    </ul>
+
+    <div class="discussion-box">
+        <div class="discussion-title">💬 課後思考與小組討論題目</div>
+        <ol>
+            <li><strong>租屋裝潢的套牢問題：</strong> 房客若想自費 10 萬元裝潢租屋處，但擔心租約到期後房東不續租或漲房租（套牢），請運用本單元所學，設計一項包含「退出補償或選擇權」的租賃附加條款來解決投資不足問題。</li>
+            <li><strong>研究生分組報告的機制設計：</strong> 在多人合作的期末專題中，如何設計組內分工與「挑戰／互評機制」，才能讓每位組員在第一天就願意投入第一最適（First-Best）的努力？</li>
+        </ol>
+    </div>
+</div>
+
+</body>
+</html>
